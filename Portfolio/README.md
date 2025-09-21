@@ -1,6 +1,71 @@
 # Futuristic Portfolio Website
 
-A modern, dynamic personal portfolio website built with Django, featuring a dark-mode aesthetic with neon highlights, smooth animations, and interactive elements. Perfect for AI developers, full-stack engineers, and tech professionals.
+A modern, dynamic personal portfolio website built with Django, featuring a dark-mode aesthetic with neon highlights, smooth animations, and interacti#### Animations
+Modify `static/js/animations.js` for:
+- Typing animation texts
+- Particle system settings
+- Scroll animations
+
+## 🔒 Security & Environment Setup
+
+### Git Ignore Configuration
+This project includes a comprehensive `.gitignore` file that excludes:
+
+#### Sensitive Files
+- `.env` - Environment variables with secrets
+- `db.sqlite3` - Local database files
+- `SECURITY_REPORT.md` - Security analysis reports
+- SSL certificates (`*.pem`, `*.key`, `*.crt`)
+
+#### Generated/Cache Files  
+- `__pycache__/` - Python bytecode cache
+- `*.pyc`, `*.pyo`, `*.pyd` - Compiled Python files
+- `staticfiles/` - Collected static files
+- `media/` - User uploaded content
+- `.coverage` - Test coverage reports
+
+#### IDE/Editor Files
+- `.vscode/` - VS Code settings
+- `.idea/` - PyCharm settings
+- `*.swp`, `*.swo` - Vim temp files
+- `.DS_Store` - macOS system files
+
+#### Development Files
+- `node_modules/` - Node.js dependencies
+- Test files (`*_test.py`, `test_*.py`)
+- Local configuration overrides
+
+### Environment Variables Setup
+1. Copy `.env.example` to `.env`
+2. Update the values with your configuration:
+   ```env
+   SECRET_KEY=your-very-secure-secret-key-here
+   DEBUG=True  # Set to False in production
+   EMAIL_HOST_USER=your-email@gmail.com
+   EMAIL_HOST_PASSWORD=your-app-specific-password
+   ```
+
+### Security Best Practices
+- ✅ Never commit `.env` files to version control
+- ✅ Use strong, unique SECRET_KEY values
+- ✅ Set `DEBUG=False` in production
+- ✅ Configure `ALLOWED_HOSTS` properly
+- ✅ Use HTTPS in production
+- ✅ Keep dependencies updated
+- ✅ Use environment-specific settings
+
+### Production Security Checklist
+- [ ] `DEBUG=False` in production
+- [ ] Configure `ALLOWED_HOSTS`
+- [ ] Set up SSL/TLS (HTTPS)
+- [ ] Use secure session cookies
+- [ ] Configure CSRF protection
+- [ ] Set up proper error logging
+- [ ] Use a production database
+- [ ] Configure static file serving
+- [ ] Set up monitoring and backups
+
+## 🚀 Deployment Optionsents. Perfect for AI developers, full-stack engineers, and tech professionals.
 
 ## ✨ Features
 
