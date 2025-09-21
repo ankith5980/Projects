@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Projects - Ankith | Portfolio{% endblock %}
+
+{% block content %}
+<!-- Projects Hero -->
+<section class="projects-hero py-5">
+    <div class="container">
+        <div class="row min-vh-50 align-items-center">
+            <div class="col-12 text-center">
+                <h1 class="page-title" data-aos="fade-up">
+                    My <span class="title-accent">Projects</span>
+                </h1>
+                <p class="page-subtitle" data-aos="fade-up" data-aos-delay="200">
+                    Explore my latest work in AI, full-stack development, and innovative solutions
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Projects Grid -->
+<section class="projects-grid py-5">
+    <div class="container">
+        <div class="row">
+            {% for project in projects %}
+            <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="project-card futuristic-card h-100">
+                    <div class="card-image">
+                        {% if project.image %}
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="img-fluid">
+                        {% else %}
+                            <div class="placeholder-image">
+                                <i class="fas fa-code"></i>
+                            </div>
+                        {% endif %}
+                        <div class="card-overlay">
+                            <div class="overlay-content">
+                                {% if project.demo_url %}
+                                    <a href="{{ project.demo_url }}" class="btn btn-sm btn-neon me-2" target="_blank">
+                                        <i class="fas fa-external-link-alt"></i> Demo
+                                    </a>
+                                {% endif %}
+                                {% if project.github_url %}
+                                    <a href="{{ project.github_url }}" class="btn btn-sm btn-outline-neon" target="_blank">
+                                        <i class="fab fa-github"></i> Code
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-content">
+                        <h4 class="project-title">{{ project.title }}</h4>
+                        <p class="project-description">{{ project.description|truncatewords:20 }}</p>
+                        
+                        <div class="tech-stack">
+                            {% for tech in project.get_technologies_list %}
+                                <span class="tech-tag">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <div class="empty-state" data-aos="fade-up">
+                    <i class="fas fa-code fa-3x text-muted mb-3"></i>
+                    <h4>Projects Coming Soon</h4>
+                    <p class="text-muted">Exciting projects are currently in development. Check back soon!</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

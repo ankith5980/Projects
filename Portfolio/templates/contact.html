@@ -1,0 +1,344 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact - Ankith | Get In Touch{% endblock %}
+
+{% block content %}
+<!-- Contact Hero -->
+<section class="contact-hero py-5">
+    <div class="container">
+        <div class="row min-vh-50 align-items-center">
+            <div class="col-12 text-center">
+                <h1 class="page-title" data-aos="fade-up">
+                    Let's <span class="title-accent">Connect</span>
+                </h1>
+                <p class="page-subtitle" data-aos="fade-up" data-aos-delay="200">
+                    Ready to discuss your next project? I'd love to hear from you.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Content -->
+<section class="contact-content py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Contact Information -->
+            <div class="col-lg-5 mb-5">
+                <div class="contact-info" data-aos="fade-right">
+                    <h3 class="mb-4">Get in Touch</h3>
+                    <p class="mb-4">
+                        Whether you have a project in mind, want to collaborate, or just want to say hello, 
+                        I'm always open to new opportunities and conversations.
+                    </p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="method-info">
+                                <h5>Email</h5>
+                                <p>your.email@example.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="method-info">
+                                <h5>Phone</h5>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="method-info">
+                                <h5>Location</h5>
+                                <p>Your City, Country</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="method-info">
+                                <h5>Response Time</h5>
+                                <p>Usually within 24 hours</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="social-section mt-4">
+                        <h5>Connect on Social Media</h5>
+                        <div class="social-links">
+                            <a href="#" class="social-link" title="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="social-link" title="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="social-link" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-link" title="Discord">
+                                <i class="fab fa-discord"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="col-lg-7">
+                <div class="contact-form-wrapper" data-aos="fade-left">
+                    <form method="post" class="contact-form futuristic-form" id="contactForm">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group {% if form.name.errors %}has-error{% endif %}">
+                                    {{ form.name.label_tag }}
+                                    {{ form.name }}
+                                    {% if form.name.errors %}
+                                        {% for error in form.name.errors %}
+                                            <small class="error-message text-danger">{{ error }}</small>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="form-line"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+                                    {{ form.email.label_tag }}
+                                    {{ form.email }}
+                                    {% if form.email.errors %}
+                                        {% for error in form.email.errors %}
+                                            <small class="error-message text-danger">{{ error }}</small>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="form-line"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group {% if form.phone_number.errors %}has-error{% endif %}">
+                                    {{ form.phone_number.label_tag }}
+                                    {{ form.phone_number }}
+                                    {% if form.phone_number.errors %}
+                                        {% for error in form.phone_number.errors %}
+                                            <small class="error-message text-danger">{{ error }}</small>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="form-line"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group {% if form.subject.errors %}has-error{% endif %}">
+                                    {{ form.subject.label_tag }}
+                                    {{ form.subject }}
+                                    {% if form.subject.errors %}
+                                        {% for error in form.subject.errors %}
+                                            <small class="error-message text-danger">{{ error }}</small>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <div class="form-line"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-group {% if form.message.errors %}has-error{% endif %}">
+                                {{ form.message.label_tag }}
+                                {{ form.message }}
+                                {% if form.message.errors %}
+                                    {% for error in form.message.errors %}
+                                        <small class="error-message text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                {% endif %}
+                                <div class="form-line"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Honeypot field for spam protection -->
+                        {{ form.website }}
+                        
+                        <!-- Simple math captcha -->
+                        <div class="mb-3">
+                            <div class="form-group {% if form.captcha.errors %}has-error{% endif %}">
+                                {{ form.captcha.label_tag }}
+                                {{ form.captcha }}
+                                {% if form.captcha.errors %}
+                                    {% for error in form.captcha.errors %}
+                                        <small class="error-message text-danger">{{ error }}</small>
+                                    {% endfor %}
+                                {% endif %}
+                                <div class="form-line"></div>
+                                {% if form.captcha.help_text %}
+                                    <small class="form-text text-muted">{{ form.captcha.help_text }}</small>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-neon btn-lg" id="submitBtn">
+                                <span class="btn-text">
+                                    <i class="fas fa-paper-plane"></i> Send Message
+                                </span>
+                                <span class="btn-loader" style="display: none;">
+                                    <i class="fas fa-spinner fa-spin"></i> Sending...
+                                </span>
+                            </button>
+                        </div>
+                        
+                        <div class="form-footer mt-3">
+                            <p class="text-muted small">
+                                <i class="fas fa-shield-alt"></i> 
+                                Your information is secure and will never be shared with third parties.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQ Section -->
+        <div class="row mt-5 pt-5">
+            <div class="col-12">
+                <h3 class="text-center mb-5" data-aos="fade-up">Frequently Asked Questions</h3>
+                
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="accordion futuristic-accordion" id="faqAccordion" data-aos="fade-up">
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq1">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                                            data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                        <i class="fas fa-clock me-2"></i>
+                                        How quickly do you respond to inquiries?
+                                    </button>
+                                </h2>
+                                <div id="collapse1" class="accordion-collapse collapse show" 
+                                     aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        I typically respond to all inquiries within 24 hours during business days. 
+                                        For urgent matters, feel free to mention it in your message.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq2">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                            data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                        <i class="fas fa-project-diagram me-2"></i>
+                                        What types of projects do you work on?
+                                    </button>
+                                </h2>
+                                <div id="collapse2" class="accordion-collapse collapse" 
+                                     aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        I specialize in AI/ML applications, full-stack web development, scalable systems architecture, 
+                                        and automation solutions. I'm always interested in innovative projects that push technological boundaries.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq3">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                            data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                                        <i class="fas fa-handshake me-2"></i>
+                                        Do you work with startups and small businesses?
+                                    </button>
+                                </h2>
+                                <div id="collapse3" class="accordion-collapse collapse" 
+                                     aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Absolutely! I enjoy working with organizations of all sizes, from early-stage startups 
+                                        to established enterprises. Each project brings unique challenges and opportunities for innovation.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq4">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                            data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                                        <i class="fas fa-globe me-2"></i>
+                                        Do you work with remote clients?
+                                    </button>
+                                </h2>
+                                <div id="collapse4" class="accordion-collapse collapse" 
+                                     aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Yes, I work with clients globally. I'm experienced in remote collaboration using modern 
+                                        communication tools and project management platforms to ensure seamless project delivery.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Contact form handling
+$(document).ready(function() {
+    $('#contactForm').on('submit', function(e) {
+        const $form = $(this);
+        const $submitBtn = $('#submitBtn');
+        const $btnText = $submitBtn.find('.btn-text');
+        const $btnLoader = $submitBtn.find('.btn-loader');
+        
+        // Show loading state
+        $btnText.hide();
+        $btnLoader.show();
+        $submitBtn.prop('disabled', true);
+        
+        // Reset loading state after form submission
+        setTimeout(function() {
+            if (!$form.find('.alert').length) {
+                $btnText.show();
+                $btnLoader.hide();
+                $submitBtn.prop('disabled', false);
+            }
+        }, 2000);
+    });
+    
+    // Form field animations
+    $('.form-control').on('focus', function() {
+        $(this).parent().addClass('focused');
+    }).on('blur', function() {
+        if (!$(this).val()) {
+            $(this).parent().removeClass('focused');
+        }
+    });
+    
+    // Check for pre-filled fields
+    $('.form-control').each(function() {
+        if ($(this).val()) {
+            $(this).parent().addClass('focused');
+        }
+    });
+});
+</script>
+{% endblock %}
