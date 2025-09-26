@@ -1,2 +1,0 @@
-# Heroku deployment configuration
-web: gunicorn portfolio_website.wsgi:application --log-file -
