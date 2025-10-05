@@ -69,13 +69,38 @@ const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTi
     return () => clearTimeout(timeout);
   }, [currentText, currentTextIndex, isDeleting, isPaused, texts, speed, deleteSpeed, pauseTime]);
 
+  // Dynamic color mapping for different roles
+  const getTextColor = (text) => {
+    const colorMap = {
+      '💻 Full Stack Developer': 'bg-gradient-to-r from-blue-600 to-purple-600',
+      '📱 Mobile App Developer': 'bg-gradient-to-r from-green-600 to-teal-600', 
+      '🧩 Creative Problem Solver': 'bg-gradient-to-r from-orange-600 to-red-600',
+      '🤖 AI/ML Enthusiast': 'bg-gradient-to-r from-purple-600 to-pink-600',
+      '⚡ Performance Optimizer': 'bg-gradient-to-r from-yellow-500 to-orange-600'
+    };
+    return colorMap[text] || 'bg-gradient-to-r from-primary-600 to-indigo-600';
+  };
+
   return (
-    <span>
-      {currentText}
+    <span className="relative inline-flex items-center">
+      <motion.span
+        key={currentTextIndex}
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className={`font-bold bg-clip-text text-transparent ${getTextColor(texts[currentTextIndex])}`}
+      >
+        {currentText}
+      </motion.span>
       <motion.span
         animate={{ opacity: [1, 0] }}
-        transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
-        className="text-primary-600"
+        transition={{ 
+          duration: 0.8, 
+          repeat: Infinity, 
+          repeatType: "reverse",
+          ease: "easeInOut"
+        }}
+        className="text-primary-600 dark:text-primary-400 font-bold ml-1 text-2xl"
       >
         |
       </motion.span>
@@ -110,12 +135,11 @@ const Home = () => {
     // You can add analytics tracking here
     // Example: gtag('event', 'download', { file_name: 'Ankith_Pratheesh_Menon_CV.pdf' });
   };
-
-  // Typing effect texts - memoized to prevent recreation
+  // Memoized typing texts to avoid re-creation on each render
   const typingTexts = useMemo(() => [
     'Full Stack Developer',
-    'Mobile Application Developer', 
-    'Problem Solver',
+    'Mobile App Developer', 
+    'Creative Problem Solver',
     'AI/ML Enthusiast'
   ], []);
 
@@ -198,14 +222,43 @@ const Home = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-xl sm:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 mb-6 min-h-[2.5rem] flex items-center"
+                className="text-xl sm:text-2xl lg:text-3xl mb-6 min-h-[3rem] flex items-center relative"
               >
-                <TypingEffect 
-                  texts={typingTexts}
-                  speed={80}
-                  deleteSpeed={40}
-                  pauseTime={3000}
-                />
+                <div className="relative inline-block">
+                  <TypingEffect 
+                    texts={typingTexts}
+                    speed={80}
+                    deleteSpeed={40}
+                    pauseTime={3000}
+                  />
+                  {/* Subtle animated underline */}
+                  <motion.div
+                    animate={{
+                      scaleX: [0.8, 1, 0.8],
+                      opacity: [0.3, 0.6, 0.3]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                      ease: "easeInOut"
+                    }}
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-500 via-purple-500 to-primary-500 rounded-full"
+                  />
+                  {/* Subtle glow behind text */}
+                  <motion.div
+                    animate={{
+                      opacity: [0.0, 0.1, 0.0],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                      ease: "easeInOut"
+                    }}
+                    className="absolute inset-0 bg-gradient-to-r from-primary-500/5 to-purple-500/5 rounded-md blur-sm -z-10"
+                  />
+                </div>
               </motion.h2>
               
               <motion.p
