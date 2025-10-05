@@ -15,7 +15,8 @@ import {
   FaPython,
   FaJava,
   FaDocker,
-  FaGitAlt
+  FaGitAlt,
+  FaFilePdf
 } from 'react-icons/fa';
 import { 
   SiFlutter,
@@ -102,6 +103,13 @@ const Home = () => {
   const [skills, setSkills] = useState({});
   const [loading, setLoading] = useState(false); // Start with false for faster initial render
   const [dataLoaded, setDataLoaded] = useState(false);
+
+  // Handle CV download tracking
+  const handleCVDownload = () => {
+    console.log('CV download initiated');
+    // You can add analytics tracking here
+    // Example: gtag('event', 'download', { file_name: 'Ankith_Pratheesh_Menon_CV.pdf' });
+  };
 
   // Typing effect texts - memoized to prevent recreation
   const typingTexts = useMemo(() => [
@@ -229,6 +237,19 @@ const Home = () => {
                 >
                   <span>Get In Touch</span>
                 </Link>
+                
+                <a
+                  href="/cv/My Resume.pdf"
+                  download="Ankith_Pratheesh_Menon_CV.pdf"
+                  onClick={handleCVDownload}
+                  className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-4 sm:px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
+                  title="Download CV as PDF"
+                >
+                  <FaFilePdf className="w-4 h-4" />
+                  <span className="hidden sm:inline">Download CV</span>
+                  <span className="sm:hidden">CV</span>
+                  <FaDownload className="w-3 h-3 ml-1" />
+                </a>
                 
                 {aboutData?.resume?.url && (
                   <a
