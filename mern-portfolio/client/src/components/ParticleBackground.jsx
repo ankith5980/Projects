@@ -1,11 +1,12 @@
-import React, { useEffect, useRef, useCallback, useMemo } from 'react';
+import React, { useEffect, useRef, useCallback, useMemo, useState } from 'react';
 
 const ParticleBackground = () => {
   const canvasRef = useRef(null);
   const animationRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const particlesRef = useRef([]);
-  const isActiveRef = useRef(true);
+  const isActiveRef = useRef(false); // Start as false until initialized
+  const [isInitialized, setIsInitialized] = useState(false);
 
   // Configuration - optimized for performance and visual appeal
   const config = useMemo(() => ({
@@ -237,7 +238,7 @@ const ParticleBackground = () => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     
-    if (canvas && ctx) {
+    if (canvas && ctx && particlesRef.current.length > 0) {
       draw(ctx, canvas);
     }
     
@@ -271,8 +272,10 @@ const ParticleBackground = () => {
     ctx.scale(dpr, dpr);
 
     // Reinitialize particles for new canvas size
-    initParticles(canvas);
-  }, [initParticles]);
+    particlesRef.current = Array.from({ length: config.particleCount }, () => 
+      createParticle(canvas)
+    );
+  }, [config.particleCount, createParticle]);
 
   // Throttled resize handler
   const throttledResize = useMemo(() => {
@@ -286,35 +289,91 @@ const ParticleBackground = () => {
   // Performance optimization: pause animation when tab is hidden
   const handleVisibilityChange = useCallback(() => {
     isActiveRef.current = !document.hidden;
-    if (isActiveRef.current) {
-      animate();
-    }
-  }, [animate]);
+  }, []);
 
+  // Initialize the particle system
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    // Initial setup
-    handleResize();
-    animate();
+    let mounted = true;
+    
+    const initializeParticles = () => {
+      if (!mounted) return;
+      
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
 
-    // Event listeners
+      // Wait for canvas to have proper dimensions
+      if (rect.width === 0 || rect.height === 0) {
+        setTimeout(() => initializeParticles(), 50);
+        return;
+      }
+
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      
+      const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
+
+      // Initialize particles
+      particlesRef.current = Array.from({ length: config.particleCount }, () => 
+        createParticle(canvas)
+      );
+
+      setIsInitialized(true);
+      isActiveRef.current = true;
+    };
+
+    // Start initialization with a delay to ensure DOM is ready
+    setTimeout(() => initializeParticles(), 100);
+
+    return () => {
+      mounted = false;
+      isActiveRef.current = false;
+    };
+  }, []);
+
+  // Handle animation loop
+  useEffect(() => {
+    if (!isInitialized) return;
+
+    const animateLoop = () => {
+      if (!isActiveRef.current) return;
+      
+      const canvas = canvasRef.current;
+      const ctx = canvas?.getContext('2d');
+      
+      if (canvas && ctx && particlesRef.current.length > 0) {
+        draw(ctx, canvas);
+      }
+      
+      animationRef.current = requestAnimationFrame(animateLoop);
+    };
+
+    animationRef.current = requestAnimationFrame(animateLoop);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isInitialized, draw]);
+
+  // Handle event listeners
+  useEffect(() => {
+    if (!isInitialized) return;
+
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('resize', throttledResize, { passive: true });
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    // Cleanup
     return () => {
-      isActiveRef.current = false;
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', throttledResize);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [handleMouseMove, throttledResize, handleVisibilityChange, animate, handleResize]);
+  }, [isInitialized, handleMouseMove, throttledResize, handleVisibilityChange]);
 
   return (
     <canvas
@@ -328,6 +387,8 @@ const ParticleBackground = () => {
         height: '100%',
         pointerEvents: 'none',
         zIndex: 0,
+        opacity: isInitialized ? 1 : 0,
+        transition: 'opacity 0.5s ease-in-out'
       }}
     />
   );
