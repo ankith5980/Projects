@@ -12,6 +12,7 @@ import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
 import RouteScrollToTop from './components/RouteScrollToTop.jsx';
+import ParticleBackground from './components/ParticleBackground.jsx';
 
 // Pages
 import Home from './pages/Home.jsx';
@@ -32,8 +33,9 @@ function App() {
       <ThemeProvider>
         <AuthProvider>
           <div className="min-h-screen bg-white dark:bg-dark-300 text-gray-900 dark:text-white transition-colors duration-300">
+            <ParticleBackground />
             <Navbar />
-            <main className="relative">
+            <main className="relative z-10">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
@@ -51,7 +53,9 @@ function App() {
                 />
               </Routes>
             </main>
-            <Footer />
+            <div className="relative z-10">
+              <Footer />
+            </div>
             <ScrollToTop />
             <ToastContainer
               position="top-right"

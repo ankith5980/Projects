@@ -32,6 +32,34 @@ main {
   scroll-margin-top: 0;
 }
 
+/* Particle background optimization */
+canvas {
+  /* Hardware acceleration for better performance */
+  transform: translateZ(0);
+  will-change: transform;
+  /* Ensure it doesn't interfere with interactions */
+  pointer-events: none !important;
+}
+
+/* Z-index layering system */
+.particle-background {
+  z-index: 0;
+}
+
+.content-layer {
+  position: relative;
+  z-index: 10;
+}
+
+.navbar-layer {
+  position: relative;
+  z-index: 50;
+}
+
+.modal-layer {
+  z-index: 100;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
