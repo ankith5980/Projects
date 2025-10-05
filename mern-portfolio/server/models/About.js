@@ -44,7 +44,6 @@ const aboutSchema = new mongoose.Schema({
   socialLinks: {
     github: String,
     linkedin: String,
-    twitter: String,
     instagram: String,
     facebook: String,
     website: String

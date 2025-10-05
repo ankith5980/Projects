@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { 
   FaGithub, 
   FaLinkedin, 
-  FaTwitter, 
+  FaInstagram, 
   FaEnvelope, 
   FaHeart 
 } from 'react-icons/fa';
@@ -23,9 +23,9 @@ const Footer = () => {
       url: 'https://linkedin.com/in/yourusername',
     },
     {
-      name: 'Twitter',
-      icon: FaTwitter,
-      url: 'https://twitter.com/yourusername',
+      name: 'Instagram',
+      icon: FaInstagram,
+      url: 'https://instagram.com/yourusername',
     },
     {
       name: 'Email',
@@ -51,7 +51,7 @@ const Footer = () => {
               to="/"
               className="text-2xl font-bold text-gradient inline-block"
             >
-              Portfolio
+              Ankith Pratheesh Menon
             </Link>
             <p className="text-gray-600 dark:text-gray-400">
               Building digital experiences with passion and precision.
@@ -112,7 +112,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
           <p className="text-gray-600 dark:text-gray-400 text-center sm:text-left">
-            © {currentYear} Portfolio. All rights reserved.
+            © {currentYear} Ankith. All rights reserved.
           </p>
           <p className="text-gray-600 dark:text-gray-400 flex items-center space-x-1">
             <span>Made with</span>

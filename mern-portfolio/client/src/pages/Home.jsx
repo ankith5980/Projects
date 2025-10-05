@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { 
   FaGithub, 
   FaLinkedin, 
-  FaTwitter, 
+  FaInstagram, 
   FaDownload, 
   FaArrowRight,
   FaCode,
@@ -93,7 +93,7 @@ const Home = () => {
     socialLinks: {
       github: '#',
       linkedin: '#',
-      twitter: '#'
+      instagram: '#'
     }
   }), []);
 
@@ -270,14 +270,14 @@ const Home = () => {
                     <FaLinkedin className="w-6 h-6" />
                   </a>
                 )}
-                {aboutData?.socialLinks?.twitter && (
+                {aboutData?.socialLinks?.instagram && (
                   <a
-                    href={aboutData.socialLinks.twitter}
+                    href={aboutData.socialLinks.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-lg transition-all duration-200 hover:scale-110"
                   >
-                    <FaTwitter className="w-6 h-6" />
+                    <FaInstagram className="w-6 h-6" />
                   </a>
                 )}
               </motion.div>
