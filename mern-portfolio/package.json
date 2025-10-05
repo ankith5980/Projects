@@ -1,0 +1,23 @@
+{
+  "name": "mern-portfolio",
+  "version": "1.0.0",
+  "description": "A modern MERN stack portfolio website",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "preview": "cd client && npm run preview",
+    "install-server": "cd server && npm install",
+    "install-client": "cd client && npm install",
+    "install-all": "npm run install-server && npm run install-client",
+    "heroku-postbuild": "npm run install-all && npm run build"
+  },
+  "keywords": ["portfolio", "mern", "react", "nodejs", "mongodb"],
+  "author": "Ankith",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
