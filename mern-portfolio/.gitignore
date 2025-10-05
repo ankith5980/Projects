@@ -15,6 +15,12 @@ lerna-debug.log*
 .env.production.local
 .env.staging
 .env.example
+.env.sample
+.env.template
+**/.env.example
+**/.env.sample
+**/.env.template
+**/config/.env*
 config.json
 config.js
 config.local.js
