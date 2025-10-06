@@ -8,38 +8,45 @@ const ParticleBackground = () => {
   const isActiveRef = useRef(false); // Start as false until initialized
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // Configuration - optimized for performance and visual appeal
+  // Configuration - optimized to prevent convergence
   const config = useMemo(() => ({
-    particleCount: 85, // Slightly increased for better connectivity
+    particleCount: 85,
     particleSize: 2,
-    maxDistance: 140, // Increased connection distance for more lines
-    mouseInfluence: 180, // Larger mouse influence radius
-    mouseAttractForce: 0.0012, // Stronger attraction force
-    mouseRepelDistance: 50, // Distance at which particles start to repel
-    mouseRepelForce: 0.0015, // Repulsion force when too close
-    particleSpeed: 0.4, // Slightly faster base movement
-    damping: 0.985, // Reduced damping for smoother movement
-    returnToOriginal: 0.008, // Slower return to original velocity
-    connectionOpacity: 0.25, // Increased line opacity
-    connectionWidthVariation: true, // Dynamic line width based on distance
-    particleOpacity: 0.7, // Increased particle opacity
+    maxDistance: 140,
+    mouseInfluence: 120, // Further reduced mouse influence for less distraction
+    mouseAttractForce: 0.0005, // Further reduced attraction force
+    mouseRepelDistance: 60, // Increased repel distance
+    mouseRepelForce: 0.0015, // Reduced repulsion for gentler interaction
+    particleSpeed: 0.3, // Reduced base movement speed for less distraction
+    minSpeed: 0.1, // Reduced minimum speed for gentler movement
+    maxSpeed: 0.6, // Reduced maximum speed limit for calmer effect
+    velocityDecay: 0.998, // Very minimal velocity decay
+    boundaryForce: 0.08, // Slightly reduced boundary force for smoother movement
+    centerRepulsion: 0.0003, // Slightly reduced center repulsion for gentler behavior
+    connectionOpacity: 0.25,
+    connectionWidthVariation: true,
+    particleOpacity: 0.7,
     colors: {
-      particles: 'rgba(99, 102, 241, 0.7)', // Primary color
-      connections: 'rgba(99, 102, 241, 0.25)', // Connection lines
-      closeConnections: 'rgba(99, 102, 241, 0.4)', // Stronger lines for close particles
+      particles: 'rgba(99, 102, 241, 0.7)',
+      connections: 'rgba(99, 102, 241, 0.25)',
+      closeConnections: 'rgba(99, 102, 241, 0.4)',
     }
   }), []);
 
-  // Particle class for better performance
+  // Particle creation with better velocity distribution
   const createParticle = useCallback((canvas) => {
+    // Ensure minimum velocity to prevent convergence
+    const angle = Math.random() * Math.PI * 2;
+    const speed = config.minSpeed + Math.random() * (config.particleSpeed - config.minSpeed);
+    
     return {
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * config.particleSpeed,
-      vy: (Math.random() - 0.5) * config.particleSpeed,
-      originalVx: (Math.random() - 0.5) * config.particleSpeed,
-      originalVy: (Math.random() - 0.5) * config.particleSpeed,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
       size: config.particleSize + Math.random() * 2,
+      // Add unique ID for tracking
+      id: Math.random(),
     };
   }, [config]);
 
@@ -50,55 +57,96 @@ const ParticleBackground = () => {
     );
   }, [config.particleCount, createParticle]);
 
-  // Update particle position with enhanced mouse interaction
+  // Update particle position - anti-convergence system
   const updateParticle = useCallback((particle, canvas, mouse) => {
-    // Calculate distance to mouse
-    const dx = mouse.x - particle.x;
-    const dy = mouse.y - particle.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
+    // Center repulsion to prevent convergence
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const centerDx = particle.x - centerX;
+    const centerDy = particle.y - centerY;
+    const centerDistance = Math.sqrt(centerDx * centerDx + centerDy * centerDy);
+    
+    // Apply center repulsion when particles get too close to center
+    if (centerDistance < canvas.width * 0.3 && centerDistance > 0) {
+      const repelStrength = config.centerRepulsion * (1 - centerDistance / (canvas.width * 0.3));
+      particle.vx += (centerDx / centerDistance) * repelStrength;
+      particle.vy += (centerDy / centerDistance) * repelStrength;
+    }
 
-    // Apply mouse influence with attraction/repulsion
-    if (distance < config.mouseInfluence && distance > 0) {
-      const normalizedDx = dx / distance;
-      const normalizedDy = dy / distance;
+    // Mouse interaction - more controlled
+    const mouseDx = mouse.x - particle.x;
+    const mouseDy = mouse.y - particle.y;
+    const mouseDistance = Math.sqrt(mouseDx * mouseDx + mouseDy * mouseDy);
+
+    if (mouseDistance < config.mouseInfluence && mouseDistance > 0) {
+      const normalizedDx = mouseDx / mouseDistance;
+      const normalizedDy = mouseDy / mouseDistance;
       
-      if (distance < config.mouseRepelDistance) {
-        // Repel when too close
-        const repelForce = (1 - distance / config.mouseRepelDistance) * config.mouseRepelForce;
+      if (mouseDistance < config.mouseRepelDistance) {
+        // Strong repulsion when mouse is close
+        const repelForce = (1 - mouseDistance / config.mouseRepelDistance) * config.mouseRepelForce;
         particle.vx -= normalizedDx * repelForce;
         particle.vy -= normalizedDy * repelForce;
       } else {
-        // Attract when in influence range
-        const attractForce = (1 - distance / config.mouseInfluence) * config.mouseAttractForce;
+        // Gentle attraction when mouse is in range
+        const attractForce = (1 - mouseDistance / config.mouseInfluence) * config.mouseAttractForce;
         particle.vx += normalizedDx * attractForce;
         particle.vy += normalizedDy * attractForce;
       }
     }
 
-    // Apply damping and gradual return to original velocity
-    particle.vx = particle.vx * config.damping + particle.originalVx * config.returnToOriginal;
-    particle.vy = particle.vy * config.damping + particle.originalVy * config.returnToOriginal;
+    // Boundary forces to keep particles away from edges
+    const margin = 50;
+    if (particle.x < margin) {
+      particle.vx += config.boundaryForce * (margin - particle.x) / margin;
+    } else if (particle.x > canvas.width - margin) {
+      particle.vx -= config.boundaryForce * (particle.x - (canvas.width - margin)) / margin;
+    }
+    
+    if (particle.y < margin) {
+      particle.vy += config.boundaryForce * (margin - particle.y) / margin;
+    } else if (particle.y > canvas.height - margin) {
+      particle.vy -= config.boundaryForce * (particle.y - (canvas.height - margin)) / margin;
+    }
+
+    // Apply minimal velocity decay
+    particle.vx *= config.velocityDecay;
+    particle.vy *= config.velocityDecay;
+
+    // Maintain minimum speed to prevent convergence
+    const currentSpeed = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
+    if (currentSpeed < config.minSpeed) {
+      const angle = Math.atan2(particle.vy, particle.vx) + (Math.random() - 0.5) * 0.1;
+      particle.vx = Math.cos(angle) * config.minSpeed;
+      particle.vy = Math.sin(angle) * config.minSpeed;
+    }
+
+    // Limit maximum speed
+    if (currentSpeed > config.maxSpeed) {
+      particle.vx = (particle.vx / currentSpeed) * config.maxSpeed;
+      particle.vy = (particle.vy / currentSpeed) * config.maxSpeed;
+    }
 
     // Update position
     particle.x += particle.vx;
     particle.y += particle.vy;
 
-    // Enhanced boundary handling with softer bounce
-    if (particle.x < 0 || particle.x > canvas.width) {
-      particle.vx *= -0.7;
-      particle.x = Math.max(0, Math.min(canvas.width, particle.x));
-      // Add some randomness to avoid stuck particles
-      particle.originalVx += (Math.random() - 0.5) * 0.1;
+    // Boundary bouncing with randomization
+    if (particle.x <= 0 || particle.x >= canvas.width) {
+      particle.vx = -particle.vx * (0.8 + Math.random() * 0.2);
+      particle.x = Math.max(1, Math.min(canvas.width - 1, particle.x));
+      // Add random velocity component to prevent patterns
+      particle.vy += (Math.random() - 0.5) * 0.1;
     }
-    if (particle.y < 0 || particle.y > canvas.height) {
-      particle.vy *= -0.7;
-      particle.y = Math.max(0, Math.min(canvas.height, particle.y));
-      // Add some randomness to avoid stuck particles
-      particle.originalVy += (Math.random() - 0.5) * 0.1;
+    if (particle.y <= 0 || particle.y >= canvas.height) {
+      particle.vy = -particle.vy * (0.8 + Math.random() * 0.2);
+      particle.y = Math.max(1, Math.min(canvas.height - 1, particle.y));
+      // Add random velocity component to prevent patterns
+      particle.vx += (Math.random() - 0.5) * 0.1;
     }
   }, [config]);
 
-  // Apply particle-to-particle interactions
+  // Apply particle-to-particle interactions - repulsion only
   const applyParticleInteractions = useCallback((particles) => {
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
@@ -106,21 +154,9 @@ const ParticleBackground = () => {
         const dy = particles[i].y - particles[j].y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        // Very slight attraction between connected particles
-        if (distance < config.maxDistance && distance > 20) {
-          const force = 0.00008; // Very subtle force
-          const normalizedDx = dx / distance;
-          const normalizedDy = dy / distance;
-          
-          particles[i].vx -= normalizedDx * force;
-          particles[i].vy -= normalizedDy * force;
-          particles[j].vx += normalizedDx * force;
-          particles[j].vy += normalizedDy * force;
-        }
-        
-        // Slight repulsion when too close to prevent overlap
-        if (distance < 15 && distance > 0) {
-          const repelForce = 0.0002;
+        // Only repulsion when particles are too close to prevent overlap
+        if (distance < 25 && distance > 0) {
+          const repelForce = 0.0002 * (1 - distance / 25); // Reduced repulsion force for gentler movement
           const normalizedDx = dx / distance;
           const normalizedDy = dy / distance;
           
@@ -133,13 +169,31 @@ const ParticleBackground = () => {
     }
   }, [config]);
 
-  // Optimized drawing function
+  // Optimized drawing function with anti-convergence measures
   const draw = useCallback((ctx, canvas) => {
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
     const particles = particlesRef.current;
     const mouse = mouseRef.current;
+
+    // Periodic velocity refresh to prevent convergence (every 300 frames)
+    if (animationRef.frameCount === undefined) animationRef.frameCount = 0;
+    animationRef.frameCount = (animationRef.frameCount + 1) % 300;
+    
+    if (animationRef.frameCount === 0) {
+      particles.forEach(particle => {
+        // Check if particle has low velocity or is in convergence pattern
+        const speed = Math.sqrt(particle.vx * particle.vx + particle.vy * particle.vy);
+        if (speed < config.minSpeed * 1.5) {
+          // Refresh velocity with random direction
+          const angle = Math.random() * Math.PI * 2;
+          const newSpeed = config.minSpeed + Math.random() * (config.particleSpeed - config.minSpeed);
+          particle.vx = Math.cos(angle) * newSpeed;
+          particle.vy = Math.sin(angle) * newSpeed;
+        }
+      });
+    }
 
     // Apply particle interactions first
     applyParticleInteractions(particles);
