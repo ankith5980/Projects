@@ -15,22 +15,22 @@ const Footer = () => {
     {
       name: 'GitHub',
       icon: FaGithub,
-      url: 'https://github.com/yourusername',
+      url: 'https://github.com/ankith5980',
     },
     {
       name: 'LinkedIn',
       icon: FaLinkedin,
-      url: 'https://linkedin.com/in/yourusername',
+      url: 'https://linkedin.com/in/ankith-pratheesh-menon-0353662b6/',
     },
     {
       name: 'Instagram',
       icon: FaInstagram,
-      url: 'https://instagram.com/yourusername',
+      url: 'https://instagram.com/ankith5980',
     },
     {
       name: 'Email',
       icon: FaEnvelope,
-      url: 'mailto:your.email@example.com',
+      url: 'mailto:ankithpratheesh147@gmail.com',
     },
   ];
 
