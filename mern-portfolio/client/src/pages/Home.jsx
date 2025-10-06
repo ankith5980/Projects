@@ -295,7 +295,7 @@ const Home = () => {
                   download="Ankith_Pratheesh_Menon_CV.pdf"
                   onClick={handleCVDownload}
                   className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-4 sm:px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl"
-                  title="Download CV as PDF"
+                  title=""
                 >
                   <FaFilePdf className="w-4 h-4" />
                   <span className="hidden sm:inline">Download CV</span>
