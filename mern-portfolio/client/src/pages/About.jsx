@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
@@ -20,7 +20,7 @@ import {
   FaMusic,
   FaGamepad,
   FaCamera,
-  FaPlane
+  FaPlane,
 } from 'react-icons/fa';
 import { 
   SiReact, 
@@ -34,20 +34,120 @@ import {
   SiGit,
   SiFigma,
   SiTailwindcss,
-  SiExpress
+  SiExpress,
+  SiDjango,
+  SiNumpy,
+  SiPandas,
+  SiTensorflow,
+  SiScikitlearn,
+  SiHtml5,
+  SiPhp,
+  SiKotlin,
+  SiPostgresql,
+  SiBootstrap,
+  SiNotion,
+  SiPostman
 } from 'react-icons/si';
 import apiService from '../utils/api';
 
+// Optimized Typing Effect Component with React.memo
+const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTime = 2000 }) => {
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [currentText, setCurrentText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (isPaused) {
+      const pauseTimeout = setTimeout(() => {
+        setIsPaused(false);
+        setIsDeleting(true);
+      }, pauseTime);
+      return () => clearTimeout(pauseTimeout);
+    }
+
+    const timeout = setTimeout(() => {
+      const targetText = texts[currentTextIndex];
+      
+      if (!isDeleting) {
+        // Typing
+        if (currentText.length < targetText.length) {
+          setCurrentText(targetText.slice(0, currentText.length + 1));
+        } else {
+          setIsPaused(true);
+        }
+      } else {
+        // Deleting
+        if (currentText.length > 0) {
+          setCurrentText(currentText.slice(0, -1));
+        } else {
+          setIsDeleting(false);
+          setCurrentTextIndex((prev) => (prev + 1) % texts.length);
+        }
+      }
+    }, isDeleting ? deleteSpeed : speed);
+
+    return () => clearTimeout(timeout);
+  }, [currentText, currentTextIndex, isDeleting, isPaused, texts, speed, deleteSpeed, pauseTime]);
+
+  // Dynamic color mapping for different roles
+  const getTextColor = (text) => {
+    const colorMap = {
+      'Full Stack Developer': 'bg-gradient-to-r from-blue-600 to-purple-600',
+      'Mobile App Developer': 'bg-gradient-to-r from-green-600 to-teal-600', 
+      'Creative Problem Solver': 'bg-gradient-to-r from-orange-600 to-red-600',
+      'AI/ML Enthusiast': 'bg-gradient-to-r from-purple-600 to-pink-600',
+    };
+    return colorMap[text] || 'bg-gradient-to-r from-primary-600 to-indigo-600';
+  };
+
+  return (
+    <span className="relative inline-flex items-center">
+      <motion.span
+        key={currentTextIndex}
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        className={`font-bold bg-clip-text text-transparent ${getTextColor(texts[currentTextIndex])}`}
+      >
+        {currentText}
+      </motion.span>
+      <motion.span
+        animate={{ opacity: [1, 0] }}
+        transition={{ 
+          duration: 0.8, 
+          repeat: Infinity, 
+          repeatType: "reverse",
+          ease: "easeInOut"
+        }}
+        className="text-primary-600 dark:text-primary-400 font-bold ml-1 text-2xl"
+      >
+        |
+      </motion.span>
+    </span>
+  );
+});
+
+TypingEffect.displayName = 'TypingEffect';
+
 const About = () => {
+  // Memoized typing texts for the title
+  const typingTexts = useMemo(() => [
+    'Full Stack Developer',
+    'Mobile App Developer', 
+    'Creative Problem Solver',
+    'AI/ML Enthusiast'
+  ], []);
+
   const [aboutData, setAboutData] = useState({
     fullName: 'Ankith Pratheesh Menon',
     title: 'Full Stack Developer',
     bio: 'Passionate full-stack developer with expertise in modern web technologies. I love creating efficient, scalable solutions and turning complex problems into simple, beautiful designs.',
-    location: 'Kerala, India',
-    email: 'ankith@example.com',
-    phone: '+91 9876543210',
-    experience: '3+ Years',
-    projects: '50+ Projects',
+    location: 'Kozhikode, Kerala, India',
+    email: 'ankithpratheesh147@gmail.com',
+    phone: '+91 9495540233',
+    experience: 'Fresher',
+    projects: '1 Project',
     avatar: { url: '/images/Ankith.jpg' },
     socialLinks: {
       github: 'https://github.com/ankith5980',
@@ -107,10 +207,22 @@ const About = () => {
     { name: 'React', icon: SiReact, color: 'text-blue-500' },
     { name: 'Node.js', icon: SiNodedotjs, color: 'text-green-500' },
     { name: 'MongoDB', icon: SiMongodb, color: 'text-green-600' },
+    { name: 'PostgreSQL', icon: SiPostgresql, color: 'text-blue-700' },
+    { name: 'Bootstrap', icon: SiBootstrap, color: 'text-purple-600' },
+    { name: 'Notion', icon: SiNotion, color: 'text-black' },
+    { name: 'Postman', icon: SiPostman, color: 'text-orange-500' },
     { name: 'JavaScript', icon: SiJavascript, color: 'text-yellow-500' },
     { name: 'Python', icon: SiPython, color: 'text-blue-600' },
+    { name: 'Django', icon: SiDjango, color: 'text-green-700' },
     { name: 'Flutter', icon: SiFlutter, color: 'text-blue-400' },
+    { name: 'Kotlin', icon: SiKotlin, color: 'text-purple-600' },
+    { name: 'HTML', icon: SiHtml5, color: 'text-orange-600' },
+    { name: 'PHP', icon: SiPhp, color: 'text-indigo-600' },
     { name: 'MySQL', icon: SiMysql, color: 'text-orange-500' },
+    { name: 'NumPy', icon: SiNumpy, color: 'text-blue-700' },
+    { name: 'Pandas', icon: SiPandas, color: 'text-indigo-700' },
+    { name: 'TensorFlow', icon: SiTensorflow, color: 'text-orange-400' },
+    { name: 'Scikit-Learn', icon: SiScikitlearn, color: 'text-orange-600' },
     { name: 'Docker', icon: SiDocker, color: 'text-blue-500' },
     { name: 'Git', icon: SiGit, color: 'text-red-500' },
     { name: 'Tailwind', icon: SiTailwindcss, color: 'text-teal-400' },
@@ -121,39 +233,39 @@ const About = () => {
   // Experience timeline
   const timeline = [
     {
-      year: '2024',
-      title: 'Senior Full Stack Developer',
-      company: 'Tech Innovation Labs',
-      description: 'Leading development of scalable web applications using React, Node.js, and cloud technologies.',
+      year: '2025',
+      title: 'Pursuing Master of Computer Applications',
+      company: 'St. Joseph\'s College (Autonomous), Devagiri, Calicut',
+      description: 'Pursuing advanced studies in computer applications to deepen my knowledge and skills in software development and related fields.',
+      type: 'education'
+    },
+    {
+      year: '2025',
+      title: 'Accquired Campus Placement',
+      company: 'Accenture',
+      description: 'Accquired campus placement at Accenture, a global leader in IT services and consulting.',
       type: 'work'
     },
     {
-      year: '2023',
-      title: 'Full Stack Developer',
-      company: 'Digital Solutions Inc.',
-      description: 'Developed and maintained multiple client projects, improved performance by 40%.',
+      year: '2024',
+      title: 'Completed Internship on AI/ML',
+      company: 'Calicut UL Cyber Park',
+      description: 'Gained hands-on experience in AI/ML technologies and their applications in real-world scenarios.',
       type: 'work'
     },
     {
       year: '2022',
       title: 'Bachelor of Computer Applications',
-      company: 'University of Kerala',
-      description: 'Graduated with First Class Honours, specialized in Software Development.',
+      company: 'St. Joseph\'s College (Autonomous), Devagiri, Calicut',
+      description: 'Graduated with First Class with Distinction on 2025',
       type: 'education'
     },
-    {
-      year: '2021',
-      title: 'Junior Developer',
-      company: 'StartUp Ventures',
-      description: 'Started my professional journey, worked on mobile and web applications.',
-      type: 'work'
-    }
   ];
 
   // Personal interests
   const interests = [
     { name: 'Coding', icon: FaCode, color: 'text-blue-500' },
-    { name: 'Coffee', icon: FaCoffee, color: 'text-yellow-600' },
+    { name: 'Tea', icon: FaCoffee, color: 'text-yellow-600' },
     { name: 'Music', icon: FaMusic, color: 'text-purple-500' },
     { name: 'Gaming', icon: FaGamepad, color: 'text-green-500' },
     { name: 'Photography', icon: FaCamera, color: 'text-pink-500' },
@@ -184,6 +296,7 @@ const About = () => {
                     />
                   </div>
                 </div>
+                
                 {/* Floating elements */}
                 <motion.div
                   animate={{ y: [-10, 10, -10] }}
@@ -207,9 +320,34 @@ const About = () => {
               <h1 className="text-4xl lg:text-5xl font-bold mb-4">
                 <span className="text-gradient">{aboutData.fullName}</span>
               </h1>
-              <h2 className="text-xl lg:text-2xl text-gray-600 dark:text-gray-400 mb-6">
-                {aboutData.title}
-              </h2>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="text-xl lg:text-2xl mb-6 min-h-[3rem] flex items-center justify-center lg:justify-start relative"
+              >
+                <div className="relative inline-block">
+                  <TypingEffect 
+                    texts={typingTexts}
+                    speed={80}
+                    deleteSpeed={40}
+                    pauseTime={3000}
+                  />
+                  {/* Subtle animated underline */}
+                  <motion.div
+                    animate={{
+                      scaleX: [0.8, 1, 0.8],
+                      opacity: [0.3, 0.6, 0.3]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-primary-400 to-purple-600 rounded-full"
+                  />
+                </div>
+              </motion.h2>
               
               {/* Quick Stats */}
               <div className="grid grid-cols-2 gap-4 mb-8">
