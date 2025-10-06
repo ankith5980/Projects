@@ -72,11 +72,10 @@ const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTi
   // Dynamic color mapping for different roles
   const getTextColor = (text) => {
     const colorMap = {
-      '💻 Full Stack Developer': 'bg-gradient-to-r from-blue-600 to-purple-600',
-      '📱 Mobile App Developer': 'bg-gradient-to-r from-green-600 to-teal-600', 
-      '🧩 Creative Problem Solver': 'bg-gradient-to-r from-orange-600 to-red-600',
-      '🤖 AI/ML Enthusiast': 'bg-gradient-to-r from-purple-600 to-pink-600',
-      '⚡ Performance Optimizer': 'bg-gradient-to-r from-yellow-500 to-orange-600'
+      'Full Stack Developer': 'bg-gradient-to-r from-blue-600 to-purple-600',
+      'Mobile App Developer': 'bg-gradient-to-r from-green-600 to-teal-600', 
+      'Creative Problem Solver': 'bg-gradient-to-r from-orange-600 to-red-600',
+      'AI/ML Enthusiast': 'bg-gradient-to-r from-purple-600 to-pink-600',
     };
     return colorMap[text] || 'bg-gradient-to-r from-primary-600 to-indigo-600';
   };
