@@ -60,7 +60,7 @@ const ProjectsSection = React.memo(({ featuredProjects }) => {
                   {project.description}
                 </p>
                 
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2">
                   {project.technologies.slice(0, 3).map((tech, techIndex) => (
                     <span
                       key={techIndex}
@@ -70,14 +70,6 @@ const ProjectsSection = React.memo(({ featuredProjects }) => {
                     </span>
                   ))}
                 </div>
-                
-                <Link
-                  to={`/projects/${project._id}`}
-                  className="text-primary-600 font-medium hover:text-primary-700 inline-flex items-center space-x-1"
-                >
-                  <span>Learn More</span>
-                  <FaArrowRight className="w-3 h-3" />
-                </Link>
               </div>
             </motion.div>
           ))}

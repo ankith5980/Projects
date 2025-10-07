@@ -133,7 +133,7 @@ const Projects = () => {
       technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS', 'Framer Motion'],
       images: [{ url: '/images/portfolio_thumbnail_1.png' }],
       liveUrl: 'https://ankith-portfolio.vercel.app',
-      githubUrl: 'https://github.com/ankith5980/mern-portfolio',
+      githubUrl: 'https://github.com/ankith5980/Projects/tree/main/mern-portfolio',
       category: 'fullstack',
       status: 'in-progress',
       featured: true

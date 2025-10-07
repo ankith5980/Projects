@@ -24,7 +24,6 @@ import {
   SiMysql
 } from 'react-icons/si';
 import apiService from '../utils/api';
-import { useViewTracker } from '../context/ViewTrackerContext.jsx';
 
 // Lazy load non-critical sections
 const SkillsSection = lazy(() => import('../components/SkillsSection'));
@@ -128,7 +127,6 @@ const Home = () => {
   const [skills, setSkills] = useState({});
   const [loading, setLoading] = useState(false); // Start with false for faster initial render
   const [dataLoaded, setDataLoaded] = useState(false);
-  const { incrementView } = useViewTracker();
 
   // Handle CV download tracking
   const handleCVDownload = () => {
@@ -514,127 +512,6 @@ const Home = () => {
       }>
         <ProjectsSection featuredProjects={featuredProjects} />
       </Suspense>
-
-      {/* Recent Blog Posts Section */}
-      <section className="section-padding bg-gray-50 dark:bg-dark-200">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Latest from the <span className="bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-text text-transparent">Blog</span>
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Insights, tutorials, and thoughts on web development and technology
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {/* Mock recent blog posts - would be fetched from API */}
-            {[
-              {
-                id: 1,
-                title: "Building Scalable React Applications",
-                excerpt: "Learn how to structure React applications for scalability and maintainability...",
-                date: "2024-10-01",
-                readTime: "8 min read",
-                category: "React",
-                slug: "building-scalable-react-applications"
-              },
-              {
-                id: 2,
-                title: "Node.js Performance Optimization",
-                excerpt: "Deep dive into Node.js performance optimization techniques and best practices...",
-                date: "2024-09-28",
-                readTime: "12 min read",
-                category: "Node.js",
-                slug: "nodejs-performance-optimization-guide"
-              },
-              {
-                id: 3,
-                title: "Modern CSS Techniques",
-                excerpt: "Explore advanced CSS layout techniques and modern features for responsive design...",
-                date: "2024-09-25",
-                readTime: "6 min read",
-                category: "CSS",
-                slug: "modern-css-techniques-grid-flexbox"
-              }
-            ].map((post, index) => (
-              <motion.article
-                key={post.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white dark:bg-dark-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
-              >
-                <div className="p-6">
-                  <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                    <span className="bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 px-2 py-1 rounded-full text-xs font-medium">
-                      {post.category}
-                    </span>
-                    <span>•</span>
-                    <span>{post.readTime}</span>
-                  </div>
-                  
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-primary-500 transition-colors">
-                    <Link 
-                      to={`/blog/${post.slug}`} 
-                      onClick={() => incrementView(post.slug, 1250)}
-                      className="hover:underline"
-                    >
-                      {post.title}
-                    </Link>
-                  </h3>
-                  
-                  <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
-                    {post.excerpt}
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-500 dark:text-gray-400">
-                      {new Date(post.date).toLocaleDateString('en-US', { 
-                        month: 'short', 
-                        day: 'numeric',
-                        year: 'numeric'
-                      })}
-                    </span>
-                    
-                    <Link
-                      to={`/blog/${post.slug}`}
-                      onClick={() => incrementView(post.slug, 1250)}
-                      className="inline-flex items-center gap-1 text-primary-500 hover:text-primary-600 text-sm font-medium transition-colors"
-                    >
-                      Read More
-                      <FaArrowRight className="w-3 h-3" />
-                    </Link>
-                  </div>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <Link
-              to="/blog"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-lg hover:shadow-lg transform hover:scale-105 transition-all duration-300 font-medium"
-            >
-              View All Posts
-              <FaArrowRight className="w-4 h-4" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
     </div>
   );
 };
