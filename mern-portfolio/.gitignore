@@ -17,6 +17,10 @@ lerna-debug.log*
 .env.example
 .env.sample
 .env.template
+**/.env
+**/.env.*
+client/.env*
+server/.env*
 **/.env.example
 **/.env.sample
 **/.env.template
@@ -26,6 +30,8 @@ config.js
 config.local.js
 secrets.json
 credentials.json
+settings.json
+app-config.json
 
 # Production builds
 client/build/
@@ -138,6 +144,13 @@ service-account-key.json
 firebase-adminsdk-*.json
 google-services.json
 GoogleService-Info.plist
+oauth.json
+oauth-keys.json
+refresh-token.json
+access-token.json
+session-keys.json
+auth-config.json
+security-config.json
 
 # API Keys & Secrets
 api-keys.json
@@ -145,6 +158,17 @@ secrets/
 .secrets/
 private/
 .private/
+apikey.json
+api_key.json
+*.apikey
+*apikey*
+*api-key*
+*api_key*
+service-account.json
+client-secret.json
+app-secrets.json
+keys.json
+tokens.json
 
 # Session & Cache files
 sessions/
@@ -194,6 +218,11 @@ certificates/
 mail.json
 email-config.js
 smtp-config.js
+emailjs-config.json
+mailer-config.json
+mail-credentials.json
+email-templates/sensitive/
+smtp-credentials.json
 
 # Payment & Financial
 stripe-keys.json
@@ -293,3 +322,153 @@ terraform.tfstate*
 .env.secrets
 local.json
 development.json
+
+# Build and deployment specific
+.vercel
+.netlify
+.now
+.surge
+build-info.json
+deployment-config.json
+deploy-keys.json
+
+# Personal CV and sensitive documents (exclude sensitive PDFs but allow public ones)
+**/cv/*resume*.pdf
+**/cv/*private*.pdf
+**/cv/*confidential*.pdf
+**/resume/*private*.pdf
+**/documents/private/
+personal-info.json
+contact-details.json
+sensitive-content.json
+private-resume.pdf
+confidential-cv.pdf
+
+# Portfolio specific sensitive files
+admin-credentials.json
+cms-config.json
+form-handlers.json
+webhook-secrets.json
+analytics-keys.json
+seo-keys.json
+
+# Windows specific
+desktop.ini
+*.lnk
+*.url
+
+# macOS specific
+.AppleDouble
+.LSOverride
+Icon?
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux specific
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Visual Studio Code
+.vscode/
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/settings.json
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+*.swp
+*.swo
+*~
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Archive and backup files that might contain sensitive data
+*.backup
+*.bak
+*.orig
+*.tmp
+*.temp
+backup-*
+*-backup
+dump-*
+*-dump
+snapshot-*
+*-snapshot
+
+# NPM and Yarn specific
+.npmrc.local
+.yarnrc.local
+npm-shrinkwrap.json
+
+# Lock files (uncomment if you don't want to commit them)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# TypeScript specific
+*.tsbuildinfo
+
+# ESLint cache
+.eslintcache
+
+# StyleLint cache
+.stylelintcache
+
+# Prettier cache
+.prettiercache
+
+# Jest cache
+.jest
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+cypress/fixtures/sensitive/
+
+# Storybook
+.storybook/local/
+storybook-static/
+
+# Bundle analysis
+bundle-analyzer/
+bundle-stats.json
+
+# Performance monitoring
+.lighthouseci/
+lighthouse-report.html
+
+# Miscellaneous sensitive patterns
+*.log.*
+*.pid
+*.seed
+*.pid.lock
+*.tgz
+*.tar.gz
+local-config.*
+dev-config.*
+staging-config.*
+prod-config.*
