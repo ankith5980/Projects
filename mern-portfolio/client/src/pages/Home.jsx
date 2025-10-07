@@ -159,7 +159,7 @@ const Home = () => {
           title: 'MERN Portfolio Website',
           description: 'A modern, responsive portfolio website built with the MERN stack featuring dark mode, animations, and admin dashboard.',
           technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS', 'Framer Motion'],
-          images: [{ url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' }],
+          images: [{ url: '/images/portfolio_thumbnail_1.png' }],
           liveUrl: 'https://ankith-portfolio.vercel.app',
           githubUrl: 'https://github.com/ankith5980/mern-portfolio'
         },
