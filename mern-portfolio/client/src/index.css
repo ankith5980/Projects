@@ -251,3 +251,103 @@ code {
     left: 100%;
   }
 }
+
+/* Blog Content Styles */
+.blog-content {
+  @apply text-gray-800 dark:text-gray-200 leading-relaxed;
+}
+
+.blog-content h1 {
+  @apply text-3xl font-bold text-gray-900 dark:text-white mt-12 mb-8 border-b border-gray-200 dark:border-gray-700 pb-4;
+}
+
+.blog-content h2 {
+  @apply text-2xl font-bold text-gray-900 dark:text-white mt-10 mb-6;
+}
+
+.blog-content h3 {
+  @apply text-xl font-semibold text-gray-900 dark:text-white mt-8 mb-4;
+}
+
+.blog-content p {
+  @apply mb-6 text-base leading-7;
+}
+
+.blog-content ul, .blog-content ol {
+  @apply mb-6 pl-6;
+}
+
+.blog-content ul {
+  @apply list-disc;
+}
+
+.blog-content ol {
+  @apply list-decimal;
+}
+
+.blog-content li {
+  @apply mb-2;
+}
+
+.blog-content blockquote {
+  @apply border-l-4 border-primary-500 pl-4 py-2 bg-gray-50 dark:bg-dark-100 rounded-r-lg mb-6 italic;
+}
+
+.blog-content pre {
+  @apply bg-gray-100 dark:bg-dark-100 p-4 rounded-lg overflow-x-auto mb-6 text-sm;
+}
+
+.blog-content code {
+  @apply bg-gray-100 dark:bg-dark-100 px-2 py-1 rounded text-sm font-mono;
+}
+
+.blog-content pre code {
+  @apply bg-transparent p-0 text-sm;
+}
+
+.blog-content a {
+  @apply text-primary-500 hover:text-primary-600 underline transition-colors;
+}
+
+.blog-content img {
+  @apply rounded-lg shadow-lg mb-6 w-full;
+}
+
+.blog-content table {
+  @apply w-full border-collapse border border-gray-300 dark:border-gray-600 mb-6;
+}
+
+.blog-content th, .blog-content td {
+  @apply border border-gray-300 dark:border-gray-600 px-4 py-2 text-left;
+}
+
+.blog-content th {
+  @apply bg-gray-100 dark:bg-dark-100 font-semibold;
+}
+
+/* Prose improvements for better readability */
+.prose {
+  @apply max-w-none;
+}
+
+.prose-lg {
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+/* Dark mode prose */
+.dark .prose {
+  @apply text-gray-200;
+}
+
+.dark .prose h1, .dark .prose h2, .dark .prose h3 {
+  @apply text-white;
+}
+
+.dark .prose strong {
+  @apply text-white;
+}
+
+.dark .prose code {
+  @apply text-gray-200;
+}

@@ -9,6 +9,7 @@ import {
   FaHome, 
   FaUser, 
   FaProjectDiagram, 
+  FaBlog,
   FaEnvelope,
   FaCog
 } from 'react-icons/fa';
@@ -42,6 +43,7 @@ const Navbar = () => {
     { path: '/', label: 'Home', icon: FaHome },
     { path: '/about', label: 'About', icon: FaUser },
     { path: '/projects', label: 'Projects', icon: FaProjectDiagram },
+    { path: '/blog', label: 'Blog', icon: FaBlog },
     { path: '/contact', label: 'Contact', icon: FaEnvelope },
   ];
 
