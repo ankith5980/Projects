@@ -1,30 +1,147 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo, useCallback, memo, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import { 
   FaSearch, 
   FaFilter, 
   FaCode, 
   FaExternalLinkAlt, 
   FaGithub,
-  FaEye,
-  FaClock,
   FaCheckCircle,
+  FaClock,
   FaArchive,
   FaTimes
 } from 'react-icons/fa';
-import apiService from '../utils/api';
+
+// Memoized Project Card Component for better performance
+const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants }) => (
+  <motion.div
+    key={project._id}
+    variants={itemVariants}
+    className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105"
+  >
+    {/* Project Image */}
+    <div className="aspect-video bg-gradient-to-br from-primary-400 to-purple-600 relative overflow-hidden">
+      {project.images?.[0]?.url ? (
+        <img
+          src={project.images[0].url}
+          alt={project.title}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center text-white text-4xl">
+          <FaCode />
+        </div>
+      )}
+      
+      {/* Status Badge */}
+      <div className="absolute top-3 left-3 flex items-center space-x-1 bg-white/90 dark:bg-gray-900/90 px-2 py-1 rounded-full text-xs">
+        <StatusIcon className={`w-3 h-3 ${statusConfig.color}`} />
+        <span className="font-medium">{statusConfig.label}</span>
+      </div>
+
+      {/* Category Badge */}
+      <div className="absolute top-3 right-3 bg-black/50 text-white px-2 py-1 rounded-full text-xs font-medium capitalize">
+        {project.category}
+      </div>
+    </div>
+    
+    {/* Project Content */}
+    <div className="p-6">
+      <h3 className="text-xl font-semibold mb-2 group-hover:text-primary-600 transition-colors">
+        {project.title}
+      </h3>
+      <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+        {project.description}
+      </p>
+      
+      {/* Technologies */}
+      <div className="flex flex-wrap gap-2 mb-4">
+        {project.technologies.slice(0, 3).map((tech, techIndex) => (
+          <span
+            key={techIndex}
+            className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs rounded font-medium"
+          >
+            {tech}
+          </span>
+        ))}
+        {project.technologies.length > 3 && (
+          <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs rounded font-medium">
+            +{project.technologies.length - 3} more
+          </span>
+        )}
+      </div>
+      
+      {/* Action Buttons */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-2">
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-1 px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
+              title="View on GitHub"
+            >
+              <FaGithub className="w-4 h-4" />
+              <span>GitHub</span>
+            </a>
+          )}
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-1 px-3 py-2 text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors text-sm"
+              title="View Live Demo"
+            >
+              <FaExternalLinkAlt className="w-3 h-3" />
+              <span>Live Demo</span>
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </motion.div>
+));
+
+ProjectCard.displayName = 'ProjectCard';
 
 const Projects = () => {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [showFilters, setShowFilters] = useState(false);
 
-  // Animation variants
-  const containerVariants = {
+  // Debounce search term for better performance
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  // Memoized projects data to prevent re-creation on each render
+  const projects = useMemo(() => [
+    {
+      _id: 1,
+      title: 'MERN Portfolio Website',
+      description: 'A modern, responsive portfolio website built with the MERN stack featuring dark mode, animations, and admin dashboard.',
+      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS', 'Framer Motion'],
+      images: [{ url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80' }],
+      liveUrl: 'https://ankith-portfolio.vercel.app',
+      githubUrl: 'https://github.com/ankith5980/mern-portfolio',
+      category: 'fullstack',
+      status: 'completed',
+      featured: true
+    },
+  ], []);
+
+  // Memoized animation variants
+  const containerVariants = useMemo(() => ({
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -32,15 +149,15 @@ const Projects = () => {
         staggerChildren: 0.1
       }
     }
-  };
+  }), []);
 
-  const itemVariants = {
+  const itemVariants = useMemo(() => ({
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
-  };
+  }), []);
 
-  // Categories for filtering
-  const categories = [
+  // Memoized categories for filtering
+  const categories = useMemo(() => [
     { value: 'all', label: 'All Projects' },
     { value: 'web', label: 'Web' },
     { value: 'mobile', label: 'Mobile' },
@@ -49,51 +166,34 @@ const Projects = () => {
     { value: 'backend', label: 'Backend' },
     { value: 'desktop', label: 'Desktop' },
     { value: 'other', label: 'Other' }
-  ];
+  ], []);
 
-  const statuses = [
+  const statuses = useMemo(() => [
     { value: 'all', label: 'All Status' },
     { value: 'completed', label: 'Completed' },
     { value: 'in-progress', label: 'In Progress' },
     { value: 'archived', label: 'Archived' }
-  ];
+  ], []);
 
-  // Fetch projects
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        setLoading(true);
-        const response = await apiService.getProjects();
-        setProjects(response.data || []);
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-        setProjects([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
-
-  // Filter and search projects
+  // Filter and search projects with debounced search
   const filteredProjects = useMemo(() => {
     return projects.filter(project => {
-      const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      const matchesSearch = debouncedSearchTerm === '' || 
+                           project.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+                           project.description.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
                            project.technologies.some(tech => 
-                             tech.toLowerCase().includes(searchTerm.toLowerCase())
+                             tech.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
                            );
       
       const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory;
       const matchesStatus = selectedStatus === 'all' || project.status === selectedStatus;
       
-      return matchesSearch && matchesCategory && matchesStatus && project.isVisible !== false;
+      return matchesSearch && matchesCategory && matchesStatus;
     });
-  }, [projects, searchTerm, selectedCategory, selectedStatus]);
+  }, [projects, debouncedSearchTerm, selectedCategory, selectedStatus]);
 
-  // Get status icon and color
-  const getStatusConfig = (status) => {
+  // Memoized status configuration function
+  const getStatusConfig = useCallback((status) => {
     switch (status) {
       case 'completed':
         return { icon: FaCheckCircle, color: 'text-green-500', label: 'Completed' };
@@ -104,17 +204,18 @@ const Projects = () => {
       default:
         return { icon: FaCheckCircle, color: 'text-green-500', label: 'Completed' };
     }
-  };
+  }, []);
 
-  // Clear all filters
-  const clearFilters = () => {
+  // Memoized clear filters function
+  const clearFilters = useCallback(() => {
     setSearchTerm('');
+    setDebouncedSearchTerm('');
     setSelectedCategory('all');
     setSelectedStatus('all');
-  };
+  }, []);
 
   return (
-    <div className="min-h-screen section-padding pt-32">
+    <div className="min-h-screen section-padding pt-40 md:pt-44 lg:pt-48">
       <div className="container mx-auto container-padding">
         {/* Header */}
         <motion.div
@@ -123,7 +224,7 @@ const Projects = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl lg:text-5xl font-bold text-gradient mb-4">My Projects</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold text-gradient mb-5">My Projects</h1>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-8">
             Explore my portfolio of web applications, mobile apps, and other creative projects. 
             Each project represents a unique challenge and learning experience.
@@ -162,7 +263,7 @@ const Projects = () => {
               <span>Filters</span>
             </button>
 
-            {(selectedCategory !== 'all' || selectedStatus !== 'all' || searchTerm) && (
+            {(selectedCategory !== 'all' || selectedStatus !== 'all' || debouncedSearchTerm) && (
               <button
                 onClick={clearFilters}
                 className="flex items-center space-x-2 px-4 py-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
@@ -223,141 +324,43 @@ const Projects = () => {
           </motion.div>
         </motion.div>
 
-        {/* Loading State */}
-        {loading && (
-          <div className="flex justify-center items-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
-          </div>
-        )}
-
         {/* Projects Grid */}
-        {!loading && (
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            {filteredProjects.length > 0 ? (
-              filteredProjects.map((project) => {
-                const statusConfig = getStatusConfig(project.status);
-                const StatusIcon = statusConfig.icon;
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {filteredProjects.length > 0 ? (
+            filteredProjects.map((project) => {
+              const statusConfig = getStatusConfig(project.status);
+              const StatusIcon = statusConfig.icon;
 
-                return (
-                  <motion.div
-                    key={project._id}
-                    variants={itemVariants}
-                    className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105"
-                  >
-                    {/* Project Image */}
-                    <div className="aspect-video bg-gradient-to-br from-primary-400 to-purple-600 relative overflow-hidden">
-                      {project.images?.[0]?.url ? (
-                        <img
-                          src={project.images[0].url}
-                          alt={project.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-white text-4xl">
-                          <FaCode />
-                        </div>
-                      )}
-                      
-                      {/* Status Badge */}
-                      <div className="absolute top-3 left-3 flex items-center space-x-1 bg-white/90 dark:bg-gray-900/90 px-2 py-1 rounded-full text-xs">
-                        <StatusIcon className={`w-3 h-3 ${statusConfig.color}`} />
-                        <span className="font-medium">{statusConfig.label}</span>
-                      </div>
-
-                      {/* Category Badge */}
-                      <div className="absolute top-3 right-3 bg-black/50 text-white px-2 py-1 rounded-full text-xs font-medium capitalize">
-                        {project.category}
-                      </div>
-                    </div>
-                    
-                    {/* Project Content */}
-                    <div className="p-6">
-                      <h3 className="text-xl font-semibold mb-2 group-hover:text-primary-600 transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
-                        {project.description}
-                      </p>
-                      
-                      {/* Technologies */}
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {project.technologies.slice(0, 3).map((tech, techIndex) => (
-                          <span
-                            key={techIndex}
-                            className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs rounded font-medium"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                        {project.technologies.length > 3 && (
-                          <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs rounded font-medium">
-                            +{project.technologies.length - 3} more
-                          </span>
-                        )}
-                      </div>
-                      
-                      {/* Action Buttons */}
-                      <div className="flex items-center justify-between">
-                        <Link
-                          to={`/projects/${project._id}`}
-                          className="text-primary-600 font-medium hover:text-primary-700 inline-flex items-center space-x-1"
-                        >
-                          <FaEye className="w-4 h-4" />
-                          <span>View Details</span>
-                        </Link>
-                        
-                        <div className="flex items-center space-x-2">
-                          {project.githubUrl && (
-                            <a
-                              href={project.githubUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-                              title="View on GitHub"
-                            >
-                              <FaGithub className="w-4 h-4" />
-                            </a>
-                          )}
-                          {project.liveUrl && (
-                            <a
-                              href={project.liveUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-                              title="View Live Demo"
-                            >
-                              <FaExternalLinkAlt className="w-4 h-4" />
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })
-            ) : (
-              <motion.div
-                variants={itemVariants}
-                className="col-span-full text-center py-12"
-              >
-                <FaCode className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-500 dark:text-gray-400 mb-2">
-                  No projects found
-                </h3>
-                <p className="text-gray-400 dark:text-gray-500">
-                  Try adjusting your search terms or filters
-                </p>
-              </motion.div>
-            )}
-          </motion.div>
-        )}
+              return (
+                <ProjectCard
+                  key={project._id}
+                  project={project}
+                  statusConfig={statusConfig}
+                  StatusIcon={StatusIcon}
+                  itemVariants={itemVariants}
+                />
+              );
+            })
+          ) : (
+            <motion.div
+              variants={itemVariants}
+              className="col-span-full text-center py-12"
+            >
+              <FaCode className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-500 dark:text-gray-400 mb-2">
+                No projects found
+              </h3>
+              <p className="text-gray-400 dark:text-gray-500">
+                Try adjusting your search terms or filters
+              </p>
+            </motion.div>
+          )}
+        </motion.div>
       </div>
     </div>
   );
