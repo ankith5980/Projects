@@ -6,22 +6,48 @@ User-agent: *
 Allow: /
 Allow: /images/
 Allow: /cv/
+Allow: /about
+Allow: /projects
+Allow: /contact
+
+# Explicitly allow important image files for Google Image Search
+Allow: /images/Ankith.jpg
+Allow: /images/portfolio_thumbnail_1.png
 
 # Block admin routes if any exist
 Disallow: /admin/
 Disallow: /api/
 Disallow: /.env
+Disallow: /node_modules/
+Disallow: /build/
+Disallow: /*.json$
 
-# Important pages for crawling
+# Sitemap location for faster discovery
+Sitemap: https://ankith.dev/sitemap.xml
+
+# Additional directives for better SEO and image indexing
+Crawl-delay: 1
+
+# Specific directives for Google Image Bot
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /images/Ankith.jpg
+Allow: /images/portfolio_thumbnail_1.png
+
+# Ensure main content is crawlable for name-based searches
+User-agent: Googlebot
+Allow: /
 Allow: /about
 Allow: /projects
 Allow: /contact
+Allow: /images/Ankith.jpg
+Allow: /cv/
 
-# Sitemap location
-Sitemap: https://ankith.dev/sitemap.xml
-
-# Additional directives for better SEO
-Crawl-delay: 1
+# Priority crawling for pages containing personal information
+# These pages are most important for "Ankith Pratheesh Menon" searches
+User-agent: *
+Allow: /about$
+Allow: /$
 
 # Crawl delay
 Crawl-delay: 1
