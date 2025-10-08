@@ -99,7 +99,12 @@ const Contact = () => {
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
       
-      console.log('EmailJS Config:', { serviceId, templateId, publicKey: publicKey ? 'Set' : 'Missing' });
+      console.log('EmailJS Config:', { 
+        serviceId: serviceId || 'MISSING', 
+        templateId: templateId || 'MISSING', 
+        publicKey: publicKey || 'MISSING' 
+      });
+      console.log('All env vars:', import.meta.env);
       
       if (serviceId && templateId && publicKey) {
         try {
@@ -139,8 +144,12 @@ const Contact = () => {
           throw new Error(`EmailJS failed: ${emailJSError.message || emailJSError.text || 'Unknown error'}. Please contact me directly.`);
         }
       } else {
-        console.warn('EmailJS configuration missing');
-        throw new Error('Contact service temporarily unavailable. Please email me directly at ankithpratheesh147@gmail.com');
+        console.error('EmailJS configuration missing:', {
+          serviceId: serviceId ? '✓' : '✗ MISSING',
+          templateId: templateId ? '✓' : '✗ MISSING', 
+          publicKey: publicKey ? '✓' : '✗ MISSING'
+        });
+        throw new Error('Contact service configuration error. Please email me directly at ankithpratheesh147@gmail.com');
       }
 
       // This section is now handled above as primary method
