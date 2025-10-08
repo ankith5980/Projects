@@ -93,37 +93,8 @@ const Contact = () => {
     setSubmitMessage('');
     
     try {
-      // First try Server API (since you have email configured)
-      console.log('Attempting to send via server API...');
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
-      
-      try {
-        const response = await fetch(`${apiUrl}/contact`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          console.log('Email sent successfully via server API!');
-          setSubmitStatus('success');
-          setSubmitMessage(data.message || 'Message sent successfully! I\'ll get back to you soon.');
-          setFormData({ name: '', email: '', subject: '', message: '' });
-          return;
-        } else {
-          console.warn('Server API failed:', data);
-          throw new Error(data.message || 'Server API failed');
-        }
-      } catch (serverError) {
-        console.warn('Server API failed, trying EmailJS fallback:', serverError);
-        setSubmitMessage('Server temporarily unavailable, trying alternative method...');
-      }
-
-      // Fallback to EmailJS
+      // Use EmailJS as primary method (server has credential issues)
+      console.log('Attempting to send via EmailJS...');
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
