@@ -93,7 +93,37 @@ const Contact = () => {
     setSubmitMessage('');
     
     try {
-      // First try EmailJS
+      // First try Server API (since you have email configured)
+      console.log('Attempting to send via server API...');
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+      
+      try {
+        const response = await fetch(`${apiUrl}/contact`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          console.log('Email sent successfully via server API!');
+          setSubmitStatus('success');
+          setSubmitMessage(data.message || 'Message sent successfully! I\'ll get back to you soon.');
+          setFormData({ name: '', email: '', subject: '', message: '' });
+          return;
+        } else {
+          console.warn('Server API failed:', data);
+          throw new Error(data.message || 'Server API failed');
+        }
+      } catch (serverError) {
+        console.warn('Server API failed, trying EmailJS fallback:', serverError);
+        setSubmitMessage('Server temporarily unavailable, trying alternative method...');
+      }
+
+      // Fallback to EmailJS
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
@@ -112,7 +142,8 @@ const Contact = () => {
             reply_to: formData.email,
           };
 
-          console.log('Sending via EmailJS...');
+          console.log('Sending via EmailJS fallback...');
+          
           // Send email using EmailJS
           const response = await emailjs.send(
             serviceId,
@@ -120,41 +151,21 @@ const Contact = () => {
             templateParams
           );
 
-          console.log('Email sent successfully via EmailJS!', response.status, response.text);
+          console.log('Email sent successfully via EmailJS!', response);
           setSubmitStatus('success');
-          setSubmitMessage('Message sent successfully via EmailJS! I\'ll get back to you soon.');
+          setSubmitMessage('Message sent successfully via EmailJS! Thank you for reaching out. I\'ll get back to you soon.');
           setFormData({ name: '', email: '', subject: '', message: '' });
           return;
         } catch (emailJSError) {
-          console.warn('EmailJS failed, trying server API fallback:', emailJSError);
-          setSubmitMessage('EmailJS failed, trying alternative method...');
+          console.warn('EmailJS also failed:', emailJSError);
+          throw new Error('Both server and EmailJS methods failed. Please contact me directly.');
         }
       } else {
-        console.warn('EmailJS configuration missing, trying server API');
-        setSubmitMessage('Using alternative contact method...');
+        console.warn('EmailJS configuration missing');
+        throw new Error('Contact service temporarily unavailable. Please email me directly at ankithpratheesh147@gmail.com');
       }
 
-      // Fallback to server API
-      console.log('Attempting server API fallback...');
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
-      const response = await fetch(`${apiUrl}/contact`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        console.log('Email sent successfully via server API!');
-        setSubmitStatus('success');
-        setSubmitMessage(data.message || 'Message sent successfully! I\'ll get back to you soon.');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        throw new Error(data.message || 'Failed to send message via server');
-      }
+      // This section is now handled above as primary method
       
     } catch (error) {
       console.error('Failed to send email:', error);
