@@ -57,7 +57,7 @@ Update `/server/.env` with your email credentials:
 # Gmail Configuration
 EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
-EMAIL_USER=ankithpratheesh147@gmail.com
+EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_gmail_app_password
 
 # Or other email providers:

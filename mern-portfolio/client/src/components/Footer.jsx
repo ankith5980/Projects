@@ -115,9 +115,7 @@ const Footer = () => {
             © {currentYear} Ankith. All rights reserved.
           </p>
           <p className="text-gray-600 dark:text-gray-400 flex items-center space-x-1">
-            <span>Made with</span>
-            <FaHeart className="w-4 h-4 text-red-500" />
-            <span>using MERN Stack</span>
+            <span>MERN Stack</span>
           </p>
         </div>
       </div>

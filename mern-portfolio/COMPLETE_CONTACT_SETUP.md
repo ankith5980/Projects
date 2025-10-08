@@ -7,8 +7,8 @@ Your server `.env` file is correctly configured:
 ```env
 EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
-EMAIL_USER=ankithpratheesh147@gmail.com
-EMAIL_PASS=hlmw dpog bpuz yelo
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_gmail_app_password
 PORT=5001  # ✅ Fixed to match client expectations
 ```
 

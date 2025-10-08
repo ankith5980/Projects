@@ -73,8 +73,8 @@ EMAIL_PASS=your-gmail-app-password-here
 ## 🚨 **What Was Exposed**
 
 From the Git history, these were potentially exposed:
-- Gmail email address: `ankithpratheesh147@gmail.com`
-- Gmail app password: `hlmw dpog bpuz yelo`
+- Gmail email address: [REMOVED FOR SECURITY]
+- Gmail app password: [REMOVED FOR SECURITY]
 
 ## 🛡️ **Security Best Practices Going Forward**
 
@@ -110,7 +110,7 @@ After changing your Gmail app password, update your server `.env`:
 # Email Configuration
 EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
-EMAIL_USER=ankithpratheesh147@gmail.com
+EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your-new-app-password-here  # ← NEW PASSWORD HERE
 ```
 
