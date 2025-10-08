@@ -25,6 +25,7 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', null
+  const [submitMessage, setSubmitMessage] = useState('');
   const [errors, setErrors] = useState({});
 
   // Initialize EmailJS
@@ -79,7 +80,7 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission
+  // Handle form submission with fallback
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -89,39 +90,76 @@ const Contact = () => {
     
     setIsSubmitting(true);
     setSubmitStatus(null);
+    setSubmitMessage('');
     
     try {
+      // First try EmailJS
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
       
-      if (!serviceId || !templateId) {
-        throw new Error('EmailJS configuration is missing. Please check your environment variables.');
+      console.log('EmailJS Config:', { serviceId, templateId, publicKey: publicKey ? 'Set' : 'Missing' });
+      
+      if (serviceId && templateId && publicKey) {
+        try {
+          // Prepare template parameters
+          const templateParams = {
+            from_name: formData.name,
+            from_email: formData.email,
+            subject: formData.subject,
+            message: formData.message,
+            to_name: 'Ankith Pratheesh Menon',
+            reply_to: formData.email,
+          };
+
+          console.log('Sending via EmailJS...');
+          // Send email using EmailJS
+          const response = await emailjs.send(
+            serviceId,
+            templateId,
+            templateParams
+          );
+
+          console.log('Email sent successfully via EmailJS!', response.status, response.text);
+          setSubmitStatus('success');
+          setSubmitMessage('Message sent successfully via EmailJS! I\'ll get back to you soon.');
+          setFormData({ name: '', email: '', subject: '', message: '' });
+          return;
+        } catch (emailJSError) {
+          console.warn('EmailJS failed, trying server API fallback:', emailJSError);
+          setSubmitMessage('EmailJS failed, trying alternative method...');
+        }
+      } else {
+        console.warn('EmailJS configuration missing, trying server API');
+        setSubmitMessage('Using alternative contact method...');
       }
 
-      // Prepare template parameters
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
-        to_name: 'Ankith Pratheesh Menon',
-        reply_to: formData.email,
-      };
+      // Fallback to server API
+      console.log('Attempting server API fallback...');
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+      const response = await fetch(`${apiUrl}/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-      // Send email using EmailJS
-      const response = await emailjs.send(
-        serviceId,
-        templateId,
-        templateParams
-      );
+      const data = await response.json();
 
-      console.log('Email sent successfully!', response.status, response.text);
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      if (response.ok) {
+        console.log('Email sent successfully via server API!');
+        setSubmitStatus('success');
+        setSubmitMessage(data.message || 'Message sent successfully! I\'ll get back to you soon.');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        throw new Error(data.message || 'Failed to send message via server');
+      }
       
     } catch (error) {
       console.error('Failed to send email:', error);
       setSubmitStatus('error');
+      setSubmitMessage(`Failed to send message: ${error.message}. Please try contacting me directly at ankithpratheesh147@gmail.com`);
     } finally {
       setIsSubmitting(false);
     }
@@ -230,10 +268,10 @@ const Contact = () => {
               >
                 <div className="flex items-center space-x-2 text-green-600 dark:text-green-400">
                   <FaCheckCircle className="w-5 h-5" />
-                  <span className="font-medium">Message sent successfully!</span>
+                  <span className="font-medium">Success!</span>
                 </div>
                 <p className="text-green-600 dark:text-green-400 text-sm mt-1">
-                  Thank you for reaching out. I'll get back to you soon.
+                  {submitMessage || 'Thank you for reaching out. I\'ll get back to you soon.'}
                 </p>
               </motion.div>
             )}
@@ -246,11 +284,29 @@ const Contact = () => {
               >
                 <div className="flex items-center space-x-2 text-red-600 dark:text-red-400">
                   <FaExclamationTriangle className="w-5 h-5" />
-                  <span className="font-medium">Failed to send message</span>
+                  <span className="font-medium">Error</span>
                 </div>
                 <p className="text-red-600 dark:text-red-400 text-sm mt-1">
-                  Please try again or contact me directly via email.
+                  {submitMessage || 'Please try again or contact me directly via email.'}
                 </p>
+              </motion.div>
+            )}
+            
+            {isSubmitting && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg"
+              >
+                <div className="flex items-center space-x-2 text-blue-600 dark:text-blue-400">
+                  <div className="animate-spin rounded-full h-4 w-4 border-2 border-blue-600 border-t-transparent"></div>
+                  <span className="font-medium">Sending message...</span>
+                </div>
+                {submitMessage && (
+                  <p className="text-blue-600 dark:text-blue-400 text-sm mt-1">
+                    {submitMessage}
+                  </p>
+                )}
               </motion.div>
             )}
             

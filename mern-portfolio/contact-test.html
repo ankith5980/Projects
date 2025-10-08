@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form Test - Ankith Pratheesh Menon</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        input, textarea { width: 100%; padding: 8px; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>Contact Form Configuration Test</h1>
+    
+    <div class="test-section info">
+        <h3>Current Environment Variables:</h3>
+        <p><strong>Service ID:</strong> <span id="serviceId">Loading...</span></p>
+        <p><strong>Template ID:</strong> <span id="templateId">Loading...</span></p>
+        <p><strong>Public Key:</strong> <span id="publicKey">Loading...</span></p>
+        <p><strong>API URL:</strong> <span id="apiUrl">Loading...</span></p>
+    </div>
+
+    <div class="test-section">
+        <h3>Quick Test Form:</h3>
+        <form id="testForm">
+            <input type="text" id="testName" placeholder="Your Name" required>
+            <input type="email" id="testEmail" placeholder="Your Email" required>
+            <input type="text" id="testSubject" placeholder="Test Subject" value="Contact Form Test">
+            <textarea id="testMessage" placeholder="Test Message" rows="3">This is a test message from the contact form.</textarea>
+            <button type="submit">Test EmailJS</button>
+            <button type="button" onclick="testServerAPI()">Test Server API</button>
+        </form>
+    </div>
+
+    <div class="test-section" id="results">
+        <h3>Test Results:</h3>
+        <div id="resultContent">No tests run yet.</div>
+    </div>
+
+    <div class="test-section">
+        <h3>Alternative Contact Methods:</h3>
+        <p>📧 Email: <a href="mailto:ankithpratheesh147@gmail.com">ankithpratheesh147@gmail.com</a></p>
+        <p>📱 Phone: <a href="tel:+919495540233">+91 9495540233</a></p>
+        <p>💼 LinkedIn: <a href="https://www.linkedin.com/in/ankith-pratheesh-menon-0353662b6/" target="_blank">Connect on LinkedIn</a></p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        // Load environment variables
+        const config = {
+            serviceId: 'service_27jmx62',
+            templateId: 'template_49nj4oq',
+            publicKey: '3d4ntCXQj5ZNHkKyv',
+            apiUrl: 'http://localhost:5001/api'
+        };
+
+        // Display config
+        document.getElementById('serviceId').textContent = config.serviceId || 'Not set';
+        document.getElementById('templateId').textContent = config.templateId || 'Not set';
+        document.getElementById('publicKey').textContent = config.publicKey ? 'Set' : 'Not set';
+        document.getElementById('apiUrl').textContent = config.apiUrl;
+
+        // Initialize EmailJS
+        if (config.publicKey) {
+            emailjs.init(config.publicKey);
+        }
+
+        // Test form submission
+        document.getElementById('testForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await testEmailJS();
+        });
+
+        async function testEmailJS() {
+            const resultDiv = document.getElementById('resultContent');
+            resultDiv.innerHTML = '<p>Testing EmailJS...</p>';
+
+            try {
+                const templateParams = {
+                    from_name: document.getElementById('testName').value,
+                    from_email: document.getElementById('testEmail').value,
+                    subject: document.getElementById('testSubject').value,
+                    message: document.getElementById('testMessage').value,
+                    to_name: 'Ankith Pratheesh Menon',
+                    reply_to: document.getElementById('testEmail').value,
+                };
+
+                const response = await emailjs.send(
+                    config.serviceId,
+                    config.templateId,
+                    templateParams
+                );
+
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <h4>✅ EmailJS Success!</h4>
+                        <p>Status: ${response.status}</p>
+                        <p>Response: ${response.text}</p>
+                        <p>Your contact form is working correctly!</p>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h4>❌ EmailJS Failed</h4>
+                        <p>Error: ${error.message}</p>
+                        <p>Check your EmailJS configuration:</p>
+                        <ul>
+                            <li>Verify Service ID: ${config.serviceId}</li>
+                            <li>Verify Template ID: ${config.templateId}</li>
+                            <li>Check template variables match</li>
+                            <li>Ensure EmailJS account is active</li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+
+        async function testServerAPI() {
+            const resultDiv = document.getElementById('resultContent');
+            resultDiv.innerHTML = '<p>Testing Server API...</p>';
+
+            try {
+                const formData = {
+                    name: document.getElementById('testName').value,
+                    email: document.getElementById('testEmail').value,
+                    subject: document.getElementById('testSubject').value,
+                    message: document.getElementById('testMessage').value
+                };
+
+                const response = await fetch(`${config.apiUrl}/contact`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <h4>✅ Server API Success!</h4>
+                            <p>Message: ${data.message}</p>
+                            <p>Your server contact endpoint is working!</p>
+                        </div>
+                    `;
+                } else {
+                    throw new Error(data.message || 'Server error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h4>❌ Server API Failed</h4>
+                        <p>Error: ${error.message}</p>
+                        <p>Possible issues:</p>
+                        <ul>
+                            <li>Server not running on port 5001</li>
+                            <li>Email configuration missing in server/.env</li>
+                            <li>Database connection issues</li>
+                            <li>CORS policy blocking request</li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
