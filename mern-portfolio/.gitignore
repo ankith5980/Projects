@@ -6,7 +6,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Environment variables & Configuration
+# Environment variables & Configuration - NEVER COMMIT THESE!
 .env
 .env.*
 .env.local
@@ -14,10 +14,30 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.staging
-.env.example
 .env.sample
 .env.template
 **/.env
+**/.env.*
+client/.env
+client/.env.*
+server/.env
+server/.env.*
+*/client/.env
+*/server/.env
+
+# Specific sensitive files
+**/EMAIL_PASS*
+**/JWT_SECRET*
+**/API_KEY*
+**/SECRET*
+**/*password*
+**/*credentials*
+
+# Keep .env.example files (templates) - These are safe to commit
+!.env.example
+!**/.env.example
+!client/.env.example
+!server/.env.example
 **/.env.*
 client/.env*
 server/.env*
