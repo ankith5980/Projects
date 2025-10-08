@@ -90,7 +90,7 @@ const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants }) =
               <span>GitHub</span>
             </a>
           )}
-          {project.liveUrl && (
+          {/* {project.liveUrl && (
             <a
               href={project.liveUrl}
               target="_blank"
@@ -101,7 +101,7 @@ const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants }) =
               <FaExternalLinkAlt className="w-3 h-3" />
               <span>Live Demo</span>
             </a>
-          )}
+          )} */}
         </div>
       </div>
     </div>
