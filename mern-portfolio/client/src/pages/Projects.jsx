@@ -135,7 +135,7 @@ const Projects = () => {
       liveUrl: 'https://ankith-portfolio.vercel.app',
       githubUrl: 'https://github.com/ankith5980/Projects/tree/main/mern-portfolio',
       category: 'fullstack',
-      status: 'in-progress',
+      status: 'completed',
       featured: true
     },
   ], []);
