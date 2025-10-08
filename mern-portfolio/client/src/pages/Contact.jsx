@@ -93,18 +93,10 @@ const Contact = () => {
     setSubmitMessage('');
     
     try {
-      // Use EmailJS as primary method (server has credential issues)
-      console.log('Attempting to send via EmailJS...');
+      // Use EmailJS as primary method
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_27jmx62';
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_49nj4oq';
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '3d4ntCXQj5ZNHkKyv';
-      
-      console.log('EmailJS Config:', { 
-        serviceId: serviceId || 'MISSING', 
-        templateId: templateId || 'MISSING', 
-        publicKey: publicKey || 'MISSING' 
-      });
-      console.log('All env vars:', import.meta.env);
       
       if (serviceId && templateId && publicKey) {
         try {
@@ -128,28 +120,15 @@ const Contact = () => {
             publicKey
           );
 
-          console.log('Email sent successfully via EmailJS!', response);
           setSubmitStatus('success');
           setSubmitMessage('Message sent successfully! Thank you for reaching out. I\'ll get back to you soon.');
           setFormData({ name: '', email: '', subject: '', message: '' });
           return;
         } catch (emailJSError) {
-          console.error('EmailJS failed with error:', emailJSError);
-          console.error('Error details:', {
-            name: emailJSError.name,
-            message: emailJSError.message,
-            status: emailJSError.status,
-            text: emailJSError.text
-          });
-          throw new Error(`EmailJS failed: ${emailJSError.message || emailJSError.text || 'Unknown error'}. Please contact me directly.`);
+          throw new Error(`Failed to send message. Please try contacting me directly at ankithpratheesh147@gmail.com`);
         }
       } else {
-        console.error('EmailJS configuration missing:', {
-          serviceId: serviceId ? '✓' : '✗ MISSING',
-          templateId: templateId ? '✓' : '✗ MISSING', 
-          publicKey: publicKey ? '✓' : '✗ MISSING'
-        });
-        throw new Error('Contact service configuration error. Please email me directly at ankithpratheesh147@gmail.com');
+        throw new Error('Contact service temporarily unavailable. Please email me directly at ankithpratheesh147@gmail.com');
       }
 
       // This section is now handled above as primary method
