@@ -12,6 +12,7 @@ import {
   FaTimes
 } from 'react-icons/fa';
 import SEO from '../components/SEO';
+import { getFullUrl } from '../utils/url';
 
 // Memoized Project Card Component for better performance
 const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants }) => (
@@ -227,7 +228,7 @@ const Projects = () => {
           "@type": "CollectionPage",
           "name": "Projects - Ankith's Portfolio",
           "description": "Collection of web applications, mobile apps, and software projects by Ankith",
-          "url": `${window.location.origin}/projects`,
+          "url": getFullUrl("/projects"),
           "mainEntity": {
             "@type": "ItemList",
             "name": "Projects",

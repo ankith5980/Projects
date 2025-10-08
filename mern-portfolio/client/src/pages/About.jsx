@@ -50,6 +50,7 @@ import {
   SiPostman
 } from 'react-icons/si';
 import apiService from '../utils/api';
+import { getFullUrl } from '../utils/url';
 
 // Optimized Typing Effect Component with React.memo
 const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTime = 2000 }) => {
@@ -285,7 +286,7 @@ const About = () => {
           "@type": "AboutPage",
           "name": "About Ankith",
           "description": "Learn about Ankith's background, skills, and experience as a Full Stack Developer",
-          "url": `${window.location.origin}/about`,
+          "url": getFullUrl("/about"),
           "mainEntity": {
             "@type": "Person",
             "name": "Ankith",

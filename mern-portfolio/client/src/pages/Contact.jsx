@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import SEO from '../components/SEO';
+import { getFullUrl } from '../utils/url';
 import {
   FaEnvelope,
   FaPhone,
@@ -182,7 +183,7 @@ const Contact = () => {
           "@type": "ContactPage",
           "name": "Contact Ankith",
           "description": "Get in touch with Ankith for project collaborations and inquiries",
-          "url": `${window.location.origin}/contact`,
+          "url": getFullUrl("/contact"),
           "mainEntity": {
             "@type": "Person",
             "name": "Ankith",

@@ -25,6 +25,7 @@ import {
 } from 'react-icons/si';
 import apiService from '../utils/api';
 import SEO from '../components/SEO';
+import { getBaseUrl, getFullUrl, getFullImageUrl } from '../utils/url';
 
 // Lazy load non-critical sections
 const SkillsSection = lazy(() => import('../components/SkillsSection'));
@@ -213,8 +214,8 @@ const Home = () => {
           "name": "Ankith",
           "jobTitle": "Full Stack Developer",
           "description": "Full Stack Developer specializing in React, Node.js, and modern web technologies",
-          "url": window.location.origin,
-          "image": `${window.location.origin}/images/Ankith.jpg`,
+          "url": getBaseUrl(),
+          "image": getFullImageUrl("/images/Ankith.jpg"),
           "sameAs": [
             "https://github.com/ankith5980",
             "https://linkedin.com/in/ankith-dev"

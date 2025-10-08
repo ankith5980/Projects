@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { getBaseUrl, getFullUrl, getFullImageUrl } from '../utils/url';
 
 const SEO = ({
   title = 'Portfolio',
@@ -13,9 +14,9 @@ const SEO = ({
   noindex = false,
   schemaData
 }) => {
-  const baseUrl = window.location.origin;
-  const fullUrl = url ? `${baseUrl}${url}` : baseUrl;
-  const fullImageUrl = image.startsWith('http') ? image : `${baseUrl}${image}`;
+  const baseUrl = getBaseUrl();
+  const fullUrl = getFullUrl(url);
+  const fullImageUrl = getFullImageUrl(image);
   
   // Default structured data
   const defaultSchema = {
