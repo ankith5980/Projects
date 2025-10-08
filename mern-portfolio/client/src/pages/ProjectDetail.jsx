@@ -1,9 +1,26 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useParams } from 'react-router-dom';
+import SEO from '../components/SEO';
+import { generateProjectSEO } from '../utils/seo';
 
 const ProjectDetail = () => {
+  const { id } = useParams();
+  
+  // This would typically fetch project data based on ID
+  const project = {
+    _id: id,
+    title: "Project Details",
+    description: "Detailed project information and showcase",
+    technologies: ["React", "Node.js"],
+    images: [{ url: "/images/portfolio_thumbnail_1.png" }]
+  };
+  
+  const seoData = generateProjectSEO(project);
+  
   return (
     <div className="min-h-screen section-padding pt-32">
+      <SEO {...seoData} />
       <div className="container mx-auto container-padding">
         <motion.div
           initial={{ opacity: 0, y: 50 }}

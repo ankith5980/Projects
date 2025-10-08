@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -28,10 +29,11 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 function App() {
   return (
-    <Router>
-      <RouteScrollToTop />
-      <ThemeProvider>
-        <AuthProvider>
+    <HelmetProvider>
+      <Router>
+        <RouteScrollToTop />
+        <ThemeProvider>
+          <AuthProvider>
             <div className="min-h-screen bg-white dark:bg-dark-300 text-gray-900 dark:text-white transition-colors duration-300">
             <ParticleBackground />
             <Navbar />
@@ -70,9 +72,10 @@ function App() {
               theme="colored"
             />
             </div>
-        </AuthProvider>
-      </ThemeProvider>
-    </Router>
+          </AuthProvider>
+        </ThemeProvider>
+      </Router>
+    </HelmetProvider>
   );
 }
 

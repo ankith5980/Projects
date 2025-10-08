@@ -24,6 +24,7 @@ import {
   SiMysql
 } from 'react-icons/si';
 import apiService from '../utils/api';
+import SEO from '../components/SEO';
 
 // Lazy load non-critical sections
 const SkillsSection = lazy(() => import('../components/SkillsSection'));
@@ -201,6 +202,30 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO 
+        title="Home"
+        description="Welcome to Ankith's portfolio - Full Stack Developer specializing in React, Node.js, and modern web technologies. Explore my projects, skills, and experience."
+        keywords="Ankith, full-stack developer, React developer, Node.js, JavaScript, portfolio, web development"
+        url="/"
+        schemaData={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "name": "Ankith",
+          "jobTitle": "Full Stack Developer",
+          "description": "Full Stack Developer specializing in React, Node.js, and modern web technologies",
+          "url": window.location.origin,
+          "image": `${window.location.origin}/images/Ankith.jpg`,
+          "sameAs": [
+            "https://github.com/ankith5980",
+            "https://linkedin.com/in/ankith-dev"
+          ],
+          "knowsAbout": ["React", "Node.js", "JavaScript", "Python", "MongoDB", "Full Stack Development"],
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Freelance"
+          }
+        }}
+      />
       {/* Hero Section */}
       <section className="section-padding pt-32">
         <div className="container mx-auto container-padding">

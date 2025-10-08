@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
+import SEO from '../components/SEO';
 import {
   FaEnvelope,
   FaPhone,
@@ -171,6 +172,26 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen section-padding pt-40 md:pt-44 lg:pt-48">
+      <SEO 
+        title="Contact"
+        description="Get in touch with Ankith - Full Stack Developer. Send a message for project collaborations, job opportunities, or general inquiries. Let's build something amazing together!"
+        keywords="contact Ankith, hire full-stack developer, React developer contact, Node.js developer, project collaboration, web development services"
+        url="/contact"
+        schemaData={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": "Contact Ankith",
+          "description": "Get in touch with Ankith for project collaborations and inquiries",
+          "url": `${window.location.origin}/contact`,
+          "mainEntity": {
+            "@type": "Person",
+            "name": "Ankith",
+            "jobTitle": "Full Stack Developer",
+            "email": "ankith@example.com",
+            "telephone": "+1234567890"
+          }
+        }}
+      />
       <div className="container mx-auto container-padding">
         {/* Header */}
         <motion.div

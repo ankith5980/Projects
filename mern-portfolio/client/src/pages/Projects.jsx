@@ -11,6 +11,7 @@ import {
   FaArchive,
   FaTimes
 } from 'react-icons/fa';
+import SEO from '../components/SEO';
 
 // Memoized Project Card Component for better performance
 const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants }) => (
@@ -216,6 +217,25 @@ const Projects = () => {
 
   return (
     <div className="min-h-screen section-padding pt-40 md:pt-44 lg:pt-48">
+      <SEO 
+        title="Projects"
+        description="Explore Ankith's portfolio of web applications, mobile apps, and software projects. Full-stack development projects built with React, Node.js, Python, and modern technologies."
+        keywords="projects, portfolio, web applications, mobile apps, React projects, Node.js projects, full-stack development, software projects"
+        url="/projects"
+        schemaData={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "Projects - Ankith's Portfolio",
+          "description": "Collection of web applications, mobile apps, and software projects by Ankith",
+          "url": `${window.location.origin}/projects`,
+          "mainEntity": {
+            "@type": "ItemList",
+            "name": "Projects",
+            "description": "Portfolio projects by Ankith",
+            "numberOfItems": filteredProjects.length
+          }
+        }}
+      />
       <div className="container mx-auto container-padding">
         {/* Header */}
         <motion.div

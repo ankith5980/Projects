@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 import { 
   FaCode, 
   FaGraduationCap, 
@@ -274,6 +275,30 @@ const About = () => {
 
   return (
     <div className="min-h-screen section-padding pt-20">
+      <SEO 
+        title="About"
+        description="Learn more about Ankith - Full Stack Developer with expertise in React, Node.js, Python, and modern web technologies. Discover my background, skills, and passion for creating innovative solutions."
+        keywords="about Ankith, full-stack developer background, React developer, Node.js expert, software engineer, web development experience"
+        url="/about"
+        schemaData={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "name": "About Ankith",
+          "description": "Learn about Ankith's background, skills, and experience as a Full Stack Developer",
+          "url": `${window.location.origin}/about`,
+          "mainEntity": {
+            "@type": "Person",
+            "name": "Ankith",
+            "jobTitle": "Full Stack Developer",
+            "description": "Passionate Full Stack Developer with expertise in modern web technologies",
+            "knowsAbout": ["React", "Node.js", "JavaScript", "Python", "MongoDB", "Full Stack Development"],
+            "alumniOf": {
+              "@type": "EducationalOrganization",
+              "name": "Your University/College"
+            }
+          }
+        }}
+      />
       <div className="container mx-auto container-padding">
         
         {/* Hero Section */}
