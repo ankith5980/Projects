@@ -1,0 +1,137 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://ankith.dev/#person",
+      "name": "Ankith Pratheesh Menon",
+      "alternateName": ["Ankith", "Ankith Menon", "Ankith Pratheesh"],
+      "givenName": "Ankith",
+      "familyName": "Pratheesh Menon",
+      "jobTitle": "Full Stack Developer",
+      "description": "Professional Full Stack Developer and Software Engineer from Kerala, India, specializing in React, Node.js, Flutter, and modern web technologies",
+      "url": "https://ankith.dev",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://ankith.dev/images/Ankith.jpg",
+        "contentUrl": "https://ankith.dev/images/Ankith.jpg",
+        "caption": "Professional photo of Ankith Pratheesh Menon, Full Stack Developer",
+        "width": "800",
+        "height": "800"
+      },
+      "gender": "Male",
+      "birthPlace": "Kerala, India",
+      "nationality": "Indian",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kozhikode",
+        "addressRegion": "Kerala",
+        "addressCountry": "India"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-9495540233",
+        "email": "ankithpratheesh147@gmail.com",
+        "contactType": "Professional"
+      },
+      "sameAs": [
+        "https://github.com/ankith5980",
+        "https://www.linkedin.com/in/ankith-pratheesh-menon-0353662b6/",
+        "https://www.instagram.com/ankith5980/"
+      ],
+      "knowsAbout": [
+        "React.js",
+        "Node.js",
+        "JavaScript",
+        "Python",
+        "Flutter",
+        "MongoDB",
+        "MySQL",
+        "Full Stack Development",
+        "Mobile App Development",
+        "Web Development",
+        "Software Engineering",
+        "Machine Learning",
+        "Artificial Intelligence",
+        "Database Design",
+        "API Development",
+        "UI/UX Design"
+      ],
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "Mar Baselios Christian College of Engineering and Technology",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Peermade",
+          "addressRegion": "Kerala",
+          "addressCountry": "India"
+        }
+      },
+      "hasOccupation": {
+        "@type": "Occupation",
+        "name": "Full Stack Developer",
+        "occupationLocation": {
+          "@type": "Country",
+          "name": "India"
+        },
+        "skills": "React, Node.js, JavaScript, Python, Flutter, MongoDB, MySQL"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ankith.dev/#website",
+      "url": "https://ankith.dev",
+      "name": "Ankith Pratheesh Menon Portfolio",
+      "description": "Portfolio website of Ankith Pratheesh Menon showcasing full stack development projects and skills",
+      "publisher": {
+        "@id": "https://ankith.dev/#person"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://ankith.dev/projects?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://ankith.dev/#service",
+      "name": "Full Stack Development Services",
+      "description": "Professional web and mobile app development services by Ankith Pratheesh Menon",
+      "provider": {
+        "@id": "https://ankith.dev/#person"
+      },
+      "serviceType": "Software Development",
+      "areaServed": "Worldwide",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Development Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Web Development",
+              "description": "Custom web application development using React, Node.js, and modern technologies"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Mobile App Development",
+              "description": "Cross-platform mobile application development using Flutter"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "API Development",
+              "description": "RESTful API development and integration services"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

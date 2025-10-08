@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import { generatePersonSchema, generateOrganizationSchema } from '../utils/personalSEO';
+import { getFullUrl } from '../utils/url';
 import { 
   FaCode, 
   FaGraduationCap, 
@@ -50,7 +52,6 @@ import {
   SiPostman
 } from 'react-icons/si';
 import apiService from '../utils/api';
-import { getFullUrl } from '../utils/url';
 
 // Optimized Typing Effect Component with React.memo
 const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTime = 2000 }) => {
@@ -277,27 +278,17 @@ const About = () => {
   return (
     <div className="min-h-screen section-padding pt-20">
       <SEO 
-        title="About"
-        description="Learn more about Ankith - Full Stack Developer with expertise in React, Node.js, Python, and modern web technologies. Discover my background, skills, and passion for creating innovative solutions."
-        keywords="about Ankith, full-stack developer background, React developer, Node.js expert, software engineer, web development experience"
+        title="About Ankith Pratheesh Menon - Professional Background & Skills"
+        description="Learn more about Ankith Pratheesh Menon - Professional Full Stack Developer from Kerala, India with expertise in React, Node.js, Flutter, Python, and modern web technologies. Discover my educational background at Mar Baselios Christian College of Engineering and Technology, professional experience, and passion for creating innovative software solutions."
+        keywords="about Ankith Pratheesh Menon, Ankith biography, full-stack developer background, React developer Kerala, Node.js expert India, software engineer profile, web development experience, MBCCET graduate, computer science engineer"
         url="/about"
         schemaData={{
           "@context": "https://schema.org",
           "@type": "AboutPage",
-          "name": "About Ankith",
-          "description": "Learn about Ankith's background, skills, and experience as a Full Stack Developer",
+          "name": "About Ankith Pratheesh Menon",
+          "description": "Professional background and skills of Ankith Pratheesh Menon - Full Stack Developer",
           "url": getFullUrl("/about"),
-          "mainEntity": {
-            "@type": "Person",
-            "name": "Ankith",
-            "jobTitle": "Full Stack Developer",
-            "description": "Passionate Full Stack Developer with expertise in modern web technologies",
-            "knowsAbout": ["React", "Node.js", "JavaScript", "Python", "MongoDB", "Full Stack Development"],
-            "alumniOf": {
-              "@type": "EducationalOrganization",
-              "name": "Your University/College"
-            }
-          }
+          "mainEntity": generatePersonSchema()
         }}
       />
       <div className="container mx-auto container-padding">

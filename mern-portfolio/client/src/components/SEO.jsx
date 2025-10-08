@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { getBaseUrl, getFullUrl, getFullImageUrl } from '../utils/url';
+import { generatePersonSchema, generatePortfolioSchema } from '../utils/personalSEO';
 
 const SEO = ({
   title = 'Portfolio',
@@ -18,22 +19,11 @@ const SEO = ({
   const fullUrl = getFullUrl(url);
   const fullImageUrl = getFullImageUrl(image);
   
-  // Default structured data
-  const defaultSchema = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": author,
-    "url": baseUrl,
-    "jobTitle": "Full Stack Developer",
-    "description": description,
-    "image": fullImageUrl,
-    "sameAs": [
-      "https://github.com/ankith5980",
-      "https://linkedin.com/in/ankith-dev"
-    ]
-  };
-
-  const schema = schemaData || defaultSchema;
+  // Enhanced structured data for personal branding
+  const defaultPersonSchema = generatePersonSchema();
+  const portfolioSchema = generatePortfolioSchema();
+  
+  const schema = schemaData || defaultPersonSchema;
 
   return (
     <Helmet>
@@ -68,9 +58,14 @@ const SEO = ({
       <meta name="theme-color" content="#3B82F6" />
       <meta name="msapplication-TileColor" content="#3B82F6" />
       
-      {/* Structured Data */}
+      {/* Enhanced Structured Data for Personal Branding */}
       <script type="application/ld+json">
         {JSON.stringify(schema)}
+      </script>
+      
+      {/* Portfolio Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify(portfolioSchema)}
       </script>
     </Helmet>
   );

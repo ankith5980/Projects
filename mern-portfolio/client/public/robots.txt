@@ -2,7 +2,26 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://your-domain.com/sitemap.xml
+User-agent: *
+Allow: /
+Allow: /images/
+Allow: /cv/
+
+# Block admin routes if any exist
+Disallow: /admin/
+Disallow: /api/
+Disallow: /.env
+
+# Important pages for crawling
+Allow: /about
+Allow: /projects
+Allow: /contact
+
+# Sitemap location
+Sitemap: https://ankith.dev/sitemap.xml
+
+# Additional directives for better SEO
+Crawl-delay: 1
 
 # Crawl delay
 Crawl-delay: 1

@@ -1,35 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   
+  <!-- Homepage with personal images -->
   <url>
-    <loc>https://your-domain.com/</loc>
-    <lastmod>2025-10-08</lastmod>
+    <loc>https://ankith.dev/</loc>
+    <lastmod>2024-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://ankith.dev/images/Ankith.jpg</image:loc>
+      <image:title>Ankith Pratheesh Menon - Full Stack Developer</image:title>
+      <image:caption>Professional photo of Ankith Pratheesh Menon, Full Stack Developer from Kerala, India specializing in React, Node.js, and modern web technologies</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://ankith.dev/images/portfolio_thumbnail_1.png</image:loc>
+      <image:title>Ankith's Portfolio Website Showcase</image:title>
+      <image:caption>Portfolio website showcase highlighting projects and skills of Ankith Pratheesh Menon</image:caption>
+    </image:image>
   </url>
   
+  <!-- About page with personal information -->
   <url>
-    <loc>https://your-domain.com/about</loc>
-    <lastmod>2025-10-08</lastmod>
+    <loc>https://ankith.dev/about</loc>
+    <lastmod>2024-01-15</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://ankith.dev/images/Ankith.jpg</image:loc>
+      <image:title>About Ankith Pratheesh Menon</image:title>
+      <image:caption>Professional background of Ankith Pratheesh Menon - Software Engineer and Full Stack Developer from Kozhikode, Kerala, India</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Projects page -->
+  <url>
+    <loc>https://ankith.dev/projects</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
+  <!-- Contact page -->
   <url>
-    <loc>https://your-domain.com/projects</loc>
-    <lastmod>2025-10-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  
-  <url>
-    <loc>https://your-domain.com/contact</loc>
-    <lastmod>2025-10-08</lastmod>
+    <loc>https://ankith.dev/contact</loc>
+    <lastmod>2024-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
+  <!-- CV/Resume -->
+  <url>
+    <loc>https://ankith.dev/cv/My%20Resume.pdf</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
 </urlset>

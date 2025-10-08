@@ -26,6 +26,7 @@ import {
 import apiService from '../utils/api';
 import SEO from '../components/SEO';
 import { getBaseUrl, getFullUrl, getFullImageUrl } from '../utils/url';
+import { generatePersonSchema, generateOrganizationSchema } from '../utils/personalSEO';
 
 // Lazy load non-critical sections
 const SkillsSection = lazy(() => import('../components/SkillsSection'));
@@ -204,28 +205,11 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       <SEO 
-        title="Home"
-        description="Welcome to Ankith's portfolio - Full Stack Developer specializing in React, Node.js, and modern web technologies. Explore my projects, skills, and experience."
-        keywords="Ankith, full-stack developer, React developer, Node.js, JavaScript, portfolio, web development"
+        title="Ankith Pratheesh Menon - Full Stack Developer Portfolio"
+        description="Welcome to Ankith Pratheesh Menon's portfolio - Professional Full Stack Developer from Kerala, India specializing in React, Node.js, Flutter, and modern web technologies. Explore my projects, skills, and experience in software development."
+        keywords="Ankith Pratheesh Menon, Ankith, full-stack developer, React developer, Node.js, JavaScript, Flutter developer, portfolio, web development, software engineer, Kerala, India, MERN stack"
         url="/"
-        schemaData={{
-          "@context": "https://schema.org",
-          "@type": "Person",
-          "name": "Ankith",
-          "jobTitle": "Full Stack Developer",
-          "description": "Full Stack Developer specializing in React, Node.js, and modern web technologies",
-          "url": getBaseUrl(),
-          "image": getFullImageUrl("/images/Ankith.jpg"),
-          "sameAs": [
-            "https://github.com/ankith5980",
-            "https://linkedin.com/in/ankith-dev"
-          ],
-          "knowsAbout": ["React", "Node.js", "JavaScript", "Python", "MongoDB", "Full Stack Development"],
-          "worksFor": {
-            "@type": "Organization",
-            "name": "Freelance"
-          }
-        }}
+        schemaData={generatePersonSchema()}
       />
       {/* Hero Section */}
       <section className="section-padding pt-32">
