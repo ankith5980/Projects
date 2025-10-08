@@ -130,7 +130,7 @@ const Contact = () => {
 
           console.log('Email sent successfully via EmailJS!', response);
           setSubmitStatus('success');
-          setSubmitMessage('Message sent successfully via EmailJS! Thank you for reaching out. I\'ll get back to you soon.');
+          setSubmitMessage('Message sent successfully! Thank you for reaching out. I\'ll get back to you soon.');
           setFormData({ name: '', email: '', subject: '', message: '' });
           return;
         } catch (emailJSError) {
