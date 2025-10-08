@@ -409,7 +409,7 @@ const Contact = () => {
             {/* Fun Fact */}
             <div className="bg-gradient-to-br from-primary-50 to-purple-50 dark:from-primary-900/20 dark:to-purple-900/20 rounded-xl p-6 border border-primary-100 dark:border-primary-800">
               <h3 className="text-lg font-bold mb-2 text-primary-900 dark:text-primary-100">
-                Let's Build Something Amazing Together! 🚀
+                Let's Build Something Amazing Together!
               </h3>
               <p className="text-primary-700 dark:text-primary-300 text-sm">
                 I'm always excited to work on new projects and collaborate with amazing people. 
