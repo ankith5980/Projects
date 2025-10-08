@@ -119,7 +119,8 @@ const Contact = () => {
           const response = await emailjs.send(
             serviceId,
             templateId,
-            templateParams
+            templateParams,
+            publicKey
           );
 
           console.log('Email sent successfully via EmailJS!', response);
@@ -128,8 +129,14 @@ const Contact = () => {
           setFormData({ name: '', email: '', subject: '', message: '' });
           return;
         } catch (emailJSError) {
-          console.warn('EmailJS also failed:', emailJSError);
-          throw new Error('Both server and EmailJS methods failed. Please contact me directly.');
+          console.error('EmailJS failed with error:', emailJSError);
+          console.error('Error details:', {
+            name: emailJSError.name,
+            message: emailJSError.message,
+            status: emailJSError.status,
+            text: emailJSError.text
+          });
+          throw new Error(`EmailJS failed: ${emailJSError.message || emailJSError.text || 'Unknown error'}. Please contact me directly.`);
         }
       } else {
         console.warn('EmailJS configuration missing');
