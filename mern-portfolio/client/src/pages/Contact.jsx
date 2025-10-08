@@ -95,9 +95,9 @@ const Contact = () => {
     try {
       // Use EmailJS as primary method (server has credential issues)
       console.log('Attempting to send via EmailJS...');
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_27jmx62';
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_49nj4oq';
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '3d4ntCXQj5ZNHkKyv';
       
       console.log('EmailJS Config:', { 
         serviceId: serviceId || 'MISSING', 
