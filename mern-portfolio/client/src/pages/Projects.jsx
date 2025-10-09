@@ -90,7 +90,7 @@ const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants }) =
               <span>GitHub</span>
             </a>
           )}
-          {/* {project.liveUrl && (
+          {project.liveUrl && (
             <a
               href={project.liveUrl}
               target="_blank"
@@ -101,7 +101,7 @@ const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants }) =
               <FaExternalLinkAlt className="w-3 h-3" />
               <span>Live Demo</span>
             </a>
-          )} */}
+          )}
         </div>
       </div>
     </div>
@@ -134,7 +134,7 @@ const Projects = () => {
       description: 'A modern, responsive portfolio website built with the MERN stack featuring dark mode, animations, and admin dashboard.',
       technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS', 'Framer Motion'],
       images: [{ url: '/images/portfolio_thumbnail_1.png' }],
-      liveUrl: 'https://ankith-portfolio.vercel.app',
+      liveUrl: 'https://portfolio-ankith.vercel.app',
       githubUrl: 'https://github.com/ankith5980/Projects/tree/main/mern-portfolio',
       category: 'fullstack',
       status: 'completed',
