@@ -163,8 +163,17 @@ const Home = () => {
           description: 'A modern, responsive portfolio website built with the MERN stack featuring dark mode, animations, and admin dashboard.',
           technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS', 'Framer Motion'],
           images: [{ url: '/images/portfolio_thumbnail_1.png' }],
-          liveUrl: 'https://ankith-portfolio.vercel.app',
-          githubUrl: 'https://github.com/ankith5980/mern-portfolio'
+          liveUrl: 'https://portfolio-ankith.vercel.app',
+          githubUrl: 'https://github.com/ankith5980/Projects/tree/main/mern-portfolio'
+        },
+        {
+          _id: 2,
+          title: 'Continuous Development of KOHA Library Management System',
+          description: 'A modern, responsive library management system built with HTML, CSS, JavaScript, PHP, and MySQL.',
+          technologies: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
+          images: [{ url: '/images/kohabanner.jpg' }],
+          liveUrl: 'https://koha-library-management-system.vercel.app',
+          githubUrl: 'https://github.com/ankith5980/Projects/tree/main/koha-library-management-system'
         },
       ];
       setFeaturedProjects(recentProjects);

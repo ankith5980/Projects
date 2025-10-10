@@ -9,7 +9,8 @@ import {
   FaCheckCircle,
   FaClock,
   FaArchive,
-  FaTimes
+  FaTimes,
+  FaSync
 } from 'react-icons/fa';
 import SEO from '../components/SEO';
 import { getFullUrl } from '../utils/url';
@@ -140,6 +141,18 @@ const Projects = () => {
       status: 'completed',
       featured: true
     },
+    {
+      _id: 2,
+      title: 'Continuous Development of KOHA Library Management System',
+      description: 'A modern, responsive library management system built with HTML, CSS, JavaScript, PHP, and MySQL.',
+      technologies: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
+      images: [{ url: '/images/kohabanner.jpg' }],
+      liveUrl: 'https://koha-library-management-system.vercel.app',
+      githubUrl: 'https://github.com/ankith5980/Projects/tree/main/koha-library-management-system',
+      category: 'backend',
+      status: 'continuous-development',
+      featured: true
+    },
   ], []);
 
   // Memoized animation variants
@@ -174,6 +187,7 @@ const Projects = () => {
     { value: 'all', label: 'All Status' },
     { value: 'completed', label: 'Completed' },
     { value: 'in-progress', label: 'In Progress' },
+    { value: 'continuous-development', label: 'Continuous Development' },
     { value: 'archived', label: 'Archived' }
   ], []);
 
@@ -201,6 +215,8 @@ const Projects = () => {
         return { icon: FaCheckCircle, color: 'text-green-500', label: 'Completed' };
       case 'in-progress':
         return { icon: FaClock, color: 'text-yellow-500', label: 'In Progress' };
+      case 'continuous-development':
+        return { icon: FaSync, color: 'text-blue-500', label: 'Continuous Development' };
       case 'archived':
         return { icon: FaArchive, color: 'text-gray-500', label: 'Archived' };
       default:
