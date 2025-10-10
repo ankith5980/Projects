@@ -145,7 +145,7 @@ const Projects = () => {
       _id: 2,
       title: 'Continuous Development of KOHA Library Management System',
       description: 'GitHub Repository & Live Demo aren\'t available currently due to privacy concerns. Please contact me for more details.',
-      technologies: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
+      technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS'],
       images: [{ url: '/images/kohabanner.jpg' }],
       liveUrl: 'https://koha-library-management-system.vercel.app',
       githubUrl: 'https://github.com/ankith5980/Projects/tree/main/koha-library-management-system',
