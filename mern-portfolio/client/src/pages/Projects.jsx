@@ -144,7 +144,7 @@ const Projects = () => {
     {
       _id: 2,
       title: 'Continuous Development of KOHA Library Management System',
-      description: 'A modern, responsive library management system built with HTML, CSS, JavaScript, PHP, and MySQL.',
+      description: 'GitHub Repository & Live Demo aren\'t available currently due to privacy concerns. Please contact me for more details.',
       technologies: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
       images: [{ url: '/images/kohabanner.jpg' }],
       liveUrl: 'https://koha-library-management-system.vercel.app',
