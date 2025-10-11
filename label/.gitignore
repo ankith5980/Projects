@@ -1,0 +1,45 @@
+# Label Project .gitignore - Protect sensitive database credentials
+
+# CRITICAL: Database credentials and configuration files
+constants.php
+ticket_validation.php
+
+# Any other potential config files
+config.php
+database.php
+db_config.php
+settings.php
+*config*.php
+
+# Database dumps and backups
+*.sql
+*.dump
+*.backup
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+cache/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backup files
+*.bak
+*~
+
+# User uploads (if any)
+uploads/
+files/
