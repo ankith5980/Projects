@@ -154,8 +154,8 @@ const About = () => {
     avatar: { url: '/images/Ankith.jpg' },
     socialLinks: {
       github: 'https://github.com/ankith5980',
-      linkedin: 'https://linkedin.com/in/ankithmenon',
-      instagram: 'https://instagram.com/ankithmenon',
+      linkedin: 'https://www.linkedin.com/in/ankith-pratheesh-menon-0353662b6/',
+      instagram: 'https://www.instagram.com/ankith5980/',
     }
   });
 
@@ -173,7 +173,65 @@ const About = () => {
         ]);
 
         if (aboutRes.status === 'fulfilled') {
-          setAboutData(prev => ({ ...prev, ...aboutRes.value.data }));
+          // Filter out placeholder values from API response
+          const apiData = aboutRes.value.data || {};
+          const cleanedData = {};
+          
+          // Only use API data if it's not a placeholder
+          if (apiData.fullName && !apiData.fullName.toLowerCase().includes('your name')) {
+            cleanedData.fullName = apiData.fullName;
+          }
+          if (apiData.title && !apiData.title.toLowerCase().includes('your')) {
+            cleanedData.title = apiData.title;
+          }
+          if (apiData.bio && !apiData.bio.toLowerCase().includes('your')) {
+            cleanedData.bio = apiData.bio;
+          }
+          if (apiData.email && !apiData.email.toLowerCase().includes('your')) {
+            cleanedData.email = apiData.email;
+          }
+          if (apiData.location && !apiData.location.toLowerCase().includes('your')) {
+            cleanedData.location = apiData.location;
+          }
+          if (apiData.phone) {
+            cleanedData.phone = apiData.phone;
+          }
+          // Only use experience if it's not placeholder (0, empty, or contains "your")
+          if (apiData.experience && 
+              apiData.experience !== '0' && 
+              apiData.experience !== '0 years' &&
+              !apiData.experience.toLowerCase().includes('your')) {
+            cleanedData.experience = apiData.experience;
+          }
+          // Only use projects if it's not placeholder (0, empty, or contains "your")
+          if (apiData.projects && 
+              apiData.projects !== '0' && 
+              apiData.projects !== '0 Projects' &&
+              !apiData.projects.toLowerCase().includes('your')) {
+            cleanedData.projects = apiData.projects;
+          }
+          if (apiData.avatar) {
+            cleanedData.avatar = apiData.avatar;
+          }
+          // Only use socialLinks if they exist and are valid URLs
+          if (apiData.socialLinks) {
+            const validSocialLinks = {};
+            if (apiData.socialLinks.github && apiData.socialLinks.github.includes('github.com')) {
+              validSocialLinks.github = apiData.socialLinks.github;
+            }
+            if (apiData.socialLinks.linkedin && apiData.socialLinks.linkedin.includes('linkedin.com')) {
+              validSocialLinks.linkedin = apiData.socialLinks.linkedin;
+            }
+            if (apiData.socialLinks.instagram && apiData.socialLinks.instagram.includes('instagram.com')) {
+              validSocialLinks.instagram = apiData.socialLinks.instagram;
+            }
+            // Only merge if we have at least one valid social link
+            if (Object.keys(validSocialLinks).length > 0) {
+              cleanedData.socialLinks = { ...cleanedData.socialLinks, ...validSocialLinks };
+            }
+          }
+          
+          setAboutData(prev => ({ ...prev, ...cleanedData }));
         }
 
         if (skillsRes.status === 'fulfilled') {

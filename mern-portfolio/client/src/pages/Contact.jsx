@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import SEO from '../components/SEO';
-import { getFullUrl } from '../utils/url';
+import { getFullUrl, getFullImageUrl } from '../utils/url';
 import {
   FaEnvelope,
   FaPhone,
@@ -189,22 +189,45 @@ const Contact = () => {
   return (
     <div className="min-h-screen section-padding pt-40 md:pt-44 lg:pt-48">
       <SEO 
-        title="Contact"
-        description="Get in touch with Ankith - Full Stack Developer. Send a message for project collaborations, job opportunities, or general inquiries. Let's build something amazing together!"
-        keywords="contact Ankith, hire full-stack developer, React developer contact, Node.js developer, project collaboration, web development services"
+        title="Contact Ankith Pratheesh Menon - Full Stack Developer | Get In Touch"
+        description="Contact Ankith Pratheesh Menon for web development projects, collaborations, and job opportunities. Full Stack Developer specializing in React, Node.js, and modern web technologies. Based in Kozhikode, Kerala, India. Email: ankithpratheesh147@gmail.com | Phone: +91 9495540233"
+        keywords="contact Ankith Pratheesh Menon, hire Ankith Pratheesh Menon, Ankith Pratheesh Menon email, Ankith Pratheesh Menon phone, Ankith full-stack developer contact, React developer Kozhikode contact, Node.js developer Kerala, web development services India, contact full-stack developer, Ankith developer Kozhikode, hire React developer India, full stack developer contact Kerala"
         url="/contact"
         schemaData={{
           "@context": "https://schema.org",
           "@type": "ContactPage",
-          "name": "Contact Ankith",
-          "description": "Get in touch with Ankith for project collaborations and inquiries",
+          "name": "Contact Ankith Pratheesh Menon",
+          "description": "Get in touch with Ankith Pratheesh Menon for project collaborations, job opportunities, and web development inquiries",
           "url": getFullUrl("/contact"),
           "mainEntity": {
             "@type": "Person",
-            "name": "Ankith",
+            "@id": getFullUrl("/#person"),
+            "name": "Ankith Pratheesh Menon",
+            "alternateName": ["Ankith", "Ankith Menon", "Ankith Pratheesh"],
             "jobTitle": "Full Stack Developer",
-            "email": "ankith@example.com",
-            "telephone": "+1234567890"
+            "description": "Full Stack Developer specializing in React, Node.js, and modern web technologies",
+            "email": "ankithpratheesh147@gmail.com",
+            "telephone": "+919495540233",
+            "url": getFullUrl("/"),
+            "image": getFullImageUrl("/images/Ankith.jpg"),
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Kozhikode",
+              "addressRegion": "Kerala",
+              "addressCountry": "India"
+            },
+            "sameAs": [
+              "https://github.com/ankith5980",
+              "https://www.linkedin.com/in/ankith-pratheesh-menon-0353662b6/",
+              "https://www.instagram.com/ankith5980/"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+919495540233",
+              "contactType": "professional",
+              "email": "ankithpratheesh147@gmail.com",
+              "availableLanguage": ["English", "Malayalam", "Hindi"]
+            }
           }
         }}
       />

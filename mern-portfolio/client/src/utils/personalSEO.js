@@ -1,6 +1,50 @@
 // Enhanced SEO utilities for personal branding and Google Knowledge Graph
 import { getBaseUrl, getFullUrl, getFullImageUrl } from './url';
 
+// Site metadata configuration for consistent SEO
+export const siteMetadata = {
+  siteName: 'Ankith Pratheesh Menon - Full Stack Developer Portfolio',
+  siteUrl: 'https://portfolio-ankith.vercel.app', // Update with your actual domain
+  author: 'Ankith Pratheesh Menon',
+  description: 'Portfolio of Ankith Pratheesh Menon - Full Stack Developer specializing in React, Node.js, MongoDB, and modern web technologies. Explore projects, skills, and professional experience.',
+  keywords: [
+    'Ankith Pratheesh Menon',
+    'Ankith Menon',
+    'Ankith Pratheesh',
+    'Ankith',
+    'Full Stack Developer',
+    'React Developer',
+    'Node.js Developer',
+    'Web Developer Kozhikode',
+    'JavaScript Developer',
+    'MERN Stack Developer',
+    'Software Engineer Kerala',
+    'Portfolio Ankith',
+    'Ankith Developer Kerala',
+    'Frontend Developer India',
+    'Backend Developer India',
+    'Ankith Pratheesh Menon Portfolio',
+    'Ankith Full Stack',
+    'Ankith Web Developer'
+  ],
+  social: {
+    github: 'https://github.com/ankith5980',
+    linkedin: 'https://www.linkedin.com/in/ankith-pratheesh-menon-0353662b6/',
+    instagram: 'https://www.instagram.com/ankith5980/',
+    email: 'ankithpratheesh147@gmail.com',
+    phone: '+919495540233'
+  },
+  location: {
+    city: 'Kozhikode',
+    state: 'Kerala',
+    country: 'India',
+    coordinates: {
+      latitude: '11.2588',
+      longitude: '75.7804'
+    }
+  }
+};
+
 // Comprehensive Person Schema for Google Knowledge Graph
 export const generatePersonSchema = () => {
   const baseUrl = getBaseUrl();
@@ -81,11 +125,12 @@ export const generatePersonSchema = () => {
     },
     "sameAs": [
       "https://github.com/ankith5980",
-      "https://linkedin.com/in/ankithmenon",
-      "https://instagram.com/ankithmenon",
+      "https://www.linkedin.com/in/ankith-pratheesh-menon-0353662b6/",
+      "https://www.instagram.com/ankith5980/",
       getFullUrl("/"),
       getFullUrl("/about"),
-      getFullUrl("/projects")
+      getFullUrl("/projects"),
+      getFullUrl("/contact")
     ],
     "email": "ankithpratheesh147@gmail.com",
     "telephone": "+91 9495540233",

@@ -150,7 +150,56 @@ const Home = () => {
     try {
       // Fetch about data first (highest priority)
       const aboutPromise = apiService.getAbout().then(res => {
-        setAboutData(prev => ({ ...prev, ...res.data }));
+        // Filter out placeholder values from API response
+        const apiData = res.data || {};
+        const cleanedData = {};
+        
+        // Only use API data if it's not a placeholder
+        if (apiData.fullName && !apiData.fullName.toLowerCase().includes('your name')) {
+          cleanedData.fullName = apiData.fullName;
+        }
+        if (apiData.title && !apiData.title.toLowerCase().includes('your')) {
+          cleanedData.title = apiData.title;
+        }
+        // Don't use API bio - always use fallback from staticFallbackData
+        // if (apiData.bio && !apiData.bio.toLowerCase().includes('your')) {
+        //   cleanedData.bio = apiData.bio;
+        // }
+        if (apiData.email && !apiData.email.toLowerCase().includes('your')) {
+          cleanedData.email = apiData.email;
+        }
+        if (apiData.location && !apiData.location.toLowerCase().includes('your')) {
+          cleanedData.location = apiData.location;
+        }
+        if (apiData.phone) {
+          cleanedData.phone = apiData.phone;
+        }
+        if (apiData.avatar) {
+          cleanedData.avatar = apiData.avatar;
+        }
+        if (apiData.resume) {
+          cleanedData.resume = apiData.resume;
+        }
+        // Don't accept socialLinks from API - always use fallback
+        // This ensures Instagram and other links are always displayed
+        // if (apiData.socialLinks) {
+        //   const validSocialLinks = {};
+        //   if (apiData.socialLinks.github && apiData.socialLinks.github.includes('github.com')) {
+        //     validSocialLinks.github = apiData.socialLinks.github;
+        //   }
+        //   if (apiData.socialLinks.linkedin && apiData.socialLinks.linkedin.includes('linkedin.com')) {
+        //     validSocialLinks.linkedin = apiData.socialLinks.linkedin;
+        //   }
+        //   if (apiData.socialLinks.instagram && apiData.socialLinks.instagram.includes('instagram.com')) {
+        //     validSocialLinks.instagram = apiData.socialLinks.instagram;
+        //   }
+        //   // Only update social links if we have valid ones, and merge with existing
+        //   if (Object.keys(validSocialLinks).length > 0) {
+        //     cleanedData.socialLinks = validSocialLinks;
+        //   }
+        // }
+        
+        setAboutData(prev => ({ ...prev, ...cleanedData }));
       }).catch(err => {
         console.warn('About data not available:', err);
       });
@@ -189,7 +238,7 @@ const Home = () => {
       setDataLoaded(true);
       
       // Continue loading other data in background
-      Promise.all([projectsPromise, skillsPromise]).finally(() => {
+      Promise.all([skillsPromise]).finally(() => {
         setLoading(false);
       });
 

@@ -6,7 +6,7 @@ export const getBaseUrl = () => {
   }
   
   // During build time or SSR, use environment variable or fallback
-  return process.env.VITE_BASE_URL || 'https://your-domain.com';
+  return process.env.VITE_BASE_URL || 'https://portfolio-ankith.vercel.app';
 };
 
 // Get full URL safely

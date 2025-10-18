@@ -1,18 +1,21 @@
 User-agent: *
 Allow: /
 
-# Sitemap
-User-agent: *
+# Priority pages for Ankith Pratheesh Menon name searches
 Allow: /
-Allow: /images/
-Allow: /cv/
 Allow: /about
 Allow: /projects
 Allow: /contact
 
+# Allow important assets for better indexing
+Allow: /images/
+Allow: /cv/
+Allow: /assets/
+
 # Explicitly allow important image files for Google Image Search
 Allow: /images/Ankith.jpg
 Allow: /images/portfolio_thumbnail_1.png
+Allow: /images/kohabanner.jpg
 
 # Block admin routes if any exist
 Disallow: /admin/
@@ -21,20 +24,10 @@ Disallow: /.env
 Disallow: /node_modules/
 Disallow: /build/
 Disallow: /*.json$
+Disallow: /dashboard/
+Disallow: /login/
 
-# Sitemap location for faster discovery
-Sitemap: https://ankith.dev/sitemap.xml
-
-# Additional directives for better SEO and image indexing
-Crawl-delay: 1
-
-# Specific directives for Google Image Bot
-User-agent: Googlebot-Image
-Allow: /images/
-Allow: /images/Ankith.jpg
-Allow: /images/portfolio_thumbnail_1.png
-
-# Ensure main content is crawlable for name-based searches
+# Special directives for better crawling
 User-agent: Googlebot
 Allow: /
 Allow: /about
@@ -42,20 +35,23 @@ Allow: /projects
 Allow: /contact
 Allow: /images/Ankith.jpg
 Allow: /cv/
+Crawl-delay: 0
 
-# Priority crawling for pages containing personal information
-# These pages are most important for "Ankith Pratheesh Menon" searches
-User-agent: *
-Allow: /about$
-Allow: /$
+User-agent: Googlebot-Image
+Allow: /images/
+Allow: /images/Ankith.jpg
+Allow: /images/portfolio_thumbnail_1.png
+Allow: /
 
-# Crawl delay
+User-agent: Bingbot
+Allow: /
 Crawl-delay: 1
 
-# Disallow admin areas (if any)
-Disallow: /admin/
-Disallow: /dashboard/
-Disallow: /login/
+# Sitemap location for faster discovery
+Sitemap: https://portfolio-ankith.vercel.app/sitemap.xml
+
+# Additional directives for better SEO and image indexing
+Crawl-delay: 1
 
 # Allow common files
 Allow: /favicon.ico

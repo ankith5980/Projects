@@ -2,57 +2,57 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   
-  <!-- Homepage - Primary page for name searches -->
+  <!-- Homepage - Primary page for Ankith Pratheesh Menon name searches -->
   <url>
-    <loc>https://ankith.dev/</loc>
-    <lastmod>2024-01-15</lastmod>
+    <loc>https://portfolio-ankith.vercel.app/</loc>
+    <lastmod>2025-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://ankith.dev/images/Ankith.jpg</image:loc>
+      <image:loc>https://portfolio-ankith.vercel.app/images/Ankith.jpg</image:loc>
       <image:title>Ankith Pratheesh Menon - Full Stack Developer Portfolio</image:title>
       <image:caption>Professional photo of Ankith Pratheesh Menon, Full Stack Developer and Software Engineer from Kozhikode, Kerala, India. Specializing in React.js, Node.js, Flutter, and modern web technologies. Portfolio website showcasing innovative projects and technical expertise.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://ankith.dev/images/portfolio_thumbnail_1.png</image:loc>
+      <image:loc>https://portfolio-ankith.vercel.app/images/portfolio_thumbnail_1.png</image:loc>
       <image:title>Ankith Pratheesh Menon Portfolio Website</image:title>
       <image:caption>Official portfolio website of Ankith Pratheesh Menon showcasing full stack development projects, technical skills, and professional experience in software engineering</image:caption>
     </image:image>
   </url>
   
-  <!-- About page - Detailed personal and professional information -->
+  <!-- About page - Detailed personal and professional information for Ankith Pratheesh Menon -->
   <url>
-    <loc>https://ankith.dev/about</loc>
-    <lastmod>2024-01-15</lastmod>
+    <loc>https://portfolio-ankith.vercel.app/about</loc>
+    <lastmod>2025-10-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://ankith.dev/images/Ankith.jpg</image:loc>
+      <image:loc>https://portfolio-ankith.vercel.app/images/Ankith.jpg</image:loc>
       <image:title>About Ankith Pratheesh Menon - Professional Background</image:title>
-      <image:caption>Detailed professional background and biography of Ankith Pratheesh Menon - Computer Science Engineering graduate from Mar Baselios Christian College of Engineering and Technology, now working as Full Stack Developer and Software Engineer in Kozhikode, Kerala, India. Expert in React, Node.js, Flutter development.</image:caption>
+      <image:caption>Detailed professional background and biography of Ankith Pratheesh Menon - Computer Science graduate, Full Stack Developer specializing in React, Node.js, Flutter development. Based in Kozhikode, Kerala, India.</image:caption>
     </image:image>
   </url>
   
-  <!-- Projects page -->
+  <!-- Projects page - Ankith Pratheesh Menon's portfolio projects -->
   <url>
-    <loc>https://ankith.dev/projects</loc>
-    <lastmod>2024-01-15</lastmod>
+    <loc>https://portfolio-ankith.vercel.app/projects</loc>
+    <lastmod>2025-10-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- Contact page -->
+  <!-- Contact page - Get in touch with Ankith Pratheesh Menon -->
   <url>
-    <loc>https://ankith.dev/contact</loc>
-    <lastmod>2024-01-15</lastmod>
+    <loc>https://portfolio-ankith.vercel.app/contact</loc>
+    <lastmod>2025-10-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <!-- CV/Resume -->
   <url>
-    <loc>https://ankith.dev/cv/My%20Resume.pdf</loc>
-    <lastmod>2024-01-15</lastmod>
+    <loc>https://portfolio-ankith.vercel.app/cv/My%20Resume.pdf</loc>
+    <lastmod>2025-10-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
