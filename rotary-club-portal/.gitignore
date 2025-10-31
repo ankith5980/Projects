@@ -210,6 +210,12 @@ config.json
 # !README.md
 # docs/archive/
 
+# Keep deployment guides
+!RENDER_DEPLOYMENT_GUIDE.md
+!ENV_VARIABLES_GUIDE.md
+!DEPLOYMENT_CHECKLIST.md
+!SECURITY_CHECKLIST.md
+
 # ==========================================
 # MISCELLANEOUS
 # ==========================================
