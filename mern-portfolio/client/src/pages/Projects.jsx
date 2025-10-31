@@ -162,7 +162,7 @@ const Projects = () => {
       liveUrl: '',
       githubUrl: 'https://github.com/ankith5980/Projects/tree/main/rotary-club-portal',
       category: 'fullstack',
-      status: 'in-progress',
+      status: 'archived',
       featured: true
     },
   ], []);
