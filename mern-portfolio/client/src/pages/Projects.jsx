@@ -160,7 +160,7 @@ const Projects = () => {
       technologies: ['React', 'MongoDB Atlas', 'Tailwind CSS','Docker'],
       images: [{ url: '/images/Club_Management_App.png' }],
       liveUrl: '',
-      githubUrl: '',
+      githubUrl: 'https://github.com/ankith5980/Projects/tree/main/rotary-club-portal',
       category: 'fullstack',
       status: 'in-progress',
       featured: true
