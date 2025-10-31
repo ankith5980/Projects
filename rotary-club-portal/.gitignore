@@ -1,0 +1,212 @@
+# ==========================================
+# DEPENDENCIES
+# ==========================================
+node_modules/
+/.pnp
+.pnp.js
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ==========================================
+# ENVIRONMENT VARIABLES & SECRETS
+# ==========================================
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.staging
+*.env
+*.env.*
+!.env.example
+
+# API Keys and Secrets
+config/secrets.js
+secrets/
+credentials/
+*.key
+*.pem
+*.cert
+*.crt
+*.p12
+*.pfx
+
+# ==========================================
+# DATABASE
+# ==========================================
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+*.mdb
+*.accdb
+mongodb-data/
+postgres-data/
+mysql-data/
+
+# ==========================================
+# LOGS
+# ==========================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+combined.log
+error.log
+access.log
+server.log
+
+# ==========================================
+# TESTING
+# ==========================================
+/coverage
+coverage/
+*.coverage
+.nyc_output
+test-results/
+playwright-report/
+.playwright/
+e2e-results/
+__coverage__/
+*.lcov
+
+# ==========================================
+# BUILD & PRODUCTION
+# ==========================================
+/build
+/dist
+/.next
+/out
+.cache
+.parcel-cache
+.vite
+.output
+.vercel
+.netlify
+*.tsbuildinfo
+
+# ==========================================
+# UPLOADS & USER CONTENT
+# ==========================================
+uploads/
+public/uploads/
+temp/
+tmp/
+*.tmp
+.temp/
+
+# ==========================================
+# IDE & EDITOR FILES
+# ==========================================
+.vscode/
+!.vscode/extensions.json
+!.vscode/launch.json
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-workspace
+*.sublime-project
+.project
+.classpath
+.settings/
+.vs/
+.vscode-test
+
+# ==========================================
+# OS FILES
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# ==========================================
+# DOCKER & CONTAINERS
+# ==========================================
+docker-compose.override.yml
+.dockerignore
+
+# ==========================================
+# BACKUP & TEMPORARY FILES
+# ==========================================
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+*.swp
+*.swo
+*~
+.~*
+
+# ==========================================
+# SECURITY & SENSITIVE DATA
+# ==========================================
+# SSH Keys
+*.pem
+id_rsa
+id_rsa.pub
+id_dsa
+id_dsa.pub
+id_ecdsa
+id_ecdsa.pub
+id_ed25519
+id_ed25519.pub
+
+# Payment Gateway Keys
+razorpay_keys.txt
+stripe_keys.txt
+payment_config.json
+
+# Session Data
+sessions/
+.session
+
+# Private Data
+private/
+confidential/
+
+# ==========================================
+# DOCUMENTATION (Optional - Remove if needed)
+# ==========================================
+# Uncomment to ignore documentation files
+# *.md
+# !README.md
+# docs/archive/
+
+# ==========================================
+# MISCELLANEOUS
+# ==========================================
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+.eslintcache
+.stylelintcache
+.cache
+.npm
+.yarn
+.pnpm-debug.log
+.python-version
+__pycache__/
+*.py[cod]
+*$py.class

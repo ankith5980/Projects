@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin API Tester</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 { color: #333; margin-bottom: 10px; }
+        .subtitle { color: #666; margin-bottom: 30px; }
+        .section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .endpoint {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .endpoint-info {
+            flex: 1;
+        }
+        .method {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        .get { background: #61affe; color: white; }
+        .post { background: #49cc90; color: white; }
+        .put { background: #fca130; color: white; }
+        .delete { background: #f93e3e; color: white; }
+        .path {
+            color: #333;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        .desc {
+            color: #666;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        button:hover { background: #5568d3; transform: translateY(-1px); }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        .result {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 500px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .success { border-left: 4px solid #49cc90; }
+        .error { border-left: 4px solid #f93e3e; }
+        .status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .status-200 { background: #49cc90; color: white; }
+        .status-error { background: #f93e3e; color: white; }
+        .auth-section {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        .auth-section h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .flex { display: flex; gap: 10px; }
+        .note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        .note strong { color: #1976d2; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Admin API Tester</h1>
+        <p class="subtitle">Test your admin endpoints</p>
+
+        <div class="note">
+            <strong>⚠️ First Time Setup:</strong><br>
+            1. Register a user at <a href="http://localhost:5173/register" target="_blank">http://localhost:5173/register</a><br>
+            2. Make that user an admin (see instructions below)<br>
+            3. Login here with admin credentials<br>
+            4. Test all endpoints!
+        </div>
+
+        <div class="auth-section">
+            <h3>🔑 Authentication</h3>
+            <input type="email" id="email" placeholder="Admin Email" value="">
+            <input type="password" id="password" placeholder="Password" value="">
+            <div class="flex">
+                <button onclick="login()">Login</button>
+                <button onclick="clearAuth()">Logout</button>
+            </div>
+            <div id="authStatus" style="margin-top: 10px; color: #666; font-size: 13px;"></div>
+        </div>
+
+        <div class="section">
+            <h2>📊 Dashboard & Statistics</h2>
+            <div class="endpoint">
+                <div class="endpoint-info">
+                    <div>
+                        <span class="method get">GET</span>
+                        <span class="path">/api/admin/stats</span>
+                    </div>
+                    <div class="desc">Get dashboard overview, member stats, revenue, recent registrations</div>
+                </div>
+                <button onclick="testEndpoint('GET', '/api/admin/stats')">Test</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>👥 User Management</h2>
+            <div class="endpoint">
+                <div class="endpoint-info">
+                    <div>
+                        <span class="method get">GET</span>
+                        <span class="path">/api/admin/users?page=1&limit=10</span>
+                    </div>
+                    <div class="desc">Get all users with pagination</div>
+                </div>
+                <button onclick="testEndpoint('GET', '/api/admin/users?page=1&limit=10')">Test</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>👤 Member Management</h2>
+            <div class="endpoint">
+                <div class="endpoint-info">
+                    <div>
+                        <span class="method get">GET</span>
+                        <span class="path">/api/admin/members?page=1&limit=10</span>
+                    </div>
+                    <div class="desc">Get all members with filters (status, search, etc.)</div>
+                </div>
+                <button onclick="testEndpoint('GET', '/api/admin/members?page=1&limit=10')">Test</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>💰 Payment Management</h2>
+            <div class="endpoint">
+                <div class="endpoint-info">
+                    <div>
+                        <span class="method get">GET</span>
+                        <span class="path">/api/admin/payments?page=1&limit=10</span>
+                    </div>
+                    <div class="desc">Get all payments with summary</div>
+                </div>
+                <button onclick="testEndpoint('GET', '/api/admin/payments?page=1&limit=10')">Test</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📁 Project Management</h2>
+            <div class="endpoint">
+                <div class="endpoint-info">
+                    <div>
+                        <span class="method get">GET</span>
+                        <span class="path">/api/admin/projects?page=1&limit=10</span>
+                    </div>
+                    <div class="desc">Get all projects</div>
+                </div>
+                <button onclick="testEndpoint('GET', '/api/admin/projects?page=1&limit=10')">Test</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📤 Data Export</h2>
+            <div class="endpoint">
+                <div class="endpoint-info">
+                    <div>
+                        <span class="method get">GET</span>
+                        <span class="path">/api/admin/export/members</span>
+                    </div>
+                    <div class="desc">Export members data as JSON</div>
+                </div>
+                <button onclick="testEndpoint('GET', '/api/admin/export/members')">Test</button>
+            </div>
+            <div class="endpoint">
+                <div class="endpoint-info">
+                    <div>
+                        <span class="method get">GET</span>
+                        <span class="path">/api/admin/export/users</span>
+                    </div>
+                    <div class="desc">Export users data as JSON</div>
+                </div>
+                <button onclick="testEndpoint('GET', '/api/admin/export/users')">Test</button>
+            </div>
+            <div class="endpoint">
+                <div class="endpoint-info">
+                    <div>
+                        <span class="method get">GET</span>
+                        <span class="path">/api/admin/export/payments</span>
+                    </div>
+                    <div class="desc">Export payments data as JSON</div>
+                </div>
+                <button onclick="testEndpoint('GET', '/api/admin/export/payments')">Test</button>
+            </div>
+        </div>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000';
+        let accessToken = localStorage.getItem('accessToken');
+
+        function updateAuthStatus() {
+            const status = document.getElementById('authStatus');
+            if (accessToken) {
+                status.innerHTML = '✅ Logged in';
+                status.style.color = '#49cc90';
+            } else {
+                status.innerHTML = '❌ Not logged in';
+                status.style.color = '#f93e3e';
+            }
+        }
+
+        async function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (!email || !password) {
+                alert('Please enter email and password');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    accessToken = data.data.accessToken;
+                    localStorage.setItem('accessToken', accessToken);
+                    updateAuthStatus();
+                    showResult(data, response.status);
+                } else {
+                    throw new Error(data.message || 'Login failed');
+                }
+            } catch (error) {
+                showResult({ error: error.message }, 401);
+            }
+        }
+
+        function clearAuth() {
+            accessToken = null;
+            localStorage.removeItem('accessToken');
+            updateAuthStatus();
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        async function testEndpoint(method, path) {
+            if (!accessToken) {
+                alert('Please login first!');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}${path}`, {
+                    method,
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    credentials: 'include'
+                });
+
+                const data = await response.json();
+                showResult(data, response.status);
+            } catch (error) {
+                showResult({ error: error.message }, 500);
+            }
+        }
+
+        function showResult(data, status) {
+            const resultDiv = document.getElementById('result');
+            const isSuccess = status >= 200 && status < 300;
+            
+            resultDiv.className = `result ${isSuccess ? 'success' : 'error'}`;
+            resultDiv.innerHTML = `
+                <span class="status ${isSuccess ? 'status-200' : 'status-error'}">HTTP ${status}</span>
+                ${JSON.stringify(data, null, 2)}
+            `;
+        }
+
+        // Initialize
+        updateAuthStatus();
+    </script>
+</body>
+</html>
