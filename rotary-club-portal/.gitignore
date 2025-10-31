@@ -62,6 +62,8 @@ combined.log
 error.log
 access.log
 server.log
+server/logs/
+client/logs/
 
 # ==========================================
 # TESTING
@@ -91,6 +93,10 @@ __coverage__/
 .vercel
 .netlify
 *.tsbuildinfo
+client/dist/
+client/build/
+server/dist/
+server/build/
 
 # ==========================================
 # UPLOADS & USER CONTENT
@@ -101,6 +107,8 @@ temp/
 tmp/
 *.tmp
 .temp/
+server/uploads/
+client/uploads/
 
 # ==========================================
 # IDE & EDITOR FILES
@@ -184,6 +192,15 @@ sessions/
 # Private Data
 private/
 confidential/
+
+# Additional Security
+*.keystore
+*.jks
+*.p8
+auth.json
+secrets.json
+config.json
+!public/config.json
 
 # ==========================================
 # DOCUMENTATION (Optional - Remove if needed)
