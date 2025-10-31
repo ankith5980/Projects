@@ -224,6 +224,15 @@ const Home = () => {
           liveUrl: 'https://koha-library-management-system.vercel.app',
           githubUrl: 'https://github.com/ankith5980/Projects/tree/main/label'
         },
+        {
+          _id: 3,
+          title: 'Club Management System - Rotary Club of Calicut South',
+          description: 'A comprehensive club management system designed to streamline operations, member management, and event planning and membership payment for the Rotary Club of Calicut South.',
+          technologies: ['React', 'MongoDB Atlas', 'Tailwind CSS','Docker'],
+          images: [{ url: '/images/Club_Management_App.png' }],
+          liveUrl: '',
+          githubUrl: '',
+        }
       ];
       setFeaturedProjects(recentProjects);
 

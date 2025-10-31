@@ -147,10 +147,22 @@ const Projects = () => {
       description: 'Live Demo isn\'t available currently due to privacy concerns. Please contact me for more details.',
       technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS'],
       images: [{ url: '/images/kohabanner.jpg' }],
-      liveUrl: 'https://koha-library-management-system.vercel.app',
+      liveUrl: '',
       githubUrl: 'https://github.com/ankith5980/Projects/tree/main/label',
       category: 'backend',
       status: 'continuous-development',
+      featured: true
+    },
+    {
+      _id: 3,
+      title: 'Club Management System - Rotary Club of Calicut South',
+      description: 'A comprehensive club management system designed to streamline operations, member management, and event planning and membership payment for the Rotary Club of Calicut South.',
+      technologies: ['React', 'MongoDB Atlas', 'Tailwind CSS','Docker'],
+      images: [{ url: '/images/Club_Management_App.png' }],
+      liveUrl: '',
+      githubUrl: '',
+      category: 'fullstack',
+      status: 'in-progress',
       featured: true
     },
   ], []);
