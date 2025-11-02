@@ -31,7 +31,7 @@ const Dashboard = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             onClick={handleLogout}
-            className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200"
+            className="flex items-center space-x-2 bg-red-600/20 backdrop-blur-md border border-red-600/40 hover:bg-red-600/30 text-red-700 dark:text-red-300 px-4 py-2 rounded-lg font-medium transition-colors duration-200"
           >
             <FaSignOutAlt className="w-4 h-4" />
             <span>Logout</span>

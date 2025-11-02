@@ -15,10 +15,24 @@ export const ThemeProvider = ({ children }) => {
     // Check if user has a preference stored in localStorage
     const stored = localStorage.getItem('theme');
     if (stored) {
-      return stored === 'dark';
+      const isDarkMode = stored === 'dark';
+      // Apply theme immediately before render to prevent flash
+      if (isDarkMode) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      return isDarkMode;
     }
     // Check system preference
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    // Apply theme immediately before render to prevent flash
+    if (prefersDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    return prefersDark;
   });
 
   useEffect(() => {

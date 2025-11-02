@@ -30,6 +30,7 @@ app.use('/api/projects', require('./routes/projects'));
 app.use('/api/skills', require('./routes/skills'));
 app.use('/api/contact', require('./routes/contact'));
 app.use('/api/about', require('./routes/about'));
+app.use('/api/certificates', require('./routes/certificates'));
 app.use('/api/upload', require('./routes/upload'));
 
 // Basic route

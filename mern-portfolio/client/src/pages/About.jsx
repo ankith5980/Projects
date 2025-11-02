@@ -150,7 +150,7 @@ const About = () => {
     email: 'ankithpratheesh147@gmail.com',
     phone: '+91 9495540233',
     experience: 'Fresher',
-    projects: '2 Projects',
+    projects: '3 Projects',
     avatar: { url: '/images/Ankith.jpg' },
     socialLinks: {
       github: 'https://github.com/ankith5980',
@@ -426,11 +426,11 @@ const About = () => {
               
               {/* Quick Stats */}
               <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 p-4 rounded-lg">
                   <div className="text-2xl font-bold text-primary-600">{aboutData.experience || '3+'}</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Years Experience</div>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 p-4 rounded-lg">
                   <div className="text-2xl font-bold text-primary-600">{aboutData.projects || '50+'}</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Projects Completed</div>
                 </div>
@@ -456,7 +456,7 @@ const About = () => {
               <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
                 <Link
                   to="/contact"
-                  className="inline-flex items-center space-x-2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+                  className="inline-flex items-center space-x-2 bg-primary-600/20 backdrop-blur-md border border-primary-600/40 hover:bg-primary-600/30 text-primary-700 dark:text-primary-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
                 >
                   <FaEnvelope className="w-4 h-4" />
                   <span>Get In Touch</span>
@@ -464,7 +464,7 @@ const About = () => {
                 <a
                   href="/cv/My Resume.pdf"
                   download="Ankith_Pratheesh_Menon_CV.pdf"
-                  className="inline-flex items-center space-x-2 border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+                  className="inline-flex items-center space-x-2 bg-purple-600/20 backdrop-blur-md border border-purple-600/40 hover:bg-purple-600/30 text-purple-700 dark:text-purple-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
                 >
                   <FaDownload className="w-4 h-4" />
                   <span>Download CV</span>
@@ -486,7 +486,7 @@ const About = () => {
             My <span className="text-gradient">Story</span>
           </motion.h2>
           <motion.div variants={itemVariants} className="max-w-4xl mx-auto">
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg">
+            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 p-8 rounded-2xl shadow-lg">
               <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
                 {aboutData.bio || `I'm a passionate full-stack developer with over 3 years of experience creating 
                 digital solutions that make a difference. My journey began with a curiosity about how websites work, 
@@ -519,10 +519,35 @@ const About = () => {
                 key={tech.name}
                 variants={itemVariants}
                 whileHover={{ scale: 1.05 }}
-                className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center group hover:shadow-xl transition-all duration-200"
+                className="relative bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 p-6 rounded-xl shadow-lg text-center group transition-all duration-200"
+                style={{ 
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = e.clientX - rect.left;
+                  const y = e.clientY - rect.top;
+                  
+                  e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                  e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.setProperty('--opacity', '1');
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.setProperty('--opacity', '0');
+                }}
               >
-                <tech.icon className={`w-12 h-12 mx-auto mb-3 ${tech.color} group-hover:scale-110 transition-transform duration-200`} />
-                <h3 className="font-semibold text-gray-900 dark:text-white">{tech.name}</h3>
+                <div 
+                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 rounded-xl"
+                  style={{
+                    opacity: 'var(--opacity, 0)',
+                    background: `radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(59, 130, 246, 0.15), transparent 40%)`
+                  }}
+                />
+                <tech.icon className={`relative z-10 w-12 h-12 mx-auto mb-3 ${tech.color} group-hover:scale-110 transition-transform duration-200`} />
+                <h3 className="relative z-10 font-semibold text-gray-900 dark:text-white">{tech.name}</h3>
               </motion.div>
             ))}
           </motion.div>
@@ -560,7 +585,7 @@ const About = () => {
                 </div>
                 
                 {/* Content */}
-                <div className="ml-6 flex-1 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg">
+                <div className="ml-6 flex-1 bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 p-6 rounded-xl shadow-lg">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">{item.title}</h3>
                     <span className="bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 px-3 py-1 rounded-full text-sm font-medium">
@@ -593,7 +618,7 @@ const About = () => {
                 key={interest.name}
                 variants={itemVariants}
                 whileHover={{ scale: 1.1, rotate: 5 }}
-                className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center group hover:shadow-xl transition-all duration-200"
+                className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 p-6 rounded-xl shadow-lg text-center group hover:shadow-xl transition-all duration-200"
               >
                 <interest.icon className={`w-8 h-8 mx-auto mb-3 ${interest.color} group-hover:scale-125 transition-transform duration-200`} />
                 <h3 className="font-semibold text-sm text-gray-900 dark:text-white">{interest.name}</h3>
@@ -618,14 +643,14 @@ const About = () => {
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
                 to="/contact"
-                className="inline-flex items-center space-x-2 bg-white text-primary-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+                className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/40 hover:bg-white/30 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
               >
                 <FaEnvelope className="w-5 h-5" />
                 <span>Start a Conversation</span>
               </Link>
               <Link
                 to="/projects"
-                className="inline-flex items-center space-x-2 border-2 border-white text-white hover:bg-white hover:text-primary-600 px-8 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+                className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border-2 border-white/40 hover:bg-white/30 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
               >
                 <FaRocket className="w-5 h-5" />
                 <span>View My Work</span>
@@ -643,7 +668,7 @@ const About = () => {
                 href={aboutData.socialLinks.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full transition-all duration-200"
+                className="p-3 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full transition-all duration-200"
               >
                 <FaGithub className="w-6 h-6" />
               </motion.a>
@@ -654,7 +679,7 @@ const About = () => {
                 href={aboutData.socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full transition-all duration-200"
+                className="p-3 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full transition-all duration-200"
               >
                 <FaLinkedin className="w-6 h-6" />
               </motion.a>
@@ -665,7 +690,7 @@ const About = () => {
                 href={aboutData.socialLinks.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full transition-all duration-200"
+                className="p-3 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full transition-all duration-200"
               >
                 <FaInstagram className="w-6 h-6" />
               </motion.a>

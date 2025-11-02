@@ -254,7 +254,7 @@ const Contact = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg"
+            className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-2xl p-8 shadow-lg"
           >
             <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
               Send Message
@@ -323,8 +323,8 @@ const Contact = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                      errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white/10 dark:bg-white/5 backdrop-blur-md text-gray-900 dark:text-white ${
+                      errors.name ? 'border-red-500' : 'border-white/20 dark:border-white/10'
                     }`}
                     placeholder="Your Name"
                   />
@@ -343,8 +343,8 @@ const Contact = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                      errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white/10 dark:bg-white/5 backdrop-blur-md text-gray-900 dark:text-white ${
+                      errors.email ? 'border-red-500' : 'border-white/20 dark:border-white/10'
                     }`}
                     placeholder="your@email.com"
                   />
@@ -365,8 +365,8 @@ const Contact = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-700 text-gray-900 dark:text-white ${
-                    errors.subject ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white/10 dark:bg-white/5 backdrop-blur-md text-gray-900 dark:text-white ${
+                    errors.subject ? 'border-red-500' : 'border-white/20 dark:border-white/10'
                   }`}
                   placeholder="What's this about?"
                 />
@@ -386,8 +386,8 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   rows="5"
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-vertical ${
-                    errors.message ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white/10 dark:bg-white/5 backdrop-blur-md text-gray-900 dark:text-white resize-vertical ${
+                    errors.message ? 'border-red-500' : 'border-white/20 dark:border-white/10'
                   }`}
                   placeholder="Tell me about your project or just say hello..."
                 />
@@ -400,11 +400,11 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2 hover:scale-105 disabled:hover:scale-100"
+                className="w-full bg-primary-600/20 backdrop-blur-md border border-primary-600/40 hover:bg-primary-600/30 disabled:bg-gray-400/20 text-primary-700 dark:text-primary-300 disabled:text-gray-500 font-medium py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2 hover:scale-105 disabled:hover:scale-100"
               >
                 {isSubmitting ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin"></div>
                     <span>Sending...</span>
                   </>
                 ) : (
@@ -433,7 +433,7 @@ const Contact = () => {
               {contactInfo.map((info, index) => {
                 const IconComponent = info.icon;
                 const content = (
-                  <div className="flex items-center space-x-4 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                  <div className="flex items-center space-x-4 p-6 bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                     <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
                       <IconComponent className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                     </div>
@@ -461,7 +461,7 @@ const Contact = () => {
             </div>
 
             {/* Social Media Links */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-xl p-6 shadow-lg">
               <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
                 Follow Me
               </h3>
@@ -474,7 +474,7 @@ const Contact = () => {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center text-gray-600 dark:text-gray-400 transition-all duration-200 hover:scale-110 ${social.color}`}
+                      className={`w-12 h-12 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 rounded-lg flex items-center justify-center text-gray-600 dark:text-gray-400 transition-all duration-200 hover:scale-110 ${social.color}`}
                       title={social.label}
                     >
                       <IconComponent className="w-5 h-5" />

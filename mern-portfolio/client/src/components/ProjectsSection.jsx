@@ -19,7 +19,7 @@ const ProjectsSection = React.memo(({ featuredProjects }) => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Featured Projects
+            Featured <span className="text-gradient">Projects</span>
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400">
             Some of my recent work
@@ -34,7 +34,7 @@ const ProjectsSection = React.memo(({ featuredProjects }) => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105"
+              className="group bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105"
             >
               <div className="aspect-video bg-gradient-to-br from-primary-400 to-purple-600 relative overflow-hidden">
                 {project.images?.[0]?.url ? (
@@ -64,7 +64,7 @@ const ProjectsSection = React.memo(({ featuredProjects }) => {
                   {project.technologies.slice(0, 3).map((tech, techIndex) => (
                     <span
                       key={techIndex}
-                      className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs rounded"
+                      className="px-2 py-1 bg-gray-400/20 backdrop-blur-sm border border-gray-400/30 text-xs rounded"
                     >
                       {tech}
                     </span>
@@ -84,7 +84,7 @@ const ProjectsSection = React.memo(({ featuredProjects }) => {
         >
           <Link
             to="/projects"
-            className="inline-flex items-center space-x-2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+            className="inline-flex items-center space-x-2 bg-primary-600/20 backdrop-blur-md border border-primary-600/40 hover:bg-primary-600/30 text-primary-700 dark:text-primary-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
           >
             <span>View All Projects</span>
             <FaArrowRight className="w-4 h-4" />

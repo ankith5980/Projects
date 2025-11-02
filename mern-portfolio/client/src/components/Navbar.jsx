@@ -8,16 +8,26 @@ import {
   FaTimes, 
   FaHome, 
   FaUser, 
-  FaProjectDiagram, 
+  FaProjectDiagram,
+  FaCertificate, 
   FaEnvelope,
   FaCog
 } from 'react-icons/fa';
-import { useTheme } from '../context/ThemeContext.jsx';
-import { useAuth } from '../context/AuthContext.jsx';
+import { useTheme } from '../context/ThemeContext';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [shouldAnimate] = useState(() => {
+    // Only animate on true first load (not on HMR or reloads)
+    const hasLoaded = sessionStorage.getItem('navbarLoaded');
+    if (!hasLoaded) {
+      sessionStorage.setItem('navbarLoaded', 'true');
+      return true;
+    }
+    return false;
+  });
   const { isDark, toggleTheme } = useTheme();
   const { isAuthenticated, isAdmin } = useAuth();
   const location = useLocation();
@@ -42,6 +52,7 @@ const Navbar = () => {
     { path: '/', label: 'Home', icon: FaHome },
     { path: '/about', label: 'About', icon: FaUser },
     { path: '/projects', label: 'Projects', icon: FaProjectDiagram },
+    { path: '/certificates', label: 'Certificates', icon: FaCertificate },
     { path: '/contact', label: 'Contact', icon: FaEnvelope },
   ];
 
@@ -61,8 +72,9 @@ const Navbar = () => {
   return (
     <>
       <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
+        initial={shouldAnimate ? { y: -100, opacity: 0 } : false}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
             ? 'bg-white/90 dark:bg-dark-200/90 backdrop-blur-md shadow-lg'
@@ -74,35 +86,82 @@ const Navbar = () => {
             {/* Logo */}
             <Link
               to="/"
-              className="text-2xl font-bold text-gradient hover:scale-105 transition-transform"
+              className="text-2xl font-bold hover:scale-105 transition-transform"
+              style={{ 
+                color: 'transparent',
+                WebkitTextStroke: '1.5px #6366f1',
+                textStroke: '1.5px #6366f1',
+                textShadow: '0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3), 0 0 30px rgba(139, 92, 246, 0.2)'
+              }}
             >
               Ankith.dev
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105 ${
-                    isActiveLink(item.path)
-                      ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
-                      : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
-                  }`}
-                >
-                  <item.icon className="w-4 h-4" />
-                  <span>{item.label}</span>
-                </Link>
-              ))}
+            {/* --- 
+              MODIFICATION START 
+              --- 
+            */}
+            
+            {/* Navigation container with bright blue outline and outer glow */}
+            <div 
+              className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 rounded-full shadow-lg border-2 border-blue-500"
+              style={{ boxShadow: '0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.3)' }}
+            >
+              {/* This is your original div, now nested.
+                It keeps the flex layout, internal padding, and background color.
+                We removed positioning, shadow, and border from this.
+              */}
+              <div className="flex items-center space-x-2 bg-transparent rounded-full px-4 py-2">
+                {navItems.map((item) => (
+                  <motion.div key={item.path} className="relative">
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
+                        isActiveLink(item.path)
+                          ? 'text-purple-600 dark:text-purple-400'
+                          : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
+                      } relative z-10`}
+                    >
+                      <item.icon className="w-4 h-4" />
+                      <span>{item.label}</span>
+                    </Link>
 
-              {/* Theme Toggle */}
+                    {/* The Animated Slider */}
+                    {isActiveLink(item.path) && (
+                      <motion.div
+                        layoutId="active-pill-slider"
+                        className="absolute inset-0 bg-primary-500/20 dark:bg-white/10 backdrop-blur-md rounded-full border border-primary-500/40 dark:border-white/20"
+                        style={{ zIndex: 0 }}
+                        transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                      />
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* --- 
+              MODIFICATION END 
+              --- 
+            */}
+
+            {/* Theme Toggle - Right Side */}
+            <div className="hidden md:flex items-center">
               <button
                 onClick={toggleTheme}
-                className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200"
+                className="relative w-14 h-7 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-md border border-white/30 dark:border-white/20 transition-all duration-400 hover:border-white/50 dark:hover:border-white/30"
                 aria-label="Toggle theme"
               >
-                {isDark ? <FaSun className="w-5 h-5" /> : <FaMoon className="w-5 h-5" />}
+                <div className={`absolute top-0.5 ${isDark ? 'left-0.5' : 'left-[1.875rem]'} w-6 h-6 rounded-full border-2 border-yellow-400 dark:border-blue-400 bg-transparent flex items-center justify-center transition-all duration-500 ease-in-out`}>
+                  <div className="relative w-3 h-3 transition-all duration-500 ease-in-out">
+                    {isDark ? (
+                      <FaMoon className="w-3 h-3 text-blue-400 transition-all duration-500 ease-in-out" />
+                    ) : (
+                      <FaSun className="w-3 h-3 text-yellow-400 transition-all duration-500 ease-in-out" />
+                    )}
+                  </div>
+                </div>
               </button>
             </div>
 
@@ -110,10 +169,18 @@ const Navbar = () => {
             <div className="md:hidden flex items-center space-x-4">
               <button
                 onClick={toggleTheme}
-                className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                className="relative w-14 h-7 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-md border border-white/30 dark:border-white/20 transition-all duration-400"
                 aria-label="Toggle theme"
               >
-                {isDark ? <FaSun className="w-5 h-5" /> : <FaMoon className="w-5 h-5" />}
+                <div className={`absolute top-0.5 ${isDark ? 'left-0.5' : 'left-[1.875rem]'} w-6 h-6 rounded-full border-2 border-yellow-400 dark:border-blue-400 bg-transparent flex items-center justify-center transition-all duration-500 ease-in-out`}>
+                  <div className="relative w-3 h-3 transition-all duration-500 ease-in-out">
+                    {isDark ? (
+                      <FaMoon className="w-3 h-3 text-blue-400 transition-all duration-500 ease-in-out" />
+                    ) : (
+                      <FaSun className="w-3 h-3 text-yellow-400 transition-all duration-500 ease-in-out" />
+                    )}
+                  </div>
+                </div>
               </button>
               
               <button
@@ -132,7 +199,7 @@ const Navbar = () => {
         </div>
       </motion.nav>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation (Unchanged) */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -166,7 +233,7 @@ const Navbar = () => {
         )}
       </AnimatePresence>
 
-      {/* Overlay */}
+      {/* Overlay (Unchanged) */}
       <AnimatePresence>
         {isOpen && (
           <motion.div

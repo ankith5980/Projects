@@ -90,6 +90,30 @@ const apiService = {
   deleteSkill: (id) => api.delete(`/skills/${id}`),
   toggleSkillVisibility: (id) => api.put(`/skills/${id}/toggle-visibility`),
 
+  // Certificates
+  getCertificates: (params = {}) => {
+    const cacheKey = `/certificates?${new URLSearchParams(params).toString()}`;
+    return cachedGet(cacheKey, () => api.get('/certificates', { params }));
+  },
+  getCertificate: (id) => cachedGet(`/certificates/${id}`, () => api.get(`/certificates/${id}`)),
+  getAdminCertificates: () => api.get('/certificates/admin'),
+  createCertificate: (data) => {
+    apiCache.clear(); // Clear cache on create
+    return api.post('/certificates', data);
+  },
+  updateCertificate: (id, data) => {
+    apiCache.clear(); // Clear cache on update
+    return api.put(`/certificates/${id}`, data);
+  },
+  deleteCertificate: (id) => {
+    apiCache.clear(); // Clear cache on delete
+    return api.delete(`/certificates/${id}`);
+  },
+  toggleCertificateVisibility: (id) => {
+    apiCache.clear(); // Clear cache on visibility toggle
+    return api.put(`/certificates/${id}/toggle-visibility`);
+  },
+
   // Contact
   sendMessage: (data) => api.post('/contact', data),
   getMessages: (params = {}) => api.get('/contact', { params }),

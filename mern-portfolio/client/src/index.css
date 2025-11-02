@@ -6,6 +6,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* Smooth theme transitions */
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
 html {
@@ -86,6 +88,21 @@ code {
 @layer utilities {
   .text-gradient {
     @apply bg-gradient-to-r from-primary-500 to-purple-600 bg-clip-text text-transparent;
+  }
+  
+  .text-outline {
+    color: transparent;
+    -webkit-text-stroke: 3px;
+    -webkit-text-stroke-color: #6366f1;
+    text-stroke: 3px #6366f1;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    paint-order: stroke fill;
+  }
+  
+  .dark .text-outline {
+    -webkit-text-stroke-color: #a5b4fc;
+    text-stroke-color: #a5b4fc;
   }
   
   .glass-morphism {
@@ -350,4 +367,122 @@ code {
 
 .dark .prose code {
   @apply text-gray-200;
+}
+
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* This also stays the same */
+@keyframes spin-gradient {
+  0% {
+    --gradient-angle: 0deg;
+  }
+  100% {
+    --gradient-angle: 360deg;
+  }
+}
+
+/* THIS IS THE UPDATED CLASS */
+.laser-gradient-border {
+  padding: 2px; /* This controls the thickness of the gradient line */
+  
+  /* This is the new gradient. 
+    It's mostly transparent, with two small, sharp "lasers"
+    made of the blue and purple colors.
+  */
+  background: conic-gradient(
+    from var(--gradient-angle),
+    transparent 0deg,
+    transparent 175deg,  /* Start fade-in for laser 1 */
+    #00c6ff 180deg,       /* Peak of laser 1 (blue) */
+    transparent 185deg,  /* End fade-out for laser 1 */
+    transparent 355deg,  /* Start fade-in for laser 2 */
+    #7e22ce 360deg        /* Peak of laser 2 (purple) */
+  );
+  
+  /* We can make it a bit faster to look more like "chasing" */
+  animation: spin-gradient 6s linear infinite;
+}
+
+/* Shimmer animation for loading states */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Page entry animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.8s ease-out;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.8s ease-out 0.2s backwards;
+}
+
+.certificate-card {
+  animation: scaleIn 0.5s ease-out backwards;
 }

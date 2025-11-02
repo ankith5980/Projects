@@ -14,15 +14,23 @@ const RouteScrollToTop = () => {
       }
     }
     
-    // Otherwise scroll to top when pathname changes
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'auto' // Instant scroll for better UX on route changes
+    // Force scroll to top immediately on route change or page load
+    // Use requestAnimationFrame to ensure DOM is ready
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
     });
   }, [pathname, hash, key]);
 
-  return null; // This component doesn't render anything
+  // Also handle initial page load
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
+
+  return null;
 };
 
 export default RouteScrollToTop;

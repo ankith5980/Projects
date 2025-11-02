@@ -20,7 +20,7 @@ const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants }) =
   <motion.div
     key={project._id}
     variants={itemVariants}
-    className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105"
+    className="group bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105"
   >
     {/* Project Image */}
     <div className="aspect-video bg-gradient-to-br from-primary-400 to-purple-600 relative overflow-hidden">
@@ -64,13 +64,13 @@ const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants }) =
         {project.technologies.slice(0, 3).map((tech, techIndex) => (
           <span
             key={techIndex}
-            className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs rounded font-medium"
+            className="px-2 py-1 bg-gray-400/20 backdrop-blur-sm border border-gray-400/30 text-xs rounded font-medium"
           >
             {tech}
           </span>
         ))}
         {project.technologies.length > 3 && (
-          <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs rounded font-medium">
+          <span className="px-2 py-1 bg-gray-400/20 backdrop-blur-sm border border-gray-400/30 text-xs rounded font-medium">
             +{project.technologies.length - 3} more
           </span>
         )}
@@ -84,11 +84,11 @@ const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants }) =
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-1 px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
-              title="View on GitHub"
+              className="flex items-center space-x-1 px-3 py-2 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors text-sm"
+              title="View Source Code"
             >
-              <FaGithub className="w-4 h-4" />
-              <span>GitHub</span>
+              <FaGithub className="w-3 h-3" />
+              <span>Code</span>
             </a>
           )}
           {project.liveUrl && (
@@ -96,7 +96,7 @@ const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants }) =
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-1 px-3 py-2 text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors text-sm"
+              className="flex items-center space-x-1 px-3 py-2 bg-primary-600/20 backdrop-blur-md border border-primary-600/40 hover:bg-primary-600/30 text-primary-700 dark:text-primary-300 rounded-lg transition-colors text-sm"
               title="View Live Demo"
             >
               <FaExternalLinkAlt className="w-3 h-3" />
@@ -306,7 +306,7 @@ const Projects = () => {
           <div className="flex justify-between items-center mb-4">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center space-x-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 text-gray-700 dark:text-gray-300 rounded-lg transition-colors"
             >
               <FaFilter className="w-4 h-4" />
               <span>Filters</span>
@@ -315,7 +315,7 @@ const Projects = () => {
             {(selectedCategory !== 'all' || selectedStatus !== 'all' || debouncedSearchTerm) && (
               <button
                 onClick={clearFilters}
-                className="flex items-center space-x-2 px-4 py-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 bg-red-600/20 backdrop-blur-md border border-red-600/40 hover:bg-red-600/30 text-red-700 dark:text-red-300 rounded-lg transition-colors"
               >
                 <FaTimes className="w-4 h-4" />
                 <span>Clear Filters</span>

@@ -38,6 +38,7 @@ const Footer = () => {
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Projects', path: '/projects' },
+    { name: 'Certificates', path: '/certificates' },
     { name: 'Contact', path: '/contact' },
   ];
 
@@ -63,7 +64,7 @@ const Footer = () => {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 rounded-lg transition-all duration-200 hover:scale-110"
+                  className="p-2 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 rounded-lg transition-all duration-200 hover:scale-110"
                   aria-label={link.name}
                 >
                   <link.icon className="w-5 h-5" />
@@ -101,7 +102,7 @@ const Footer = () => {
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center space-x-2 bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+              className="inline-flex items-center space-x-2 bg-primary-600/20 backdrop-blur-md border border-primary-600/40 hover:bg-primary-600/30 text-primary-700 dark:text-primary-300 px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105"
             >
               <FaEnvelope className="w-4 h-4" />
               <span>Contact Me</span>
@@ -112,7 +113,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
           <p className="text-gray-600 dark:text-gray-400 text-center sm:text-left">
-            © {currentYear} Ankith. All rights reserved.
+            © {currentYear} Designed by Ankith Pratheesh Menon. All rights reserved.
           </p>
           <p className="text-gray-600 dark:text-gray-400 flex items-center space-x-1">
             <span>MERN Stack</span>

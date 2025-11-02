@@ -5,6 +5,7 @@ Allow: /
 Allow: /
 Allow: /about
 Allow: /projects
+Allow: /certificates
 Allow: /contact
 
 # Allow important assets for better indexing
@@ -32,6 +33,7 @@ User-agent: Googlebot
 Allow: /
 Allow: /about
 Allow: /projects
+Allow: /certificates
 Allow: /contact
 Allow: /images/Ankith.jpg
 Allow: /cv/
