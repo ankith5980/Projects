@@ -86,13 +86,7 @@ const Navbar = () => {
             {/* Logo - Hidden on md to prevent overlap, shown on lg+ */}
             <Link
               to="/"
-              className="text-xl md:text-2xl font-bold hover:scale-105 transition-transform hidden lg:block"
-              style={{ 
-                color: 'transparent',
-                WebkitTextStroke: '1.5px #6366f1',
-                textStroke: '1.5px #6366f1',
-                textShadow: '0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3), 0 0 30px rgba(139, 92, 246, 0.2)'
-              }}
+              className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 bg-clip-text text-transparent hover:scale-105 transition-transform hidden lg:block"
             >
               Ankith.dev
             </Link>
@@ -100,13 +94,7 @@ const Navbar = () => {
             {/* Mobile/Tablet Logo - Smaller and shown only on smaller screens */}
             <Link
               to="/"
-              className="text-lg sm:text-xl font-bold hover:scale-105 transition-transform lg:hidden"
-              style={{ 
-                color: 'transparent',
-                WebkitTextStroke: '1.2px #6366f1',
-                textStroke: '1.2px #6366f1',
-                textShadow: '0 0 8px rgba(139, 92, 246, 0.4), 0 0 15px rgba(139, 92, 246, 0.2)'
-              }}
+              className="text-lg sm:text-xl font-bold bg-gradient-to-r from-primary-600 via-purple-600 to-pink-600 bg-clip-text text-transparent hover:scale-105 transition-transform lg:hidden"
             >
               Ankith.dev
             </Link>
