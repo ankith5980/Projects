@@ -48,19 +48,19 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://portfolio-ankith.vercel.app/images/python(1).png</image:loc>
+      <image:loc>https://portfolio-ankith.vercel.app/images/python_cert%20(1).jpg</image:loc>
       <image:title>Python Django Web Development Certificate - Ankith Pratheesh Menon</image:title>
-      <image:caption>Professional certification in Python and Django web development earned by Ankith Pratheesh Menon from Udemy, demonstrating expertise in backend development and web frameworks</image:caption>
+      <image:caption>Professional certification in Python and Django web development earned by Ankith Pratheesh Menon, demonstrating expertise in backend development and web frameworks</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://portfolio-ankith.vercel.app/images/flutter(1).png</image:loc>
+      <image:loc>https://portfolio-ankith.vercel.app/images/flutter_cert%20(1).jpg</image:loc>
       <image:title>Flutter Dart Mobile Development Certificate - Ankith Pratheesh Menon</image:title>
-      <image:caption>Professional certification in Flutter and Dart mobile application development earned by Ankith Pratheesh Menon from Udemy, showcasing cross-platform mobile development skills</image:caption>
+      <image:caption>Professional certification in Flutter and Dart mobile application development earned by Ankith Pratheesh Menon, showcasing cross-platform mobile development skills</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://portfolio-ankith.vercel.app/images/figma(1).png</image:loc>
+      <image:loc>https://portfolio-ankith.vercel.app/images/ui_ux_cert%20(1).jpg</image:loc>
       <image:title>Figma UI/UX Design Certificate - Ankith Pratheesh Menon</image:title>
-      <image:caption>Professional certification in Figma UI/UX design earned by Ankith Pratheesh Menon from Udemy, demonstrating user interface and user experience design capabilities</image:caption>
+      <image:caption>Professional certification in Figma UI/UX design earned by Ankith Pratheesh Menon, demonstrating user interface and user experience design capabilities</image:caption>
     </image:image>
   </url>
   
