@@ -237,16 +237,16 @@ const Projects = () => {
         </motion.div>
 
         {/* Search */}
-        <div className="relative max-w-xl mx-auto mb-12 animate-slideUp">
+        <div className="relative max-w-xl mx-auto mb-12 animate-slideUp group">
           <label htmlFor="project-search" className="sr-only">Search projects</label>
-          <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" aria-hidden="true" />
+          <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-primary-500 transition-colors duration-300" aria-hidden="true" />
           <input
             id="project-search"
             type="search"
             placeholder="Search projects..."
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none"
+            className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none hover:border-primary-400 dark:hover:border-primary-500 hover:shadow-lg transition-all duration-300"
             aria-label="Search projects by title, description, technology, category, or status"
           />
         </div>

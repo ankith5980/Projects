@@ -117,16 +117,16 @@ const Certificates = () => {
         </header>
 
         {/* Search */}
-        <div className="relative max-w-xl mx-auto mb-12 animate-slideUp">
+        <div className="relative max-w-xl mx-auto mb-12 animate-slideUp group">
           <label htmlFor="certificate-search" className="sr-only">Search certificates</label>
-          <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" aria-hidden="true" />
+          <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-primary-500 transition-colors duration-300" aria-hidden="true" />
           <input
             id="certificate-search"
             type="search"
             placeholder="Search certificates..."
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none"
+            className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none hover:border-primary-400 dark:hover:border-primary-500 hover:shadow-lg transition-all duration-300"
             aria-label="Search certificates by title, issuer, or skills"
           />
         </div>
@@ -137,18 +137,18 @@ const Certificates = () => {
           {filtered.map((cert, index) => (
             <article
               key={cert._id}
-              className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 certificate-card"
+              className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-2xl transition-all duration-300 certificate-card"
               style={{ animationDelay: `${index * 100}ms` }}
               itemScope
               itemType="https://schema.org/EducationalOccupationalCredential"
             >
               {/* Image */}
-              <div className="aspect-video bg-gradient-to-br from-blue-500 to-purple-600 relative">
+              <div className="aspect-video bg-gradient-to-br from-blue-500 to-purple-600 relative overflow-hidden">
                 {cert.image ? (
                   <img
                     src={cert.image}
                     alt={`${cert.title} certificate from ${cert.issuer}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     loading="lazy"
                     itemProp="image"
                   />
@@ -172,7 +172,7 @@ const Certificates = () => {
               
               {/* Content */}
               <div className="p-6">
-                <h2 className="text-xl font-semibold mb-2 line-clamp-2" itemProp="name">
+                <h2 className="text-xl font-semibold mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors" itemProp="name">
                   {cert.title}
                 </h2>
                 
