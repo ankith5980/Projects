@@ -30,9 +30,10 @@ const GlassmorphismBackground = () => {
   ];
 
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-      {/* Static base gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-slate-900 dark:to-indigo-950" />
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 w-full max-w-full" style={{ minHeight: '100vh', maxWidth: '100vw' }}>
+      {/* Static base gradient background - Extended to prevent white space */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-slate-900 dark:to-indigo-950 w-full" 
+        style={{ minHeight: '120vh', top: '-10vh' }} />
       
       {/* Floating gradient orbs - CSS animations only */}
       {orbs.map((orb) => (

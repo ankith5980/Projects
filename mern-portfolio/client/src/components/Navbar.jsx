@@ -82,16 +82,30 @@ const Navbar = () => {
         }`}
       >
         <div className="container-padding">
-          <div className="flex items-center justify-between h-16 lg:h-20">
-            {/* Logo */}
+          <div className="flex items-center justify-between h-16 md:h-18 lg:h-20">
+            {/* Logo - Hidden on md to prevent overlap, shown on lg+ */}
             <Link
               to="/"
-              className="text-2xl font-bold hover:scale-105 transition-transform"
+              className="text-xl md:text-2xl font-bold hover:scale-105 transition-transform hidden lg:block"
               style={{ 
                 color: 'transparent',
                 WebkitTextStroke: '1.5px #6366f1',
                 textStroke: '1.5px #6366f1',
                 textShadow: '0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3), 0 0 30px rgba(139, 92, 246, 0.2)'
+              }}
+            >
+              Ankith.dev
+            </Link>
+            
+            {/* Mobile/Tablet Logo - Smaller and shown only on smaller screens */}
+            <Link
+              to="/"
+              className="text-lg sm:text-xl font-bold hover:scale-105 transition-transform lg:hidden"
+              style={{ 
+                color: 'transparent',
+                WebkitTextStroke: '1.2px #6366f1',
+                textStroke: '1.2px #6366f1',
+                textShadow: '0 0 8px rgba(139, 92, 246, 0.4), 0 0 15px rgba(139, 92, 246, 0.2)'
               }}
             >
               Ankith.dev
@@ -102,29 +116,29 @@ const Navbar = () => {
               --- 
             */}
             
-            {/* Navigation container with bright blue outline and outer glow */}
+            {/* Navigation container with bright blue outline and outer glow - Better tablet positioning */}
             <div 
-              className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 rounded-full shadow-lg border-2 border-blue-500"
+              className="hidden md:flex md:relative lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 rounded-full shadow-lg border-2 border-blue-500"
               style={{ boxShadow: '0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.3)' }}
             >
               {/* This is your original div, now nested.
                 It keeps the flex layout, internal padding, and background color.
                 We removed positioning, shadow, and border from this.
               */}
-              <div className="flex items-center space-x-2 bg-transparent rounded-full px-4 py-2">
+              <div className="flex items-center space-x-1 md:space-x-2 bg-transparent rounded-full px-2 md:px-4 py-2">
                 {navItems.map((item) => (
                   <motion.div key={item.path} className="relative">
                     <Link
                       key={item.path}
                       to={item.path}
-                      className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
+                      className={`flex items-center space-x-1 md:space-x-2 px-2 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-colors duration-200 ${
                         isActiveLink(item.path)
                           ? 'text-purple-600 dark:text-purple-400'
                           : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
                       } relative z-10`}
                     >
-                      <item.icon className="w-4 h-4" />
-                      <span>{item.label}</span>
+                      <item.icon className="w-3 h-3 md:w-4 md:h-4" />
+                      <span className="hidden sm:inline">{item.label}</span>
                     </Link>
 
                     {/* The Animated Slider */}

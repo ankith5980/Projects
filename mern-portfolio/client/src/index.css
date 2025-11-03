@@ -15,6 +15,11 @@
   -ms-user-select: none;
 }
 
+/* Prevent horizontal overflow globally */
+*, *::before, *::after {
+  max-width: 100%;
+}
+
 /* Allow text selection for input fields and textareas */
 input, textarea {
   user-select: text;
@@ -38,7 +43,10 @@ img {
 html {
   scroll-behavior: smooth;
   /* Prevent scroll restoration on navigation */
-  overscroll-behavior: contain;
+  overscroll-behavior-y: none;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -50,6 +58,13 @@ body {
   line-height: 1.6;
   /* Ensure consistent scrollbar behavior */
   overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+  /* Prevent rubber band effect on iOS */
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch;
+  /* Ensure proper positioning */
+  position: relative;
 }
 
 /* Page transition styles */
@@ -57,6 +72,18 @@ main {
   min-height: 100vh;
   /* Prevent layout shift during navigation */
   scroll-margin-top: 0;
+  /* Prevent horizontal overflow */
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Root container fixes */
+#root {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
 }
 
 /* Particle background optimization */
