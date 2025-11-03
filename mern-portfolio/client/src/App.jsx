@@ -16,6 +16,9 @@ import RouteScrollToTop from './components/RouteScrollToTop.jsx';
 import GlassmorphismBackground from './components/GlassmorphismBackground.jsx';
 import LoadingSkeleton from './components/LoadingSkeleton.jsx';
 
+// Hooks
+import useDisableInspect from './hooks/useDisableInspect.js';
+
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home.jsx'));
 const About = lazy(() => import('./pages/About.jsx'));
@@ -29,6 +32,9 @@ const Dashboard = lazy(() => import('./pages/Dashboard.jsx'));
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 function App() {
+  // Disable inspect element and developer tools
+  useDisableInspect();
+  
   return (
     <HelmetProvider>
       <Router>
