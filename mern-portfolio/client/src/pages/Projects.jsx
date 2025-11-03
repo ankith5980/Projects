@@ -1,15 +1,13 @@
-import React, { useState, useMemo, useCallback, memo, useEffect } from 'react';
+import React, { useState, useMemo, useCallback, memo } from 'react';
 import { motion } from 'framer-motion';
 import { 
   FaSearch, 
-  FaFilter, 
   FaCode, 
   FaExternalLinkAlt, 
   FaGithub,
   FaCheckCircle,
   FaClock,
   FaArchive,
-  FaTimes,
   FaSync
 } from 'react-icons/fa';
 import SEO from '../components/SEO';
@@ -113,19 +111,6 @@ ProjectCard.displayName = 'ProjectCard';
 
 const Projects = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedStatus, setSelectedStatus] = useState('all');
-  const [showFilters, setShowFilters] = useState(false);
-
-  // Debounce search term for better performance
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm);
-    }, 300);
-
-    return () => clearTimeout(timer);
-  }, [searchTerm]);
 
   // Memoized projects data to prevent re-creation on each render
   const projects = useMemo(() => [
@@ -183,42 +168,18 @@ const Projects = () => {
     visible: { opacity: 1, y: 0 }
   }), []);
 
-  // Memoized categories for filtering
-  const categories = useMemo(() => [
-    { value: 'all', label: 'All Projects' },
-    { value: 'web', label: 'Web' },
-    { value: 'mobile', label: 'Mobile' },
-    { value: 'fullstack', label: 'Full Stack' },
-    { value: 'frontend', label: 'Frontend' },
-    { value: 'backend', label: 'Backend' },
-    { value: 'desktop', label: 'Desktop' },
-    { value: 'other', label: 'Other' }
-  ], []);
-
-  const statuses = useMemo(() => [
-    { value: 'all', label: 'All Status' },
-    { value: 'completed', label: 'Completed' },
-    { value: 'in-progress', label: 'In Progress' },
-    { value: 'continuous-development', label: 'Continuous Development' },
-    { value: 'archived', label: 'Archived' }
-  ], []);
-
-  // Filter and search projects with debounced search
+  // Simple filter - same style as Certificates section
   const filteredProjects = useMemo(() => {
     return projects.filter(project => {
-      const matchesSearch = debouncedSearchTerm === '' || 
-                           project.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-                           project.description.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-                           project.technologies.some(tech => 
-                             tech.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-                           );
-      
-      const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory;
-      const matchesStatus = selectedStatus === 'all' || project.status === selectedStatus;
-      
-      return matchesSearch && matchesCategory && matchesStatus;
+      if (!searchTerm) return true;
+      const search = searchTerm.toLowerCase();
+      return project.title.toLowerCase().includes(search) ||
+             project.description.toLowerCase().includes(search) ||
+             project.technologies.some(tech => tech.toLowerCase().includes(search)) ||
+             project.category.toLowerCase().includes(search) ||
+             project.status.toLowerCase().includes(search);
     });
-  }, [projects, debouncedSearchTerm, selectedCategory, selectedStatus]);
+  }, [projects, searchTerm]);
 
   // Memoized status configuration function
   const getStatusConfig = useCallback((status) => {
@@ -234,14 +195,6 @@ const Projects = () => {
       default:
         return { icon: FaCheckCircle, color: 'text-green-500', label: 'Completed' };
     }
-  }, []);
-
-  // Memoized clear filters function
-  const clearFilters = useCallback(() => {
-    setSearchTerm('');
-    setDebouncedSearchTerm('');
-    setSelectedCategory('all');
-    setSelectedStatus('all');
   }, []);
 
   return (
@@ -274,142 +227,69 @@ const Projects = () => {
           className="text-center mb-12"
         >
           <h1 className="text-4xl lg:text-5xl font-bold text-gradient mb-5">My Projects</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-8">
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-4">
             Explore my portfolio of web applications, mobile apps, and other creative projects. 
             Each project represents a unique challenge and learning experience.
           </p>
-          <div className="text-primary-600 dark:text-primary-400 font-medium">
-            {filteredProjects.length} {filteredProjects.length === 1 ? 'Project' : 'Projects'} Found
-          </div>
+          <p className="text-primary-600 dark:text-primary-400 font-medium">
+            {filteredProjects.length} {filteredProjects.length === 1 ? 'Project' : 'Projects'} {searchTerm ? 'Found' : 'Total'}
+          </p>
         </motion.div>
 
-        {/* Search and Filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-8"
-        >
-          {/* Search Bar */}
-          <div className="relative mb-4">
-            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-            <input
-              type="text"
-              placeholder="Search projects by name, description, or technology..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
-            />
-          </div>
-
-          {/* Filter Toggle Button */}
-          <div className="flex justify-between items-center mb-4">
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center space-x-2 px-4 py-2 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 text-gray-700 dark:text-gray-300 rounded-lg transition-colors"
-            >
-              <FaFilter className="w-4 h-4" />
-              <span>Filters</span>
-            </button>
-
-            {(selectedCategory !== 'all' || selectedStatus !== 'all' || debouncedSearchTerm) && (
-              <button
-                onClick={clearFilters}
-                className="flex items-center space-x-2 px-4 py-2 bg-red-600/20 backdrop-blur-md border border-red-600/40 hover:bg-red-600/30 text-red-700 dark:text-red-300 rounded-lg transition-colors"
-              >
-                <FaTimes className="w-4 h-4" />
-                <span>Clear Filters</span>
-              </button>
-            )}
-          </div>
-
-          {/* Filter Options */}
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ 
-              height: showFilters ? 'auto' : 0, 
-              opacity: showFilters ? 1 : 0 
-            }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden"
-          >
-            <div className="grid md:grid-cols-2 gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              {/* Category Filter */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Category
-                </label>
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                >
-                  {categories.map(category => (
-                    <option key={category.value} value={category.value}>
-                      {category.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Status Filter */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Status
-                </label>
-                <select
-                  value={selectedStatus}
-                  onChange={(e) => setSelectedStatus(e.target.value)}
-                  className="w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                >
-                  {statuses.map(status => (
-                    <option key={status.value} value={status.value}>
-                      {status.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
+        {/* Search */}
+        <div className="relative max-w-xl mx-auto mb-12 animate-slideUp">
+          <label htmlFor="project-search" className="sr-only">Search projects</label>
+          <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" aria-hidden="true" />
+          <input
+            id="project-search"
+            type="search"
+            placeholder="Search projects..."
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+            className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none"
+            aria-label="Search projects by title, description, technology, category, or status"
+          />
+        </div>
 
         {/* Projects Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {filteredProjects.length > 0 ? (
-            filteredProjects.map((project) => {
-              const statusConfig = getStatusConfig(project.status);
-              const StatusIcon = statusConfig.icon;
+        <section aria-label="Projects list">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {filteredProjects.length > 0 ? (
+              filteredProjects.map((project) => {
+                const statusConfig = getStatusConfig(project.status);
+                const StatusIcon = statusConfig.icon;
 
-              return (
-                <ProjectCard
-                  key={project._id}
-                  project={project}
-                  statusConfig={statusConfig}
-                  StatusIcon={StatusIcon}
-                  itemVariants={itemVariants}
-                />
-              );
-            })
-          ) : (
-            <motion.div
-              variants={itemVariants}
-              className="col-span-full text-center py-12"
-            >
-              <FaCode className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-500 dark:text-gray-400 mb-2">
-                No projects found
-              </h3>
-              <p className="text-gray-400 dark:text-gray-500">
-                Try adjusting your search terms or filters
-              </p>
-            </motion.div>
-          )}
-        </motion.div>
+                return (
+                  <ProjectCard
+                    key={project._id}
+                    project={project}
+                    statusConfig={statusConfig}
+                    StatusIcon={StatusIcon}
+                    itemVariants={itemVariants}
+                  />
+                );
+              })
+            ) : (
+              <motion.div
+                variants={itemVariants}
+                className="col-span-full text-center py-12"
+              >
+                <FaCode className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-500 dark:text-gray-400 mb-2">
+                  No projects found
+                </h3>
+                <p className="text-gray-400 dark:text-gray-500">
+                  Try a different search term
+                </p>
+              </motion.div>
+            )}
+          </motion.div>
+        </section>
       </div>
     </div>
   );
