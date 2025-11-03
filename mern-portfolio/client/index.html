@@ -131,6 +131,62 @@
         e.preventDefault();
         return false;
       });
+      
+      // Disable cut
+      document.addEventListener('cut', function(e) {
+        e.preventDefault();
+        return false;
+      });
+      
+      // Disable drag and drop
+      document.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+        return false;
+      });
+      
+      // Disable drag
+      document.addEventListener('drag', function(e) {
+        e.preventDefault();
+        return false;
+      });
+      
+      // Prevent image dragging
+      document.addEventListener('DOMContentLoaded', function() {
+        // Disable dragging on all images
+        document.querySelectorAll('img').forEach(function(img) {
+          img.setAttribute('draggable', 'false');
+          img.style.userSelect = 'none';
+          img.style.webkitUserSelect = 'none';
+          img.style.msUserSelect = 'none';
+        });
+        
+        // Use MutationObserver to handle dynamically added images
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            mutation.addedNodes.forEach(function(node) {
+              if (node.tagName === 'IMG') {
+                node.setAttribute('draggable', 'false');
+                node.style.userSelect = 'none';
+                node.style.webkitUserSelect = 'none';
+                node.style.msUserSelect = 'none';
+              }
+              if (node.querySelectorAll) {
+                node.querySelectorAll('img').forEach(function(img) {
+                  img.setAttribute('draggable', 'false');
+                  img.style.userSelect = 'none';
+                  img.style.webkitUserSelect = 'none';
+                  img.style.msUserSelect = 'none';
+                });
+              }
+            });
+          });
+        });
+        
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+      });
     </script>
     
     <!-- Performance Optimization -->

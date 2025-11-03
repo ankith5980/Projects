@@ -8,6 +8,31 @@
   box-sizing: border-box;
   /* Smooth theme transitions */
   transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  /* Disable text selection and dragging */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Allow text selection for input fields and textareas */
+input, textarea {
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+}
+
+/* Disable image dragging */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 html {
