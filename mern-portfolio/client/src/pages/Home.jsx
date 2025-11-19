@@ -375,7 +375,7 @@ const Home = () => {
                 </Link>
                 
                 <a
-                  href="/cv/My Resume.pdf"
+                  href="/cv/Resume.pdf"
                   download="Ankith_Pratheesh_Menon_CV.pdf"
                   onClick={handleCVDownload}
                   className="inline-flex items-center space-x-2 bg-green-600/20 backdrop-blur-md border border-green-600/40 hover:bg-green-600/30 text-green-700 dark:text-green-300 px-4 sm:px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"

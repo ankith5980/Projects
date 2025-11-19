@@ -462,7 +462,7 @@ const About = () => {
                   <span>Get In Touch</span>
                 </Link>
                 <a
-                  href="/cv/My Resume.pdf"
+                  href="/cv/Resume.pdf"
                   download="Ankith_Pratheesh_Menon_CV.pdf"
                   className="inline-flex items-center space-x-2 bg-purple-600/20 backdrop-blur-md border border-purple-600/40 hover:bg-purple-600/30 text-purple-700 dark:text-purple-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
                 >
