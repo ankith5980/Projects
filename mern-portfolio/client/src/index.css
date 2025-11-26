@@ -65,6 +65,12 @@ body {
   min-height: 100vh;
   /* Ensure proper positioning */
   position: relative;
+  /* Fallback background color to prevent white space on mobile */
+  background-color: #f8fafc;
+}
+
+html.dark body {
+  background-color: #111827;
 }
 
 /* Lenis recommended styles */
