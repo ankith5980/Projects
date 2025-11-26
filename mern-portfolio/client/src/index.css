@@ -6,13 +6,20 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* Smooth theme transitions */
-  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
   /* Disable text selection and dragging */
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+}
+
+/* Apply smooth transitions only to specific properties and elements that need them for theming */
+body, .bg-white, .bg-gray-50, .bg-gray-100, .bg-gray-200, .bg-gray-800, .bg-gray-900, 
+.text-gray-900, .text-white, .text-gray-600, .text-gray-400, .text-gray-300,
+.border-gray-200, .border-gray-700, .border-white {
+  transition-property: background-color, color, border-color;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
 }
 
 /* Prevent horizontal overflow globally */
@@ -41,7 +48,7 @@ img {
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */ /* Disabled for better performance on fast scrolls */
   /* Prevent scroll restoration on navigation */
   overscroll-behavior-y: none;
   width: 100%;
@@ -65,6 +72,10 @@ body {
   -webkit-overflow-scrolling: touch;
   /* Ensure proper positioning */
   position: relative;
+  /* Fix for screen tearing/splitting during scroll */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 /* Page transition styles */

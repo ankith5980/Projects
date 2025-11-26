@@ -50,7 +50,7 @@ const CertificateCard = memo(({ cert, index }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="group bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105"
+    className="group bg-white/80 dark:bg-gray-800/80 border border-white/20 dark:border-white/10 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105"
     itemScope
     itemType="https://schema.org/EducationalOccupationalCredential"
   >

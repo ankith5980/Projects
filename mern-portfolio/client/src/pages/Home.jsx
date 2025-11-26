@@ -361,7 +361,7 @@ const Home = () => {
               >
                 <Link
                   to="/projects"
-                  className="inline-flex items-center space-x-2 bg-primary-600/20 backdrop-blur-md border border-primary-600/40 hover:bg-primary-600/30 text-primary-700 dark:text-primary-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+                  className="inline-flex items-center space-x-2 bg-primary-100/80 dark:bg-primary-900/30 border border-primary-600/40 hover:bg-primary-200/80 dark:hover:bg-primary-900/50 text-primary-700 dark:text-primary-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
                 >
                   <span>View My Work</span>
                   <FaArrowRight className="w-4 h-4" />
@@ -369,7 +369,7 @@ const Home = () => {
                 
                 <Link
                   to="/contact"
-                  className="inline-flex items-center space-x-2 bg-purple-600/20 backdrop-blur-md border border-purple-600/40 hover:bg-purple-600/30 text-purple-700 dark:text-purple-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+                  className="inline-flex items-center space-x-2 bg-purple-100/80 dark:bg-purple-900/30 border border-purple-600/40 hover:bg-purple-200/80 dark:hover:bg-purple-900/50 text-purple-700 dark:text-purple-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
                 >
                   <span>Get In Touch</span>
                 </Link>
@@ -378,7 +378,7 @@ const Home = () => {
                   href="/cv/My_Resume.pdf"
                   download="Ankith_Pratheesh_Menon_CV.pdf"
                   onClick={handleCVDownload}
-                  className="inline-flex items-center space-x-2 bg-green-600/20 backdrop-blur-md border border-green-600/40 hover:bg-green-600/30 text-green-700 dark:text-green-300 px-4 sm:px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+                  className="inline-flex items-center space-x-2 bg-green-100/80 dark:bg-green-900/30 border border-green-600/40 hover:bg-green-200/80 dark:hover:bg-green-900/50 text-green-700 dark:text-green-300 px-4 sm:px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
                   title=""
                 >
                   <FaFilePdf className="w-4 h-4" />
@@ -392,7 +392,7 @@ const Home = () => {
                     href={aboutData.resume.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-2 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+                    className="inline-flex items-center space-x-2 bg-gray-200/80 dark:bg-gray-700/30 border border-gray-400/40 hover:bg-gray-300/80 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
                   >
                     <FaDownload className="w-4 h-4" />
                     <span>Resume</span>
@@ -412,7 +412,7 @@ const Home = () => {
                     href={aboutData.socialLinks.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-lg transition-all duration-200 hover:scale-110"
+                    className="p-3 bg-gray-200/80 dark:bg-gray-700/30 border border-gray-400/40 hover:bg-gray-300/80 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-lg transition-all duration-200 hover:scale-110"
                   >
                     <FaGithub className="w-6 h-6" />
                   </a>
@@ -422,7 +422,7 @@ const Home = () => {
                     href={aboutData.socialLinks.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-lg transition-all duration-200 hover:scale-110"
+                    className="p-3 bg-gray-200/80 dark:bg-gray-700/30 border border-gray-400/40 hover:bg-gray-300/80 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-lg transition-all duration-200 hover:scale-110"
                   >
                     <FaLinkedin className="w-6 h-6" />
                   </a>
@@ -432,7 +432,7 @@ const Home = () => {
                     href={aboutData.socialLinks.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-lg transition-all duration-200 hover:scale-110"
+                    className="p-3 bg-gray-200/80 dark:bg-gray-700/30 border border-gray-400/40 hover:bg-gray-300/80 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-lg transition-all duration-200 hover:scale-110"
                   >
                     <FaInstagram className="w-6 h-6" />
                   </a>

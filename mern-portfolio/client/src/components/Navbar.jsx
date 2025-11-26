@@ -32,14 +32,21 @@ const Navbar = () => {
   const { isAuthenticated, isAdmin } = useAuth();
   const location = useLocation();
 
-  // Handle scroll effect
+  // Handle scroll effect - Throttled for performance
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      setScrolled(isScrolled);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const isScrolled = window.scrollY > 10;
+          setScrolled(isScrolled);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -75,9 +82,10 @@ const Navbar = () => {
         initial={shouldAnimate ? { y: -100, opacity: 0 } : false}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        style={{ willChange: 'transform', transform: 'translateZ(0)' }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
           scrolled
-            ? 'bg-white/90 dark:bg-dark-200/90 backdrop-blur-md shadow-lg'
+            ? 'bg-white/70 dark:bg-dark-200/70 backdrop-blur-md shadow-lg'
             : 'bg-transparent'
         }`}
       >

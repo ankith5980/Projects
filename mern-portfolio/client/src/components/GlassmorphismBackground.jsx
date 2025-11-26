@@ -1,41 +1,41 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-const GlassmorphismBackground = () => {
-  // Static orb configurations - CSS only, no JavaScript animations
-  const orbs = [
-    {
-      id: 1,
-      gradient: 'from-blue-400 via-cyan-300 to-blue-500',
-      size: 'w-96 h-96',
-      left: '10%',
-      top: '20%',
-      animationName: 'float-slow',
-    },
-    {
-      id: 2,
-      gradient: 'from-purple-400 via-pink-300 to-purple-500',
-      size: 'w-[28rem] h-[28rem]',
-      left: '65%',
-      top: '15%',
-      animationName: 'float-medium',
-    },
-    {
-      id: 3,
-      gradient: 'from-indigo-400 via-blue-300 to-indigo-500',
-      size: 'w-80 h-80',
-      left: '80%',
-      top: '65%',
-      animationName: 'float-fast',
-    },
-  ];
+// Static orb configurations - CSS only, no JavaScript animations
+const orbs = [
+  {
+    id: 1,
+    gradient: 'from-blue-400 via-cyan-300 to-blue-500',
+    size: 'w-96 h-96',
+    left: '10%',
+    top: '20%',
+    animationName: 'float-slow',
+  },
+  {
+    id: 2,
+    gradient: 'from-purple-400 via-pink-300 to-purple-500',
+    size: 'w-[28rem] h-[28rem]',
+    left: '65%',
+    top: '15%',
+    animationName: 'float-medium',
+  },
+  {
+    id: 3,
+    gradient: 'from-indigo-400 via-blue-300 to-indigo-500',
+    size: 'w-80 h-80',
+    left: '80%',
+    top: '65%',
+    animationName: 'float-fast',
+  },
+];
 
+const GlassmorphismBackground = memo(() => {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 w-full max-w-full" style={{ minHeight: '100vh', maxWidth: '100vw' }}>
       {/* Static base gradient background - Extended to prevent white space */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-slate-900 dark:to-indigo-950 w-full" 
         style={{ minHeight: '120vh', top: '-10vh' }} />
       
-      {/* Floating gradient orbs - CSS animations only */}
+      {/* Floating gradient orbs - Static for performance */}
       {orbs.map((orb) => (
         <div
           key={orb.id}
@@ -43,21 +43,14 @@ const GlassmorphismBackground = () => {
           style={{
             left: orb.left,
             top: orb.top,
-            animation: `${orb.animationName} 20s ease-in-out infinite`,
+            // Animation removed to prevent GPU strain and scrolling glitches
+            transform: 'translateZ(0)', // Force GPU layer for the static background
           }}
         />
       ))}
       
-      {/* Glassmorphism overlay */}
-      <div className="absolute inset-0 backdrop-blur-[60px]" />
-      
-      {/* Subtle noise texture */}
-      <div 
-        className="absolute inset-0 opacity-[0.012] dark:opacity-[0.02]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
-        }}
-      />
+      {/* Glassmorphism overlay - Reduced blur for performance */}
+      <div className="absolute inset-0 backdrop-blur-[30px]" />
       
       {/* CSS Keyframe animations */}
       <style>{`
@@ -81,6 +74,8 @@ const GlassmorphismBackground = () => {
       `}</style>
     </div>
   );
-};
+});
 
-export default React.memo(GlassmorphismBackground);
+GlassmorphismBackground.displayName = 'GlassmorphismBackground';
+
+export default GlassmorphismBackground;

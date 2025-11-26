@@ -525,7 +525,7 @@ const About = () => {
                 key={tech.name}
                 variants={itemVariants}
                 whileHover={{ scale: 1.05 }}
-                className="relative bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 p-6 rounded-xl shadow-lg text-center group transition-all duration-200"
+                className="relative bg-white/80 dark:bg-gray-800/80 border border-white/20 dark:border-white/10 p-6 rounded-xl shadow-lg text-center group transition-all duration-200"
                 style={{ 
                   position: 'relative',
                   overflow: 'hidden'
@@ -591,7 +591,7 @@ const About = () => {
                 </div>
                 
                 {/* Content */}
-                <div className="ml-6 flex-1 bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 p-6 rounded-xl shadow-lg">
+                <div className="ml-6 flex-1 bg-white/80 dark:bg-gray-800/80 border border-white/20 dark:border-white/10 p-6 rounded-xl shadow-lg">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">{item.title}</h3>
                     <span className="bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 px-3 py-1 rounded-full text-sm font-medium">
@@ -624,7 +624,7 @@ const About = () => {
                 key={interest.name}
                 variants={itemVariants}
                 whileHover={{ scale: 1.1, rotate: 5 }}
-                className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 p-6 rounded-xl shadow-lg text-center group hover:shadow-xl transition-all duration-200"
+                className="bg-white/80 dark:bg-gray-800/80 border border-white/20 dark:border-white/10 p-6 rounded-xl shadow-lg text-center group hover:shadow-xl transition-all duration-200"
               >
                 <interest.icon className={`w-8 h-8 mx-auto mb-3 ${interest.color} group-hover:scale-125 transition-transform duration-200`} />
                 <h3 className="font-semibold text-sm text-gray-900 dark:text-white">{interest.name}</h3>

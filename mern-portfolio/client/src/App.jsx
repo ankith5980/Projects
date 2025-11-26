@@ -13,6 +13,7 @@ import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
 import RouteScrollToTop from './components/RouteScrollToTop.jsx';
+import SmoothScroll from './components/SmoothScroll.jsx';
 import GlassmorphismBackground from './components/GlassmorphismBackground.jsx';
 import LoadingSkeleton from './components/LoadingSkeleton.jsx';
 
@@ -38,6 +39,7 @@ function App() {
   return (
     <HelmetProvider>
       <Router>
+        <SmoothScroll />
         <RouteScrollToTop />
         <ThemeProvider>
           <AuthProvider>
@@ -45,7 +47,7 @@ function App() {
             <GlassmorphismBackground />
             <Navbar />
             <main className="relative z-10 w-full max-w-full overflow-x-hidden" style={{ minHeight: '100vh' }}>
-              <Suspense fallback={null}>
+              <Suspense fallback={<LoadingSkeleton fullPage={true} />}>
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/about" element={<About />} />
