@@ -46,8 +46,8 @@ function App() {
             <div className="min-h-screen text-gray-900 dark:text-white transition-colors duration-300 w-full max-w-full overflow-x-hidden" style={{ minHeight: '100vh' }}>
             <GlassmorphismBackground />
             <Navbar />
-            <main className="relative z-10 w-full max-w-full overflow-x-hidden" style={{ minHeight: '100vh' }}>
-              <Suspense fallback={<LoadingSkeleton fullPage={true} />}>
+            <main className="relative z-10 w-full max-w-full" style={{ minHeight: '100vh' }}>
+              <Suspense fallback={null}>
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/about" element={<About />} />
