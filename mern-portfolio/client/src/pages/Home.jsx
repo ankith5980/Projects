@@ -208,15 +208,6 @@ const Home = () => {
       const recentProjects = [
         {
           _id: 1,
-          title: 'MERN Portfolio Website',
-          description: 'A modern, responsive portfolio website built with the MERN stack featuring dark mode, animations, and admin dashboard.',
-          technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS', 'Framer Motion'],
-          images: [{ url: '/images/portfolio_thumbnail_1.png' }],
-          liveUrl: 'https://portfolio-ankith.vercel.app',
-          githubUrl: 'https://github.com/ankith5980/Projects/tree/main/mern-portfolio'
-        },
-        {
-          _id: 2,
           title: 'Continuous Development of KOHA Library Management System',
           description: 'Live Demo isn\'t available currently due to privacy concerns. Please contact me for more details.',
           technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS'],
@@ -225,14 +216,23 @@ const Home = () => {
           githubUrl: 'https://github.com/ankith5980/Projects/tree/main/label'
         },
         {
-          _id: 3,
+          _id: 2,
           title: 'Club Management System - Rotary Club of Calicut South',
           description: 'A comprehensive club management system designed to streamline operations, member management, and event planning and membership payment for the Rotary Club of Calicut South.',
           technologies: ['React', 'MongoDB Atlas', 'Tailwind CSS','Docker'],
           images: [{ url: '/images/Club_Management_App.png' }],
           liveUrl: '',
           githubUrl: '',
-        }
+        },
+         {
+          _id: 3,
+          title: 'ICCIET 2025 Judging Portal',
+          description: 'A judging portal for the International Conference on Computational Intelligence & Emerging Technologies (ICCIET 2025) that allows judges to securely evaluate and score project submissions online.',
+          technologies: ['Next.js', 'Supabase', 'Tailwind CSS','TypeScript'],
+          images: [{ url: '/images/icciet_judging_portal.jpg' }],
+          liveUrl: 'https://icciet-judging.vercel.app/',
+          githubUrl: 'https://github.com/ankith5980/Projects/tree/main/iccet-judging',
+        },
       ];
       setFeaturedProjects(recentProjects);
 
@@ -273,8 +273,8 @@ const Home = () => {
     <div className="min-h-screen">
       <SEO 
         title="Ankith Pratheesh Menon - Full Stack Developer Portfolio"
-        description="Welcome to Ankith Pratheesh Menon's portfolio - Professional Full Stack Developer from Kerala, India specializing in React, Node.js, Flutter, and modern web technologies. Explore my projects, skills, and experience in software development."
-        keywords="Ankith Pratheesh Menon, Ankith, full-stack developer, React developer, Node.js, JavaScript, Flutter developer, portfolio, web development, software engineer, Kerala, India, MERN stack"
+        description="Welcome to Ankith Pratheesh Menon's portfolio - Professional Full Stack Developer from Kerala, India specializing in React, Node.js, Flutter, Next.js, and modern web technologies. Explore my projects, skills, and experience in software development."
+        keywords="Ankith Pratheesh Menon, Ankith, full-stack developer, React developer, Node.js, JavaScript, Flutter developer, Next.js, Supabase, TypeScript, portfolio, web development, software engineer, Kerala, India, MERN stack"
         url="/"
         schemaData={generatePersonSchema()}
       />
@@ -455,8 +455,10 @@ const Home = () => {
                         src={aboutData.avatar.url}
                         alt={aboutData.fullName}
                         className="w-full h-full object-cover"
-                        loading="lazy"
+                        loading="eager"
                         decoding="async"
+                        width="384"
+                        height="384"
                       />
                     ) : (
                       <img
@@ -465,6 +467,8 @@ const Home = () => {
                         className="w-full h-full object-cover"
                         loading="eager"
                         decoding="async"
+                        width="384"
+                        height="384"
                         onError={(e) => {
                           e.target.style.display = 'none';
                           e.target.nextSibling.style.display = 'flex';

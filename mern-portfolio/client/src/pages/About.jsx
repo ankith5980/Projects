@@ -133,6 +133,76 @@ const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTi
 
 TypingEffect.displayName = 'TypingEffect';
 
+// Tech stack with icons
+const techStack = [
+  { name: 'React', icon: SiReact, color: 'text-blue-500' },
+  { name: 'Node.js', icon: SiNodedotjs, color: 'text-green-500' },
+  { name: 'MongoDB', icon: SiMongodb, color: 'text-green-600' },
+  { name: 'PostgreSQL', icon: SiPostgresql, color: 'text-blue-700' },
+  { name: 'Bootstrap', icon: SiBootstrap, color: 'text-purple-600' },
+  { name: 'Notion', icon: SiNotion, color: 'text-black' },
+  { name: 'Postman', icon: SiPostman, color: 'text-orange-500' },
+  { name: 'JavaScript', icon: SiJavascript, color: 'text-yellow-500' },
+  { name: 'Python', icon: SiPython, color: 'text-blue-600' },
+  { name: 'Django', icon: SiDjango, color: 'text-green-700' },
+  { name: 'Flutter', icon: SiFlutter, color: 'text-blue-400' },
+  { name: 'Kotlin', icon: SiKotlin, color: 'text-purple-600' },
+  { name: 'HTML', icon: SiHtml5, color: 'text-orange-600' },
+  { name: 'PHP', icon: SiPhp, color: 'text-indigo-600' },
+  { name: 'MySQL', icon: SiMysql, color: 'text-orange-500' },
+  { name: 'NumPy', icon: SiNumpy, color: 'text-blue-700' },
+  { name: 'Pandas', icon: SiPandas, color: 'text-indigo-700' },
+  { name: 'TensorFlow', icon: SiTensorflow, color: 'text-orange-400' },
+  { name: 'Scikit-Learn', icon: SiScikitlearn, color: 'text-orange-600' },
+  { name: 'Docker', icon: SiDocker, color: 'text-blue-500' },
+  { name: 'Git', icon: SiGit, color: 'text-red-500' },
+  { name: 'Tailwind', icon: SiTailwindcss, color: 'text-teal-400' },
+  { name: 'Express', icon: SiExpress, color: 'text-gray-700 dark:text-gray-300' },
+  { name: 'Figma', icon: SiFigma, color: 'text-purple-500' }
+];
+
+// Experience timeline
+const timeline = [
+  {
+    year: '2025',
+    title: 'Pursuing Master of Computer Applications',
+    company: 'St. Joseph\'s College (Autonomous), Devagiri, Calicut',
+    description: 'Pursuing advanced studies in computer applications to deepen my knowledge and skills in software development and related fields.',
+    type: 'education'
+  },
+  {
+    year: '2025',
+    title: 'Accquired Campus Placement',
+    company: 'Accenture',
+    description: 'Accquired campus placement at Accenture, a global leader in IT services and consulting.',
+    type: 'work'
+  },
+  {
+    year: '2024',
+    title: 'Completed Internship on AI/ML',
+    company: 'Calicut UL Cyber Park',
+    description: 'Gained hands-on experience in AI/ML technologies and their applications in real-world scenarios.',
+    type: 'work'
+  },
+  {
+    year: '2022',
+    title: 'Bachelor of Computer Applications',
+    company: 'St. Joseph\'s College (Autonomous), Devagiri, Calicut',
+    description: 'Graduated with First Class with Distinction on 2025',
+    type: 'education'
+  },
+];
+
+// Personal interests
+const interests = [
+  { name: 'Coding', icon: FaCode, color: 'text-blue-500' },
+  { name: 'Tea', icon: FaCoffee, color: 'text-yellow-600' },
+  { name: 'Music', icon: FaMusic, color: 'text-purple-500' },
+  { name: 'Gaming', icon: FaGamepad, color: 'text-green-500' },
+  { name: 'Photography', icon: FaCamera, color: 'text-pink-500' },
+  { name: 'Travel', icon: FaPlane, color: 'text-indigo-500' }
+];
+
 const About = () => {
   // Memoized typing texts for the title
   const typingTexts = useMemo(() => [
@@ -150,7 +220,7 @@ const About = () => {
     email: 'ankithpratheesh147@gmail.com',
     phone: '+91 9495540233',
     experience: 'Fresher',
-    projects: '3 Projects',
+    projects: '4 Projects',
     avatar: { url: '/images/Ankith.jpg' },
     socialLinks: {
       github: 'https://github.com/ankith5980',
@@ -263,82 +333,14 @@ const About = () => {
     visible: { opacity: 1, y: 0 }
   };
 
-  // Tech stack with icons
-  const techStack = [
-    { name: 'React', icon: SiReact, color: 'text-blue-500' },
-    { name: 'Node.js', icon: SiNodedotjs, color: 'text-green-500' },
-    { name: 'MongoDB', icon: SiMongodb, color: 'text-green-600' },
-    { name: 'PostgreSQL', icon: SiPostgresql, color: 'text-blue-700' },
-    { name: 'Bootstrap', icon: SiBootstrap, color: 'text-purple-600' },
-    { name: 'Notion', icon: SiNotion, color: 'text-black' },
-    { name: 'Postman', icon: SiPostman, color: 'text-orange-500' },
-    { name: 'JavaScript', icon: SiJavascript, color: 'text-yellow-500' },
-    { name: 'Python', icon: SiPython, color: 'text-blue-600' },
-    { name: 'Django', icon: SiDjango, color: 'text-green-700' },
-    { name: 'Flutter', icon: SiFlutter, color: 'text-blue-400' },
-    { name: 'Kotlin', icon: SiKotlin, color: 'text-purple-600' },
-    { name: 'HTML', icon: SiHtml5, color: 'text-orange-600' },
-    { name: 'PHP', icon: SiPhp, color: 'text-indigo-600' },
-    { name: 'MySQL', icon: SiMysql, color: 'text-orange-500' },
-    { name: 'NumPy', icon: SiNumpy, color: 'text-blue-700' },
-    { name: 'Pandas', icon: SiPandas, color: 'text-indigo-700' },
-    { name: 'TensorFlow', icon: SiTensorflow, color: 'text-orange-400' },
-    { name: 'Scikit-Learn', icon: SiScikitlearn, color: 'text-orange-600' },
-    { name: 'Docker', icon: SiDocker, color: 'text-blue-500' },
-    { name: 'Git', icon: SiGit, color: 'text-red-500' },
-    { name: 'Tailwind', icon: SiTailwindcss, color: 'text-teal-400' },
-    { name: 'Express', icon: SiExpress, color: 'text-gray-700 dark:text-gray-300' },
-    { name: 'Figma', icon: SiFigma, color: 'text-purple-500' }
-  ];
 
-  // Experience timeline
-  const timeline = [
-    {
-      year: '2025',
-      title: 'Pursuing Master of Computer Applications',
-      company: 'St. Joseph\'s College (Autonomous), Devagiri, Calicut',
-      description: 'Pursuing advanced studies in computer applications to deepen my knowledge and skills in software development and related fields.',
-      type: 'education'
-    },
-    {
-      year: '2025',
-      title: 'Accquired Campus Placement',
-      company: 'Accenture',
-      description: 'Accquired campus placement at Accenture, a global leader in IT services and consulting.',
-      type: 'work'
-    },
-    {
-      year: '2024',
-      title: 'Completed Internship on AI/ML',
-      company: 'Calicut UL Cyber Park',
-      description: 'Gained hands-on experience in AI/ML technologies and their applications in real-world scenarios.',
-      type: 'work'
-    },
-    {
-      year: '2022',
-      title: 'Bachelor of Computer Applications',
-      company: 'St. Joseph\'s College (Autonomous), Devagiri, Calicut',
-      description: 'Graduated with First Class with Distinction on 2025',
-      type: 'education'
-    },
-  ];
-
-  // Personal interests
-  const interests = [
-    { name: 'Coding', icon: FaCode, color: 'text-blue-500' },
-    { name: 'Tea', icon: FaCoffee, color: 'text-yellow-600' },
-    { name: 'Music', icon: FaMusic, color: 'text-purple-500' },
-    { name: 'Gaming', icon: FaGamepad, color: 'text-green-500' },
-    { name: 'Photography', icon: FaCamera, color: 'text-pink-500' },
-    { name: 'Travel', icon: FaPlane, color: 'text-indigo-500' }
-  ];
 
   return (
     <div className="min-h-screen section-padding pt-20">
       <SEO 
         title="About Ankith Pratheesh Menon - Professional Background & Skills"
-        description="Learn more about Ankith Pratheesh Menon - Professional Full Stack Developer from Kerala, India with expertise in React, Node.js, Flutter, Python, and modern web technologies. Discover my educational background at Mar Baselios Christian College of Engineering and Technology, professional experience, and passion for creating innovative software solutions."
-        keywords="about Ankith Pratheesh Menon, Ankith biography, full-stack developer background, React developer Kerala, Node.js expert India, software engineer profile, web development experience, MBCCET graduate, computer science engineer"
+        description="Learn more about Ankith Pratheesh Menon - Professional Full Stack Developer from Kerala, India with expertise in React, Node.js, Flutter, Next.js, and modern web technologies. Discover my educational background at St. Joseph's College (Autonomous), Devagiri, professional experience, and passion for creating innovative software solutions."
+        keywords="about Ankith Pratheesh Menon, Ankith biography, full-stack developer background, React developer Kerala, Node.js expert India, software engineer profile, web development experience, St. Joseph's College Devagiri graduate, computer science engineer, Next.js developer"
         url="/about"
         schemaData={{
           "@context": "https://schema.org",
@@ -368,6 +370,10 @@ const About = () => {
                       src={aboutData.avatar?.url || '/images/Ankith.jpg'}
                       alt={aboutData.fullName}
                       className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                      width="384"
+                      height="384"
                     />
                   </div>
                 </div>

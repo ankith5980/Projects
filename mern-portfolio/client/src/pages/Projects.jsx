@@ -29,6 +29,8 @@ const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants }) =
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
           loading="lazy"
           decoding="async"
+          width="640"
+          height="360"
         />
       ) : (
         <div className="w-full h-full flex items-center justify-center text-white text-4xl">
@@ -109,64 +111,95 @@ const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants }) =
 
 ProjectCard.displayName = 'ProjectCard';
 
+// Projects data
+const projectsData = [
+  {
+    _id: 1,
+    title: 'MERN Portfolio Website',
+    description: 'A modern, responsive portfolio website built with the MERN stack featuring dark mode, animations, and admin dashboard.',
+    technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS', 'Framer Motion'],
+    images: [{ url: '/images/portfolio_thumbnail_1.png' }],
+    liveUrl: 'https://portfolio-ankith.vercel.app',
+    githubUrl: 'https://github.com/ankith5980/Projects/tree/main/mern-portfolio',
+    category: 'fullstack',
+    status: 'completed',
+    featured: true
+  },
+  {
+    _id: 2,
+    title: 'Continuous Development of KOHA Library Management System',
+    description: 'Live Demo isn\'t available currently due to privacy concerns. Please contact me for more details.',
+    technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS'],
+    images: [{ url: '/images/kohabanner.jpg' }],
+    liveUrl: '',
+    githubUrl: 'https://github.com/ankith5980/Projects/tree/main/label',
+    category: 'backend',
+    status: 'continuous-development',
+    featured: true
+  },
+  {
+    _id: 3,
+    title: 'Club Management System - Rotary Club of Calicut South',
+    description: 'A comprehensive club management system designed to streamline operations, member management, and event planning and membership payment for the Rotary Club of Calicut South.',
+    technologies: ['React', 'MongoDB Atlas', 'Tailwind CSS','Docker'],
+    images: [{ url: '/images/Club_Management_App.png' }],
+    liveUrl: '',
+    githubUrl: 'https://github.com/ankith5980/Projects/tree/main/rotary-club-portal',
+    category: 'fullstack',
+    status: 'archived',
+    featured: true
+  },
+  {
+    _id: 4,
+    title: 'ICCIET 2025 Judging Portal',
+    description: 'A judging portal for the International Conference on Computational Intelligence & Emerging Technologies (ICCIET) 2025, enabling judges to securely evaluate and score project submissions online. Developed by Ayush VP and Ankith Pratheesh Menon.',
+    technologies: ['Next.js', 'Supabase', 'Tailwind CSS', 'TypeScript'],
+    images: [{ url: '/images/icciet_judging_portal.jpg' }],
+    liveUrl: 'https://icciet-judging.vercel.app/',
+    githubUrl: 'https://github.com/ankith5980/Projects/tree/main/iccet-judging',
+    category: 'fullstack',
+    status: 'completed',
+    featured: true
+  },
+];
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+
+// Status configuration function
+const getStatusConfig = (status) => {
+  switch (status) {
+    case 'completed':
+      return { icon: FaCheckCircle, color: 'text-green-500', label: 'Completed' };
+    case 'in-progress':
+      return { icon: FaClock, color: 'text-yellow-500', label: 'In Progress' };
+    case 'continuous-development':
+      return { icon: FaSync, color: 'text-blue-500', label: 'Continuous Development' };
+    case 'archived':
+      return { icon: FaArchive, color: 'text-gray-500', label: 'Archived' };
+    default:
+      return { icon: FaCheckCircle, color: 'text-green-500', label: 'Completed' };
+  }
+};
+
 const Projects = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   // Memoized projects data to prevent re-creation on each render
-  const projects = useMemo(() => [
-    {
-      _id: 1,
-      title: 'MERN Portfolio Website',
-      description: 'A modern, responsive portfolio website built with the MERN stack featuring dark mode, animations, and admin dashboard.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS', 'Framer Motion'],
-      images: [{ url: '/images/portfolio_thumbnail_1.png' }],
-      liveUrl: 'https://portfolio-ankith.vercel.app',
-      githubUrl: 'https://github.com/ankith5980/Projects/tree/main/mern-portfolio',
-      category: 'fullstack',
-      status: 'completed',
-      featured: true
-    },
-    {
-      _id: 2,
-      title: 'Continuous Development of KOHA Library Management System',
-      description: 'Live Demo isn\'t available currently due to privacy concerns. Please contact me for more details.',
-      technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS'],
-      images: [{ url: '/images/kohabanner.jpg' }],
-      liveUrl: '',
-      githubUrl: 'https://github.com/ankith5980/Projects/tree/main/label',
-      category: 'backend',
-      status: 'continuous-development',
-      featured: true
-    },
-    {
-      _id: 3,
-      title: 'Club Management System - Rotary Club of Calicut South',
-      description: 'A comprehensive club management system designed to streamline operations, member management, and event planning and membership payment for the Rotary Club of Calicut South.',
-      technologies: ['React', 'MongoDB Atlas', 'Tailwind CSS','Docker'],
-      images: [{ url: '/images/Club_Management_App.png' }],
-      liveUrl: '',
-      githubUrl: 'https://github.com/ankith5980/Projects/tree/main/rotary-club-portal',
-      category: 'fullstack',
-      status: 'archived',
-      featured: true
-    },
-  ], []);
-
-  // Memoized animation variants
-  const containerVariants = useMemo(() => ({
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  }), []);
-
-  const itemVariants = useMemo(() => ({
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  }), []);
+  const projects = useMemo(() => projectsData, []);
 
   // Simple filter - same style as Certificates section
   const filteredProjects = useMemo(() => {
@@ -181,28 +214,12 @@ const Projects = () => {
     });
   }, [projects, searchTerm]);
 
-  // Memoized status configuration function
-  const getStatusConfig = useCallback((status) => {
-    switch (status) {
-      case 'completed':
-        return { icon: FaCheckCircle, color: 'text-green-500', label: 'Completed' };
-      case 'in-progress':
-        return { icon: FaClock, color: 'text-yellow-500', label: 'In Progress' };
-      case 'continuous-development':
-        return { icon: FaSync, color: 'text-blue-500', label: 'Continuous Development' };
-      case 'archived':
-        return { icon: FaArchive, color: 'text-gray-500', label: 'Archived' };
-      default:
-        return { icon: FaCheckCircle, color: 'text-green-500', label: 'Completed' };
-    }
-  }, []);
-
   return (
     <div className="min-h-screen section-padding pt-40 md:pt-44 lg:pt-48">
       <SEO 
         title="Projects"
-        description="Explore Ankith's portfolio of web applications, mobile apps, and software projects. Full-stack development projects built with React, Node.js, Python, and modern technologies."
-        keywords="projects, portfolio, web applications, mobile apps, React projects, Node.js projects, full-stack development, software projects"
+        description="Explore Ankith's portfolio of web applications, mobile apps, and software projects. Full-stack development projects built with React, Node.js, Next.js, Supabase, Python, and modern technologies."
+        keywords="projects, portfolio, web applications, mobile apps, React projects, Node.js projects, Next.js projects, Supabase, TypeScript, full-stack development, software projects"
         url="/projects"
         schemaData={{
           "@context": "https://schema.org",
