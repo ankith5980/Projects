@@ -225,7 +225,7 @@ const About = () => {
     socialLinks: {
       github: 'https://github.com/ankith5980',
       linkedin: 'https://www.linkedin.com/in/ankith-pratheesh-menon-0353662b6/',
-      instagram: 'https://www.instagram.com/ankith5980/',
+      instagram: 'https://www.instagram.com/ankith.pm/',
     }
   });
 

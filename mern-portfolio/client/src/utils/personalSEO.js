@@ -30,7 +30,7 @@ export const siteMetadata = {
   social: {
     github: 'https://github.com/ankith5980',
     linkedin: 'https://www.linkedin.com/in/ankith-pratheesh-menon-0353662b6/',
-    instagram: 'https://www.instagram.com/ankith5980/',
+    instagram: 'https://www.instagram.com/ankith.pm/',
     email: 'ankithpratheesh147@gmail.com',
     phone: '+919495540233'
   },
@@ -126,7 +126,7 @@ export const generatePersonSchema = () => {
     "sameAs": [
       "https://github.com/ankith5980",
       "https://www.linkedin.com/in/ankith-pratheesh-menon-0353662b6/",
-      "https://www.instagram.com/ankith5980/",
+      "https://www.instagram.com/ankith.pm/",
       getFullUrl("/"),
       getFullUrl("/about"),
       getFullUrl("/projects"),
