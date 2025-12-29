@@ -44,10 +44,10 @@ const Footer = () => {
 
   return (
     <footer className="bg-gray-50 dark:bg-dark-200 border-t border-gray-200 dark:border-gray-700">
-      <div className="container mx-auto container-padding section-padding">
-        <div className="grid md:grid-cols-3 gap-8">
+      <div className="container mx-auto container-padding py-8">
+        <div className="grid md:grid-cols-3 gap-6">
           {/* Brand */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <Link
               to="/"
               className="text-2xl font-bold text-gradient inline-block"
@@ -74,7 +74,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Quick Links
             </h3>
@@ -93,7 +93,7 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Get In Touch
             </h3>
@@ -111,12 +111,9 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-          <p className="text-gray-600 dark:text-gray-400 text-center sm:text-left">
+        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 flex justify-center items-center">
+          <p className="text-gray-600 dark:text-gray-400 text-center">
             © {currentYear} Designed by Ankith Pratheesh Menon. All rights reserved.
-          </p>
-          <p className="text-gray-600 dark:text-gray-400 flex items-center space-x-1">
-            <span>MERN Stack</span>
           </p>
         </div>
       </div>
