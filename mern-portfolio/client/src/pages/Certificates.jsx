@@ -211,7 +211,7 @@ const Certificates = () => {
             Professional certifications validating my skills and expertise in web development, mobile development, and UI/UX design
           </p>
           <p className="text-primary-600 dark:text-primary-400 font-medium">
-            {filtered.length} {filtered.length === 1 ? 'Certificate' : 'Certificates'} {searchTerm ? 'Found' : ''}
+            {filtered.length} {filtered.length === 1 ? 'Certificate' : 'Certifications'} {searchTerm ? 'Found' : 'Acquired'}
           </p>
         </header>
 

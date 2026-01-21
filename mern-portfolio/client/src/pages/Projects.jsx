@@ -261,7 +261,7 @@ const Projects = () => {
             Each project represents a unique challenge and learning experience.
           </p>
           <p className="text-primary-600 dark:text-primary-400 font-medium">
-            {filteredProjects.length} {filteredProjects.length === 1 ? 'Project' : 'Projects'} {searchTerm ? 'Found' : ''}
+            {filteredProjects.length} {filteredProjects.length === 1 ? 'Project' : 'Projects'} {searchTerm ? 'Found' : 'Available'}
           </p>
         </motion.div>
 
