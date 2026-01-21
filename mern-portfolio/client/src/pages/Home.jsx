@@ -208,12 +208,12 @@ const Home = () => {
       const recentProjects = [
         {
           _id: 1,
-          title: 'Continuous Development of KOHA Library Management System',
-          description: 'Live Demo isn\'t available currently due to privacy concerns. Please contact me for more details.',
-          technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS'],
-          images: [{ url: '/images/kohabanner.jpg' }],
-          liveUrl: 'https://koha-library-management-system.vercel.app',
-          githubUrl: 'https://github.com/ankith5980/Projects/tree/main/label'
+          title: 'Skill-Swap : A Skill Exchange Platform',
+          description: 'A production-ready full-stack web application for peer-to-peer skill exchange. Users can teach skills to earn points and spend points to learn from others.',
+          technologies: ['TypeScript', 'MongoDB', 'Socket.io', 'Express.js'],
+          images: [{ url: '/images/skill_swap.jpg' }],
+          liveUrl: '',
+          githubUrl: 'https://github.com/ankith5980/Projects/tree/main/skill-exchange'
         },
         {
           _id: 2,

@@ -161,6 +161,18 @@ const projectsData = [
     status: 'completed',
     featured: true
   },
+  {
+    _id: 5,
+    title: 'Skill-Swap : A Skill Exchange Platform',
+    description: 'A production-ready full-stack web application for peer-to-peer skill exchange. Users can teach skills to earn points and spend points to learn from others.',
+    technologies: ['TypeScript', 'MongoDB', 'Socket.io', 'Express.js'],
+    images: [{ url: '/images/skill_swap.jpg' }],
+    liveUrl: '',
+    githubUrl: 'https://github.com/ankith5980/Projects/tree/main/skill-exchange',
+    category: 'fullstack',
+    status: 'in-progress',
+    featured: true
+  },
 ];
 
 // Animation variants
@@ -249,7 +261,7 @@ const Projects = () => {
             Each project represents a unique challenge and learning experience.
           </p>
           <p className="text-primary-600 dark:text-primary-400 font-medium">
-            {filteredProjects.length} {filteredProjects.length === 1 ? 'Project' : 'Projects'} {searchTerm ? 'Found' : 'Total'}
+            {filteredProjects.length} {filteredProjects.length === 1 ? 'Project' : 'Projects'} {searchTerm ? 'Found' : ''}
           </p>
         </motion.div>
 
