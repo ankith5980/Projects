@@ -647,20 +647,24 @@ const About = () => {
               Have a project in mind? I'd love to hear about it and discuss how we can bring your ideas to life.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Link
-                to="/contact"
-                className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/40 hover:bg-white/30 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
-              >
-                <FaEnvelope className="w-5 h-5" />
-                <span>Start a Conversation</span>
-              </Link>
-              <Link
-                to="/projects"
-                className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border-2 border-white/40 hover:bg-white/30 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
-              >
-                <FaRocket className="w-5 h-5" />
-                <span>View My Work</span>
-              </Link>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/40 hover:bg-white/30 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200"
+                >
+                  <FaEnvelope className="w-5 h-5" />
+                  <span>Start a Conversation</span>
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link
+                  to="/projects"
+                  className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border-2 border-white/40 hover:bg-white/30 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200"
+                >
+                  <FaRocket className="w-5 h-5" />
+                  <span>View My Work</span>
+                </Link>
+              </motion.div>
             </div>
           </motion.div>
         </motion.section>
