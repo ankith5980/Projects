@@ -474,7 +474,7 @@ const Contact = () => {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`w-12 h-12 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 rounded-lg flex items-center justify-center text-gray-600 dark:text-gray-400 transition-all duration-200 hover:scale-110 ${social.color}`}
+                      className={`w-12 h-12 bg-gray-200/80 dark:bg-gray-700/30 border border-gray-400/40 hover:bg-gray-300/80 dark:hover:bg-gray-700/50 rounded-lg flex items-center justify-center text-gray-600 dark:text-gray-400 transition-all duration-200 hover:scale-105 ${social.color}`}
                       title={social.label}
                     >
                       <IconComponent className="w-5 h-5" />
