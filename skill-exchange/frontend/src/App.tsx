@@ -1,11 +1,13 @@
 
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { SocketProvider } from './context/SocketContext';
 import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import LoadingSpinner from './components/LoadingSpinner';
+import PageTransition from './components/PageTransition';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -68,7 +70,8 @@ function AppLayout({ children }: { children: React.ReactNode }) {
     );
 }
 
-function AppRoutes() {
+function AnimatedRoutes() {
+    const location = useLocation();
     const { isAuthenticated, isLoading } = useAuth();
 
     if (isLoading) {
@@ -76,24 +79,26 @@ function AppRoutes() {
     }
 
     return (
-        <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<AppLayout><HomePage /></AppLayout>} />
-            <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <LoginPage />} />
-            <Route path="/register" element={isAuthenticated ? <Navigate to="/" /> : <RegisterPage />} />
-            <Route path="/explore" element={<AppLayout><ExplorePage /></AppLayout>} />
-            <Route path="/skills/:id" element={<AppLayout><SkillDetailPage /></AppLayout>} />
+        <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+                {/* Public Routes */}
+                <Route path="/" element={<AppLayout><PageTransition><HomePage /></PageTransition></AppLayout>} />
+                <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <PageTransition><LoginPage /></PageTransition>} />
+                <Route path="/register" element={isAuthenticated ? <Navigate to="/" /> : <PageTransition><RegisterPage /></PageTransition>} />
+                <Route path="/explore" element={<AppLayout><PageTransition><ExplorePage /></PageTransition></AppLayout>} />
+                <Route path="/skills/:id" element={<AppLayout><PageTransition><SkillDetailPage /></PageTransition></AppLayout>} />
 
-            {/* Protected Routes */}
-            <Route path="/skills/new" element={<AppLayout><ProtectedRoute><CreateSkillPage /></ProtectedRoute></AppLayout>} />
-            <Route path="/my-skills" element={<AppLayout><ProtectedRoute><MySkillsPage /></ProtectedRoute></AppLayout>} />
-            <Route path="/sessions" element={<AppLayout><ProtectedRoute><SessionsPage /></ProtectedRoute></AppLayout>} />
-            <Route path="/messages" element={<AppLayout><ProtectedRoute><MessagesPage /></ProtectedRoute></AppLayout>} />
-            <Route path="/profile" element={<AppLayout><ProtectedRoute><ProfilePage /></ProtectedRoute></AppLayout>} />
+                {/* Protected Routes */}
+                <Route path="/skills/new" element={<AppLayout><ProtectedRoute><PageTransition><CreateSkillPage /></PageTransition></ProtectedRoute></AppLayout>} />
+                <Route path="/my-skills" element={<AppLayout><ProtectedRoute><PageTransition><MySkillsPage /></PageTransition></ProtectedRoute></AppLayout>} />
+                <Route path="/sessions" element={<AppLayout><ProtectedRoute><PageTransition><SessionsPage /></PageTransition></ProtectedRoute></AppLayout>} />
+                <Route path="/messages" element={<AppLayout><ProtectedRoute><PageTransition><MessagesPage /></PageTransition></ProtectedRoute></AppLayout>} />
+                <Route path="/profile" element={<AppLayout><ProtectedRoute><PageTransition><ProfilePage /></PageTransition></ProtectedRoute></AppLayout>} />
 
-            {/* Fallback */}
-            <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+                {/* Fallback */}
+                <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+        </AnimatePresence>
     );
 }
 
@@ -104,7 +109,7 @@ function App() {
                 <ScrollToTop />
                 <AuthProvider>
                     <SocketProvider>
-                        <AppRoutes />
+                        <AnimatedRoutes />
                     </SocketProvider>
                 </AuthProvider>
             </Router>
