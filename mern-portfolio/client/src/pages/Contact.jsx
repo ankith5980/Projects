@@ -181,7 +181,7 @@ const Contact = () => {
     {
       icon: FaInstagram,
       label: 'Instagram',
-      url: 'https://www.instagram.com/ankith5980/',
+      url: 'https://www.instagram.com/ankith.pm/',
       color: 'hover:text-pink-600'
     },
   ];
@@ -219,7 +219,7 @@ const Contact = () => {
             "sameAs": [
               "https://github.com/ankith5980",
               "https://www.linkedin.com/in/ankith-pratheesh-menon-0353662b6/",
-              "https://www.instagram.com/ankith5980/"
+              "https://www.instagram.com/ankith.pm/"
             ],
             "contactPoint": {
               "@type": "ContactPoint",
