@@ -170,7 +170,7 @@ const projectsData = [
     liveUrl: '',
     githubUrl: 'https://github.com/ankith5980/Projects/tree/main/skill-exchange',
     category: 'fullstack',
-    status: 'in-progress',
+    status: 'completed',
     featured: true
   },
 ];
