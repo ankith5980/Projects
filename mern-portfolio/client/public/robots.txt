@@ -20,6 +20,7 @@ Allow: /images/kohabanner.jpg
 Allow: /images/icciet_judging_portal.jpg
 Allow: /images/Club_Management_App.png
 Allow: /images/skill_swap.jpg
+Allow: /images/AIMAR.jpeg
 
 # Block admin routes if any exist
 Disallow: /admin/
@@ -50,6 +51,7 @@ Allow: /images/kohabanner.jpg
 Allow: /images/icciet_judging_portal.jpg
 Allow: /images/Club_Management_App.png
 Allow: /images/skill_swap.jpg
+Allow: /images/AIMAR.jpeg
 Allow: /
 
 User-agent: Bingbot

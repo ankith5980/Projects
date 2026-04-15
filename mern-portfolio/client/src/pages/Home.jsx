@@ -208,21 +208,21 @@ const Home = () => {
       const recentProjects = [
         {
           _id: 1,
+          title: 'AI Multi-Agent Research System',
+          description: 'A fully local, decoupled AI system where multiple agents collaborate using a graph-based state machine to autonomously research topics, analyze data via vector stores, and generate comprehensive reports.',
+          technologies: ['Python', 'LangGraph', 'FAISS', 'FastAPI'],
+          images: [{ url: '/images/AIMAR.jpeg' }],
+          liveUrl: '',
+          githubUrl: 'https://github.com/ankith5980/Projects/tree/main/multi-agent-research-system'
+        },
+        {
+          _id: 2,
           title: 'Skill-Swap : A Skill Exchange Platform',
           description: 'A production-ready full-stack web application for peer-to-peer skill exchange. Users can teach skills to earn points and spend points to learn from others.',
           technologies: ['TypeScript', 'MongoDB', 'Socket.io', 'Express.js'],
           images: [{ url: '/images/skill_swap.jpg' }],
           liveUrl: '',
           githubUrl: 'https://github.com/ankith5980/Projects/tree/main/skill-exchange'
-        },
-        {
-          _id: 2,
-          title: 'Club Management System - Rotary Club of Calicut South',
-          description: 'A comprehensive club management system designed to streamline operations, member management, and event planning and membership payment for the Rotary Club of Calicut South.',
-          technologies: ['React', 'MongoDB Atlas', 'Tailwind CSS','Docker'],
-          images: [{ url: '/images/Club_Management_App.png' }],
-          liveUrl: '',
-          githubUrl: '',
         },
          {
           _id: 3,

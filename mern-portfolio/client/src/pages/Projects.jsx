@@ -121,7 +121,7 @@ const projectsData = [
     images: [{ url: '/images/portfolio_thumbnail_1.png' }],
     liveUrl: 'https://portfolio-ankith.vercel.app',
     githubUrl: 'https://github.com/ankith5980/Projects/tree/main/mern-portfolio',
-    category: 'fullstack',
+    category: 'FullStack',
     status: 'completed',
     featured: true
   },
@@ -133,7 +133,7 @@ const projectsData = [
     images: [{ url: '/images/kohabanner.jpg' }],
     liveUrl: '',
     githubUrl: 'https://github.com/ankith5980/Projects/tree/main/label',
-    category: 'backend',
+    category: 'Backend',
     status: 'continuous-development',
     featured: true
   },
@@ -145,7 +145,7 @@ const projectsData = [
     images: [{ url: '/images/Club_Management_App.png' }],
     liveUrl: '',
     githubUrl: 'https://github.com/ankith5980/Projects/tree/main/rotary-club-portal',
-    category: 'fullstack',
+    category: 'Full-Stack',
     status: 'archived',
     featured: true
   },
@@ -157,7 +157,7 @@ const projectsData = [
     images: [{ url: '/images/icciet_judging_portal.jpg' }],
     liveUrl: 'https://icciet-judging.vercel.app/',
     githubUrl: 'https://github.com/ankith5980/Projects/tree/main/iccet-judging',
-    category: 'fullstack',
+    category: 'Full-Stack',
     status: 'completed',
     featured: true
   },
@@ -169,7 +169,19 @@ const projectsData = [
     images: [{ url: '/images/skill_swap.jpg' }],
     liveUrl: '',
     githubUrl: 'https://github.com/ankith5980/Projects/tree/main/skill-exchange',
-    category: 'fullstack',
+    category: 'Full-Stack',
+    status: 'completed',
+    featured: true
+  },
+  {
+    _id: 6,
+    title: 'AI Multi-Agent Research System',
+    description: 'A fully local, decoupled AI system where multiple agents collaborate using a graph-based state machine to autonomously research topics, analyze data via vector stores, and generate comprehensive reports.',
+    technologies: ['Next.js', 'Python', 'LangGraph', 'FAISS', 'FastAPI'],
+    images: [{ url: '/images/AIMAR.jpeg' }],
+    liveUrl: '',
+    githubUrl: 'https://github.com/ankith5980/Projects/tree/main/multi-agent-research-system',
+    category: 'Artificial Intelligence',
     status: 'completed',
     featured: true
   },
