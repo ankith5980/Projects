@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useState, useCallback } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { ToastContainer } from 'react-toastify';
@@ -16,6 +16,7 @@ import RouteScrollToTop from './components/RouteScrollToTop.jsx';
 import SmoothScroll from './components/SmoothScroll.jsx';
 import GlassmorphismBackground from './components/GlassmorphismBackground.jsx';
 import LoadingSkeleton from './components/LoadingSkeleton.jsx';
+import IntroPage from './components/IntroPage.jsx';
 
 // Hooks
 import useDisableInspect from './hooks/useDisableInspect.js';
@@ -35,6 +36,17 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 function App() {
   // Disable inspect element and developer tools
   useDisableInspect();
+
+  // Show intro only on first visit per session
+  const [showIntro, setShowIntro] = useState(() => {
+    const hasSeenIntro = sessionStorage.getItem('introSeen');
+    return !hasSeenIntro;
+  });
+
+  const handleIntroComplete = useCallback(() => {
+    sessionStorage.setItem('introSeen', 'true');
+    setShowIntro(false);
+  }, []);
   
   return (
     <HelmetProvider>
@@ -44,6 +56,7 @@ function App() {
         <ThemeProvider>
           <AuthProvider>
             <div className="min-h-screen text-gray-900 dark:text-white transition-colors duration-300 w-full max-w-full overflow-x-hidden" style={{ minHeight: '100vh' }}>
+            {showIntro && <IntroPage onComplete={handleIntroComplete} />}
             <GlassmorphismBackground />
             <Navbar />
             <main className="relative z-10 w-full max-w-full" style={{ minHeight: '100vh' }}>
