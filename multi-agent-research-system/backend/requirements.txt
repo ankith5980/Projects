@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+langgraph
+langchain
+langchain-community
+langchain-text-splitters
+faiss-cpu
+python-multipart
+pydantic
+PyPDF2
+pypdf
+sse-starlette
+langchain-ollama
+unstructured
+python-docx
+python-pptx
+docx2txt
