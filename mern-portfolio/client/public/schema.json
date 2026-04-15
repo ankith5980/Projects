@@ -3,18 +3,18 @@
   "@graph": [
     {
       "@type": "Person",
-      "@id": "https://ankith.dev/#person",
+      "@id": "https://portfolio-ankith.vercel.app/#person",
       "name": "Ankith Pratheesh Menon",
       "alternateName": ["Ankith", "Ankith Menon", "Ankith Pratheesh"],
       "givenName": "Ankith",
       "familyName": "Pratheesh Menon",
       "jobTitle": "Full Stack Developer",
       "description": "Professional Full Stack Developer and Software Engineer from Kerala, India, specializing in React, Node.js, Flutter, and modern web technologies",
-      "url": "https://ankith.dev",
+      "url": "https://portfolio-ankith.vercel.app",
       "image": {
         "@type": "ImageObject",
-        "url": "https://ankith.dev/images/Ankith.jpg",
-        "contentUrl": "https://ankith.dev/images/Ankith.jpg",
+        "url": "https://portfolio-ankith.vercel.app/images/Ankith.jpg",
+        "contentUrl": "https://portfolio-ankith.vercel.app/images/Ankith.jpg",
         "caption": "Professional photo of Ankith Pratheesh Menon, Full Stack Developer",
         "width": "800",
         "height": "800"
@@ -79,26 +79,26 @@
     },
     {
       "@type": "WebSite",
-      "@id": "https://ankith.dev/#website",
-      "url": "https://ankith.dev",
+      "@id": "https://portfolio-ankith.vercel.app/#website",
+      "url": "https://portfolio-ankith.vercel.app",
       "name": "Ankith Pratheesh Menon Portfolio",
       "description": "Portfolio website of Ankith Pratheesh Menon showcasing full stack development projects and skills",
       "publisher": {
-        "@id": "https://ankith.dev/#person"
+        "@id": "https://portfolio-ankith.vercel.app/#person"
       },
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://ankith.dev/projects?search={search_term_string}",
+        "target": "https://portfolio-ankith.vercel.app/projects?search={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     },
     {
       "@type": "ProfessionalService",
-      "@id": "https://ankith.dev/#service",
+      "@id": "https://portfolio-ankith.vercel.app/#service",
       "name": "Full Stack Development Services",
       "description": "Professional web and mobile app development services by Ankith Pratheesh Menon",
       "provider": {
-        "@id": "https://ankith.dev/#person"
+        "@id": "https://portfolio-ankith.vercel.app/#person"
       },
       "serviceType": "Software Development",
       "areaServed": "Worldwide",
