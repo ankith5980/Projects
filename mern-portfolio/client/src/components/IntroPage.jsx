@@ -13,12 +13,6 @@ const IntroPage = ({ onComplete }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleExitComplete = () => {
-    if (phase === 'exiting') {
-      onComplete();
-    }
-  };
-
   // Letter-by-letter animation for the name
   const name = 'Ankith Pratheesh Menon';
   const nameLetters = name.split('');
@@ -60,8 +54,7 @@ const IntroPage = ({ onComplete }) => {
   };
 
   return (
-    <AnimatePresence onExitComplete={handleExitComplete}>
-      {phase !== 'exiting' ? null : null}
+    <AnimatePresence>
       {phase === 'intro' || phase === 'exiting' ? (
         <motion.div
           key="intro-page"
