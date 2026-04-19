@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+scikit-learn
+pandas
+redis
+confluent-kafka
+websockets
+joblib
+pydantic
+pydantic-settings
