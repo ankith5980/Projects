@@ -21,6 +21,7 @@ Allow: /images/icciet_judging_portal.jpg
 Allow: /images/Club_Management_App.png
 Allow: /images/skill_swap.jpg
 Allow: /images/AIMAR.jpeg
+Allow: /images/AIFD_Final.jpeg
 
 # Block admin routes if any exist
 Disallow: /admin/
@@ -52,6 +53,7 @@ Allow: /images/icciet_judging_portal.jpg
 Allow: /images/Club_Management_App.png
 Allow: /images/skill_swap.jpg
 Allow: /images/AIMAR.jpeg
+Allow: /images/AIFD_Final.jpeg
 Allow: /
 
 User-agent: Bingbot

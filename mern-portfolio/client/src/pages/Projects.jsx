@@ -185,6 +185,18 @@ const projectsData = [
     status: 'completed',
     featured: true
   },
+  {
+    _id: 7,
+    title: 'NEXUS AI Fraud Vanguard',
+    description: 'An AI-powered fraud detection system that leverages advanced machine learning algorithms and real-time data analysis to identify and detect fraudulent activities across various transactional domains.',
+    technologies: ['Docker', 'Scikit-learn', 'Kafka', 'Redis', 'FastAPI'],
+    images: [{ url: '/images/AIFD_Final.jpeg' }],
+    liveUrl: '',
+    githubUrl: 'https://github.com/ankith5980/Projects/tree/main/ai-fraud-detection',
+    category: 'Machine Learning',
+    status: 'completed',
+    featured: true
+  },
 ];
 
 // Animation variants

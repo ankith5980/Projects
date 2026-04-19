@@ -226,12 +226,12 @@ const Home = () => {
         },
          {
           _id: 3,
-          title: 'ICCIET 2025 Judging Portal',
-          description: 'A judging portal for the International Conference on Computational Intelligence & Emerging Technologies (ICCIET 2025) that allows judges to securely evaluate and score project submissions online.',
-          technologies: ['Next.js', 'Supabase', 'Tailwind CSS','TypeScript'],
-          images: [{ url: '/images/icciet_judging_portal.jpg' }],
-          liveUrl: 'https://icciet-judging.vercel.app/',
-          githubUrl: 'https://github.com/ankith5980/Projects/tree/main/iccet-judging',
+          title: 'NEXUS AI Fraud Vanguard',
+          description: 'An AI-powered fraud detection system that leverages advanced machine learning algorithms and real-time data analysis to identify and detect fraudulent activities across various transactional domains.',
+          technologies: ['Docker', 'Scikit-learn', 'Kafka', 'Redis', 'FastAPI'],
+          images: [{ url: '/images/AIFD_Final.jpeg' }],
+          liveUrl: '',
+          githubUrl: 'https://github.com/ankith5980/Projects/tree/main/ai-fraud-detection',
         },
       ];
       setFeaturedProjects(recentProjects);

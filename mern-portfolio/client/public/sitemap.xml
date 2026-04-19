@@ -59,6 +59,10 @@
       <image:loc>https://portfolio-ankith.vercel.app/images/AIMAR.jpeg</image:loc>
       <image:title>AI Multi-Agent Research System - Project</image:title>
     </image:image>
+    <image:image>
+      <image:loc>https://portfolio-ankith.vercel.app/images/AIFD_Final.jpeg</image:loc>
+      <image:title>AI Fraud Detection System - Project</image:title>
+    </image:image>
   </url>
   
   <!-- Certificates page - Professional certifications and credentials -->
