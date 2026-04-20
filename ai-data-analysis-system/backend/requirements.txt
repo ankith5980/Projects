@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+websockets
+langgraph
+langchain
+langchain-community
+langchain-core
+pandas
+presidio-analyzer
+presidio-anonymizer
+pydantic
+python-dotenv
