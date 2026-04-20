@@ -197,6 +197,18 @@ const projectsData = [
     status: 'completed',
     featured: true
   },
+  {
+    _id: 8,
+    title: 'Automated AI Data Analyst',
+    description: 'An AI-powered data analysis and visualization tool that enables users to upload datasets, perform exploratory data analysis, and generate insightful visualizations and reports using natural language queries.',
+    technologies: ['Python', 'Next.js', 'Ollama', 'FastAPI', 'LangGraph'],
+    images: [{ url: '/images/AIAnalystFinal.jpeg' }],
+    liveUrl: '',
+    githubUrl: 'https://github.com/ankith5980/Projects/tree/main/ai-data-analysis-system',
+    category: 'Data Analysis',
+    status: 'completed',
+    featured: true
+  },
 ];
 
 // Animation variants

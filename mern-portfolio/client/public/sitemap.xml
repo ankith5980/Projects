@@ -63,6 +63,10 @@
       <image:loc>https://portfolio-ankith.vercel.app/images/AIFD_Final.jpeg</image:loc>
       <image:title>AI Fraud Detection System - Project</image:title>
     </image:image>
+    <image:image>
+      <image:loc>https://portfolio-ankith.vercel.app/images/AIAnalystFinal.jpeg</image:loc>
+      <image:title>Automated AI Data Analyst - Project</image:title>
+    </image:image>
   </url>
   
   <!-- Certificates page - Professional certifications and credentials -->

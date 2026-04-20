@@ -215,14 +215,14 @@ const Home = () => {
           liveUrl: '',
           githubUrl: 'https://github.com/ankith5980/Projects/tree/main/multi-agent-research-system'
         },
-        {
+       {
           _id: 2,
-          title: 'Skill-Swap : A Skill Exchange Platform',
-          description: 'A production-ready full-stack web application for peer-to-peer skill exchange. Users can teach skills to earn points and spend points to learn from others.',
-          technologies: ['TypeScript', 'MongoDB', 'Socket.io', 'Express.js'],
-          images: [{ url: '/images/skill_swap.jpg' }],
+          title: 'Automated AI Data Analyst',
+          description: 'An AI-powered data analysis and visualization tool that enables users to upload datasets, perform exploratory data analysis, and generate insightful visualizations and reports using natural language queries.',
+          technologies: ['Python', 'Next.js', 'Ollama', 'FastAPI', 'LangGraph'],
+          images: [{ url: '/images/AIAnalystFinal.jpeg' }],
           liveUrl: '',
-          githubUrl: 'https://github.com/ankith5980/Projects/tree/main/skill-exchange'
+          githubUrl: 'https://github.com/ankith5980/Projects/tree/main/ai-data-analysis-system'
         },
          {
           _id: 3,

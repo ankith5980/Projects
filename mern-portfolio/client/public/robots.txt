@@ -22,6 +22,7 @@ Allow: /images/Club_Management_App.png
 Allow: /images/skill_swap.jpg
 Allow: /images/AIMAR.jpeg
 Allow: /images/AIFD_Final.jpeg
+Allow: /images/AIAnalystFinal.jpeg
 
 # Block admin routes if any exist
 Disallow: /admin/
@@ -54,6 +55,7 @@ Allow: /images/Club_Management_App.png
 Allow: /images/skill_swap.jpg
 Allow: /images/AIMAR.jpeg
 Allow: /images/AIFD_Final.jpeg
+Allow: /images/AIAnalystFinal.jpeg
 Allow: /
 
 User-agent: Bingbot
