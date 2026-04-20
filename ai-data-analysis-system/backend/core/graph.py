@@ -7,6 +7,8 @@ from core.state import AgentState
 # Import agent nodes
 from agents.orchestrator import orchestrator_node
 from agents.privacy_agent import privacy_node
+from agents.cleaner import cleaner_node
+from agents.modeler import modeler_node
 from agents.analyst import analyst_node
 from agents.visualizer import visualizer_node
 
@@ -15,13 +17,17 @@ workflow = StateGraph(AgentState)
 
 workflow.add_node("Orchestrator", orchestrator_node)
 workflow.add_node("PrivacyAgent", privacy_node)
+workflow.add_node("CleanerAgent", cleaner_node)
+workflow.add_node("ModelerAgent", modeler_node)
 workflow.add_node("AnalystAgent", analyst_node)
 workflow.add_node("VisualizerAgent", visualizer_node)
 
 # Define edges
 workflow.set_entry_point("Orchestrator")
 workflow.add_edge("Orchestrator", "PrivacyAgent")
-workflow.add_edge("PrivacyAgent", "AnalystAgent")
+workflow.add_edge("PrivacyAgent", "CleanerAgent")
+workflow.add_edge("CleanerAgent", "ModelerAgent")
+workflow.add_edge("ModelerAgent", "AnalystAgent")
 workflow.add_edge("AnalystAgent", "VisualizerAgent")
 workflow.add_edge("VisualizerAgent", END)
 
@@ -56,6 +62,20 @@ async def run_analysis_stream(task: str, csv_file_path: str = None) -> AsyncGene
         await asyncio.sleep(1)
         
         # Yield specific artifacts when specific agents complete
+        if node_name == "ModelerAgent":
+            metrics = output[node_name].get("model_metrics", {})
+            yield {
+                "type": "model_report",
+                "best_model_name": metrics.get("best_model_name", "Unknown"),
+                "best_accuracy": metrics.get("best_accuracy", 0),
+                "task_type": metrics.get("task_type", "unknown"),
+                "metric_name": metrics.get("metric_name", "Score"),
+                "all_model_scores": metrics.get("all_model_scores", {}),
+                "target_column": metrics.get("target_column", ""),
+                "num_features": metrics.get("num_features", 0),
+                "num_samples": metrics.get("num_samples", 0),
+            }
+
         if node_name == "AnalystAgent":
             yield {
                 "type": "conclusion",
@@ -64,6 +84,6 @@ async def run_analysis_stream(task: str, csv_file_path: str = None) -> AsyncGene
             
         if node_name == "VisualizerAgent":
             yield {
-                "type": "visualization",
-                "config": output[node_name].get("recharts_config", {})
+                "type": "visualization_array",
+                "configs": output[node_name].get("recharts_configs", [])
             }

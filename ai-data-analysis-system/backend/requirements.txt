@@ -5,7 +5,9 @@ langgraph
 langchain
 langchain-community
 langchain-core
+langchain-ollama
 pandas
+scikit-learn
 presidio-analyzer
 presidio-anonymizer
 pydantic

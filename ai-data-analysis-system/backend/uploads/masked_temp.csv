@@ -1,11 +1,11 @@
 Order_ID,Order_Date,Customer_Name,Category,Product,Quantity,Unit_Price,Sales,Region
-1001,2023-01-01,MASKED_ef61a579c907,Electronics,Smartphone,1,600,600,North
-1002,2023-01-02,MASKED_f86206bf359a,Clothing,T-Shirt,2,25,50,South
-1003,2023-01-03,MASKED_d80f3e7b13b3,Home & Kitchen,Cookware Set,1,120,120,West
-1004,2023-01-04,MASKED_4ebe74c9d291,Electronics,Laptop,1,1000,1000,North
-1005,2023-01-05,MASKED_3eaa3584bde2,Clothing,Jeans,3,40,120,East
-1006,2023-01-06,MASKED_236c85924912,Beauty,Face Cream,2,15,30,South
-1007,2023-01-07,MASKED_e6b05c156797,Electronics,Headphones,1,150,150,West
-1008,2023-01-08,MASKED_391ee0271bfc,Home & Kitchen,Blender,1,80,80,North
-1009,2023-01-09,MASKED_a70827f7f552,Beauty,Shampoo,4,10,40,East
-1010,2023-01-10,MASKED_27983d07c78e,Clothing,Jacket,2,60,120,South
+1001.0,0,8,2,8,1.0,600.0,600.0,1
+1002.0,1,9,1,9,2.0,25.0,50.0,2
+1003.0,2,6,3,1,1.0,120.0,120.0,3
+1004.0,3,4,2,6,1.0,1000.0,1000.0,1
+1005.0,4,3,1,5,3.0,40.0,120.0,0
+1006.0,5,0,0,2,2.0,15.0,30.0,2
+1007.0,6,7,2,3,1.0,150.0,150.0,3
+1008.0,7,2,3,0,1.0,80.0,80.0,1
+1009.0,8,5,0,7,4.0,10.0,40.0,0
+1010.0,9,1,1,4,2.0,60.0,120.0,2

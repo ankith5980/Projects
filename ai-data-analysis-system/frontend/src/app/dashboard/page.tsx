@@ -4,9 +4,10 @@ import { useState, useRef, useEffect } from "react"
 import { CommandLine } from "@/components/chat/command-line"
 import { AgentStep } from "@/components/analysis/agent-step"
 import { DataViz } from "@/components/analysis/data-viz"
-import { Sparkles, Activity, ShieldCheck, Database } from "lucide-react"
+import { ModelReport } from "@/components/analysis/model-report"
+import { Sparkles, Activity, ShieldCheck, Database, BrainCircuit, Wrench } from "lucide-react"
 
-type AgentId = "Orchestrator" | "PrivacyAgent" | "AnalystAgent" | "VisualizerAgent"
+type AgentId = "Orchestrator" | "PrivacyAgent" | "CleanerAgent" | "ModelerAgent" | "AnalystAgent" | "VisualizerAgent"
 
 interface LogEvent {
     agent: AgentId;
@@ -14,10 +15,22 @@ interface LogEvent {
     description: string;
 }
 
+interface ModelReportData {
+    bestModelName: string;
+    bestAccuracy: number;
+    taskType: string;
+    metricName: string;
+    allModelScores: Record<string, number>;
+    targetColumn: string;
+    numFeatures: number;
+    numSamples: number;
+}
+
 export default function DashboardPage() {
   const [logs, setLogs] = useState<LogEvent[]>([])
-  const [vizConfig, setVizConfig] = useState<any>(null)
+  const [vizConfigs, setVizConfigs] = useState<any[]>([])
   const [conclusion, setConclusion] = useState<string | null>(null)
+  const [modelReport, setModelReport] = useState<ModelReportData | null>(null)
   const [isProcessing, setIsProcessing] = useState(false)
   const wsRef = useRef<WebSocket | null>(null)
 
@@ -29,17 +42,25 @@ export default function DashboardPage() {
         
         if (data.type === "agent_state") {
             setLogs(prev => {
-                // If this agent already exists, mark previous ones as "done" and this one as "loading"
-                // Actually, the backend yields them in order. Let's just map it.
                 const newLogs: LogEvent[] = prev.map(log => ({ ...log, status: 'done' }))
-                // If it's a new agent event
                 if (!newLogs.find(l => l.agent === data.agent)) {
                     newLogs.push({ agent: data.agent, status: 'loading', description: `Running ${data.agent} logic...` })
                 }
                 return newLogs
             })
-        } else if (data.type === "visualization") {
-            setVizConfig(data.config)
+        } else if (data.type === "model_report") {
+            setModelReport({
+                bestModelName: data.best_model_name,
+                bestAccuracy: data.best_accuracy,
+                taskType: data.task_type,
+                metricName: data.metric_name,
+                allModelScores: data.all_model_scores,
+                targetColumn: data.target_column,
+                numFeatures: data.num_features,
+                numSamples: data.num_samples,
+            })
+        } else if (data.type === "visualization_array") {
+            setVizConfigs(data.configs)
         } else if (data.type === "conclusion") {
             setConclusion(data.text)
         } else if (data.type === "done") {
@@ -62,13 +83,16 @@ export default function DashboardPage() {
     if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
         setIsProcessing(true)
         setLogs([])
-        setVizConfig(null)
+        setVizConfigs([])
         setConclusion(null)
+        setModelReport(null)
         wsRef.current.send(JSON.stringify({ task, csv_file_path }))
     } else {
         alert("WebSocket not connected. Please ensure backend is running.")
     }
   }
+
+  const hasResults = vizConfigs.length > 0 || modelReport !== null
 
   return (
     <div className="flex w-full h-screen bg-background text-foreground overflow-hidden">
@@ -93,6 +117,8 @@ export default function DashboardPage() {
                 <div className="grid grid-cols-2 gap-2 text-xs">
                     <div className="flex items-center gap-1.5"><Database className="w-3 h-3 text-blue-500" /> Read CSV</div>
                     <div className="flex items-center gap-1.5"><ShieldCheck className="w-3 h-3 text-amber-500" /> Auto Masking</div>
+                    <div className="flex items-center gap-1.5"><Wrench className="w-3 h-3 text-cyan-400" /> Data Cleaning</div>
+                    <div className="flex items-center gap-1.5"><BrainCircuit className="w-3 h-3 text-rose-400" /> Auto-ML</div>
                     <div className="flex items-center gap-1.5"><Activity className="w-3 h-3 text-emerald-500" /> Live Charts</div>
                 </div>
             </div>
@@ -121,7 +147,7 @@ export default function DashboardPage() {
       {/* Right Panel: The Dynamic Workspace */}
       <div className="flex-1 flex w-full h-full bg-grid-white/[0.02] bg-[length:30px_30px]">
         <div className="w-full h-full flex items-center justify-center p-12">
-            {!vizConfig && !isProcessing && (
+            {!hasResults && !isProcessing && (
                 <div className="text-center space-y-4 max-w-sm">
                     <div className="mx-auto w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center transform hover:scale-105 transition-transform duration-300 ring-1 ring-border shadow-2xl">
                         <Activity className="w-8 h-8 text-muted-foreground" />
@@ -131,18 +157,44 @@ export default function DashboardPage() {
                 </div>
             )}
             
-            {isProcessing && !vizConfig && (
+            {isProcessing && !hasResults && (
                  <div className="text-center space-y-4 max-w-sm animate-pulse">
                      <p className="text-primary font-medium tracking-widest text-sm uppercase">Evaluating Data</p>
                  </div>
             )}
 
-            {vizConfig && (
-                <div className="w-full max-w-4xl flex flex-col gap-8 animate-in slide-in-from-bottom-8 fade-in-50 duration-700 mx-auto max-h-[80vh] overflow-y-auto pr-4 pb-12">
-                    <DataViz config={vizConfig} />
+            {hasResults && (
+                <div className="w-full max-w-4xl flex flex-col gap-8 animate-in slide-in-from-bottom-8 fade-in-50 duration-700 mx-auto max-h-[90vh] overflow-y-auto pr-4 pb-12">
+                    
+                    {/* ML Model Report Card */}
+                    {modelReport && (
+                        <ModelReport
+                            bestModelName={modelReport.bestModelName}
+                            bestAccuracy={modelReport.bestAccuracy}
+                            taskType={modelReport.taskType}
+                            metricName={modelReport.metricName}
+                            allModelScores={modelReport.allModelScores}
+                            targetColumn={modelReport.targetColumn}
+                            numFeatures={modelReport.numFeatures}
+                            numSamples={modelReport.numSamples}
+                        />
+                    )}
+
+                    {/* Visualization Charts */}
+                    {vizConfigs.length > 0 && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                            {vizConfigs.map((cfg, idx) => (
+                               <div key={idx} className={idx === 0 ? "col-span-1 md:col-span-2" : "col-span-1"}>
+                                   <DataViz config={cfg} />
+                               </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Executive Summary */}
                     {conclusion && (
                          <div className="p-6 bg-card/60 backdrop-blur-md rounded-2xl border border-border/50 text-sm leading-relaxed shadow-sm">
-                             <h3 className="font-semibold text-lg mb-4 text-primary">Analytical Conclusion</h3>
+                             <h3 className="font-semibold text-lg mb-4 text-primary">Auto-ML Executive Summary</h3>
                              <div className="whitespace-pre-wrap font-mono text-xs opacity-90">{conclusion}</div>
                          </div>
                     )}

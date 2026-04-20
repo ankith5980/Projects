@@ -1,4 +1,4 @@
-import { CheckCircle2, Loader2, ShieldCheck, Download, CodeIcon, Search } from "lucide-react"
+import { CheckCircle2, Loader2, ShieldCheck, Download, CodeIcon, Search, Wrench, BrainCircuit } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
 export function AgentStep({ status, agentName, description }: { status: 'loading' | 'done', agentName: string, description: string }) {
@@ -7,6 +7,8 @@ export function AgentStep({ status, agentName, description }: { status: 'loading
       switch (agentName) {
           case 'Orchestrator': return <Search className="w-4 h-4 text-blue-400" />;
           case 'PrivacyAgent': return <ShieldCheck className="w-4 h-4 text-amber-500" />;
+          case 'CleanerAgent': return <Wrench className="w-4 h-4 text-cyan-400" />;
+          case 'ModelerAgent': return <BrainCircuit className="w-4 h-4 text-rose-400" />;
           case 'AnalystAgent': return <CodeIcon className="w-4 h-4 text-purple-500" />;
           case 'VisualizerAgent': return <Download className="w-4 h-4 text-emerald-500" />;
           default: return <Loader2 className="w-4 h-4 text-muted-foreground animate-spin" />;
@@ -27,7 +29,12 @@ export function AgentStep({ status, agentName, description }: { status: 'loading
           <ShieldCheck className="w-3 h-3 mr-1" /> {status === 'loading' ? 'Encrypting...' : 'Secured'}
         </Badge>
       )}
-      {status === 'done' && agentName !== "PrivacyAgent" && (
+      {agentName === "ModelerAgent" && (
+        <Badge variant="outline" className="bg-rose-500/10 text-rose-400 hover:bg-rose-500/20 shadow-none border-rose-500/20">
+          <BrainCircuit className="w-3 h-3 mr-1" /> {status === 'loading' ? 'Benchmarking...' : 'Selected'}
+        </Badge>
+      )}
+      {status === 'done' && agentName !== "PrivacyAgent" && agentName !== "ModelerAgent" && (
         <CheckCircle2 className="w-4 h-4 text-emerald-500/70 flex-shrink-0" />
       )}
     </div>

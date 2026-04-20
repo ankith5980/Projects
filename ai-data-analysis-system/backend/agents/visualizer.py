@@ -6,91 +6,82 @@ from core.state import AgentState
 def visualizer_node(state: AgentState):
     """
     The Visualizer Agent dynamically prompts Ollama to determine the ideal 
-    data mapping (xKey, yKey, chart_type) based on the user's specific Task and the parsed Dataframe schema.
-    It then mathematically slices the data as the LLM directed.
+    data mapping for the primary EDA chart, and constructs 2 additional 
+    charts based on the Auto-ML Modeler bounds (Importances & Regression diffs).
     """
     task = state.get("task", "")
     masked_csv = state.get("masked_csv_path")
-    print("[VisualizerAgent] Algorithmic chart generation...")
+    metrics = state.get("model_metrics", {})
+    logs = state.get("logs", [])
     
+    print("[VisualizerAgent] Generating Array of AutoML Configurations...")
     df = pd.read_csv(masked_csv)
-    
-    # Extract structural schema to show the LLM what it has to work with
     columns = df.columns.tolist()
-    dtypes = {c: str(df[c].dtype) for c in columns}
     
-    prompt = f"""
-    You are an expert Data Visualizer. 
-    The user wants to analyze this dataset based on this task: "{task}"
+    configs = []
     
-    The dataset has the following columns and types:
-    {dtypes}
-    
-    Decide the absolute best column to use as the X-Axis (xKey) and numerical Y-Axis (yKey) to satisfy the prompt.
-    Also decide the chart type ("bar_chart" or "line_chart").
-    
-    Return EXACTLY AND ONLY a valid JSON dictionary in this shape: 
-    {{"xKey": "column_name", "yKey": "numerical_column_name", "type": "chart_type"}}
-    """
-    
-    print("[VisualizerAgent] Calling LLM for exact variable targeting...")
+    # ---------------------------------------------
+    # Chart 1: Contextual EDA Plot (LLM Selected)
+    # ---------------------------------------------
     try:
-        llm = OllamaLLM(model="llama3.2:1b", format="json") # Force JSON format
-        llm_response = llm.invoke(prompt)
-        mapping = json.loads(llm_response)
-        
+        llm = OllamaLLM(model="llama3.2:1b", format="json")
+        prompt = f"""
+        Task: "{task}"
+        Columns: {columns}
+        Determine the best X-Axis (xKey) and Y-Axis (yKey) columns for a primary EDA plot.
+        Return EXACTLY JSON: {{"xKey": "col", "yKey": "col", "type": "bar_chart"}}
+        """
+        mapping = json.loads(llm.invoke(prompt))
         xKey = mapping.get("xKey")
         yKey = mapping.get("yKey")
         chart_type = mapping.get("type", "bar_chart")
-        
-        # Validate keys exist
-        if xKey not in columns: xKey = None
-        if yKey not in columns: yKey = None
-            
-    except Exception as e:
-        print(f"[VisualizerAgent] LLM parsing failed or unavailable, defaulting to heuristics: {e}")
-        numeric_cols = df.select_dtypes(include='number').columns.tolist()
-        string_cols = df.select_dtypes(include='object').columns.tolist()
-        xKey = string_cols[0] if string_cols else None
-        yKey = numeric_cols[0] if numeric_cols else None
+        if xKey not in columns: xKey = columns[0]
+        if yKey not in columns: yKey = columns[1] if len(columns) > 1 else columns[0]
+    except Exception:
+        xKey = columns[0]
+        yKey = columns[1] if len(columns) > 1 else columns[0]
         chart_type = "bar_chart"
         
-    # Safeguard if keys completely failed
-    if not yKey:
-        yKey = "index"
-        chart_type = "line_chart"
-        
-    # Process the exact dimensions the LLM requested
-    # Sample up to 15 rows for neat visualization, or group if categorical
-    if xKey and yKey and str(df[xKey].dtype) == 'object':
-        try:
-             viz_df = df.groupby(xKey, as_index=False)[yKey].sum().head(15)
-        except Exception:
-             viz_df = df.head(15)
-    else:
-        viz_df = df.head(15)
-        
-    # We must reset index so that "index" gets explicitly converted to a column 
-    # that Recharts can read if there is no valid categorical xKey.
-    if not xKey:
-        viz_df = viz_df.reset_index()
-        xKey = "index"
-            
-    data = viz_df.to_dict(orient="records")
-
-    recharts_config = {
+    viz_df = df.head(15).copy()
+    configs.append({
         "type": chart_type,
-        "title": "LLM Generated Graph",
-        "data": data,
+        "title": f"Exploratory Distribution: {yKey} vs {xKey}",
+        "data": viz_df.to_dict(orient="records"),
         "xKey": xKey,
         "yKey": yKey
-    }
-    
-    current_logs = state.get("logs", [])
-    if current_logs is None:
-        current_logs = []
+    })
+
+    # ---------------------------------------------
+    # Chart 2: Feature Importances Top-N
+    # ---------------------------------------------
+    importances = metrics.get("feature_importances", {})
+    if importances:
+        imp_data = [{"feature": k, "weight": float(v)} for k, v in importances.items()]
+        imp_data = sorted(imp_data, key=lambda x: x["weight"], reverse=True)[:10]
+        configs.append({
+            "type": "bar_chart",
+            "title": "Machine Learning Feature Importance",
+            "data": imp_data,
+            "xKey": "feature",
+            "yKey": "weight"
+        })
         
+    # ---------------------------------------------
+    # Chart 3: Predictions / General Trend Overfitting
+    # ---------------------------------------------
+    test_plot = metrics.get("test_plot", {})
+    if test_plot:
+        predicted = test_plot.get("predicted", [])
+        avp_data = [{"sample": str(i), "predicted_value": float(pred)} for i, pred in enumerate(predicted)]
+        configs.append({
+            "type": "line_chart",
+            "title": "Predictive Testing Trend bounds",
+            "data": avp_data,
+            "xKey": "sample",
+            "yKey": "predicted_value"
+        })
+
     return {
-        "recharts_config": recharts_config,
-        "logs": current_logs + ["VisualizerAgent synced LLM contextual logic to graph mapping."]
+        "recharts_configs": configs,
+        "logs": logs + [f"VisualizerAgent assembled {len(configs)} complex ML Visualizations."]
     }
