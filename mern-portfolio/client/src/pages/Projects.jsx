@@ -115,7 +115,7 @@ ProjectCard.displayName = 'ProjectCard';
 const projectsData = [
   {
     _id: 1,
-    title: 'MERN Portfolio Website',
+    title: 'Personal Portfolio Website',
     description: 'A modern, responsive portfolio website built with the MERN stack featuring dark mode, animations, and admin dashboard.',
     technologies: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS', 'Framer Motion'],
     images: [{ url: '/images/portfolio_thumbnail_1.png' }],
