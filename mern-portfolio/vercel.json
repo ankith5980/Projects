@@ -2,7 +2,7 @@
   "version": 2,
   "buildCommand": "npm run build",
   "installCommand": "npm run install-all",
-  "outputDirectory": "client/build",
+  "outputDirectory": "build",
   "rewrites": [
     {
       "source": "/api/(.*)",
@@ -24,4 +24,4 @@
       ]
     }
   ]
-}
+}
