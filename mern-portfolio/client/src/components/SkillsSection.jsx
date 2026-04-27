@@ -40,14 +40,18 @@ const SkillsSection = React.memo(({ skills }) => {
                 {category}
               </h3>
               <div className="flex flex-wrap justify-center gap-2">
-                {categorySkills.slice(0, 5).map((skill) => (
-                  <span
-                    key={skill._id}
-                    className="px-3 py-1 bg-white dark:bg-gray-800 rounded-full text-sm border border-gray-200 dark:border-gray-700"
-                  >
-                    {skill.name}
-                  </span>
-                ))}
+                {Array.isArray(categorySkills) ? (
+                  categorySkills.slice(0, 5).map((skill) => (
+                    <span
+                      key={skill._id || Math.random()}
+                      className="px-3 py-1 bg-white dark:bg-gray-800 rounded-full text-sm border border-gray-200 dark:border-gray-700"
+                    >
+                      {skill.name}
+                    </span>
+                  ))
+                ) : (
+                  <span className="text-sm text-gray-500 italic">No skills listed</span>
+                )}
               </div>
             </motion.div>
           ))}
