@@ -576,14 +576,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Lazy-loaded Skills Section */}
-      <Suspense fallback={
-        <div className="section-padding bg-gray-50 dark:bg-dark-200 flex items-center justify-center">
-          <LoadingSpinner />
-        </div>
-      }>
-        <SkillsSection skills={skills} />
-      </Suspense>
+
 
       {/* Lazy-loaded Projects Section */}
       <Suspense fallback={
