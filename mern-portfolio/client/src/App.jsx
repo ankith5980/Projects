@@ -36,7 +36,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 function App() {
   // Disable inspect element and developer tools
-  // useDisableInspect();
+  useDisableInspect();
   
   return (
     <HelmetProvider>
