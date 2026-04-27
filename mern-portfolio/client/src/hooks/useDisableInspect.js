@@ -49,6 +49,34 @@ const useDisableInspect = () => {
         e.preventDefault();
         return false;
       }
+
+      // Print Screen key
+      if (e.key === 'PrintScreen' || e.code === 'PrintScreen') {
+        e.preventDefault();
+        navigator.clipboard?.writeText(''); // Attempt to clear clipboard
+        return false;
+      }
+      
+      // Mac screenshot shortcuts (Cmd+Shift+3/4/5)
+      if (e.metaKey && e.shiftKey && (e.key === '3' || e.key === '4' || e.key === '5')) {
+        e.preventDefault();
+        return false;
+      }
+      
+      // Windows Snipping Tool (Win+Shift+S)
+      if (e.metaKey && e.shiftKey && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+        return false;
+      }
+    };
+
+    // Handle key up for PrintScreen (some OS only fire keyup for this key)
+    const handleKeyUp = (e) => {
+      if (e.key === 'PrintScreen' || e.code === 'PrintScreen') {
+        e.preventDefault();
+        navigator.clipboard?.writeText(''); // Attempt to clear clipboard
+        return false;
+      }
     };
 
     // Disable text selection
@@ -66,6 +94,7 @@ const useDisableInspect = () => {
     // Add event listeners
     document.addEventListener('contextmenu', handleContextMenu);
     document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('keyup', handleKeyUp);
     document.addEventListener('selectstart', handleSelectStart);
     document.addEventListener('copy', handleCopy);
 
@@ -73,6 +102,7 @@ const useDisableInspect = () => {
     return () => {
       document.removeEventListener('contextmenu', handleContextMenu);
       document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('keyup', handleKeyUp);
       document.removeEventListener('selectstart', handleSelectStart);
       document.removeEventListener('copy', handleCopy);
     };
