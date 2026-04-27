@@ -187,7 +187,7 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen section-padding pt-40 md:pt-44 lg:pt-48">
+    <div className="min-h-screen section-padding pt-40 md:pt-44 lg:pt-48 overflow-x-hidden">
       <SEO 
         title="Contact Ankith Pratheesh Menon - Full Stack Developer | Get In Touch"
         description="Contact Ankith Pratheesh Menon for web development projects, collaborations, and job opportunities. Full Stack Developer specializing in React, Node.js, and modern web technologies. Based in Kozhikode, Kerala, India. Email: ankithpratheesh147@gmail.com | Phone: +91 9495540233"

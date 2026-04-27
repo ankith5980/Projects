@@ -51,6 +51,7 @@ html {
   /* scroll-behavior: smooth; */ /* Disabled for better performance on fast scrolls */
   width: 100%;
   height: auto;
+  overflow-x: hidden;
 }
 
 body {
@@ -67,6 +68,7 @@ body {
   position: relative;
   /* Fallback background color to prevent white space on mobile */
   background-color: #f8fafc;
+  overflow-x: hidden;
 }
 
 html.dark body {
