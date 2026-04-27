@@ -32,7 +32,7 @@ const Contact = () => {
   useEffect(() => {
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
     if (publicKey) {
-      emailjs.init(publicKey);
+      emailjs.init({ publicKey });
     }
   }, []);
 
@@ -94,9 +94,9 @@ const Contact = () => {
     
     try {
       // Use EmailJS as primary method
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_27jmx62';
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_49nj4oq';
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '3d4ntCXQj5ZNHkKyv';
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
       
       if (serviceId && templateId && publicKey) {
         try {
@@ -117,7 +117,7 @@ const Contact = () => {
             serviceId,
             templateId,
             templateParams,
-            publicKey
+            { publicKey }
           );
 
           setSubmitStatus('success');
