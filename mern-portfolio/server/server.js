@@ -7,6 +7,9 @@ require('dotenv').config();
 
 const app = express();
 
+// Trust Vercel proxy
+app.set('trust proxy', 1);
+
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -32,6 +35,7 @@ app.use('/api/contact', require('./routes/contact'));
 app.use('/api/about', require('./routes/about'));
 app.use('/api/certificates', require('./routes/certificates'));
 app.use('/api/upload', require('./routes/upload'));
+app.use('/api/chat', require('./routes/chat'));
 
 // Basic route
 app.get('/', (req, res) => {
@@ -59,6 +63,10 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio
 
 const PORT = process.env.PORT || 5001;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;

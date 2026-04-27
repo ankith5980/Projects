@@ -1,11 +1,13 @@
 {
   "version": 2,
   "buildCommand": "npm run build",
-  "outputDirectory": "build",
-  "installCommand": "npm install",
-  "framework": "vite",
-  "functions": {},
+  "installCommand": "npm run install-all",
+  "outputDirectory": "client/build",
   "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "server/server.js"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
@@ -22,4 +24,4 @@
       ]
     }
   ]
-}
+}

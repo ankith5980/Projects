@@ -16,6 +16,8 @@ import RouteScrollToTop from './components/RouteScrollToTop.jsx';
 import SmoothScroll from './components/SmoothScroll.jsx';
 import GlassmorphismBackground from './components/GlassmorphismBackground.jsx';
 import LoadingSkeleton from './components/LoadingSkeleton.jsx';
+import ChatWidget from './components/ChatWidget.jsx';
+import CustomCursor from './components/CustomCursor.jsx';
 
 // Hooks
 import useDisableInspect from './hooks/useDisableInspect.js';
@@ -41,6 +43,7 @@ function App() {
       <Router>
         <SmoothScroll />
         <RouteScrollToTop />
+        <CustomCursor />
         <ThemeProvider>
           <AuthProvider>
             <div className="min-h-screen text-gray-900 dark:text-white transition-colors duration-300 w-full max-w-full overflow-x-hidden" style={{ minHeight: '100vh' }}>
@@ -70,6 +73,7 @@ function App() {
               <Footer />
             </div>
             <ScrollToTop />
+            <ChatWidget />
             <ToastContainer
               position="top-right"
               autoClose={5000}
