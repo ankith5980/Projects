@@ -354,6 +354,7 @@ const Home = () => {
                         className="w-full h-full object-cover"
                         loading="eager"
                         decoding="async"
+                        fetchPriority="high"
                         width="384"
                         height="384"
                       />
@@ -364,6 +365,7 @@ const Home = () => {
                         className="w-full h-full object-cover"
                         loading="eager"
                         decoding="async"
+                        fetchPriority="high"
                         width="384"
                         height="384"
                         onError={(e) => {

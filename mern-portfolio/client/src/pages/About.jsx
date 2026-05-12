@@ -281,8 +281,9 @@ const About = () => {
                       src={aboutData.avatar?.url || '/images/Ankith.jpg'}
                       alt={aboutData.fullName}
                       className="w-full h-full object-cover"
-                      loading="lazy"
+                      loading="eager"
                       decoding="async"
+                      fetchPriority="high"
                       width="384"
                       height="384"
                     />

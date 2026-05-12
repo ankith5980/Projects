@@ -38,13 +38,15 @@ const ProjectsSection = React.memo(({ featuredProjects }) => {
             >
               <div className="aspect-video bg-gradient-to-br from-primary-400 to-purple-600 relative overflow-hidden">
                 {project.images?.[0]?.url ? (
-                  <img
-                    src={project.images[0].url}
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    loading="lazy"
-                    decoding="async"
-                  />
+                    <img
+                      src={project.images[0].url}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      loading="lazy"
+                      decoding="async"
+                      width="640"
+                      height="360"
+                    />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-white text-4xl">
                     <FaCode />
