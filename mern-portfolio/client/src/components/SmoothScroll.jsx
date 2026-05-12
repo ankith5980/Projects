@@ -8,12 +8,14 @@ const SmoothScroll = () => {
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 2.0,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       gestureDirection: 'vertical',
       smooth: true,
-      mouseMultiplier: 0.6,
+      lerp: 0.1,
+      mouseMultiplier: 1.0,
+      wheelMultiplier: 1.0,
       smoothTouch: false,
       touchMultiplier: 1.5,
     });

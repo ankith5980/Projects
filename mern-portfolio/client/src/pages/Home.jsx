@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback, Suspense, lazy } from 'react';
+import React, { useState, useEffect, useMemo, Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
@@ -23,7 +23,6 @@ import {
   SiMongodb,
   SiMysql
 } from 'react-icons/si';
-import apiService from '../utils/api';
 import SEO from '../components/SEO';
 import { getBaseUrl, getFullUrl, getFullImageUrl } from '../utils/url';
 import { generatePersonSchema, generateOrganizationSchema } from '../utils/personalSEO';
@@ -113,8 +112,7 @@ const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTi
 TypingEffect.displayName = 'TypingEffect';
 
 const Home = () => {
-  // Static fallback data for immediate rendering
-  const staticFallbackData = useMemo(() => ({
+  const aboutData = useMemo(() => ({
     fullName: 'Ankith Pratheesh Menon',
     title: 'Full Stack Developer',
     bio: 'Passionate developer creating amazing digital experiences with modern technologies.',
@@ -125,18 +123,36 @@ const Home = () => {
     }
   }), []);
 
-  const [aboutData, setAboutData] = useState(staticFallbackData);
-  const [featuredProjects, setFeaturedProjects] = useState([]);
-  const [skills, setSkills] = useState({});
-  const [loading, setLoading] = useState(false); // Start with false for faster initial render
-  const [dataLoaded, setDataLoaded] = useState(false);
+  const featuredProjects = useMemo(() => [
+    {
+      _id: 1,
+      title: 'AI Multi-Agent Research System',
+      description: 'A fully local, decoupled AI system where multiple agents collaborate using a graph-based state machine to autonomously research topics, analyze data via vector stores, and generate comprehensive reports.',
+      technologies: ['Python', 'LangGraph', 'FAISS', 'FastAPI'],
+      images: [{ url: '/images/AIMAR.jpeg' }],
+      liveUrl: '',
+      githubUrl: 'https://github.com/ankith5980/Projects/tree/main/multi-agent-research-system'
+    },
+    {
+      _id: 2,
+      title: 'Automated AI Data Analyst',
+      description: 'An AI-powered data analysis and visualization tool that enables users to upload datasets, perform exploratory data analysis, and generate insightful visualizations and reports using natural language queries.',
+      technologies: ['Python', 'Next.js', 'Ollama', 'FastAPI', 'LangGraph'],
+      images: [{ url: '/images/AIAnalystFinal.jpeg' }],
+      liveUrl: '',
+      githubUrl: 'https://github.com/ankith5980/Projects/tree/main/ai-data-analysis-system'
+    },
+    {
+      _id: 3,
+      title: 'NEXUS AI Fraud Vanguard',
+      description: 'An AI-powered fraud detection system that leverages advanced machine learning algorithms and real-time data analysis to identify and detect fraudulent activities across various transactional domains.',
+      technologies: ['Docker', 'Scikit-learn', 'Kafka', 'Redis', 'FastAPI'],
+      images: [{ url: '/images/AIFD_Final.jpeg' }],
+      liveUrl: '',
+      githubUrl: 'https://github.com/ankith5980/Projects/tree/main/ai-fraud-detection',
+    },
+  ], []);
 
-  // Handle CV download tracking
-  const handleCVDownload = () => {
-    console.log('CV download initiated');
-    // You can add analytics tracking here
-    // Example: gtag('event', 'download', { file_name: 'Ankith_Pratheesh_Menon_CV.pdf' });
-  };
   // Memoized typing texts to avoid re-creation on each render
   const typingTexts = useMemo(() => [
     'Full Stack Developer',
@@ -145,129 +161,10 @@ const Home = () => {
     'AI/ML Enthusiast'
   ], []);
 
-  // Optimized data fetching with progressive loading
-  const fetchData = useCallback(async () => {
-    try {
-      // Fetch about data first (highest priority)
-      const aboutPromise = apiService.getAbout().then(res => {
-        // Filter out placeholder values from API response
-        const apiData = res.data || {};
-        const cleanedData = {};
-        
-        // Only use API data if it's not a placeholder
-        if (apiData.fullName && !apiData.fullName.toLowerCase().includes('your name')) {
-          cleanedData.fullName = apiData.fullName;
-        }
-        if (apiData.title && !apiData.title.toLowerCase().includes('your')) {
-          cleanedData.title = apiData.title;
-        }
-        // Don't use API bio - always use fallback from staticFallbackData
-        // if (apiData.bio && !apiData.bio.toLowerCase().includes('your')) {
-        //   cleanedData.bio = apiData.bio;
-        // }
-        if (apiData.email && !apiData.email.toLowerCase().includes('your')) {
-          cleanedData.email = apiData.email;
-        }
-        if (apiData.location && !apiData.location.toLowerCase().includes('your')) {
-          cleanedData.location = apiData.location;
-        }
-        if (apiData.phone) {
-          cleanedData.phone = apiData.phone;
-        }
-        if (apiData.avatar) {
-          cleanedData.avatar = apiData.avatar;
-        }
-        if (apiData.resume) {
-          cleanedData.resume = apiData.resume;
-        }
-        // Don't accept socialLinks from API - always use fallback
-        // This ensures Instagram and other links are always displayed
-        // if (apiData.socialLinks) {
-        //   const validSocialLinks = {};
-        //   if (apiData.socialLinks.github && apiData.socialLinks.github.includes('github.com')) {
-        //     validSocialLinks.github = apiData.socialLinks.github;
-        //   }
-        //   if (apiData.socialLinks.linkedin && apiData.socialLinks.linkedin.includes('linkedin.com')) {
-        //     validSocialLinks.linkedin = apiData.socialLinks.linkedin;
-        //   }
-        //   if (apiData.socialLinks.instagram && apiData.socialLinks.instagram.includes('instagram.com')) {
-        //     validSocialLinks.instagram = apiData.socialLinks.instagram;
-        //   }
-        //   // Only update social links if we have valid ones, and merge with existing
-        //   if (Object.keys(validSocialLinks).length > 0) {
-        //     cleanedData.socialLinks = validSocialLinks;
-        //   }
-        // }
-        
-        setAboutData(prev => ({ ...prev, ...cleanedData }));
-      }).catch(err => {
-        console.warn('About data not available:', err);
-      });
-
-      // Set recent 3 projects (hardcoded)
-      const recentProjects = [
-        {
-          _id: 1,
-          title: 'AI Multi-Agent Research System',
-          description: 'A fully local, decoupled AI system where multiple agents collaborate using a graph-based state machine to autonomously research topics, analyze data via vector stores, and generate comprehensive reports.',
-          technologies: ['Python', 'LangGraph', 'FAISS', 'FastAPI'],
-          images: [{ url: '/images/AIMAR.jpeg' }],
-          liveUrl: '',
-          githubUrl: 'https://github.com/ankith5980/Projects/tree/main/multi-agent-research-system'
-        },
-       {
-          _id: 2,
-          title: 'Automated AI Data Analyst',
-          description: 'An AI-powered data analysis and visualization tool that enables users to upload datasets, perform exploratory data analysis, and generate insightful visualizations and reports using natural language queries.',
-          technologies: ['Python', 'Next.js', 'Ollama', 'FastAPI', 'LangGraph'],
-          images: [{ url: '/images/AIAnalystFinal.jpeg' }],
-          liveUrl: '',
-          githubUrl: 'https://github.com/ankith5980/Projects/tree/main/ai-data-analysis-system'
-        },
-         {
-          _id: 3,
-          title: 'NEXUS AI Fraud Vanguard',
-          description: 'An AI-powered fraud detection system that leverages advanced machine learning algorithms and real-time data analysis to identify and detect fraudulent activities across various transactional domains.',
-          technologies: ['Docker', 'Scikit-learn', 'Kafka', 'Redis', 'FastAPI'],
-          images: [{ url: '/images/AIFD_Final.jpeg' }],
-          liveUrl: '',
-          githubUrl: 'https://github.com/ankith5980/Projects/tree/main/ai-fraud-detection',
-        },
-      ];
-      setFeaturedProjects(recentProjects);
-
-      const skillsPromise = apiService.getSkills().then(res => {
-        setSkills(res.data || {});
-      }).catch(err => {
-        console.warn('Skills data not available:', err);
-      });
-
-      // Wait for about data, let others load progressively
-      await aboutPromise;
-      setDataLoaded(true);
-      
-      // Continue loading other data in background
-      Promise.all([skillsPromise]).finally(() => {
-        setLoading(false);
-      });
-
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      setDataLoaded(true);
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    // Add a small delay to let initial render complete first
-    const timer = setTimeout(fetchData, 100);
-    return () => clearTimeout(timer);
-  }, [fetchData]);
-
-  // Lightweight loading component for better UX
-  const LoadingSpinner = () => (
-    <div className="inline-block w-6 h-6 border-2 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
-  );
+  // Handle CV download tracking
+  const handleCVDownload = () => {
+    // Analytics tracking placeholder
+  };
 
   return (
     <div className="min-h-screen">
@@ -581,7 +478,7 @@ const Home = () => {
       {/* Lazy-loaded Projects Section */}
       <Suspense fallback={
         <div className="section-padding flex items-center justify-center">
-          <LoadingSpinner />
+          <div className="w-8 h-8 border-4 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
         </div>
       }>
         <ProjectsSection featuredProjects={featuredProjects} />

@@ -27,14 +27,8 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
-          'router': ['react-router-dom'],
-          'ui-motion': ['framer-motion'],
-          'ui-icons': ['react-icons'],
-          'ui-helmet': ['react-helmet-async'],
-          'utils': ['axios', 'react-toastify']
-        },
+        // Allow Vite to use its default optimized chunking strategy
+        // which prevents circular dependencies natively
         // Optimize chunk size
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
@@ -62,7 +56,6 @@ export default defineConfig({
       'react', 
       'react-dom', 
       'react-router-dom', 
-      'axios', 
       'framer-motion',
       'react-icons',
       'react-helmet-async',

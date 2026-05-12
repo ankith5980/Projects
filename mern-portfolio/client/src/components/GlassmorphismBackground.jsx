@@ -49,8 +49,15 @@ const GlassmorphismBackground = memo(() => {
         />
       ))}
       
-      {/* Glassmorphism overlay - Reduced blur for performance */}
-      <div className="absolute inset-0 backdrop-blur-[30px]" />
+      {/* Glassmorphism overlay - Reduced blur for scroll performance */}
+      <div 
+        className="absolute inset-0 backdrop-blur-[15px]" 
+        style={{ 
+          contain: 'strict', 
+          willChange: 'transform',
+          transform: 'translateZ(0)',
+        }} 
+      />
       
       {/* CSS Keyframe animations */}
       <style>{`

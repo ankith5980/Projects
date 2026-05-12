@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaCommentDots, FaTimes, FaPaperPlane, FaSpinner, FaRobot } from 'react-icons/fa';
+import { FaCommentDots, FaTimes, FaPaperPlane, FaSpinner, FaRobot, FaExclamationTriangle } from 'react-icons/fa';
 import { twMerge } from 'tailwind-merge';
 import clsx from 'clsx';
 
@@ -31,6 +31,9 @@ function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
+const MAX_MESSAGE_LENGTH = 500;
+const MAX_CONVERSATION_LENGTH = 20;
+
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,7 +42,62 @@ const ChatWidget = () => {
   const [localInput, setLocalInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  // Rate limit state
+  const [rateLimitInfo, setRateLimitInfo] = useState(null); // { message, retryAfterMs, expiresAt }
+  const rateLimitTimerRef = useRef(null);
+
+  // Clear rate limit timer on unmount
+  useEffect(() => {
+    return () => {
+      if (rateLimitTimerRef.current) clearInterval(rateLimitTimerRef.current);
+    };
+  }, []);
+
+  // Countdown timer for rate limit
+  useEffect(() => {
+    if (!rateLimitInfo) return;
+
+    const tick = () => {
+      const remaining = rateLimitInfo.expiresAt - Date.now();
+      if (remaining <= 0) {
+        setRateLimitInfo(null);
+        if (rateLimitTimerRef.current) clearInterval(rateLimitTimerRef.current);
+        return;
+      }
+      // Force re-render for countdown
+      setRateLimitInfo(prev => prev ? { ...prev } : null);
+    };
+
+    rateLimitTimerRef.current = setInterval(tick, 1000);
+    return () => {
+      if (rateLimitTimerRef.current) clearInterval(rateLimitTimerRef.current);
+    };
+  }, [rateLimitInfo?.expiresAt]);
+
+  const formatTimeRemaining = useCallback(() => {
+    if (!rateLimitInfo) return '';
+    const remaining = Math.max(0, rateLimitInfo.expiresAt - Date.now());
+    const minutes = Math.floor(remaining / 60000);
+    const seconds = Math.floor((remaining % 60000) / 1000);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  }, [rateLimitInfo]);
+
   const sendMessage = async ({ role, content }) => {
+    // Check if rate limited
+    if (rateLimitInfo && Date.now() < rateLimitInfo.expiresAt) {
+      return;
+    }
+
+    // Enforce conversation limit
+    if (messages.length >= MAX_CONVERSATION_LENGTH * 2) {
+      setRateLimitInfo({
+        message: 'Conversation limit reached. Please refresh to start a new conversation.',
+        retryAfterMs: 0,
+        expiresAt: Date.now(),
+      });
+      return;
+    }
+
     const newMessages = [...messages, { id: Date.now().toString(), role, content }];
     setMessages(newMessages);
     setIsLoading(true);
@@ -49,9 +107,25 @@ const ChatWidget = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
         },
         body: JSON.stringify({ messages: newMessages }),
       });
+
+      // Handle rate limiting
+      if (res.status === 429) {
+        const errorData = await res.json();
+        const retryAfterMs = errorData.retryAfterMs || 15 * 60 * 1000;
+        setRateLimitInfo({
+          message: errorData.message || 'Rate limit exceeded. Please wait before trying again.',
+          retryAfterMs,
+          expiresAt: Date.now() + retryAfterMs,
+        });
+        // Remove the user message that wasn't processed
+        setMessages(messages);
+        setIsLoading(false);
+        return;
+      }
 
       if (!res.ok) throw new Error('API Error');
 
@@ -86,7 +160,8 @@ const ChatWidget = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (!localInput || localInput.trim() === '') return;
-    const currentInput = localInput;
+    if (rateLimitInfo && Date.now() < rateLimitInfo.expiresAt) return;
+    const currentInput = localInput.slice(0, MAX_MESSAGE_LENGTH);
     setLocalInput('');
     sendMessage({ role: 'user', content: currentInput });
   };
@@ -115,17 +190,25 @@ const ChatWidget = () => {
     scrollToBottom(false);
   }, [messages]);
 
-  // Listen to scroll to adjust position when scroll-to-top button appears
+  // Throttled scroll listener for position adjustment
   useEffect(() => {
-    const toggleScrollState = () => {
-      setIsScrolled(window.pageYOffset > 300);
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        setTimeout(() => {
+          setIsScrolled(window.pageYOffset > 300);
+          ticking = false;
+        }, 200);
+      }
     };
 
-    window.addEventListener('scroll', toggleScrollState);
-    // initial check
-    toggleScrollState();
-    return () => window.removeEventListener('scroll', toggleScrollState);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const isRateLimited = rateLimitInfo && Date.now() < rateLimitInfo.expiresAt;
 
   return (
     <>
@@ -185,6 +268,32 @@ const ChatWidget = () => {
               </button>
             </div>
 
+            {/* Rate Limit Alert */}
+            <AnimatePresence>
+              {isRateLimited && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="px-4 py-3 bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800"
+                >
+                  <div className="flex items-start space-x-2">
+                    <FaExclamationTriangle className="w-4 h-4 text-amber-500 mt-0.5 shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-amber-700 dark:text-amber-300 font-medium">
+                        {rateLimitInfo.message}
+                      </p>
+                      {rateLimitInfo.retryAfterMs > 0 && (
+                        <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
+                          Try again in <span className="font-mono font-bold">{formatTimeRemaining()}</span>
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             {/* Messages Area */}
             <div 
               ref={messagesContainerRef}
@@ -233,6 +342,15 @@ const ChatWidget = () => {
 
             {/* Input Form */}
             <div className="p-4 bg-white/50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800">
+              {/* Character count */}
+              {localInput.length > MAX_MESSAGE_LENGTH * 0.8 && (
+                <div className={cn(
+                  "text-xs mb-1 text-right",
+                  localInput.length >= MAX_MESSAGE_LENGTH ? "text-red-500" : "text-amber-500"
+                )}>
+                  {localInput.length}/{MAX_MESSAGE_LENGTH}
+                </div>
+              )}
               <form
                 onSubmit={handleFormSubmit}
                 className="relative flex items-center"
@@ -240,14 +358,14 @@ const ChatWidget = () => {
                 <input
                   type="text"
                   value={localInput}
-                  onChange={(e) => setLocalInput(e.target.value)}
-                  placeholder="Ask about Ankith's projects, skills..."
+                  onChange={(e) => setLocalInput(e.target.value.slice(0, MAX_MESSAGE_LENGTH))}
+                  placeholder={isRateLimited ? "Rate limited — please wait..." : "Ask about Ankith's projects, skills..."}
                   className="w-full pl-4 pr-12 py-3 rounded-full bg-gray-100/80 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all text-sm border border-transparent focus:border-primary-500/30"
-                  disabled={isLoading}
+                  disabled={isLoading || isRateLimited}
                 />
                 <button
                   type="submit"
-                  disabled={isLoading || !localInput || localInput.trim() === ''}
+                  disabled={isLoading || !localInput || localInput.trim() === '' || isRateLimited}
                   className="absolute right-2 p-2 rounded-full bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-50 disabled:hover:bg-primary-600 transition-all shadow-md active:scale-95"
                 >
                   <FaPaperPlane className="w-4 h-4 ml-0.5" />

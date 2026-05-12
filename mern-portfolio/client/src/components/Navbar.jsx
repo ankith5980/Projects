@@ -10,11 +10,9 @@ import {
   FaUser, 
   FaProjectDiagram,
   FaCertificate, 
-  FaEnvelope,
-  FaCog
+  FaEnvelope
 } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
-import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +27,6 @@ const Navbar = () => {
     return false;
   });
   const { isDark, toggleTheme } = useTheme();
-  const { isAuthenticated, isAdmin } = useAuth();
   const location = useLocation();
 
   // Handle scroll effect - Throttled for performance
@@ -62,10 +59,6 @@ const Navbar = () => {
     { path: '/certificates', label: 'Certificates', icon: FaCertificate },
     { path: '/contact', label: 'Contact', icon: FaEnvelope },
   ];
-
-  if (isAuthenticated() && isAdmin()) {
-    navItems.push({ path: '/dashboard', label: 'Dashboard', icon: FaCog });
-  }
 
   const toggleMenu = () => setIsOpen(!isOpen);
 

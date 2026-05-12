@@ -2,8 +2,60 @@ const express = require('express');
 const router = express.Router();
 const { streamText } = require('ai');
 const { huggingface } = require('@ai-sdk/huggingface');
+const rateLimit = require('express-rate-limit');
 
-// Hardcoded Portfolio Data for the AI context since the MongoDB isn't fully populated yet.
+// Chat-specific rate limiter: 10 requests per 15 minutes per IP
+const chatLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: (req, res) => {
+    const retryAfter = res.getHeader('Retry-After');
+    const retryAfterMs = retryAfter ? parseInt(retryAfter, 10) * 1000 : 15 * 60 * 1000;
+    res.status(429).json({
+      error: 'rate_limit_exceeded',
+      message: 'You have reached the maximum number of chat requests. Please wait before trying again.',
+      retryAfterMs: retryAfterMs,
+    });
+  },
+});
+
+// Simple HTML sanitizer — strips all HTML tags
+const sanitizeInput = (str) => {
+  if (typeof str !== 'string') return '';
+  return str.replace(/<[^>]*>/g, '').trim();
+};
+
+// Input validation middleware
+const validateChatInput = (req, res, next) => {
+  const { messages } = req.body;
+
+  if (!messages || !Array.isArray(messages)) {
+    return res.status(400).json({ error: 'Invalid request: messages array is required.' });
+  }
+
+  if (messages.length > 20) {
+    return res.status(400).json({ error: 'Conversation too long. Please start a new conversation.' });
+  }
+
+  // Validate and sanitize each message
+  for (let i = 0; i < messages.length; i++) {
+    const msg = messages[i];
+    if (!msg.role || !msg.content) {
+      return res.status(400).json({ error: `Invalid message at index ${i}: role and content are required.` });
+    }
+    if (typeof msg.content !== 'string' || msg.content.length > 500) {
+      return res.status(400).json({ error: `Message at index ${i} exceeds maximum length of 500 characters.` });
+    }
+    // Sanitize content
+    messages[i].content = sanitizeInput(msg.content);
+  }
+
+  next();
+};
+
+// Hardcoded Portfolio Data for AI context
 const PORTFOLIO_DATA = {
   about: {
     fullName: 'Ankith Pratheesh Menon',
@@ -35,7 +87,7 @@ const PORTFOLIO_DATA = {
 
 // Initialize the huggingface provider implicitly using process.env.HUGGINGFACE_API_KEY
 
-router.post('/', async (req, res) => {
+router.post('/', chatLimiter, validateChatInput, async (req, res) => {
   try {
     const { messages } = req.body;
     
@@ -57,7 +109,7 @@ ${PORTFOLIO_DATA.projects.map(p => `- ${p.title} (${p.tech.join(', ')}): ${p.des
 ${PORTFOLIO_DATA.certificates.map(c => `- ${c.title} by ${c.issuer}`).join('\n')}
 `;
 
-    const systemInstruction = `You are Zyra a helpful, professional, and friendly AI assistant named Ankith AI on Ankith's portfolio website. 
+    const systemInstruction = `You are Zyra a helpful, professional and friendly AI assistant on Ankith's portfolio website. 
 Your strict rule is to answer questions ONLY according to the contents, skills, projects, and background presented in the provided PORTFOLIO CONTEXT. 
 Always refer to Ankith in the third person (using "he", "him", "his", or "Ankith"). Never use first-person pronouns (like "I" or "my") when discussing Ankith's skills, projects, or background, because you are his AI assistant, not Ankith himself.
 Never make up or invent information about Ankith. If a user asks about a project, skill, or certificate not listed in the PORTFOLIO CONTEXT, state clearly that it is not part of Ankith's current portfolio.
