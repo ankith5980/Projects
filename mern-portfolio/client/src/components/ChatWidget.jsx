@@ -248,6 +248,9 @@ const ChatWidget = () => {
             exit={{ opacity: 0, y: 50, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
             className="fixed bottom-8 right-4 sm:right-8 z-50 w-[90vw] sm:w-[400px] h-[550px] max-h-[80vh] flex flex-col bg-white/95 dark:bg-gray-900/95 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-xl"
+            data-lenis-prevent="true"
+            onWheel={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 bg-primary-600/10 border-b border-gray-200 dark:border-gray-800">
@@ -299,6 +302,9 @@ const ChatWidget = () => {
               ref={messagesContainerRef}
               className="flex-1 min-h-0 overflow-y-auto p-4 space-y-4 relative custom-scrollbar select-text"
               style={{ overscrollBehavior: 'contain' }}
+              data-lenis-prevent="true"
+              onWheel={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
             >
               {messages?.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center space-y-3 text-gray-500 dark:text-gray-400 p-6 absolute inset-0">
