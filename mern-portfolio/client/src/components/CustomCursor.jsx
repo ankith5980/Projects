@@ -15,7 +15,6 @@ const CustomCursor = () => {
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
-  if (isTouchDevice) return null;
   
   // Use refs for state that's accessed inside event listeners to avoid stale closures
   // and prevent needing to re-bind event listeners on every state change
@@ -71,6 +70,9 @@ const CustomCursor = () => {
   };
 
   useEffect(() => {
+    // Skip all cursor logic on touch/mobile devices
+    if (isTouchDevice) return;
+
     // Hide default cursor globally
     document.body.style.cursor = 'none';
     
@@ -135,7 +137,10 @@ const CustomCursor = () => {
         document.head.removeChild(style);
       }
     };
-  }, [pointerX, pointerY]); // Removed isHovering and isVisible to prevent re-binding listeners
+  }, [pointerX, pointerY, isTouchDevice]);
+
+  // Don't render cursor elements on touch/mobile devices
+  if (isTouchDevice) return null;
 
   return (
     <>
