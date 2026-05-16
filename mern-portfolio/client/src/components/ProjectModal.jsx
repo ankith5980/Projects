@@ -95,7 +95,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && project && (
         <motion.div
-          className="fixed inset-0 z-[9998] flex items-end sm:items-center justify-center sm:p-6"
+          className="fixed inset-0 z-[9998] flex items-center justify-center p-2 sm:p-6"
           variants={overlayVariants}
           initial="hidden"
           animate="visible"
@@ -105,9 +105,9 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
           aria-modal="true"
           aria-label={`Project details — ${project.title}`}
         >
-          {/* ── Backdrop — no blur on mobile for performance ── */}
+          {/* ── Backdrop — fully opaque on mobile, blur on desktop ── */}
           <motion.div
-            className="absolute inset-0 bg-black/50 dark:bg-black/70 sm:backdrop-blur-sm"
+            className="absolute inset-0 bg-black sm:bg-black/50 dark:bg-black sm:dark:bg-black/70 sm:backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -117,14 +117,14 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
           <motion.div
             className="
               relative w-full sm:max-w-2xl
-              max-h-[92vh] sm:max-h-[88vh]
+              max-h-[95vh] sm:max-h-[88vh]
               bg-white dark:bg-gray-900
               sm:bg-white/95 sm:dark:bg-gray-900/95
               sm:backdrop-blur-xl
               border-0 sm:border border-gray-200/60 dark:border-white/10
-              rounded-t-2xl sm:rounded-2xl
-              shadow-[0_-4px_30px_rgba(0,0,0,0.15)] sm:shadow-[0_8px_60px_rgba(59,130,246,0.15),0_2px_20px_rgba(0,0,0,0.08)]
-              dark:shadow-[0_-4px_30px_rgba(0,0,0,0.4)] sm:dark:shadow-[0_8px_60px_rgba(99,102,241,0.2),0_2px_20px_rgba(0,0,0,0.3)]
+              rounded-2xl
+              shadow-[0_4px_30px_rgba(0,0,0,0.2)] sm:shadow-[0_8px_60px_rgba(59,130,246,0.15),0_2px_20px_rgba(0,0,0,0.08)]
+              dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)] sm:dark:shadow-[0_8px_60px_rgba(99,102,241,0.2),0_2px_20px_rgba(0,0,0,0.3)]
               overflow-hidden flex flex-col
               text-gray-900 dark:text-gray-100
             "
@@ -134,14 +134,10 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
             exit="exit"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* ── Drag handle (mobile only) ─────────────────── */}
-            <div className="sm:hidden flex justify-center pt-2 pb-1 flex-shrink-0">
-              <div className="w-10 h-1 rounded-full bg-gray-300 dark:bg-gray-600" />
-            </div>
 
             {/* ── Hero image ──────────────────────────────────── */}
             <div className="relative flex-shrink-0">
-              <div className="aspect-[16/6] sm:aspect-[16/6] bg-gradient-to-br from-primary-400 to-purple-600 overflow-hidden">
+              <div className="aspect-[16/5] bg-gradient-to-br from-primary-400 to-purple-600 overflow-hidden">
                 {project.images?.[0]?.url ? (
                   <img
                     src={project.images[0].url}
