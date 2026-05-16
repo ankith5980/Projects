@@ -131,7 +131,12 @@ const Home = () => {
       technologies: ['Python', 'LangGraph', 'FAISS', 'FastAPI'],
       images: [{ url: '/images/AIMAR.jpeg' }],
       liveUrl: '',
-      githubUrl: 'https://github.com/ankith5980/Projects/tree/main/multi-agent-research-system'
+      githubUrl: 'https://github.com/ankith5980/Projects/tree/main/multi-agent-research-system',
+      category: 'Artificial Intelligence',
+      status: 'completed',
+      developers: ['Ankith Pratheesh Menon'],
+      lastUpdated: '2025-11-05',
+      client: 'Personal Project',
     },
     {
       _id: 2,
@@ -140,7 +145,12 @@ const Home = () => {
       technologies: ['Python', 'Next.js', 'Ollama', 'FastAPI', 'LangGraph'],
       images: [{ url: '/images/AIAnalystFinal.jpeg' }],
       liveUrl: '',
-      githubUrl: 'https://github.com/ankith5980/Projects/tree/main/ai-data-analysis-system'
+      githubUrl: 'https://github.com/ankith5980/Projects/tree/main/ai-data-analysis-system',
+      category: 'Data Analysis',
+      status: 'completed',
+      developers: ['Ankith Pratheesh Menon'],
+      lastUpdated: '2025-10-28',
+      client: 'Personal Project',
     },
     {
       _id: 3,
@@ -150,6 +160,11 @@ const Home = () => {
       images: [{ url: '/images/AIFD_Final.jpeg' }],
       liveUrl: '',
       githubUrl: 'https://github.com/ankith5980/Projects/tree/main/ai-fraud-detection',
+      category: 'Machine Learning',
+      status: 'completed',
+      developers: ['Ankith Pratheesh Menon'],
+      lastUpdated: '2025-10-15',
+      client: 'Personal Project',
     },
   ], []);
 

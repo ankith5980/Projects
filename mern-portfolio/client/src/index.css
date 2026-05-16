@@ -157,6 +157,31 @@ html, body, * {
   background: transparent;
 }
 
+/* Re-enable thin scrollbar inside the project modal */
+[data-lenis-prevent] {
+  -ms-overflow-style: auto !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(156, 163, 175, 0.4) transparent;
+}
+
+[data-lenis-prevent]::-webkit-scrollbar {
+  display: block !important;
+  width: 4px !important;
+}
+
+[data-lenis-prevent]::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+[data-lenis-prevent]::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.4);
+  border-radius: 4px;
+}
+
+[data-lenis-prevent]::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.6);
+}
+
 /* Custom utility classes */
 @layer utilities {
   .text-gradient {

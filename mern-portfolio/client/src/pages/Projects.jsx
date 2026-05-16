@@ -4,106 +4,78 @@ import {
   FaSearch, 
   FaCode, 
   FaExternalLinkAlt, 
-  FaGithub,
   FaCheckCircle,
   FaClock,
   FaArchive,
   FaSync
 } from 'react-icons/fa';
 import SEO from '../components/SEO';
+import ProjectModal from '../components/ProjectModal';
 import { getFullUrl } from '../utils/url';
 
-// Memoized Project Card Component for better performance
-const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants }) => (
+// Memoized Project Card Component — image-only with hover overlay
+const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants, onClick }) => (
   <motion.div
-    key={project._id}
     variants={itemVariants}
-    className="group bg-white/80 dark:bg-gray-800/80 border border-white/20 dark:border-white/10 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105"
+    className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-shadow duration-300"
+    onClick={onClick}
   >
-    {/* Project Image */}
-    <div className="aspect-video bg-gradient-to-br from-primary-400 to-purple-600 relative overflow-hidden">
-      {project.images?.[0]?.url ? (
-        <img
-          src={project.images[0].url}
-          alt={project.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-          loading="lazy"
-          decoding="async"
-          width="640"
-          height="360"
-        />
-      ) : (
-        <div className="w-full h-full flex items-center justify-center text-white text-4xl">
-          <FaCode />
-        </div>
-      )}
-      
-      {/* Status Badge */}
-      <div className="absolute top-3 left-3 flex items-center space-x-1 bg-white/90 dark:bg-gray-900/90 px-2 py-1 rounded-full text-xs">
-        <StatusIcon className={`w-3 h-3 ${statusConfig.color}`} />
-        <span className="font-medium">{statusConfig.label}</span>
+    {/* Full-bleed image */}
+    {project.images?.[0]?.url ? (
+      <img
+        src={project.images[0].url}
+        alt={project.title}
+        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        loading="lazy"
+        decoding="async"
+        width="640"
+        height="480"
+      />
+    ) : (
+      <div className="w-full h-full bg-gradient-to-br from-primary-400 to-purple-600 flex items-center justify-center text-white/60 text-5xl">
+        <FaCode />
       </div>
+    )}
 
-      {/* Category Badge */}
-      <div className="absolute top-3 right-3 bg-black/50 text-white px-2 py-1 rounded-full text-xs font-medium capitalize">
-        {project.category}
-      </div>
+    {/* Persistent badges — always visible */}
+    <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm z-10">
+      <StatusIcon className={`w-3 h-3 ${statusConfig.color}`} />
+      <span>{statusConfig.label}</span>
     </div>
-    
-    {/* Project Content */}
-    <div className="p-6">
-      <h3 className="text-xl font-semibold mb-2 group-hover:text-primary-600 transition-colors">
+    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[11px] font-medium bg-black/50 text-white backdrop-blur-sm capitalize z-10">
+      {project.category}
+    </div>
+
+    {/* Hover overlay — slides up from bottom */}
+    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-5">
+      {/* Title */}
+      <h3 className="text-white text-lg sm:text-xl font-bold mb-1.5 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75 drop-shadow-md">
         {project.title}
       </h3>
-      <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
-        {project.description}
-      </p>
-      
-      {/* Technologies */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        {project.technologies.slice(0, 3).map((tech, techIndex) => (
+
+      {/* Tech tags */}
+      <div className="flex flex-wrap gap-1.5 mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+        {project.technologies.slice(0, 3).map((tech, i) => (
           <span
-            key={techIndex}
-            className="px-2 py-1 bg-gray-400/20 backdrop-blur-sm border border-gray-400/30 text-xs rounded font-medium"
+            key={i}
+            className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-white/15 backdrop-blur-sm text-white/90 border border-white/10"
           >
             {tech}
           </span>
         ))}
         {project.technologies.length > 3 && (
-          <span className="px-2 py-1 bg-gray-400/20 backdrop-blur-sm border border-gray-400/30 text-xs rounded font-medium">
+          <span className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-white/15 backdrop-blur-sm text-white/90 border border-white/10">
             +{project.technologies.length - 3} more
           </span>
         )}
       </div>
-      
-      {/* Action Buttons */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center space-x-1 px-3 py-2 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-lg transition-colors text-sm"
-              title="View Source Code"
-            >
-              <FaGithub className="w-3 h-3" />
-              <span>Code</span>
-            </a>
-          )}
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center space-x-1 px-3 py-2 bg-primary-600/20 backdrop-blur-md border border-primary-600/40 hover:bg-primary-600/30 text-primary-700 dark:text-primary-300 rounded-lg transition-colors text-sm"
-              title="View Live Demo"
-            >
-              <FaExternalLinkAlt className="w-3 h-3" />
-              <span>Live Demo</span>
-            </a>
-          )}
-        </div>
+
+      {/* View Details button */}
+      <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150">
+        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-white/20 backdrop-blur-md border border-white/20 text-white hover:bg-white/30 transition-colors duration-200">
+          <FaExternalLinkAlt className="w-3 h-3" />
+          View Details
+        </span>
       </div>
     </div>
   </motion.div>
@@ -123,19 +95,25 @@ const projectsData = [
     githubUrl: 'https://github.com/ankith5980/Projects/tree/main/mern-portfolio',
     category: 'FullStack',
     status: 'completed',
-    featured: true
+    featured: true,
+    developers: ['Ankith Pratheesh Menon'],
+    lastUpdated: '2026-05-16',
+    client: 'Self',
   },
   {
     _id: 2,
-    title: 'Continuous Development of KOHA Library Management System',
-    description: 'Live Demo isn\'t available currently due to privacy concerns. Please contact me for more details.',
+    title: 'Enhancement of KOHA Library Management System',
+    description: 'Enhancement of KOHA Library Management System, an open-source integrated library system. This project aims to improve the functionality and user experience of the system.',
     technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS'],
     images: [{ url: '/images/kohabanner.jpg' }],
     liveUrl: '',
     githubUrl: 'https://github.com/ankith5980/Projects/tree/main/label',
     category: 'Backend',
-    status: 'continuous-development',
-    featured: true
+    status: 'completed',
+    featured: true,
+    developers: ['Ankith Pratheesh Menon'],
+    lastUpdated: '2025-10-14',
+    client: 'St. Joseph\'s College, Devagiri',
   },
   {
     _id: 3,
@@ -147,19 +125,25 @@ const projectsData = [
     githubUrl: 'https://github.com/ankith5980/Projects/tree/main/rotary-club-portal',
     category: 'Full-Stack',
     status: 'archived',
-    featured: true
+    featured: true,
+    developers: ['Ankith Pratheesh Menon'],
+    lastUpdated: '2025-11-14',
+    client: 'Rotary Club of Calicut South',
   },
   {
     _id: 4,
     title: 'ICCIET 2025 Judging Portal',
-    description: 'A judging portal for the International Conference on Computational Intelligence & Emerging Technologies (ICCIET) 2025, enabling judges to securely evaluate and score project submissions online. Developed by Ayush VP and Ankith Pratheesh Menon.',
+    description: 'A judging portal for the International Conference on Computational Intelligence & Emerging Technologies (ICCIET) 2025, enabling judges to securely evaluate and score project submissions online.',
     technologies: ['Next.js', 'Supabase', 'Tailwind CSS', 'TypeScript'],
     images: [{ url: '/images/icciet_judging_portal.jpg' }],
     liveUrl: 'https://icciet-judging.vercel.app/',
     githubUrl: 'https://github.com/ankith5980/Projects/tree/main/iccet-judging',
     category: 'Full-Stack',
     status: 'completed',
-    featured: true
+    featured: true,
+    developers: ['Ayush VP', 'Ankith Pratheesh Menon'],
+    lastUpdated: '2025-11-29',
+    client: 'St. Joseph\'s College, Devagiri',
   },
   {
     _id: 5,
@@ -171,7 +155,10 @@ const projectsData = [
     githubUrl: 'https://github.com/ankith5980/Projects/tree/main/skill-exchange',
     category: 'Full-Stack',
     status: 'completed',
-    featured: true
+    featured: true,
+    developers: ['Ankith Pratheesh Menon, Devananda J'],
+    lastUpdated: '2026-04-02',
+    client: 'Community',
   },
   {
     _id: 6,
@@ -183,7 +170,10 @@ const projectsData = [
     githubUrl: 'https://github.com/ankith5980/Projects/tree/main/multi-agent-research-system',
     category: 'Artificial Intelligence',
     status: 'completed',
-    featured: true
+    featured: true,
+    developers: ['Ankith Pratheesh Menon'],
+    lastUpdated: '2026-04-16',
+    client: 'Self',
   },
   {
     _id: 7,
@@ -195,7 +185,10 @@ const projectsData = [
     githubUrl: 'https://github.com/ankith5980/Projects/tree/main/ai-fraud-detection',
     category: 'Machine Learning',
     status: 'completed',
-    featured: true
+    featured: true,
+    developers: ['Ankith Pratheesh Menon'],
+    lastUpdated: '2026-04-19',
+    client: 'Self',
   },
   {
     _id: 8,
@@ -207,7 +200,10 @@ const projectsData = [
     githubUrl: 'https://github.com/ankith5980/Projects/tree/main/ai-data-analysis-system',
     category: 'Data Analysis',
     status: 'completed',
-    featured: true
+    featured: true,
+    developers: ['Ankith Pratheesh Menon'],
+    lastUpdated: '2026-04-20',
+    client: 'Self',
   },
 ];
 
@@ -245,22 +241,21 @@ const getStatusConfig = (status) => {
 
 const Projects = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedProject, setSelectedProject] = useState(null);
 
-  // Memoized projects data to prevent re-creation on each render
-  const projects = useMemo(() => projectsData, []);
-
-  // Simple filter - same style as Certificates section
   const filteredProjects = useMemo(() => {
-    return projects.filter(project => {
-      if (!searchTerm) return true;
-      const search = searchTerm.toLowerCase();
-      return project.title.toLowerCase().includes(search) ||
-             project.description.toLowerCase().includes(search) ||
-             project.technologies.some(tech => tech.toLowerCase().includes(search)) ||
-             project.category.toLowerCase().includes(search) ||
-             project.status.toLowerCase().includes(search);
-    });
-  }, [projects, searchTerm]);
+    if (!searchTerm) return projectsData;
+    const search = searchTerm.toLowerCase();
+    return projectsData.filter(project =>
+      project.title.toLowerCase().includes(search) ||
+      project.description.toLowerCase().includes(search) ||
+      project.technologies.some(tech => tech.toLowerCase().includes(search)) ||
+      project.category.toLowerCase().includes(search) ||
+      project.status.toLowerCase().includes(search)
+    );
+  }, [searchTerm]);
+
+  const handleCloseModal = useCallback(() => setSelectedProject(null), []);
 
   return (
     <div className="min-h-screen section-padding pt-40 md:pt-44 lg:pt-48">
@@ -336,6 +331,7 @@ const Projects = () => {
                     statusConfig={statusConfig}
                     StatusIcon={StatusIcon}
                     itemVariants={itemVariants}
+                    onClick={() => setSelectedProject(project)}
                   />
                 );
               })
@@ -356,6 +352,13 @@ const Projects = () => {
           </motion.div>
         </section>
       </div>
+
+      {/* Project Detail Modal */}
+      <ProjectModal
+        project={selectedProject}
+        isOpen={!!selectedProject}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };
