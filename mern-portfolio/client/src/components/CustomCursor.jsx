@@ -2,8 +2,20 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 const CustomCursor = () => {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+
+  // Detect touch/mobile devices and bail out
+  useEffect(() => {
+    const mq = window.matchMedia('(pointer: coarse)');
+    setIsTouchDevice(mq.matches);
+    const onChange = (e) => setIsTouchDevice(e.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+
+  if (isTouchDevice) return null;
   
   // Use refs for state that's accessed inside event listeners to avoid stale closures
   // and prevent needing to re-bind event listeners on every state change
