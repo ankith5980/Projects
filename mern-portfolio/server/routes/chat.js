@@ -81,7 +81,8 @@ const PORTFOLIO_DATA = {
   certificates: [
     { title: 'Python Programming with Django', issuer: 'RISS Technologies' },
     { title: 'Flutter and Dart Certified Developer Program', issuer: 'Maitexa Info Solutions LLP' },
-    { title: 'Figma UI/UX Design Mastery', issuer: 'TECHBYHEART' }
+    { title: 'Figma UI/UX Design Mastery', issuer: 'TECHBYHEART' },
+    { title: 'Python for Data Science and Machine Learning', issuer: 'Maitexa Info Solutions LLP' },
   ]
 };
 

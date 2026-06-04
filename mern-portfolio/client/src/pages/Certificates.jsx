@@ -41,6 +41,16 @@ const certificates = [
     image: '/images/ui_ux_cert (1).jpg',
     skills: ['Figma', 'UI/UX Design', 'Prototyping', 'Design Systems'],
     category: 'technical'
+  },
+  {
+    _id: 4,
+    title: 'Python for Data Science and Machine Learning',
+    issuer: 'Maitexa Info Solutions LLP',
+    description: 'Comprehensive course covering Python fundamentals, data analysis, and machine learning techniques.',
+    issueDate: '2026-03-31',
+    image: '/images/python_data_science_cert (1).jpeg',
+    skills: ['Python', 'Data Science', 'Machine Learning', 'Pandas', 'NumPy', 'Power BI', 'TensorFlow', 'Scikit-Learn'],
+    category: 'technical'
   }
 ];
 
