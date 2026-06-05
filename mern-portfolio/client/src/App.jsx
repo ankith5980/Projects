@@ -20,12 +20,34 @@ import CustomCursor from './components/CustomCursor.jsx';
 // Hooks
 import useDisableInspect from './hooks/useDisableInspect.js';
 
-// Lazy load pages for better performance
-const Home = lazy(() => import('./pages/Home.jsx'));
-const About = lazy(() => import('./pages/About.jsx'));
-const Projects = lazy(() => import('./pages/Projects.jsx'));
-const Certificates = lazy(() => import('./pages/Certificates.jsx'));
-const Contact = lazy(() => import('./pages/Contact.jsx'));
+// Lazy load pages for better performance with retry for chunk loading errors
+const lazyWithRetry = (componentImport) =>
+  lazy(async () => {
+    const pageHasAlreadyBeenForceRefreshed = JSON.parse(
+      window.sessionStorage.getItem('page-has-been-force-refreshed') || 'false'
+    );
+
+    try {
+      const component = await componentImport();
+      window.sessionStorage.setItem('page-has-been-force-refreshed', 'false');
+      return component;
+    } catch (error) {
+      if (!pageHasAlreadyBeenForceRefreshed) {
+        // Assume that the error is due to a chunk load failure (e.g. after a new Vercel deployment)
+        window.sessionStorage.setItem('page-has-been-force-refreshed', 'true');
+        window.location.reload();
+        // Return a promise that never resolves so React doesn't render until reload
+        return new Promise(() => {});
+      }
+      throw error;
+    }
+  });
+
+const Home = lazyWithRetry(() => import('./pages/Home.jsx'));
+const About = lazyWithRetry(() => import('./pages/About.jsx'));
+const Projects = lazyWithRetry(() => import('./pages/Projects.jsx'));
+const Certificates = lazyWithRetry(() => import('./pages/Certificates.jsx'));
+const Contact = lazyWithRetry(() => import('./pages/Contact.jsx'));
 
 function App() {
   // Disable inspect element and developer tools
