@@ -13,7 +13,7 @@ import Footer from './components/Footer.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
 import RouteScrollToTop from './components/RouteScrollToTop.jsx';
 import SmoothScroll from './components/SmoothScroll.jsx';
-import GlassmorphismBackground from './components/GlassmorphismBackground.jsx';
+// Removed GlassmorphismBackground
 import ChatWidget from './components/ChatWidget.jsx';
 import CustomCursor from './components/CustomCursor.jsx';
 
@@ -61,7 +61,7 @@ function App() {
         <CustomCursor />
         <ThemeProvider>
             <div className="min-h-screen text-gray-900 dark:text-white transition-colors duration-300 w-full max-w-full overflow-x-hidden" style={{ minHeight: '100vh' }}>
-            <GlassmorphismBackground />
+            {/* Removed GlassmorphismBackground */}
             <Navbar />
             <main className="relative z-10 w-full max-w-full" style={{ minHeight: '100vh' }}>
               <Suspense fallback={null}>

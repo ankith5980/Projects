@@ -239,7 +239,7 @@ const Contact = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16 px-4"
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gradient mb-6 tracking-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-primary-600 dark:text-primary-400 mb-6 tracking-tight">
             Get In Touch
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
@@ -485,7 +485,7 @@ const Contact = () => {
             </div>
 
             {/* Fun Fact */}
-            <div className="bg-gradient-to-br from-primary-50 to-purple-50 dark:from-primary-900/20 dark:to-purple-900/20 rounded-xl p-6 border border-primary-100 dark:border-primary-800">
+            <div className="bg-primary-50 dark:bg-primary-900/20 rounded-xl p-6 border border-primary-100 dark:border-primary-800">
               <h3 className="text-lg font-bold mb-2 text-primary-900 dark:text-primary-100">
                 Let's Build Something Amazing Together!
               </h3>

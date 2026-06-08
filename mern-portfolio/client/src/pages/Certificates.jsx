@@ -65,7 +65,7 @@ const CertificateCard = memo(({ cert, index }) => (
     itemType="https://schema.org/EducationalOccupationalCredential"
   >
     {/* Image */}
-    <div className="aspect-video bg-gradient-to-br from-blue-500 to-purple-600 relative overflow-hidden">
+    <div className="aspect-video bg-primary-600 relative overflow-hidden">
       {cert.image ? (
         <img
           src={cert.image}
@@ -214,7 +214,7 @@ const Certificates = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <header className="text-center mb-12 animate-slideDown">
-          <h1 className="text-4xl lg:text-5xl font-bold text-gradient mb-4">
+          <h1 className="text-4xl lg:text-5xl font-bold text-primary-600 dark:text-primary-400 mb-4">
             My Certificates
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-4">

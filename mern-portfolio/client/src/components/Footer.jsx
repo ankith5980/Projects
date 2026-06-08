@@ -50,7 +50,7 @@ const Footer = () => {
           <div className="space-y-3">
             <Link
               to="/"
-              className="text-2xl font-bold text-gradient inline-block"
+              className="text-2xl font-bold text-primary-600 dark:text-primary-400 inline-block"
             >
               Ankith Pratheesh Menon
             </Link>

@@ -71,15 +71,8 @@ const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTi
     return () => clearTimeout(timeout);
   }, [currentText, currentTextIndex, isDeleting, isPaused, texts, speed, deleteSpeed, pauseTime]);
 
-  // Dynamic color mapping for different roles
   const getTextColor = (text) => {
-    const colorMap = {
-      'Full Stack Developer': 'bg-gradient-to-r from-blue-600 to-purple-600',
-      'Mobile App Developer': 'bg-gradient-to-r from-green-600 to-teal-600', 
-      'Creative Problem Solver': 'bg-gradient-to-r from-orange-600 to-red-600',
-      'AI/ML Enthusiast': 'bg-gradient-to-r from-purple-600 to-pink-600',
-    };
-    return colorMap[text] || 'bg-gradient-to-r from-primary-600 to-indigo-600';
+    return 'text-primary-600 dark:text-primary-400';
   };
 
   return (
@@ -89,7 +82,7 @@ const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTi
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
-        className={`font-bold bg-clip-text text-transparent ${getTextColor(texts[currentTextIndex])}`}
+        className={`font-bold ${getTextColor(texts[currentTextIndex])}`}
       >
         {currentText}
       </motion.span>
@@ -208,7 +201,7 @@ const Home = () => {
                 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6"
               >
                 Hi, I'm{' '}
-                <span className="text-gradient">
+                <span className="text-primary-600 dark:text-primary-400">
                   {aboutData?.fullName || 'Ankith Pratheesh Menon'}
                 </span>
               </motion.h1>
@@ -236,23 +229,10 @@ const Home = () => {
                       duration: 3,
                       repeat: Infinity,
                       repeatType: "reverse",
-                      ease: "easeInOut"
                     }}
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-500 via-purple-500 to-primary-500 rounded-full"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary-500 rounded-full"
                   />
-                  {/* Subtle glow behind text */}
-                  <motion.div
-                    animate={{
-                      opacity: [0.0, 0.1, 0.0],
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      repeatType: "reverse",
-                      ease: "easeInOut"
-                    }}
-                    className="absolute inset-0 bg-gradient-to-r from-primary-500/5 to-purple-500/5 rounded-md blur-sm -z-10"
-                  />
+                  {/* Removed subtle glow behind text */}
                 </div>
               </motion.h2>
               
@@ -360,7 +340,7 @@ const Home = () => {
               className="lg:order-2 flex justify-center"
             >
               <div className="relative">
-                <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden bg-gradient-to-br from-primary-400 to-purple-600 p-1">
+                <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden bg-primary-500 p-1">
                   <div className="w-full h-full rounded-full overflow-hidden bg-white dark:bg-gray-800">
                     {aboutData?.avatar?.url ? (
                       <img

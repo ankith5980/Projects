@@ -92,15 +92,8 @@ const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTi
     return () => clearTimeout(timeout);
   }, [currentText, currentTextIndex, isDeleting, isPaused, texts, speed, deleteSpeed, pauseTime]);
 
-  // Dynamic color mapping for different roles
   const getTextColor = (text) => {
-    const colorMap = {
-      'Full Stack Developer': 'bg-gradient-to-r from-blue-600 to-purple-600',
-      'Mobile App Developer': 'bg-gradient-to-r from-green-600 to-teal-600', 
-      'Creative Problem Solver': 'bg-gradient-to-r from-orange-600 to-red-600',
-      'AI/ML Enthusiast': 'bg-gradient-to-r from-purple-600 to-pink-600',
-    };
-    return colorMap[text] || 'bg-gradient-to-r from-primary-600 to-indigo-600';
+    return 'text-primary-600 dark:text-primary-400';
   };
 
   return (
@@ -110,7 +103,7 @@ const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTi
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
-        className={`font-bold bg-clip-text text-transparent ${getTextColor(texts[currentTextIndex])}`}
+        className={`font-bold ${getTextColor(texts[currentTextIndex])}`}
       >
         {currentText}
       </motion.span>
@@ -275,7 +268,7 @@ const About = () => {
             {/* Profile Image */}
             <motion.div variants={itemVariants} className="flex justify-center lg:justify-start">
               <div className="relative">
-                <div className="w-80 h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden bg-gradient-to-br from-primary-400 to-purple-600 p-1">
+                <div className="w-80 h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden bg-primary-500 p-1">
                   <div className="w-full h-full rounded-full overflow-hidden bg-white dark:bg-gray-800">
                     <img
                       src={aboutData.avatar?.url || '/images/Ankith.jpg'}
@@ -311,7 +304,7 @@ const About = () => {
             {/* Content */}
             <motion.div variants={itemVariants} className="text-center lg:text-left">
               <h1 className="text-4xl lg:text-5xl font-bold mb-4">
-                <span className="text-gradient">{aboutData.fullName}</span>
+                <span className="text-primary-600 dark:text-primary-400">{aboutData.fullName}</span>
               </h1>
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
@@ -337,7 +330,7 @@ const About = () => {
                       repeat: Infinity,
                       ease: "easeInOut"
                     }}
-                    className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-primary-400 to-purple-600 rounded-full"
+                    className="absolute -bottom-1 left-0 h-0.5 bg-primary-500 rounded-full"
                   />
                 </div>
               </motion.h2>
@@ -401,7 +394,7 @@ const About = () => {
           className="py-16"
         >
           <motion.h2 variants={itemVariants} className="text-3xl font-bold text-center mb-12">
-            My <span className="text-gradient">Story</span>
+            My <span className="text-primary-600 dark:text-primary-400">Story</span>
           </motion.h2>
           <motion.div variants={itemVariants} className="max-w-4xl mx-auto">
             <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 p-8 rounded-2xl shadow-lg">
@@ -429,7 +422,7 @@ const About = () => {
         >
           <motion.h2 variants={itemVariants} className="text-3xl font-bold text-center mb-12">
             <FaCode className="inline-block mr-3 text-primary-600" />
-            Technologies & <span className="text-gradient">Skills</span>
+            Technologies & <span className="text-primary-600 dark:text-primary-400">Skills</span>
           </motion.h2>
           <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {techStack.map((tech, index) => (
@@ -481,7 +474,7 @@ const About = () => {
         >
           <motion.h2 variants={itemVariants} className="text-3xl font-bold text-center mb-12">
             <FaBriefcase className="inline-block mr-3 text-primary-600" />
-            Experience & <span className="text-gradient">Education</span>
+            Experience & <span className="text-primary-600 dark:text-primary-400">Education</span>
           </motion.h2>
           <div className="max-w-4xl mx-auto">
             {timeline.map((item, index) => (
@@ -528,7 +521,7 @@ const About = () => {
         >
           <motion.h2 variants={itemVariants} className="text-3xl font-bold text-center mb-12">
             <FaHeart className="inline-block mr-3 text-red-500" />
-            Personal <span className="text-gradient">Interests</span>
+            Personal <span className="text-primary-600 dark:text-primary-400">Interests</span>
           </motion.h2>
           <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {interests.map((interest, index) => (
@@ -553,7 +546,7 @@ const About = () => {
           viewport={{ once: true }}
           className="py-16"
         >
-          <motion.div variants={itemVariants} className="bg-gradient-to-r from-primary-600 to-purple-600 rounded-2xl p-8 lg:p-12 text-center text-white">
+          <motion.div variants={itemVariants} className="bg-primary-600 rounded-2xl p-8 lg:p-12 text-center text-white">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">Let's Work Together!</h2>
             <p className="text-xl mb-8 opacity-90">
               Have a project in mind? I'd love to hear about it and discuss how we can bring your ideas to life.

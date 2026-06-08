@@ -14,7 +14,7 @@ const LoadingSkeleton = ({ className = "", type = "text", fullPage = false }) =>
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <div className="w-20 h-20 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+            <div className="w-20 h-20 mx-auto bg-primary-500 rounded-full flex items-center justify-center">
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -103,7 +103,7 @@ const LoadingSkeleton = ({ className = "", type = "text", fullPage = false }) =>
           >
             <div className="h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
               <motion.div
-                className="h-full bg-gradient-to-r from-blue-500 to-purple-600"
+                className="h-full bg-primary-500"
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}

@@ -32,7 +32,7 @@ const ProjectCard = memo(({ project, statusConfig, StatusIcon, itemVariants, onC
         height="480"
       />
     ) : (
-      <div className="w-full h-full bg-gradient-to-br from-primary-400 to-purple-600 flex items-center justify-center text-white/60 text-5xl">
+      <div className="w-full h-full bg-primary-600 flex items-center justify-center text-white/60 text-5xl">
         <FaCode />
       </div>
     )}
@@ -286,7 +286,7 @@ const Projects = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl lg:text-5xl font-bold text-gradient mb-5">My Projects</h1>
+          <h1 className="text-4xl lg:text-5xl font-bold text-primary-600 dark:text-primary-400 mb-5">My Projects</h1>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-4">
             Explore my portfolio of web applications, mobile apps, and other creative projects. 
             Each project represents a unique challenge and learning experience.

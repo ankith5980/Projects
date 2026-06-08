@@ -23,7 +23,7 @@ const ProjectsSection = React.memo(({ featuredProjects }) => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Featured <span className="text-gradient">Projects</span>
+            Featured <span className="text-primary-600 dark:text-primary-400">Projects</span>
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400">
             Some of my recent work
@@ -53,7 +53,7 @@ const ProjectsSection = React.memo(({ featuredProjects }) => {
                   height="480"
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-primary-400 to-purple-600 flex items-center justify-center text-white/60 text-5xl">
+                <div className="w-full h-full bg-primary-600 flex items-center justify-center text-white/60 text-5xl">
                   <FaCode />
                 </div>
               )}

@@ -36,7 +36,7 @@ const SkillsSection = React.memo(({ skills }) => {
               viewport={{ once: true }}
               className="text-center"
             >
-              <h3 className="text-xl font-semibold mb-4 capitalize text-gradient">
+              <h3 className="text-xl font-semibold mb-4 capitalize text-primary-600 dark:text-primary-400">
                 {category}
               </h3>
               <div className="flex flex-wrap justify-center gap-2">
