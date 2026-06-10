@@ -15,15 +15,18 @@ Allow: /assets/
 
 # Explicitly allow important image files for Google Image Search
 Allow: /images/Ankith.jpg
-Allow: /images/portfolio_thumbnail_1.png
-Allow: /images/kohabanner.jpg
-Allow: /images/icciet_judging_portal.jpg
-Allow: /images/Club_Management_App.png
-Allow: /images/skill_swap.jpg
-Allow: /images/AIMAR.jpeg
-Allow: /images/AIFD_Final.jpeg
-Allow: /images/AIAnalystFinal.jpeg
+Allow: /images/PORTFOLIO.webp
+Allow: /images/KOHA.webp
+Allow: /images/JUDGINGPORTAL.webp
+Allow: /images/CLUBMANAGEMENTSYSTEM.webp
+Allow: /images/SKILL-SWAP.webp
+Allow: /images/MULTI-AGENTRESEARCH.webp
+Allow: /images/NEXUS-AI.webp
+Allow: /images/AIDATAANALYST.webp
 Allow: /images/python_data_science_cert (1).jpeg
+Allow: /images/flutter_cert (1).jpg
+Allow: /images/python_cert (1).jpg
+Allow: /images/ui_ux_cert (1).jpg
 
 # Block admin routes if any exist
 Disallow: /admin/
@@ -49,15 +52,18 @@ Crawl-delay: 0
 User-agent: Googlebot-Image
 Allow: /images/
 Allow: /images/Ankith.jpg
-Allow: /images/portfolio_thumbnail_1.png
-Allow: /images/kohabanner.jpg
-Allow: /images/icciet_judging_portal.jpg
-Allow: /images/Club_Management_App.png
-Allow: /images/skill_swap.jpg
-Allow: /images/AIMAR.jpeg
-Allow: /images/AIFD_Final.jpeg
-Allow: /images/AIAnalystFinal.jpeg
+Allow: /images/PORTFOLIO.webp
+Allow: /images/KOHA.webp
+Allow: /images/JUDGINGPORTAL.webp
+Allow: /images/CLUBMANAGEMENTSYSTEM.webp
+Allow: /images/SKILL-SWAP.webp
+Allow: /images/MULTI-AGENTRESEARCH.webp
+Allow: /images/NEXUS-AI.webp
+Allow: /images/AIDATAANALYST.webp
 Allow: /images/python_data_science_cert (1).jpeg
+Allow: /images/flutter_cert (1).jpg
+Allow: /images/python_cert (1).jpg
+Allow: /images/ui_ux_cert (1).jpg
 
 User-agent: Bingbot
 Allow: /

@@ -14,7 +14,7 @@
       <image:caption>Professional photo of Ankith Pratheesh Menon, Full Stack Developer and Software Engineer from Kozhikode, Kerala, India. Specializing in React.js, Node.js, Flutter, and modern web technologies. Portfolio website showcasing innovative projects and technical expertise.</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://portfolio-ankith.vercel.app/images/portfolio_thumbnail_1.png</image:loc>
+      <image:loc>https://portfolio-ankith.vercel.app/images/PORTFOLIO.webp</image:loc>
       <image:title>Ankith Pratheesh Menon Portfolio Website</image:title>
       <image:caption>Official portfolio website of Ankith Pratheesh Menon showcasing full stack development projects, technical skills, and professional experience in software engineering</image:caption>
     </image:image>
@@ -40,31 +40,31 @@
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://portfolio-ankith.vercel.app/images/icciet_judging_portal.jpg</image:loc>
+      <image:loc>https://portfolio-ankith.vercel.app/images/JUDGINGPORTAL.webp</image:loc>
       <image:title>ICCIET Judging Portal - Project</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://portfolio-ankith.vercel.app/images/Club_Management_App.png</image:loc>
+      <image:loc>https://portfolio-ankith.vercel.app/images/CLUBMANAGEMENTSYSTEM.webp</image:loc>
       <image:title>Rotary Club Management App - Project</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://portfolio-ankith.vercel.app/images/skill_swap.jpg</image:loc>
+      <image:loc>https://portfolio-ankith.vercel.app/images/SKILL-SWAP.webp</image:loc>
       <image:title>Skill Swap Platform - Project</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://portfolio-ankith.vercel.app/images/kohabanner.jpg</image:loc>
+      <image:loc>https://portfolio-ankith.vercel.app/images/KOHASYSTEM.webp</image:loc>
       <image:title>Koha System - Project</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://portfolio-ankith.vercel.app/images/AIMAR.jpeg</image:loc>
+      <image:loc>https://portfolio-ankith.vercel.app/images/MULTI-AGENTRESEARCH.webp</image:loc>
       <image:title>AI Multi-Agent Research System - Project</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://portfolio-ankith.vercel.app/images/AIFD_Final.jpeg</image:loc>
+      <image:loc>https://portfolio-ankith.vercel.app/images/NEXUS-AI.webp</image:loc>
       <image:title>AI Fraud Detection System - Project</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://portfolio-ankith.vercel.app/images/AIAnalystFinal.jpeg</image:loc>
+      <image:loc>https://portfolio-ankith.vercel.app/images/AIDATAANALYST.webp</image:loc>
       <image:title>Automated AI Data Analyst - Project</image:title>
     </image:image>
   </url>
