@@ -211,8 +211,8 @@ const About = () => {
     location: 'Kozhikode, Kerala, India',
     email: 'ankithpratheesh147@gmail.com',
     phone: '+91 9495540233',
-    experience: 'Fresher',
-    projects: '8 Projects',
+    experience: '0',
+    projects: '8',
     avatar: { url: '/images/Ankith.jpg' },
     socialLinks: {
       github: 'https://github.com/ankith5980',
@@ -336,14 +336,14 @@ const About = () => {
               </motion.h2>
               
               {/* Quick Stats */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 p-4 rounded-lg">
+              <div className="flex gap-4 mb-8 justify-center lg:justify-start">
+                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 px-6 py-4 rounded-lg text-center flex flex-col justify-center min-w-[130px]">
                   <div className="text-2xl font-bold text-primary-600">{aboutData.experience || '3+'}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Years Experience</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Years Experience</div>
                 </div>
-                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 p-4 rounded-lg">
+                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 px-6 py-4 rounded-lg text-center flex flex-col justify-center min-w-[130px]">
                   <div className="text-2xl font-bold text-primary-600">{aboutData.projects || '50+'}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Projects Completed</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Projects Completed</div>
                 </div>
               </div>
 

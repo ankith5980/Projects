@@ -66,7 +66,7 @@ const PORTFOLIO_DATA = {
       { year: '2024', title: 'Completed Internship on AI/ML', company: 'Calicut UL Cyber Park', description: 'Gained hands-on experience in AI/ML technologies.' },
       { year: '2022', title: 'Bachelor of Computer Applications', company: "St. Joseph's College", description: 'Graduated with First Class with Distinction on 2025.' }
     ],
-    skills: ['React', 'Node.js', 'MongoDB', 'PostgreSQL', 'JavaScript', 'Python', 'Django', 'Flutter', 'Power BI', 'HTML', 'PHP', 'MySQL', 'NumPy', 'Pandas', 'TensorFlow', 'Scikit-Learn', 'Docker', 'Git', 'Tailwind', 'Express', 'Figma']
+    skills: ['React', 'Node.js', 'MongoDB', 'PostgreSQL', 'JavaScript', 'Python', 'Django', 'Flutter', 'Power BI', 'HTML', 'PHP', 'MySQL', 'NumPy', 'Pandas', 'TensorFlow', 'Scikit-Learn', 'Docker', 'Git', 'Tailwind', 'Express', 'Figma', 'Resend']
   },
   projects: [
     { title: 'Personal Portfolio Website', tech: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS', 'Framer Motion'], desc: 'A modern, responsive portfolio website built with the MERN stack featuring dark mode, animations, and admin dashboard.' },
@@ -76,7 +76,9 @@ const PORTFOLIO_DATA = {
     { title: 'Skill-Swap : A Skill Exchange Platform', tech: ['TypeScript', 'MongoDB', 'Socket.io', 'Express.js'], desc: 'A production-ready full-stack web application for peer-to-peer skill exchange.' },
     { title: 'AI Multi-Agent Research System', tech: ['Next.js', 'Python', 'LangGraph', 'FAISS', 'FastAPI'], desc: 'A fully local, decoupled AI system where multiple agents collaborate using a graph-based state machine to autonomously research topics.' },
     { title: 'NEXUS AI Fraud Vanguard', tech: ['Docker', 'Scikit-learn', 'Kafka', 'Redis', 'FastAPI'], desc: 'An AI-powered fraud detection system that leverages advanced machine learning algorithms and real-time data analysis.' },
-    { title: 'Automated AI Data Analyst', tech: ['Python', 'Next.js', 'Ollama', 'FastAPI', 'LangGraph'], desc: 'An AI-powered data analysis and visualization tool that enables users to upload datasets and perform exploratory data analysis.' }
+    { title: 'Automated AI Data Analyst', tech: ['Python', 'Next.js', 'Ollama', 'FastAPI', 'LangGraph'], desc: 'An AI-powered data analysis and visualization tool that enables users to upload datasets and perform exploratory data analysis.' },
+    { title: 'ABC-LUX', tech: ['Express.js', 'Next.js', 'Postman', 'GSAP', 'Resend', 'Tailwind CSS'], desc: 'A luxury home and commercial interior and exterior lighting company based in Doha, Qatar. The website features a sleek, modern design with an emphasis on high-quality visuals and user experience.' },
+    { title: 'WOLGAN', tech: ['Express.js', 'Next.js', 'Postman', 'GSAP', 'Resend', 'Tailwind CSS'], desc: 'A Middle-East based Water Treatment company specializing in advanced water purification solutions. The website features a clean, modern design with an emphasis on showcasing the company\'s products and services.' }
   ],
   certificates: [
     { title: 'Python Programming with Django', issuer: 'RISS Technologies' },
