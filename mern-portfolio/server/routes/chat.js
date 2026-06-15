@@ -45,8 +45,11 @@ const validateChatInput = (req, res, next) => {
     if (!msg.role || !msg.content) {
       return res.status(400).json({ error: `Invalid message at index ${i}: role and content are required.` });
     }
-    if (typeof msg.content !== 'string' || msg.content.length > 500) {
-      return res.status(400).json({ error: `Message at index ${i} exceeds maximum length of 500 characters.` });
+    if (typeof msg.content !== 'string') {
+      return res.status(400).json({ error: `Invalid message at index ${i}: content must be a string.` });
+    }
+    if (msg.role === 'user' && msg.content.length > 500) {
+      return res.status(400).json({ error: `User message at index ${i} exceeds maximum length of 500 characters.` });
     }
     // Sanitize content
     messages[i].content = sanitizeInput(msg.content);
