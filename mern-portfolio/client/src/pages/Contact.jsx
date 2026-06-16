@@ -310,7 +310,7 @@ const Contact = () => {
               </motion.div>
             )}
             
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" autoComplete="off">
               {/* Name and Email Row */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
@@ -323,6 +323,7 @@ const Contact = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+                    autoComplete="off"
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white/10 dark:bg-white/5 backdrop-blur-md text-gray-900 dark:text-white ${
                       errors.name ? 'border-red-500' : 'border-white/20 dark:border-white/10'
                     }`}
@@ -343,6 +344,7 @@ const Contact = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    autoComplete="off"
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white/10 dark:bg-white/5 backdrop-blur-md text-gray-900 dark:text-white ${
                       errors.email ? 'border-red-500' : 'border-white/20 dark:border-white/10'
                     }`}
@@ -365,6 +367,7 @@ const Contact = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
+                  autoComplete="off"
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white/10 dark:bg-white/5 backdrop-blur-md text-gray-900 dark:text-white ${
                     errors.subject ? 'border-red-500' : 'border-white/20 dark:border-white/10'
                   }`}
@@ -385,6 +388,7 @@ const Contact = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
+                  autoComplete="off"
                   rows="5"
                   className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white/10 dark:bg-white/5 backdrop-blur-md text-gray-900 dark:text-white resize-vertical ${
                     errors.message ? 'border-red-500' : 'border-white/20 dark:border-white/10'
