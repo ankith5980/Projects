@@ -27,9 +27,31 @@ import SEO from '../components/SEO';
 import { getBaseUrl, getFullUrl, getFullImageUrl } from '../utils/url';
 import { generatePersonSchema, generateOrganizationSchema } from '../utils/personalSEO';
 
-// Lazy load non-critical sections
-const SkillsSection = lazy(() => import('../components/SkillsSection'));
-const ProjectsSection = lazy(() => import('../components/ProjectsSection'));
+// Lazy load non-critical sections with retry on chunk load failure
+const lazyWithRetryComponent = (componentImport) =>
+  lazy(async () => {
+    const componentHasAlreadyBeenForceRefreshed = JSON.parse(
+      window.sessionStorage.getItem('component-has-been-force-refreshed') || 'false'
+    );
+
+    try {
+      const component = await componentImport();
+      window.sessionStorage.setItem('component-has-been-force-refreshed', 'false');
+      return component;
+    } catch (error) {
+      console.error('Component chunk failed to load:', error);
+      if (!componentHasAlreadyBeenForceRefreshed) {
+        window.sessionStorage.setItem('component-has-been-force-refreshed', 'true');
+        // Reload page to attempt to fetch updated chunks (common after deployments)
+        window.location.reload();
+        return new Promise(() => {});
+      }
+      throw error;
+    }
+  });
+
+const SkillsSection = lazyWithRetryComponent(() => import('../components/SkillsSection'));
+const ProjectsSection = lazyWithRetryComponent(() => import('../components/ProjectsSection'));
 
 // Optimized Typing Effect Component with React.memo
 const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTime = 2000 }) => {
