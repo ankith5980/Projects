@@ -75,6 +75,10 @@
       <image:loc>https://portfolio-ankith.vercel.app/images/WOLGAN.webp</image:loc>
       <image:title>WOLGAN - Project</image:title>
     </image:image>
+    <image:image>
+      <image:loc>https://portfolio-ankith.vercel.app/images/CAAL.webp</image:loc>
+      <image:title>Context-Aware Accessibility Linter - Project</image:title>
+    </image:image>
   </url>
   
   <!-- Certificates page - Professional certifications and credentials -->

@@ -25,6 +25,7 @@ Allow: /images/NEXUS-AI.webp
 Allow: /images/AIDATAANALYST.webp
 Allow: /images/ABC-LUX.webp
 Allow: /images/WOLGAN.webp
+Allow: /images/CAAL.webp
 Allow: /images/python_data_science_cert (1).jpeg
 Allow: /images/flutter_cert (1).jpg
 Allow: /images/python_cert (1).jpg
@@ -64,6 +65,7 @@ Allow: /images/NEXUS-AI.webp
 Allow: /images/AIDATAANALYST.webp
 Allow: /images/ABC-LUX.webp
 Allow: /images/WOLGAN.webp
+Allow: /images.CAAL.webp
 Allow: /images/python_data_science_cert (1).jpeg
 Allow: /images/flutter_cert (1).jpg
 Allow: /images/python_cert (1).jpg
