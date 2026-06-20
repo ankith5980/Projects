@@ -93,7 +93,7 @@ const projectsData = [
     images: [{ url: '/images/PORTFOLIO.webp' }],
     liveUrl: 'https://portfolio-ankith.vercel.app',
     githubUrl: 'https://github.com/ankith5980/Projects/tree/main/mern-portfolio',
-    category: 'FullStack',
+    category: 'Full-Stack',
     status: 'completed',
     featured: true,
     developers: ['Ankith Pratheesh Menon'],

@@ -212,7 +212,7 @@ const About = () => {
     email: 'ankithpratheesh147@gmail.com',
     phone: '+91 9495540233',
     experience: '0',
-    projects: '8',
+    projects: '10',
     avatar: { url: '/images/Ankith.jpg' },
     socialLinks: {
       github: 'https://github.com/ankith5980',
