@@ -25,9 +25,9 @@ const CustomCursor = () => {
   const pointerX = useMotionValue(-100);
   const pointerY = useMotionValue(-100);
 
-  // Physics for the crisp center dot (very tight spring)
-  const dotX = useSpring(pointerX, { stiffness: 2000, damping: 50, mass: 0.1 });
-  const dotY = useSpring(pointerY, { stiffness: 2000, damping: 50, mass: 0.1 });
+  // Use pointer directly for the crisp center dot to avoid spring instability on low frame rates
+  const dotX = pointerX;
+  const dotY = pointerY;
 
   // Physics for the trailing ring (loose, smooth spring)
   const ringX = useSpring(pointerX, { stiffness: 150, damping: 20, mass: 0.5 });
@@ -85,21 +85,25 @@ const CustomCursor = () => {
     `;
     document.head.appendChild(style);
 
+    let rafId = null;
+
     const updatePointerPosition = (e) => {
-      pointerX.set(e.clientX);
-      pointerY.set(e.clientY);
-      
-      if (!visibleStateRef.current) {
-        visibleStateRef.current = true;
-        setIsVisible(true);
-      }
-      
-      // Secondary hover check as a fallback during fast mouse movement
-      // elementFromPoint can be slightly expensive, so we only use it if we are currently 
-      // not hovering but want to double-check in case mouseover was missed
-      if (!hoverStateRef.current && e.movementX > 0) {
-         // Optionally do elementFromPoint here, but mouseover is usually sufficient
-      }
+      // Throttle high-frequency pointer events to requestAnimationFrame
+      // This prevents the main thread from being flooded by 1000Hz gaming mice,
+      // which causes stuttering on battery power.
+      if (rafId) return;
+
+      rafId = requestAnimationFrame(() => {
+        pointerX.set(e.clientX);
+        pointerY.set(e.clientY);
+        
+        if (!visibleStateRef.current) {
+          visibleStateRef.current = true;
+          setIsVisible(true);
+        }
+        
+        rafId = null;
+      });
     };
 
     const handleMouseOver = (e) => {
@@ -127,6 +131,7 @@ const CustomCursor = () => {
     document.addEventListener('mouseenter', handleMouseEnter);
 
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener('pointermove', updatePointerPosition);
       window.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mouseleave', handleMouseLeave);
