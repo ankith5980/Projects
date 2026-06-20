@@ -223,8 +223,8 @@ const projectsData = [
   {
     _id: 10,
     title: 'Wolgan - Pure Performance Delivered',
-    description: 'A Middle-East based Water Treatment company specializing in advanced water purification solutions. The website features a clean, modern design with an emphasis on showcasing the company\'s products and services.',
-    technologies: ['Next.js API Routes', 'Next.js', 'GSAP', 'Tailwind CSS', 'Resend', 'Postman'],
+    description: 'A Middle-East based B2B Water Treatment company specializing in advanced water purification solutions. The website features a clean, modern design with an emphasis on showcasing the company\'s products and services.',
+    technologies: ['Next.js API Routes', 'Next.js', 'GSAP', 'Tailwind CSS', 'Resend', 'Postman', 'Cloudflare'],
     images: [{ url: '/images/WOLGAN.webp' }],
     liveUrl: 'https://www.wolgan.co/',
     githubUrl: 'https://github.com/ankith5980/Wolgan/tree/wolgan-bug-fix',
@@ -232,7 +232,7 @@ const projectsData = [
     status: 'completed',
     featured: true,
     developers: ['Ankith Pratheesh Menon', 'Abin Tomy'],
-    lastUpdated: '2026-06-12',
+    lastUpdated: '2026-06-20',
     client: 'Wolgan, Doha, Qatar',
   },
   {

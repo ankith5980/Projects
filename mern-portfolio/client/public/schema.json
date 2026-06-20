@@ -5,9 +5,9 @@
       "@type": "Person",
       "@id": "https://portfolio-ankith.vercel.app/#person",
       "name": "Ankith Pratheesh Menon",
-      "alternateName": ["Ankith", "Ankith Menon", "Ankith Pratheesh"],
-      "givenName": "Ankith",
-      "familyName": "Pratheesh Menon",
+      "alternateName": ["Ankith", "Ankith Pratheesh"],
+      "givenName": "Ankith Pratheesh",
+      "familyName": "Menon",
       "jobTitle": "Full Stack Developer",
       "description": "Professional Full Stack Developer and Software Engineer from Kerala, India, specializing in React, Node.js, Flutter, and modern web technologies",
       "url": "https://portfolio-ankith.vercel.app",
@@ -59,10 +59,10 @@
       ],
       "alumniOf": {
         "@type": "EducationalOrganization",
-        "name": "Mar Baselios Christian College of Engineering and Technology",
+        "name": "St. Joseph's College (Autonomous), Devagiri, Calicut",
         "address": {
           "@type": "PostalAddress",
-          "addressLocality": "Peermade",
+          "addressLocality": "Calicut",
           "addressRegion": "Kerala",
           "addressCountry": "India"
         }
