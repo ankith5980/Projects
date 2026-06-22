@@ -20,9 +20,10 @@ const certificates = [
     issuer: 'RISS Technologies',
     description: 'Demonstrates knowledge of how to build and deploy secure and robust web applications using Python and Django',
     issueDate: '2023-03-30',
+    coverImage: '/images/Cert_Cover_1.webp',
     image: '/images/python_cert (1).jpg',
     skills: ['Python', 'Django', 'Web Development', 'Backend'],
-    category: 'technical'
+    category: 'Web Development'
   },
   {
     _id: 2,
@@ -30,9 +31,10 @@ const certificates = [
     issuer: 'Maitexa Info Solutions LLP',
     description: 'Validates knowledge of developing applications using Flutter and Dart.',
     issueDate: '2024-03-31',
+    coverImage: '/images/Cert_Cover_2.webp',
     image: '/images/flutter_cert (1).jpg',
     skills: ['Flutter', 'Dart', 'Mobile Development', 'Cross-Platform'],
-    category: 'technical'
+    category: 'Mobile App Development'
   },
   {
     _id: 3,
@@ -40,9 +42,10 @@ const certificates = [
     issuer: 'TECHBYHEART',
     description: 'Comprehensive course covering Figma fundamentals, design systems, prototyping, and modern best practices.',
     issueDate: '2025-03-13',
+    coverImage: '/images/Cert_Cover_3.webp',
     image: '/images/ui_ux_cert (1).jpg',
     skills: ['Figma', 'UI/UX Design', 'Prototyping', 'Design Systems'],
-    category: 'technical'
+    category: 'UI/UX Design'
   },
   {
     _id: 4,
@@ -50,9 +53,10 @@ const certificates = [
     issuer: 'Maitexa Info Solutions LLP',
     description: 'Comprehensive course covering Python fundamentals, data analysis, and machine learning techniques.',
     issueDate: '2026-03-31',
+    coverImage: '/images/Cert_Cover_4.webp',
     image: '/images/python_data_science_cert (1).jpeg',
     skills: ['Python', 'Data Science', 'Machine Learning', 'Pandas', 'NumPy', 'Power BI', 'TensorFlow', 'Scikit-Learn'],
-    category: 'technical'
+    category: 'Data Science'
   }
 ];
 
@@ -68,10 +72,10 @@ const CertificateCard = memo(({ cert, index, onClick }) => (
     itemType="https://schema.org/EducationalOccupationalCredential"
   >
     {/* Full-bleed image */}
-    {cert.image ? (
+    {cert.coverImage ? (
       <img
-        src={cert.image}
-        alt={`${cert.title} certificate from ${cert.issuer}`}
+        src={cert.coverImage}
+        alt={`${cert.title} cover`}
         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         loading="lazy"
         decoding="async"
@@ -80,7 +84,7 @@ const CertificateCard = memo(({ cert, index, onClick }) => (
         itemProp="image"
       />
     ) : (
-      <div className="w-full h-full bg-primary-600 flex items-center justify-center text-white/60 text-5xl" aria-label="Certificate placeholder">
+      <div className="w-full h-full bg-gradient-to-br from-primary-600 to-primary-800 flex items-center justify-center text-white/30 text-8xl transition-transform duration-500 group-hover:scale-110" aria-label="Certificate placeholder">
         <FaCertificate aria-hidden="true" />
       </div>
     )}

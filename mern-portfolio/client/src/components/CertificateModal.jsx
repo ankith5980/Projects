@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -8,6 +8,7 @@ import {
   FaAward,
   FaLayerGroup,
   FaCheckCircle,
+  FaExternalLinkAlt,
 } from 'react-icons/fa';
 
 // ── Animation variants ──────────────────────────────────────────
@@ -29,6 +30,15 @@ const panelVariants = {
 
 // ── Component ───────────────────────────────────────────────────
 const CertificateModal = React.memo(({ cert, isOpen, onClose }) => {
+  const [showOriginal, setShowOriginal] = useState(false);
+
+  // Reset state when modal closes or cert changes
+  useEffect(() => {
+    if (!isOpen) {
+      setShowOriginal(false);
+    }
+  }, [isOpen, cert]);
+
   // Lock body scroll
   useEffect(() => {
     if (!isOpen) return;
@@ -67,10 +77,12 @@ const CertificateModal = React.memo(({ cert, isOpen, onClose }) => {
     [onClose],
   );
 
+  // ── Render via portal so the modal escapes all stacking contexts ──
   return createPortal(
-    <AnimatePresence>
-      {isOpen && cert && (
-        <motion.div
+    <>
+      <AnimatePresence>
+        {isOpen && cert && (
+          <motion.div
           className="fixed inset-0 z-[9998] flex items-center justify-center p-2 sm:p-6"
           variants={overlayVariants}
           initial="hidden"
@@ -112,17 +124,17 @@ const CertificateModal = React.memo(({ cert, isOpen, onClose }) => {
           >
             {/* Hero image */}
             <div className="relative flex-shrink-0">
-              <div className="aspect-[16/9] sm:aspect-[16/7] bg-primary-600 overflow-hidden">
-                {cert.image ? (
+              <div className="aspect-[16/9] sm:aspect-[16/7] bg-gradient-to-br from-primary-600 to-primary-800 overflow-hidden">
+                {cert.coverImage ? (
                   <img
-                    src={cert.image}
-                    alt={cert.title}
-                    className="w-full h-full object-contain bg-black/5"
+                    src={cert.coverImage}
+                    alt={`${cert.title} cover`}
+                    className="w-full h-full object-cover"
                     loading="eager"
                     decoding="async"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-white/60 text-4xl sm:text-5xl">
+                  <div className="w-full h-full flex items-center justify-center text-white/30 text-7xl sm:text-9xl">
                     <FaCertificate />
                   </div>
                 )}
@@ -193,6 +205,17 @@ const CertificateModal = React.memo(({ cert, isOpen, onClose }) => {
                       : 'N/A'
                   }
                 />
+                
+                {/* View Certificate Button */}
+                {cert.image && (
+                  <button
+                    onClick={() => setShowOriginal(!showOriginal)}
+                    className="flex items-center justify-center gap-2 p-2 sm:p-2.5 rounded-xl bg-primary-50 hover:bg-primary-100 dark:bg-primary-900/20 dark:hover:bg-primary-900/40 text-primary-600 dark:text-primary-400 transition-colors duration-200 font-medium text-[11px] sm:text-sm border border-primary-200/50 dark:border-primary-700/40"
+                  >
+                    <FaExternalLinkAlt className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                    {showOriginal ? 'Hide Certificate' : 'View Certificate'}
+                  </button>
+                )}
               </div>
 
               {/* Description */}
@@ -228,7 +251,56 @@ const CertificateModal = React.memo(({ cert, isOpen, onClose }) => {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>,
+    </AnimatePresence>
+
+      {/* ── Original Image Popup Overlay ───────────────────────── */}
+      <AnimatePresence>
+        {showOriginal && cert?.image && (
+          <motion.div
+            className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowOriginal(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Original Certificate Image"
+          >
+            {/* Dark backdrop */}
+            <motion.div
+              className="absolute inset-0 bg-black/90 backdrop-blur-md"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+
+            {/* Image container */}
+            <motion.div
+              className="relative max-w-full max-h-full overflow-hidden rounded-xl shadow-2xl"
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={cert.image}
+                alt={`${cert.title} Original`}
+                className="max-w-full max-h-[90vh] object-contain rounded-xl"
+              />
+              
+              <button
+                onClick={() => setShowOriginal(false)}
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 sm:p-2.5 rounded-full bg-black/50 text-white hover:bg-black/80 transition-colors backdrop-blur-sm border border-white/10"
+                aria-label="Close original image"
+              >
+                <FaTimes className="w-3 h-3 sm:w-4 sm:h-4" />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>,
     document.body,
   );
 });
