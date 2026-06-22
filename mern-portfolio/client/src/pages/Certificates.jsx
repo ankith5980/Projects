@@ -1,13 +1,15 @@
-import React, { useState, useMemo, memo } from 'react';
+import React, { useState, useMemo, useCallback, memo } from 'react';
 import { motion } from 'framer-motion';
 import { 
   FaSearch, 
   FaCertificate, 
   FaCalendarAlt,
   FaAward,
-  FaCheckCircle
+  FaCheckCircle,
+  FaExternalLinkAlt
 } from 'react-icons/fa';
 import SEO from '../components/SEO';
+import CertificateModal from '../components/CertificateModal';
 import { getFullUrl } from '../utils/url';
 
 // Static certificates data
@@ -55,88 +57,78 @@ const certificates = [
 ];
 
 // Memoized Certificate Card Component for better performance
-const CertificateCard = memo(({ cert, index }) => (
-  <motion.article
+const CertificateCard = memo(({ cert, index, onClick }) => (
+  <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="group bg-white/80 dark:bg-gray-800/80 border border-white/20 dark:border-white/10 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105"
+    className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-shadow duration-300"
+    onClick={onClick}
     itemScope
     itemType="https://schema.org/EducationalOccupationalCredential"
   >
-    {/* Image */}
-    <div className="aspect-video bg-primary-600 relative overflow-hidden">
-      {cert.image ? (
-        <img
-          src={cert.image}
-          alt={`${cert.title} certificate from ${cert.issuer}`}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          loading="lazy"
-          decoding="async"
-          width="640"
-          height="360"
-          itemProp="image"
-        />
-      ) : (
-        <div className="w-full h-full flex items-center justify-center text-white text-4xl" aria-label="Certificate placeholder">
-          <FaCertificate aria-hidden="true" />
-        </div>
-      )}
-      
-      {/* Badge */}
-      <div className="absolute top-3 left-3 flex items-center gap-1 bg-white/90 dark:bg-gray-900/90 px-2 py-1 rounded-full text-xs font-medium">
-        <FaCheckCircle className="w-3 h-3 text-green-500" aria-hidden="true" />
-        <span>Valid</span>
+    {/* Full-bleed image */}
+    {cert.image ? (
+      <img
+        src={cert.image}
+        alt={`${cert.title} certificate from ${cert.issuer}`}
+        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        loading="lazy"
+        decoding="async"
+        width="640"
+        height="480"
+        itemProp="image"
+      />
+    ) : (
+      <div className="w-full h-full bg-primary-600 flex items-center justify-center text-white/60 text-5xl" aria-label="Certificate placeholder">
+        <FaCertificate aria-hidden="true" />
       </div>
+    )}
 
-      {/* Category */}
-      <div className="absolute top-3 right-3 bg-black/50 text-white px-2 py-1 rounded-full text-xs font-medium capitalize" itemProp="credentialCategory">
-        {cert.category}
-      </div>
+    {/* Persistent badges — always visible */}
+    <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm z-10">
+      <FaCheckCircle className="w-3 h-3 text-green-500" aria-hidden="true" />
+      <span>Valid</span>
     </div>
-    
-    {/* Content */}
-    <div className="p-6">
-      <h2 className="text-xl font-semibold mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors" itemProp="name">
+    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[11px] font-medium bg-black/50 text-white backdrop-blur-sm capitalize z-10" itemProp="credentialCategory">
+      {cert.category}
+    </div>
+
+    {/* Hover overlay — slides up from bottom */}
+    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-5">
+      {/* Title */}
+      <h3 className="text-white text-lg sm:text-xl font-bold mb-1.5 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75 drop-shadow-md" itemProp="name">
         {cert.title}
-      </h2>
-      
-      <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-3" itemProp="recognizedBy" itemScope itemType="https://schema.org/Organization">
-        <FaAward className="w-4 h-4 text-primary-600" aria-hidden="true" />
-        <span className="font-medium text-sm" itemProp="name">{cert.issuer}</span>
-      </div>
-      
-      <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2" itemProp="description">
-        {cert.description}
-      </p>
-      
-      <div className="flex items-center gap-1 text-sm text-gray-500 mb-4">
-        <FaCalendarAlt className="w-3 h-3" aria-hidden="true" />
-        <time dateTime={cert.issueDate} itemProp="dateCreated">
-          Issued: {new Date(cert.issueDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
-        </time>
-      </div>
-      
-      {/* Skills */}
+      </h3>
+
+      {/* Skills tags */}
       {cert.skills && (
-        <div className="flex flex-wrap gap-2" itemProp="about">
-          {cert.skills.slice(0, 3).map((skill, idx) => (
+        <div className="flex flex-wrap gap-1.5 mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100" itemProp="about">
+          {cert.skills.slice(0, 3).map((skill, i) => (
             <span
-              key={idx}
-              className="px-2 py-1 bg-gray-400/20 backdrop-blur-sm border border-gray-400/30 text-xs rounded font-medium"
+              key={i}
+              className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-white/15 backdrop-blur-sm text-white/90 border border-white/10"
             >
               {skill}
             </span>
           ))}
           {cert.skills.length > 3 && (
-            <span className="px-2 py-1 bg-gray-400/20 backdrop-blur-sm border border-gray-400/30 text-xs rounded font-medium">
+            <span className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-white/15 backdrop-blur-sm text-white/90 border border-white/10">
               +{cert.skills.length - 3} more
             </span>
           )}
         </div>
       )}
+
+      {/* View Details button */}
+      <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150">
+        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-white/20 backdrop-blur-md border border-white/20 text-white hover:bg-white/30 transition-colors duration-200">
+          <FaExternalLinkAlt className="w-3 h-3" />
+          View Details
+        </span>
+      </div>
     </div>
-  </motion.article>
+  </motion.div>
 ));
 
 CertificateCard.displayName = 'CertificateCard';
@@ -154,6 +146,9 @@ const containerVariants = {
 
 const Certificates = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
+
+  const handleCloseModal = useCallback(() => setSelectedCertificate(null), []);
 
   // Memoized filter to prevent unnecessary recalculations
   const filtered = useMemo(() => {
@@ -250,7 +245,12 @@ const Certificates = () => {
           >
             {filtered.length > 0 ? (
               filtered.map((cert, index) => (
-                <CertificateCard key={cert._id} cert={cert} index={index} />
+                <CertificateCard 
+                  key={cert._id} 
+                  cert={cert} 
+                  index={index} 
+                  onClick={() => setSelectedCertificate(cert)}
+                />
               ))
             ) : (
               <motion.div
@@ -270,6 +270,13 @@ const Certificates = () => {
           </motion.div>
         </section>
       </div>
+
+      {/* Certificate Detail Modal */}
+      <CertificateModal
+        cert={selectedCertificate}
+        isOpen={!!selectedCertificate}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };
