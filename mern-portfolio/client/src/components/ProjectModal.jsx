@@ -14,6 +14,7 @@ import {
   FaArchive,
   FaSync,
   FaStar,
+  FaImage,
 } from 'react-icons/fa';
 
 // Status config — matches the project cards
@@ -285,10 +286,10 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => { if (!project.liveUrl) e.preventDefault(); }}
-                  className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 rounded-xl text-sm font-medium backdrop-blur-md transition-all duration-300 ${
                     project.liveUrl
-                      ? 'bg-primary-600 text-white shadow-lg hover:shadow-xl active:scale-[0.98]'
-                      : 'bg-gray-200/60 dark:bg-gray-700/50 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+                      ? 'bg-primary-500/10 dark:bg-primary-500/20 text-primary-600 dark:text-primary-300 border border-primary-500/20 hover:bg-primary-500/20 dark:hover:bg-primary-500/30 hover:border-primary-500/30 shadow-[0_4px_15px_rgba(59,130,246,0.1)] hover:shadow-[0_6px_20px_rgba(59,130,246,0.2)] active:scale-[0.98]'
+                      : 'bg-gray-100/50 dark:bg-gray-800/40 border border-gray-200/50 dark:border-gray-700/50 text-gray-400 dark:text-gray-500 cursor-not-allowed'
                   }`}
                 >
                   <FaExternalLinkAlt className="w-3.5 h-3.5" />
@@ -301,10 +302,10 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => { if (!project.githubUrl) e.preventDefault(); }}
-                  className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 rounded-xl text-sm font-medium backdrop-blur-md transition-all duration-300 ${
                     project.githubUrl
-                      ? 'bg-gray-200/80 dark:bg-gray-700/60 border border-gray-300/40 dark:border-gray-600/40 hover:bg-gray-300/80 dark:hover:bg-gray-600/60 active:scale-[0.98]'
-                      : 'bg-gray-200/60 dark:bg-gray-700/50 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+                      ? 'bg-gray-100/60 dark:bg-gray-800/40 text-gray-700 dark:text-gray-300 border border-gray-200/60 dark:border-gray-700/60 shadow-sm hover:bg-gray-200/60 dark:hover:bg-gray-700/60 hover:border-gray-300/60 dark:hover:border-gray-600/60 active:scale-[0.98]'
+                      : 'bg-gray-100/50 dark:bg-gray-800/40 border border-gray-200/50 dark:border-gray-700/50 text-gray-400 dark:text-gray-500 cursor-not-allowed'
                   }`}
                 >
                   <FaGithub className="w-4 h-4" />
