@@ -343,18 +343,18 @@ const About = () => {
               </motion.h2>
               
               {/* Quick Stats */}
-              <div className="flex gap-4 mb-8 justify-center lg:justify-start">
-                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 px-6 py-4 rounded-lg text-center flex flex-col justify-center min-w-[130px]">
+              <div className="flex flex-wrap gap-4 mb-8 justify-center lg:justify-start">
+                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 px-4 sm:px-6 py-4 rounded-lg text-center flex flex-col justify-center min-w-[120px] flex-1 lg:flex-none">
                   <div className="text-2xl font-bold text-primary-600">{aboutData.experience || '3+'}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Years Experience</div>
+                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">Years Experience</div>
                 </div>
-                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 px-6 py-4 rounded-lg text-center flex flex-col justify-center min-w-[130px]">
+                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 px-4 sm:px-6 py-4 rounded-lg text-center flex flex-col justify-center min-w-[120px] flex-1 lg:flex-none">
                   <div className="text-2xl font-bold text-primary-600">{aboutData.projects || '50+'}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Projects Completed</div>
+                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">Projects Completed</div>
                 </div>
-                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 px-6 py-4 rounded-lg text-center flex flex-col justify-center min-w-[130px]">
+                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 px-4 sm:px-6 py-4 rounded-lg text-center flex flex-col justify-center min-w-[120px] flex-1 lg:flex-none">
                   <div className="text-2xl font-bold text-primary-600">{aboutData.ongoingProjects || '2+'}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Ongoing Project(s)</div>
+                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">Ongoing Projects</div>
                 </div>
               </div>
 

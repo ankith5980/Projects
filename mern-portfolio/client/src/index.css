@@ -461,3 +461,9 @@ html, body, * {
 .certificate-card {
   animation: scaleIn 0.5s ease-out backwards;
 }
+
+/* Developer Options (CSS Outlines) */
+* {
+  outline: 1px solid rgba(255, 0, 0, 0.5);
+  background: rgba(255, 0, 0, 0.05);
+}
