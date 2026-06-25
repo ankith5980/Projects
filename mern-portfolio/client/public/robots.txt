@@ -75,6 +75,26 @@ User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
+User-agent: Bravebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+User-agent: Yandex
+Allow: /
+Crawl-delay: 1
+
+User-agent: baiduspider
+Allow: /
+Crawl-delay: 1
+
 # Sitemap location for faster discovery
 Sitemap: https://portfolio-ankith.vercel.app/sitemap.xml
 
