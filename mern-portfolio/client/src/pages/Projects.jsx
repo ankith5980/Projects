@@ -97,7 +97,7 @@ const projectsData = [
     status: 'completed',
     featured: true,
     developers: ['Ankith Pratheesh Menon'],
-    lastUpdated: '2026-06-16',
+    lastUpdated: '2026-06-27',
     client: 'Self',
   },
   {
@@ -211,13 +211,13 @@ const projectsData = [
     description: 'A luxury home and commercial interior and exterior lighting company based in Doha, Qatar. The website features a sleek, modern design with an emphasis on high-quality visuals and user experience.',
     technologies: ['Express.js', 'Next.js', 'GSAP', 'Tailwind CSS', 'Resend', 'Postman'],
     images: [{ url: '/images/ABC-LUX.webp' }],
-    liveUrl: 'https://abc-lux.vercel.app/',
+    liveUrl: 'https://www.abclux.qa/',
     githubUrl: 'https://github.com/ankith5980/ABC-LUX/tree/bug-fixes',
     category: 'Full-Stack',
     status: 'completed',
     featured: true,
     developers: ['Ankith Pratheesh Menon', 'Abin Tomy'],
-    lastUpdated: '2026-06-15',
+    lastUpdated: '2026-06-27',
     client: 'ABC-LUX, Doha, Qatar',
   },
   {
@@ -232,7 +232,7 @@ const projectsData = [
     status: 'completed',
     featured: true,
     developers: ['Ankith Pratheesh Menon', 'Abin Tomy'],
-    lastUpdated: '2026-06-20',
+    lastUpdated: '2026-06-24',
     client: 'Wolgan, Doha, Qatar',
   },
   {
@@ -247,7 +247,7 @@ const projectsData = [
     status: 'in-progress',
     featured: true,
     developers: ['Ankith Pratheesh Menon'],
-    lastUpdated: '2026-06-18',
+    lastUpdated: '2026-06-27',
     client: 'Self',
   },
 ];
