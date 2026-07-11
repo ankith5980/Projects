@@ -55,7 +55,15 @@
         "Artificial Intelligence",
         "Database Design",
         "API Development",
-        "UI/UX Design"
+        "UI/UX Design",
+        "SupaBase",
+        "Resend",
+        "WebRTC",
+        "Socket.io",
+        "Postman",
+        "AWS",
+        "Django",
+        "AI integration"
       ],
       "alumniOf": {
         "@type": "EducationalOrganization",

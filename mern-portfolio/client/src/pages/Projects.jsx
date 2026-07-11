@@ -97,7 +97,7 @@ const projectsData = [
     status: 'completed',
     featured: true,
     developers: ['Ankith Pratheesh Menon'],
-    lastUpdated: '2026-06-27',
+    lastUpdated: '2026-07-11',
     client: 'Self',
   },
   {
@@ -217,7 +217,7 @@ const projectsData = [
     status: 'completed',
     featured: true,
     developers: ['Ankith Pratheesh Menon', 'Abin Tomy'],
-    lastUpdated: '2026-06-27',
+    lastUpdated: '2026-07-11',
     client: 'ABC-LUX, Doha, Qatar',
   },
   {
@@ -232,7 +232,7 @@ const projectsData = [
     status: 'completed',
     featured: true,
     developers: ['Ankith Pratheesh Menon', 'Abin Tomy'],
-    lastUpdated: '2026-06-24',
+    lastUpdated: '2026-07-08',
     client: 'Wolgan, Doha, Qatar',
   },
   {
@@ -247,8 +247,23 @@ const projectsData = [
     status: 'in-progress',
     featured: true,
     developers: ['Ankith Pratheesh Menon'],
-    lastUpdated: '2026-06-27',
+    lastUpdated: '2026-07-10',
     client: 'Self',
+  },
+  {
+    _id: 12,
+    title: 'LiveQ: An AI-Moderated Anonymous Live Q&A Platform',
+    description: 'A modern, real-time, anonymous live Q&A platform featuring AI-powered moderation, and seamless cross-device accessibility. Designed for large-scale events, conferences, and hybrid meetups.',
+    technologies: ['Next.js', 'TypeScript', 'Socket.IO', 'WebRTC', 'Multi-LLM API', 'SupaBase'],
+    images: [{ url: '/images/LiveQ.webp' }],
+    liveUrl: 'https://liveq.vercel.app/',
+    githubUrl: 'https://github.com/ankith5980/QnA-App',
+    category: 'Full-Stack',
+    status: 'completed',
+    featured: true,
+    developers: ['Ankith Pratheesh Menon'],
+    lastUpdated: '2026-07-11',
+    client: 'St.Joseph\'s College(Autonomous), Devagiri',
   },
 ];
 

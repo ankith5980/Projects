@@ -26,6 +26,7 @@ import {
   FaPlane,
   FaBrain,
   FaRobot,
+  FaAws,
 } from 'react-icons/fa';
 import { 
   SiReact, 
@@ -42,7 +43,6 @@ import {
   SiExpress,
   SiDjango,
   SiSupabase,
-  SiFirebase,
   SiHtml5,
   SiPhp,
   SiPowerbi,
@@ -150,7 +150,7 @@ const techStack = [
   { name: 'MySQL', icon: SiMysql, color: 'text-orange-500' },
   { name: 'Machine Learning', icon: FaRobot, color: 'text-purple-600' },
   { name: 'Supabase', icon: SiSupabase, color: 'text-green-500' },
-  { name: 'Firebase', icon: SiFirebase, color: 'text-yellow-500' },
+  { name: 'AWS', icon: FaAws, color: 'text-orange-500' },
   { name: 'Ollama', icon: OllamaIcon, color: 'text-gray-900 dark:text-gray-100' },
   { name: 'Docker', icon: SiDocker, color: 'text-blue-500' },
   { name: 'Git', icon: SiGit, color: 'text-red-500' },
@@ -218,7 +218,7 @@ const About = () => {
     email: 'ankithpratheesh147@gmail.com',
     phone: '+91 9495540233',
     experience: '0',
-    projects: '10',
+    projects: '11',
     ongoingProjects: '1',
     avatar: { url: '/images/Ankith.jpg' },
     socialLinks: {

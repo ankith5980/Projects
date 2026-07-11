@@ -69,7 +69,7 @@ const PORTFOLIO_DATA = {
       { year: '2024', title: 'Completed Internship on AI/ML', company: 'Calicut UL Cyber Park', description: 'Gained hands-on experience in AI/ML technologies.' },
       { year: '2022', title: 'Bachelor of Computer Applications', company: "St. Joseph's College", description: 'Graduated with First Class with Distinction on 2025.' }
     ],
-    skills: ['React', 'Node.js', 'MongoDB', 'PostgreSQL', 'JavaScript', 'Python', 'Django', 'Flutter', 'Power BI', 'HTML', 'PHP', 'MySQL', 'NumPy', 'Pandas', 'TensorFlow', 'Scikit-Learn', 'Docker', 'Git', 'Tailwind', 'Express', 'Figma', 'Resend']
+    skills: ['React', 'Node.js', 'MongoDB', 'PostgreSQL', 'JavaScript', 'Python', 'Django', 'Flutter', 'Power BI', 'HTML', 'PHP', 'MySQL', 'NumPy', 'Pandas', 'TensorFlow', 'Scikit-Learn', 'Docker', 'Git', 'Tailwind', 'Express', 'Figma', 'Resend', 'Socket.io', 'WebRTC', 'Supabase', 'FireBase']
   },
   projects: [
     { title: 'Personal Portfolio Website', tech: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS', 'Framer Motion'], desc: 'A modern, responsive portfolio website built with the MERN stack featuring dark mode, animations, and admin dashboard.' },
@@ -82,7 +82,8 @@ const PORTFOLIO_DATA = {
     { title: 'Automated AI Data Analyst', tech: ['Python', 'Next.js', 'Ollama', 'FastAPI', 'LangGraph'], desc: 'An AI-powered data analysis and visualization tool that enables users to upload datasets and perform exploratory data analysis.' },
     { title: 'ABC-LUX', tech: ['Express.js', 'Next.js', 'Postman', 'GSAP', 'Resend', 'Tailwind CSS'], desc: 'A luxury home and commercial interior and exterior lighting company based in Doha, Qatar. The website features a sleek, modern design with an emphasis on high-quality visuals and user experience.' },
     { title: 'WOLGAN', tech: ['Express.js', 'Next.js', 'Postman', 'GSAP', 'Resend', 'Tailwind CSS'], desc: 'A Middle-East based Water Treatment company specializing in advanced water purification solutions. The website features a clean, modern design with an emphasis on showcasing the company\'s products and services.' },
-    { title: 'Context-Aware Accessibility Linter', tech: ['React', 'Node.js', 'Browser Extension API', 'AI DOM Analysis', 'LLM API'], desc: 'An AI-augmented developer tool designed to automatically detect and remediate accessibility errors by evaluating DOM context. Evolving from a real-time browser extension into an enterprise-grade CI/CD pipeline integration, this project aims to provide a comprehensive B2B SaaS solution for automated software accessibility compliance.' }
+    { title: 'Context-Aware Accessibility Linter', tech: ['React', 'Node.js', 'Browser Extension API', 'AI DOM Analysis', 'LLM API'], desc: 'An AI-augmented developer tool designed to automatically detect and remediate accessibility errors by evaluating DOM context. Evolving from a real-time browser extension into an enterprise-grade CI/CD pipeline integration, this project aims to provide a comprehensive B2B SaaS solution for automated software accessibility compliance.' },
+    { title: 'LiveQ: An AI-Moderated Anonymous Live Q&A Platform', tech: ['Next.js', 'TypeScript', 'Socket.IO', 'WebRTC', 'Multi-LLM API', 'SupaBase'], desc: 'A modern, real-time, anonymous live Q&A platform featuring AI-powered moderation, and seamless cross-device accessibility. Designed for large-scale events, conferences, and hybrid meetups.' }
   ],
   certificates: [
     { title: 'Python Programming with Django', issuer: 'RISS Technologies' },
