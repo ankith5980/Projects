@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
+import Reveal, { RevealGroup, RevealItem } from './Reveal';
+import DisplayType from './DisplayType';
 
 const SkillsSection = React.memo(({ skills }) => {
   if (!skills || Object.keys(skills).length === 0) {
@@ -9,69 +10,54 @@ const SkillsSection = React.memo(({ skills }) => {
   }
 
   return (
-    <section className="section-padding bg-gray-50 dark:bg-dark-200">
-      <div className="container mx-auto container-padding">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Skills & Technologies
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
-            Technologies I work with
-          </p>
-        </motion.div>
+    <section className="section-padding relative overflow-hidden">
+      <DisplayType solid="SKILLS" align="left" className="opacity-70" speed={40} slideIn={false} />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {Object.entries(skills).slice(0, 4).map(([category, categorySkills], index) => (
-            <motion.div
+      <div className="container relative z-10 mx-auto container-padding">
+        <Reveal className="mb-14 text-center">
+          <span className="eyebrow">Toolkit</span>
+          <h2 className="mt-3 font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl lg:text-5xl">
+            Skills &amp; <span className="text-accent">Technologies</span>
+          </h2>
+          <p className="mt-3 text-base text-muted">Technologies I work with</p>
+        </Reveal>
+
+        <RevealGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {Object.entries(skills).slice(0, 4).map(([category, categorySkills]) => (
+            <RevealItem
               key={category}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="text-center"
+              className="glass-violet group rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-glow"
             >
-              <h3 className="text-xl font-semibold mb-4 capitalize text-primary-600 dark:text-primary-400">
+              <h3 className="mb-4 font-display text-lg font-semibold capitalize text-accent">
                 {category}
               </h3>
-              <div className="flex flex-wrap justify-center gap-2">
+              <div className="flex flex-wrap gap-2">
                 {Array.isArray(categorySkills) ? (
                   categorySkills.slice(0, 5).map((skill) => (
                     <span
-                      key={skill._id || Math.random()}
-                      className="px-3 py-1 bg-white dark:bg-gray-800 rounded-full text-sm border border-gray-200 dark:border-gray-700"
+                      key={skill._id || skill.name}
+                      className="rounded-full border border-hairline bg-surface-2 px-3 py-1 text-xs font-medium text-muted transition-colors duration-200 group-hover:text-fg"
                     >
                       {skill.name}
                     </span>
                   ))
                 ) : (
-                  <span className="text-sm text-gray-500 italic">No skills listed</span>
+                  <span className="text-sm italic text-muted">No skills listed</span>
                 )}
               </div>
-            </motion.div>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
-        >
+        <Reveal delay={0.2} className="mt-12 text-center">
           <Link
             to="/about"
-            className="inline-flex items-center space-x-2 text-primary-600 hover:text-primary-700 font-medium"
+            className="inline-flex items-center gap-2 font-display text-sm font-semibold uppercase tracking-widest text-accent transition-all duration-200 hover:gap-3"
           >
             <span>View All Skills</span>
-            <FaArrowRight className="w-4 h-4" />
+            <FaArrowRight className="h-3.5 w-3.5" />
           </Link>
-        </motion.div>
+        </Reveal>
       </div>
     </section>
   );

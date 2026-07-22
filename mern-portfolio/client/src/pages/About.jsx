@@ -2,6 +2,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
+import DisplayType from '../components/DisplayType';
+import Reveal, { RevealGroup, RevealItem } from '../components/Reveal';
+import { AccentDot } from '../components/FloatingBadge';
 import { generatePersonSchema, generateOrganizationSchema } from '../utils/personalSEO';
 import { getFullUrl } from '../utils/url';
 import { 
@@ -98,10 +101,6 @@ const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTi
     return () => clearTimeout(timeout);
   }, [currentText, currentTextIndex, isDeleting, isPaused, texts, speed, deleteSpeed, pauseTime]);
 
-  const getTextColor = (text) => {
-    return 'text-primary-600 dark:text-primary-400';
-  };
-
   return (
     <span className="relative inline-flex items-center">
       <motion.span
@@ -109,19 +108,19 @@ const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTi
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
-        className={`font-bold ${getTextColor(texts[currentTextIndex])}`}
+        className="font-display font-bold text-accent"
       >
         {currentText}
       </motion.span>
       <motion.span
         animate={{ opacity: [1, 0] }}
-        transition={{ 
-          duration: 0.8, 
-          repeat: Infinity, 
+        transition={{
+          duration: 0.8,
+          repeat: Infinity,
           repeatType: "reverse",
           ease: "easeInOut"
         }}
-        className="text-primary-600 dark:text-primary-400 font-bold ml-1 text-2xl"
+        className="ml-1 font-display text-2xl font-bold text-accent"
       >
         |
       </motion.span>
@@ -151,11 +150,11 @@ const techStack = [
   { name: 'Machine Learning', icon: FaRobot, color: 'text-purple-600' },
   { name: 'Supabase', icon: SiSupabase, color: 'text-green-500' },
   { name: 'AWS', icon: FaAws, color: 'text-orange-500' },
-  { name: 'Ollama', icon: OllamaIcon, color: 'text-gray-900 dark:text-gray-100' },
+  { name: 'Ollama', icon: OllamaIcon, color: 'text-fg' },
   { name: 'Docker', icon: SiDocker, color: 'text-blue-500' },
   { name: 'Git', icon: SiGit, color: 'text-red-500' },
   { name: 'Tailwind', icon: SiTailwindcss, color: 'text-teal-400' },
-  { name: 'Express', icon: SiExpress, color: 'text-gray-700 dark:text-gray-300' },
+  { name: 'Express', icon: SiExpress, color: 'text-muted' },
   { name: 'Figma', icon: SiFigma, color: 'text-purple-500' }
 ];
 
@@ -247,7 +246,7 @@ const About = () => {
 
 
   return (
-    <div className="min-h-screen section-padding pt-20">
+    <div className="min-h-screen section-padding pt-28 sm:pt-32">
       <SEO 
         title="About Ankith Pratheesh Menon - Professional Background & Skills"
         description="Learn more about Ankith Pratheesh Menon - Professional Full Stack Developer from Kerala, India with expertise in React, Node.js, Flutter, Next.js, and modern web technologies. Discover my educational background at St. Joseph's College (Autonomous), Devagiri, professional experience, and passion for creating innovative software solutions."
@@ -263,366 +262,318 @@ const About = () => {
         }}
       />
       <div className="container mx-auto container-padding">
-        
-        {/* Hero Section */}
-        <motion.section 
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-          className="py-16 lg:py-20"
-        >
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+
+        {/* ================= HERO ================= */}
+        <section className="relative overflow-hidden py-14 lg:py-20">
+          <DisplayType solid="ABOUT" align="right" className="opacity-60" speed={50} />
+
+          {/*
+            The first column is sized to the portrait rather than a half-width
+            track, so the copy starts right after the image instead of at the
+            50% line — otherwise the leftover track reads as dead space.
+          */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            className="relative z-10 grid items-center gap-10 lg:grid-cols-[auto_1fr] lg:gap-14"
+          >
             {/* Profile Image */}
             <motion.div variants={itemVariants} className="flex justify-center lg:justify-start">
-              <div className="relative">
-                <div className="w-80 h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden bg-primary-500 p-1">
-                  <div className="w-full h-full rounded-full overflow-hidden bg-white dark:bg-gray-800">
-                    <img
-                      src={aboutData.avatar?.url || '/images/Ankith.jpg'}
-                      alt={aboutData.fullName}
-                      className="w-full h-full object-cover"
-                      loading="eager"
-                      decoding="async"
-                      fetchPriority="high"
-                      width="384"
-                      height="384"
-                    />
-                  </div>
+              <div className="relative" style={{ width: 'clamp(230px, 58vw, 400px)' }}>
+                <div
+                  className="absolute -inset-6 -z-10 rounded-[3rem] blur-3xl"
+                  style={{ background: 'radial-gradient(circle at 50% 60%, rgb(var(--accent) / 0.35), transparent 70%)' }}
+                />
+
+                <div className="ring-gradient-violet aspect-[3/4] w-full overflow-hidden rounded-[2rem] shadow-glow-lg">
+                  <img
+                    src={aboutData.avatar?.url || '/images/Ankith.jpg'}
+                    alt={aboutData.fullName}
+                    className="h-full w-full object-cover object-center"
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
+                    width="360"
+                    height="480"
+                  />
                 </div>
-                
-                {/* Floating elements */}
-                <motion.div
-                  animate={{ y: [-10, 10, -10] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                  className="absolute -top-4 -right-4 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg"
-                >
-                  <FaRocket className="w-6 h-6 text-primary-600" />
-                </motion.div>
-                <motion.div
-                  animate={{ y: [10, -10, 10] }}
-                  transition={{ duration: 2.5, repeat: Infinity, delay: 1 }}
-                  className="absolute -bottom-4 -left-4 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg"
-                >
-                  <FaHeart className="w-6 h-6 text-red-500" />
-                </motion.div>
+
+                <span className="absolute -right-3 -top-3 z-20 h-6 w-6 border-r-2 border-t-2 border-accent/60" />
+                <span className="absolute -bottom-3 -right-3 z-20 h-6 w-6 border-b-2 border-r-2 border-accent/60" />
               </div>
             </motion.div>
 
             {/* Content */}
             <motion.div variants={itemVariants} className="text-center lg:text-left">
-              <h1 className="text-4xl lg:text-5xl font-bold mb-4">
-                <span className="text-primary-600 dark:text-primary-400">{aboutData.fullName}</span>
+              <span className="eyebrow">Who I am</span>
+
+              <h1 className="mb-4 mt-3 font-display font-bold uppercase leading-[0.9] tracking-tighter">
+                <span className="text-outline-accent block italic" style={{ fontSize: 'clamp(2.25rem, 6vw, 4rem)' }}>
+                  Ankith
+                </span>
+                <span className="block text-fg" style={{ fontSize: 'clamp(1.5rem, 4vw, 2.75rem)' }}>
+                  Pratheesh Menon
+                </span>
               </h1>
+
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-xl lg:text-2xl mb-6 min-h-[3rem] flex items-center justify-center lg:justify-start relative"
+                className="relative mb-8 flex min-h-[3rem] items-center justify-center text-xl lg:justify-start lg:text-2xl"
               >
-                <div className="relative inline-block">
-                  <TypingEffect 
-                    texts={typingTexts}
-                    speed={80}
-                    deleteSpeed={40}
-                    pauseTime={3000}
-                  />
-                  {/* Subtle animated underline */}
-                  <motion.div
-                    animate={{
-                      scaleX: [0.8, 1, 0.8],
-                      opacity: [0.3, 0.6, 0.3]
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                    className="absolute -bottom-1 left-0 h-0.5 bg-primary-500 rounded-full"
-                  />
-                </div>
+                <TypingEffect
+                  texts={typingTexts}
+                  speed={80}
+                  deleteSpeed={40}
+                  pauseTime={3000}
+                />
               </motion.h2>
-              
+
               {/* Quick Stats */}
-              <div className="flex flex-wrap gap-4 mb-8 justify-center lg:justify-start">
-                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 px-4 sm:px-6 py-4 rounded-lg text-center flex flex-col justify-center min-w-[120px] flex-1 lg:flex-none">
-                  <div className="text-2xl font-bold text-primary-600">{aboutData.experience || '3+'}</div>
-                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">Years Experience</div>
-                </div>
-                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 px-4 sm:px-6 py-4 rounded-lg text-center flex flex-col justify-center min-w-[120px] flex-1 lg:flex-none">
-                  <div className="text-2xl font-bold text-primary-600">{aboutData.projects || '50+'}</div>
-                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">Projects Completed</div>
-                </div>
-                <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 px-4 sm:px-6 py-4 rounded-lg text-center flex flex-col justify-center min-w-[120px] flex-1 lg:flex-none">
-                  <div className="text-2xl font-bold text-primary-600">{aboutData.ongoingProjects || '2+'}</div>
-                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-1">Ongoing Projects</div>
-                </div>
+              <div className="mb-8 flex flex-wrap justify-center gap-3 lg:justify-start">
+                {[
+                  { value: aboutData.experience || '3+', label: 'Years Experience' },
+                  { value: aboutData.projects || '50+', label: 'Projects Completed' },
+                  { value: aboutData.ongoingProjects || '2+', label: 'Ongoing Projects' },
+                ].map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="glass-violet flex min-w-[110px] flex-1 flex-col justify-center rounded-2xl px-4 py-4 text-center transition-colors duration-300 hover:border-accent/40 lg:flex-none"
+                  >
+                    <div className="font-display text-3xl font-bold leading-none text-accent sm:text-4xl">
+                      {stat.value}
+                    </div>
+                    <div className="mt-2 text-[11px] uppercase tracking-wider text-muted sm:text-xs">
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
               </div>
 
               {/* Contact Info */}
-              <div className="space-y-3 mb-8 text-sm lg:text-base">
-                <div className="flex items-center justify-center lg:justify-start space-x-3">
-                  <FaMapMarkerAlt className="text-primary-600 flex-shrink-0" />
-                  <span>{aboutData.location || 'Kerala, India'}</span>
-                </div>
-                <div className="flex items-center justify-center lg:justify-start space-x-3">
-                  <FaEnvelope className="text-primary-600 flex-shrink-0" />
-                  <span>{aboutData.email || 'contact@ankith.dev'}</span>
-                </div>
-                <div className="flex items-center justify-center lg:justify-start space-x-3">
-                  <FaPhone className="text-primary-600 flex-shrink-0" />
-                  <span>{aboutData.phone || '+91 9876543210'}</span>
-                </div>
+              <div className="mb-8 space-y-3 text-sm lg:text-base">
+                {[
+                  { Icon: FaMapMarkerAlt, value: aboutData.location || 'Kerala, India' },
+                  { Icon: FaEnvelope, value: aboutData.email || 'contact@ankith.dev' },
+                  { Icon: FaPhone, value: aboutData.phone || '+91 9876543210' },
+                ].map(({ Icon, value }) => (
+                  <div key={value} className="flex items-center justify-center gap-3 text-muted lg:justify-start">
+                    <Icon className="h-4 w-4 flex-shrink-0 text-accent" />
+                    <span>{value}</span>
+                  </div>
+                ))}
               </div>
 
               {/* CTA Buttons */}
-              <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+              <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
                 <Link
                   to="/contact"
-                  className="inline-flex items-center space-x-2 bg-primary-600/20 backdrop-blur-md border border-primary-600/40 hover:bg-primary-600/30 text-primary-700 dark:text-primary-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-glow"
                 >
-                  <FaEnvelope className="w-4 h-4" />
+                  <FaEnvelope className="h-4 w-4" />
                   <span>Get In Touch</span>
                 </Link>
                 <a
                   href="/cv/My_Resume.pdf"
                   download="Ankith_Pratheesh_Menon_CV.pdf"
-                  className="inline-flex items-center space-x-2 bg-purple-600/20 backdrop-blur-md border border-purple-600/40 hover:bg-purple-600/30 text-purple-700 dark:text-purple-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+                  className="inline-flex items-center gap-2 rounded-full border border-accent/50 px-6 py-3 text-sm font-semibold text-accent transition-all duration-200 hover:scale-105 hover:bg-accent/10"
                 >
-                  <FaDownload className="w-4 h-4" />
+                  <FaDownload className="h-4 w-4" />
                   <span>Download CV</span>
                 </a>
               </div>
             </motion.div>
-          </div>
-        </motion.section>
+          </motion.div>
+        </section>
 
-        {/* Bio Section */}
-        <motion.section 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="py-16"
-        >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold text-center mb-12">
-            My <span className="text-primary-600 dark:text-primary-400">Story</span>
-          </motion.h2>
-          <motion.div variants={itemVariants} className="max-w-4xl mx-auto">
-            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 p-8 rounded-2xl shadow-lg">
-              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                {aboutData.bio || `I'm a passionate full-stack developer with over 3 years of experience creating 
-                digital solutions that make a difference. My journey began with a curiosity about how websites work, 
+        {/* ================= STORY ================= */}
+        <section className="relative overflow-hidden py-16">
+          <Reveal className="mb-10 text-center">
+            <span className="eyebrow">Background</span>
+            <h2 className="mt-3 font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">
+              My <span className="text-accent">Story</span>
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.1} className="mx-auto max-w-4xl">
+            <div className="glass-violet relative rounded-3xl p-8 sm:p-10">
+              <span className="absolute left-8 top-0 h-px w-24 bg-gradient-to-r from-accent to-transparent" />
+              <p className="mb-6 text-base leading-relaxed text-muted sm:text-lg">
+                {aboutData.bio || `I'm a passionate full-stack developer with over 3 years of experience creating
+                digital solutions that make a difference. My journey began with a curiosity about how websites work,
                 and it has evolved into a career dedicated to building scalable, user-friendly applications.`}
               </p>
-              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, 
-                or sharing knowledge with the developer community. I believe in continuous learning and staying 
+              <p className="text-base leading-relaxed text-muted sm:text-lg">
+                When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects,
+                or sharing knowledge with the developer community. I believe in continuous learning and staying
                 updated with the latest industry trends.
               </p>
             </div>
-          </motion.div>
-        </motion.section>
+          </Reveal>
+        </section>
 
-        {/* Tech Stack */}
-        <motion.section 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="py-16"
-        >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold text-center mb-12">
-            <FaCode className="inline-block mr-3 text-primary-600" />
-            Technologies & <span className="text-primary-600 dark:text-primary-400">Skills</span>
-          </motion.h2>
-          <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {techStack.map((tech, index) => (
-              <motion.div
+        {/* ================= TECH STACK ================= */}
+        <section className="relative overflow-hidden py-16">
+          <DisplayType solid="STACK" align="left" className="opacity-60" speed={40} slideIn={false} />
+
+          <Reveal className="relative z-10 mb-12 text-center">
+            <span className="eyebrow">Toolkit</span>
+            <h2 className="mt-3 font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">
+              <FaCode className="mr-3 inline-block text-accent" />
+              Technologies &amp; <span className="text-accent">Skills</span>
+            </h2>
+          </Reveal>
+
+          <RevealGroup stagger={0.04} className="relative z-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            {techStack.map((tech) => (
+              <RevealItem
                 key={tech.name}
-                variants={itemVariants}
-                whileHover={{ scale: 1.05 }}
-                className="relative bg-white/80 dark:bg-gray-800/80 border border-white/20 dark:border-white/10 p-6 rounded-xl shadow-lg text-center group transition-all duration-200"
-                style={{ 
-                  position: 'relative',
-                  overflow: 'hidden'
-                }}
-                onMouseMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const x = e.clientX - rect.left;
-                  const y = e.clientY - rect.top;
-                  
-                  e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                  e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.setProperty('--opacity', '1');
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.setProperty('--opacity', '0');
-                }}
+                className="glass-violet group rounded-2xl p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-glow sm:p-6"
               >
-                <div 
-                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 rounded-xl"
-                  style={{
-                    opacity: 'var(--opacity, 0)',
-                    background: `radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(59, 130, 246, 0.15), transparent 40%)`
-                  }}
-                />
-                <tech.icon className={`relative z-10 w-12 h-12 mx-auto mb-3 ${tech.color} group-hover:scale-110 transition-transform duration-200`} />
-                <h3 className="relative z-10 font-semibold text-gray-900 dark:text-white">{tech.name}</h3>
-              </motion.div>
+                <tech.icon className={`mx-auto mb-3 h-10 w-10 sm:h-12 sm:w-12 ${tech.color} transition-transform duration-300 group-hover:scale-110`} />
+                <h3 className="font-display text-sm font-semibold text-fg sm:text-base">{tech.name}</h3>
+              </RevealItem>
             ))}
-          </motion.div>
-        </motion.section>
+          </RevealGroup>
+        </section>
 
-        {/* Experience Timeline */}
-        <motion.section 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="py-16"
-        >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold text-center mb-12">
-            <FaBriefcase className="inline-block mr-3 text-primary-600" />
-            Experience & <span className="text-primary-600 dark:text-primary-400">Education</span>
-          </motion.h2>
-          <div className="max-w-4xl mx-auto">
-            {timeline.map((item, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="relative flex items-center mb-8 last:mb-0"
-              >
-                {/* Timeline line */}
-                {index !== timeline.length - 1 && (
-                  <div className="absolute left-6 top-16 w-0.5 h-20 bg-gray-300 dark:bg-gray-600"></div>
-                )}
-                
-                {/* Icon */}
-                <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center ${
-                  item.type === 'work' ? 'bg-primary-600' : 'bg-green-600'
-                } text-white z-10`}>
-                  {item.type === 'work' ? <FaBriefcase /> : <FaGraduationCap />}
-                </div>
-                
-                {/* Content */}
-                <div className="ml-6 flex-1 bg-white/80 dark:bg-gray-800/80 border border-white/20 dark:border-white/10 p-6 rounded-xl shadow-lg">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">{item.title}</h3>
-                    <span className="bg-primary-100 dark:bg-primary-900 text-primary-600 dark:text-primary-400 px-3 py-1 rounded-full text-sm font-medium">
-                      {item.year}
-                    </span>
+        {/* ================= TIMELINE ================= */}
+        <section className="relative overflow-hidden py-16">
+          <Reveal className="mb-12 text-center">
+            <span className="eyebrow">Journey</span>
+            <h2 className="mt-3 font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">
+              <FaBriefcase className="mr-3 inline-block text-accent" />
+              Experience &amp; <span className="text-accent">Education</span>
+            </h2>
+          </Reveal>
+
+          <div className="relative mx-auto max-w-4xl">
+            {/* Continuous violet rail */}
+            <span className="absolute left-5 top-2 hidden h-[calc(100%-1rem)] w-px bg-gradient-to-b from-accent via-accent/40 to-transparent sm:block" />
+
+            <RevealGroup stagger={0.12} className="space-y-6">
+              {timeline.map((item, index) => (
+                <RevealItem key={index} className="relative flex items-start gap-5">
+                  {/* Node */}
+                  <div
+                    className={`relative z-10 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm text-white ${
+                      item.type === 'work' ? 'bg-accent' : 'bg-accent/60'
+                    }`}
+                    style={{ boxShadow: '0 0 20px -2px rgb(var(--accent) / 0.7)' }}
+                  >
+                    {item.type === 'work' ? <FaBriefcase /> : <FaGraduationCap />}
                   </div>
-                  <h4 className="text-primary-600 dark:text-primary-400 font-semibold mb-2">{item.company}</h4>
-                  <p className="text-gray-600 dark:text-gray-300">{item.description}</p>
-                </div>
-              </motion.div>
-            ))}
+
+                  {/* Content */}
+                  <div className="glass-violet flex-1 rounded-2xl p-5 transition-colors duration-300 hover:border-accent/40 sm:p-6">
+                    <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                      <h3 className="font-display text-lg font-bold text-fg sm:text-xl">{item.title}</h3>
+                      <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 font-display text-xs font-semibold text-accent">
+                        {item.year}
+                      </span>
+                    </div>
+                    <h4 className="mb-2 font-semibold text-accent">{item.company}</h4>
+                    <p className="text-sm leading-relaxed text-muted sm:text-base">{item.description}</p>
+                  </div>
+                </RevealItem>
+              ))}
+            </RevealGroup>
           </div>
-        </motion.section>
+        </section>
 
-        {/* Personal Interests */}
-        <motion.section 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="py-16"
-        >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold text-center mb-12">
-            <FaHeart className="inline-block mr-3 text-red-500" />
-            Personal <span className="text-primary-600 dark:text-primary-400">Interests</span>
-          </motion.h2>
-          <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {interests.map((interest, index) => (
-              <motion.div
+        {/* ================= INTERESTS ================= */}
+        <section className="relative overflow-hidden py-16">
+          <Reveal className="mb-12 text-center">
+            <span className="eyebrow">Off the clock</span>
+            <h2 className="mt-3 font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">
+              <FaHeart className="mr-3 inline-block text-red-500" />
+              Personal <span className="text-accent">Interests</span>
+            </h2>
+          </Reveal>
+
+          <RevealGroup stagger={0.06} className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+            {interests.map((interest) => (
+              <RevealItem
                 key={interest.name}
-                variants={itemVariants}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                className="bg-white/80 dark:bg-gray-800/80 border border-white/20 dark:border-white/10 p-6 rounded-xl shadow-lg text-center group hover:shadow-xl transition-all duration-200"
+                className="glass-violet group rounded-2xl p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-glow sm:p-6"
               >
-                <interest.icon className={`w-8 h-8 mx-auto mb-3 ${interest.color} group-hover:scale-125 transition-transform duration-200`} />
-                <h3 className="font-semibold text-sm text-gray-900 dark:text-white">{interest.name}</h3>
-              </motion.div>
+                <interest.icon className={`mx-auto mb-3 h-8 w-8 ${interest.color} transition-transform duration-300 group-hover:scale-125`} />
+                <h3 className="font-display text-sm font-semibold text-fg">{interest.name}</h3>
+              </RevealItem>
             ))}
-          </motion.div>
-        </motion.section>
+          </RevealGroup>
+        </section>
 
-        {/* Call to Action */}
-        <motion.section 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="py-16"
-        >
-          <motion.div variants={itemVariants} className="bg-primary-600 rounded-2xl p-8 lg:p-12 text-center text-white">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">Let's Work Together!</h2>
-            <p className="text-xl mb-8 opacity-90">
-              Have a project in mind? I'd love to hear about it and discuss how we can bring your ideas to life.
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        {/* ================= CTA ================= */}
+        <section className="py-16">
+          <Reveal>
+            <div className="relative overflow-hidden rounded-3xl border border-accent/30 p-8 text-center lg:p-14">
+              {/* Violet field */}
+              <div
+                className="absolute inset-0 -z-10"
+                style={{
+                  background:
+                    'linear-gradient(135deg, rgb(var(--accent) / 0.9), rgb(var(--accent) / 0.55) 45%, rgb(var(--accent-soft) / 0.85))',
+                }}
+              />
+              <div
+                className="absolute inset-0 -z-10 opacity-20"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(to right, rgba(255,255,255,0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.35) 1px, transparent 1px)',
+                  backgroundSize: '48px 48px',
+                }}
+              />
+
+              <AccentDot className="right-8 top-8" size={10} />
+
+              <h2 className="mb-4 font-display text-3xl font-bold uppercase tracking-tight text-white lg:text-5xl">
+                Let&apos;s Work Together!
+              </h2>
+              <p className="mx-auto mb-8 max-w-2xl text-base text-white/90 lg:text-xl">
+                Have a project in mind? I'd love to hear about it and discuss how we can bring your ideas to life.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3">
                 <Link
                   to="/contact"
-                  className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/40 hover:bg-white/30 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200"
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-[#0A0A0A] transition-transform duration-200 hover:scale-105"
                 >
-                  <FaEnvelope className="w-5 h-5" />
+                  <FaEnvelope className="h-4 w-4" />
                   <span>Start a Conversation</span>
                 </Link>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
                   to="/projects"
-                  className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border-2 border-white/40 hover:bg-white/30 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200"
+                  className="inline-flex items-center gap-2 rounded-full border-2 border-white/60 px-7 py-3 text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:bg-white/15"
                 >
-                  <FaRocket className="w-5 h-5" />
+                  <FaRocket className="h-4 w-4" />
                   <span>View My Work</span>
                 </Link>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
-        </motion.section>
+          </Reveal>
+        </section>
 
-        {/* Social Links */}
-        <motion.section variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} className="py-8">
-          <motion.div variants={itemVariants} className="flex justify-center space-x-6">
-            {aboutData.socialLinks?.github && (
-              <motion.a
-                whileHover={{ scale: 1.2 }}
-                href={aboutData.socialLinks.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full transition-all duration-200"
-              >
-                <FaGithub className="w-6 h-6" />
-              </motion.a>
-            )}
-            {aboutData.socialLinks?.linkedin && (
-              <motion.a
-                whileHover={{ scale: 1.2 }}
-                href={aboutData.socialLinks.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full transition-all duration-200"
-              >
-                <FaLinkedin className="w-6 h-6" />
-              </motion.a>
-            )}
-            {aboutData.socialLinks?.instagram && (
-              <motion.a
-                whileHover={{ scale: 1.2 }}
-                href={aboutData.socialLinks.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 bg-gray-400/20 backdrop-blur-md border border-gray-400/40 hover:bg-gray-400/30 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-full transition-all duration-200"
-              >
-                <FaInstagram className="w-6 h-6" />
-              </motion.a>
-            )}
-          </motion.div>
-        </motion.section>
+        {/* ================= SOCIALS ================= */}
+        <Reveal className="flex justify-center gap-4 py-8">
+          {[
+            { href: aboutData.socialLinks?.github, Icon: FaGithub, label: 'GitHub' },
+            { href: aboutData.socialLinks?.linkedin, Icon: FaLinkedin, label: 'LinkedIn' },
+            { href: aboutData.socialLinks?.instagram, Icon: FaInstagram, label: 'Instagram' },
+          ].filter((s) => s.href).map(({ href, Icon, label }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-all duration-200 hover:scale-110 hover:border-accent/60 hover:text-accent hover:shadow-glow"
+            >
+              <Icon className="h-5 w-5" />
+            </a>
+          ))}
+        </Reveal>
       </div>
     </div>
   );

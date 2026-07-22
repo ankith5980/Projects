@@ -10,6 +10,7 @@ import {
 } from 'react-icons/fa';
 import SEO from '../components/SEO';
 import CertificateModal from '../components/CertificateModal';
+import DisplayType from '../components/DisplayType';
 import { getFullUrl } from '../utils/url';
 
 // Static certificates data
@@ -66,7 +67,7 @@ const CertificateCard = memo(({ cert, index, onClick }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-shadow duration-300"
+    className="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-2xl border border-hairline transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:shadow-glow-lg"
     onClick={onClick}
     itemScope
     itemType="https://schema.org/EducationalOccupationalCredential"
@@ -76,7 +77,7 @@ const CertificateCard = memo(({ cert, index, onClick }) => (
       <img
         src={cert.coverImage}
         alt={`${cert.title} cover`}
-        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        className="h-full w-full object-cover transition-transform duration-500 md:group-hover:scale-110"
         loading="lazy"
         decoding="async"
         width="640"
@@ -84,40 +85,40 @@ const CertificateCard = memo(({ cert, index, onClick }) => (
         itemProp="image"
       />
     ) : (
-      <div className="w-full h-full bg-gradient-to-br from-primary-600 to-primary-800 flex items-center justify-center text-white/30 text-8xl transition-transform duration-500 group-hover:scale-110" aria-label="Certificate placeholder">
+      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-accent to-accent-700 text-8xl text-white/30 transition-transform duration-500 md:group-hover:scale-110" aria-label="Certificate placeholder">
         <FaCertificate aria-hidden="true" />
       </div>
     )}
 
     {/* Persistent badges — always visible */}
-    <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm z-10">
-      <FaCheckCircle className="w-3 h-3 text-green-500" aria-hidden="true" />
+    <div className="absolute left-3 top-3 z-10 flex items-center gap-1.5 rounded-full border border-white/10 bg-[#0A0A0A]/80 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md">
+      <FaCheckCircle className="h-3 w-3 text-green-500" aria-hidden="true" />
       <span>Valid</span>
     </div>
-    <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[11px] font-medium bg-black/50 text-white backdrop-blur-sm capitalize z-10" itemProp="credentialCategory">
+    <div className="absolute right-3 top-3 z-10 rounded-full border border-accent/40 bg-accent/25 px-2.5 py-1 text-[11px] font-medium capitalize text-white backdrop-blur-md" itemProp="credentialCategory">
       {cert.category}
     </div>
 
-    {/* Hover overlay — slides up from bottom */}
-    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-5">
+    {/* Detail overlay — always visible on touch, hover-revealed from md up */}
+    <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-[#0A0A0A]/95 via-[#0A0A0A]/55 to-transparent p-5 transition-all duration-300 md:opacity-0 md:group-hover:opacity-100">
       {/* Title */}
-      <h3 className="text-white text-lg sm:text-xl font-bold mb-1.5 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75 drop-shadow-md" itemProp="name">
+      <h3 className="mb-1.5 text-lg font-bold text-white drop-shadow-md transition-transform delay-75 duration-300 sm:text-xl md:translate-y-4 md:group-hover:translate-y-0" itemProp="name">
         {cert.title}
       </h3>
 
       {/* Skills tags */}
       {cert.skills && (
-        <div className="flex flex-wrap gap-1.5 mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100" itemProp="about">
+        <div className="mb-3 flex flex-wrap gap-1.5 transition-transform delay-100 duration-300 md:translate-y-4 md:group-hover:translate-y-0" itemProp="about">
           {cert.skills.slice(0, 3).map((skill, i) => (
             <span
               key={i}
-              className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-white/15 backdrop-blur-sm text-white/90 border border-white/10"
+              className="rounded-md border border-white/15 bg-white/15 px-2 py-0.5 text-[10px] font-medium text-white/90 backdrop-blur-sm"
             >
               {skill}
             </span>
           ))}
           {cert.skills.length > 3 && (
-            <span className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-white/15 backdrop-blur-sm text-white/90 border border-white/10">
+            <span className="rounded-md border border-white/15 bg-white/15 px-2 py-0.5 text-[10px] font-medium text-white/90 backdrop-blur-sm">
               +{cert.skills.length - 3} more
             </span>
           )}
@@ -125,9 +126,9 @@ const CertificateCard = memo(({ cert, index, onClick }) => (
       )}
 
       {/* View Details button */}
-      <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150">
-        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-white/20 backdrop-blur-md border border-white/20 text-white hover:bg-white/30 transition-colors duration-200">
-          <FaExternalLinkAlt className="w-3 h-3" />
+      <div className="transition-transform delay-150 duration-300 md:translate-y-4 md:group-hover:translate-y-0">
+        <span className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-xs font-semibold text-white shadow-glow">
+          <FaExternalLinkAlt className="h-3 w-3" />
           View Details
         </span>
       </div>
@@ -210,42 +211,48 @@ const Certificates = () => {
         }}
       />
       
-      <div className="max-w-7xl mx-auto">
+      <div className="relative mx-auto max-w-7xl">
+        {/* Giant watermark */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-64 overflow-hidden">
+          <DisplayType solid="CERTIFIED" align="center" className="opacity-70" speed={40} />
+        </div>
+
         {/* Header */}
-        <header className="text-center mb-12 animate-slideDown">
-          <h1 className="text-4xl lg:text-5xl font-bold text-primary-600 dark:text-primary-400 mb-4">
-            My Certificates
+        <header className="relative z-10 mb-12 animate-slideDown text-center">
+          <span className="eyebrow">Credentials</span>
+          <h1 className="mb-4 mt-3 font-display text-4xl font-bold uppercase tracking-tight lg:text-6xl">
+            My <span className="text-accent">Certificates</span>
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-4">
+          <p className="mx-auto mb-4 max-w-2xl text-base text-muted sm:text-lg">
             Professional certifications validating my skills and expertise in web development, mobile development, and UI/UX design
           </p>
-          <p className="text-primary-600 dark:text-primary-400 font-medium">
+          <p className="font-display text-sm font-semibold uppercase tracking-widest text-accent">
             {filtered.length} {filtered.length === 1 ? 'Certificate' : 'Certifications'} {searchTerm ? 'Found' : 'Acquired'}
           </p>
         </header>
 
         {/* Search */}
-        <div className="relative max-w-xl mx-auto mb-12 animate-slideUp group">
+        <div className="group relative z-10 mx-auto mb-12 max-w-xl animate-slideUp">
           <label htmlFor="certificate-search" className="sr-only">Search certificates</label>
-          <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-primary-500 transition-colors duration-300" aria-hidden="true" />
+          <FaSearch className="absolute left-5 top-1/2 z-10 -translate-y-1/2 text-muted transition-colors duration-300 group-focus-within:text-accent" aria-hidden="true" />
           <input
             id="certificate-search"
             type="search"
             placeholder="Search certificates..."
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 outline-none hover:border-primary-400 dark:hover:border-primary-500 hover:shadow-lg transition-all duration-300"
+            className="glass-violet w-full rounded-full py-3.5 pl-12 pr-5 text-fg outline-none transition-all duration-300 placeholder:text-muted focus:border-accent/60 focus:ring-2 focus:ring-accent/30"
             aria-label="Search certificates by title, issuer, or skills"
           />
         </div>
 
         {/* Grid */}
-        <section aria-label="Certificates list">
-          <motion.div 
+        <section aria-label="Certificates list" className="relative z-10">
+          <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
           >
             {filtered.length > 0 ? (
               filtered.map((cert, index) => (
@@ -260,13 +267,13 @@ const Certificates = () => {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="col-span-full text-center py-12"
+                className="col-span-full py-16 text-center"
               >
-                <FaCertificate className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-500 dark:text-gray-400 mb-2">
+                <FaCertificate className="mx-auto mb-4 h-16 w-16 text-accent/30" />
+                <h3 className="mb-2 font-display text-xl font-semibold text-fg">
                   No certificates found
                 </h3>
-                <p className="text-gray-400 dark:text-gray-500">
+                <p className="text-muted">
                   Try a different search term
                 </p>
               </motion.div>

@@ -1,18 +1,68 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  FaSun, 
-  FaMoon, 
-  FaBars, 
-  FaTimes, 
-  FaHome, 
-  FaUser, 
-  FaProjectDiagram,
-  FaCertificate, 
-  FaEnvelope
+import {
+  FaSun,
+  FaMoon,
+  FaGithub,
+  FaLinkedin,
+  FaInstagram,
+  FaArrowRight,
 } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
+
+const GITHUB_URL = 'https://github.com/ankith5980';
+
+const navItems = [
+  { path: '/', label: 'Home' },
+  { path: '/about', label: 'About' },
+  { path: '/projects', label: 'Projects' },
+  { path: '/certificates', label: 'Certificates' },
+  { path: '/contact', label: 'Contact' },
+];
+
+const socials = [
+  { href: GITHUB_URL, Icon: FaGithub, label: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/ankith-pratheesh-menon-0353662b6/', Icon: FaLinkedin, label: 'LinkedIn' },
+  { href: 'https://www.instagram.com/ankith.pm/', Icon: FaInstagram, label: 'Instagram' },
+];
+
+const ThemeToggle = ({ isDark, toggleTheme, className = '' }) => (
+  <button
+    onClick={toggleTheme}
+    aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+    className={`relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-colors duration-300 hover:border-accent/60 hover:text-accent ${className}`}
+  >
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.span
+        key={isDark ? 'moon' : 'sun'}
+        initial={{ opacity: 0, rotate: -90, scale: 0.6 }}
+        animate={{ opacity: 1, rotate: 0, scale: 1 }}
+        exit={{ opacity: 0, rotate: 90, scale: 0.6 }}
+        transition={{ duration: 0.25 }}
+        className="flex items-center justify-center"
+      >
+        {isDark ? <FaMoon className="h-3.5 w-3.5" /> : <FaSun className="h-3.5 w-3.5" />}
+      </motion.span>
+    </AnimatePresence>
+  </button>
+);
+
+/** Two bars that morph into an X — no icon swap, so nothing reflows. */
+const MenuIcon = ({ open }) => (
+  <span className="relative block h-4 w-5" aria-hidden="true">
+    <span
+      className={`absolute left-0 block h-[1.5px] w-full rounded-full bg-current transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        open ? 'top-1/2 -translate-y-1/2 rotate-45' : 'top-[5px]'
+      }`}
+    />
+    <span
+      className={`absolute left-0 block h-[1.5px] rounded-full bg-current transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        open ? 'top-1/2 w-full -translate-y-1/2 -rotate-45' : 'top-[11px] w-3/5'
+      }`}
+    />
+  </span>
+);
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,8 +85,7 @@ const Navbar = () => {
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const isScrolled = window.scrollY > 10;
-          setScrolled(isScrolled);
+          setScrolled(window.scrollY > 40);
           ticking = false;
         });
         ticking = true;
@@ -52,199 +101,246 @@ const Navbar = () => {
     setIsOpen(false);
   }, [location]);
 
-  const navItems = [
-    { path: '/', label: 'Home', icon: FaHome },
-    { path: '/about', label: 'About', icon: FaUser },
-    { path: '/projects', label: 'Projects', icon: FaProjectDiagram },
-    { path: '/certificates', label: 'Certificates', icon: FaCertificate },
-    { path: '/contact', label: 'Contact', icon: FaEnvelope },
-  ];
+  // Lock body scroll while the mobile sheet is open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-
-  const isActiveLink = (path) => {
-    if (path === '/') {
-      return location.pathname === '/';
-    }
-    return location.pathname.startsWith(path);
-  };
+  const isActiveLink = (path) =>
+    path === '/' ? location.pathname === '/' : location.pathname.startsWith(path);
 
   return (
     <>
-      <motion.nav
-        initial={shouldAnimate ? { y: -100, opacity: 0 } : false}
+      <motion.header
+        initial={shouldAnimate ? { y: -80, opacity: 0 } : false}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-          scrolled
-            ? 'bg-white/60 dark:bg-dark-200/60 backdrop-blur-xl shadow-lg'
-            : 'bg-transparent'
-        }`}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed inset-x-0 top-3 z-[60] flex justify-center px-4 sm:top-5"
       >
-        <div className="container-padding">
-          <div className="flex items-center justify-between h-16 md:h-18 lg:h-20">
-            {/* Logo - Hidden on md to prevent overlap, shown on lg+ */}
-            <Link
-              to="/"
-              className="text-xl md:text-2xl font-bold text-primary-600 dark:text-primary-400 hover:scale-105 transition-transform hidden lg:block"
+        {/*
+          Geometry is fixed at every scroll position — padding and the avatar
+          used to shrink past 40px, which resized the pill mid-scroll. Only the
+          shadow and border strength react now, neither of which affects layout.
+        */}
+        <nav
+          className={`glass-violet flex items-center gap-1 rounded-full px-2.5 py-2 transition-shadow duration-300 sm:px-3 ${
+            scrolled ? 'shadow-glow-lg' : ''
+          }`}
+        >
+          {/* Avatar */}
+          <Link to="/" aria-label="Home" className="shrink-0 transition-transform duration-200 hover:scale-105">
+            <span
+              className="relative block h-9 w-9 shrink-0 overflow-hidden rounded-full ring-2 ring-accent/70"
+              style={{ boxShadow: '0 0 16px -2px rgb(var(--accent) / 0.6)' }}
             >
-              Ankith.dev
-            </Link>
-            
-            {/* Mobile/Tablet Logo - Smaller and shown only on smaller screens */}
-            <Link
-              to="/"
-              className="text-lg sm:text-xl font-bold text-primary-600 dark:text-primary-400 hover:scale-105 transition-transform lg:hidden"
-            >
-              Ankith.dev
-            </Link>
+              <img
+                src="/images/Ankith.jpg"
+                alt="Ankith Pratheesh Menon"
+                className="h-full w-full object-cover"
+                width="36"
+                height="36"
+                loading="eager"
+                decoding="async"
+              />
+            </span>
+          </Link>
 
-            {/* --- 
-              MODIFICATION START 
-              --- 
-            */}
-            
-            {/* Navigation container with bright blue outline and outer glow - Better tablet positioning */}
-            <div 
-              className="hidden md:flex md:relative lg:absolute lg:left-1/2 lg:transform lg:-translate-x-1/2 rounded-full shadow-lg border-2 border-blue-500"
-              style={{ boxShadow: '0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.3)' }}
-            >
-              {/* This is your original div, now nested.
-                It keeps the flex layout, internal padding, and background color.
-                We removed positioning, shadow, and border from this.
-              */}
-              <div className="flex items-center space-x-1 md:space-x-2 bg-transparent rounded-full px-2 md:px-4 py-2">
-                {navItems.map((item) => (
-                  <motion.div key={item.path} className="relative">
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      className={`flex items-center space-x-1 md:space-x-2 px-2 md:px-4 py-2 rounded-full text-xs md:text-sm font-medium transition-colors duration-200 ${
-                        isActiveLink(item.path)
-                          ? 'text-purple-600 dark:text-purple-400'
-                          : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400'
-                      } relative z-10`}
-                    >
-                      <item.icon className="w-3 h-3 md:w-4 md:h-4" />
-                      <span className="hidden sm:inline">{item.label}</span>
-                    </Link>
+          {/* Desktop links */}
+          <div className="ml-1 hidden items-center md:flex">
+            {navItems.map((item) => (
+              <div key={item.path} className="relative">
+                <Link
+                  to={item.path}
+                  className={`relative z-10 block rounded-full px-3 py-2 text-sm font-medium transition-colors duration-200 lg:px-4 ${
+                    isActiveLink(item.path) ? 'text-fg' : 'text-muted hover:text-fg'
+                  }`}
+                >
+                  {item.label}
+                </Link>
 
-                    {/* The Animated Slider */}
-                    {isActiveLink(item.path) && (
-                      <motion.div
-                        layoutId="active-pill-slider"
-                        className="absolute inset-0 bg-primary-500/20 dark:bg-white/10 backdrop-blur-md rounded-full border border-primary-500/40 dark:border-white/20"
-                        style={{ zIndex: 0 }}
-                        transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-                      />
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            {/* --- 
-              MODIFICATION END 
-              --- 
-            */}
-
-            {/* Theme Toggle - Right Side */}
-            <div className="hidden md:flex items-center">
-              <button
-                onClick={toggleTheme}
-                className="relative w-14 h-7 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-md border border-white/30 dark:border-white/20 transition-all duration-400 hover:border-white/50 dark:hover:border-white/30"
-                aria-label="Toggle theme"
-              >
-                <div className={`absolute top-0.5 ${isDark ? 'left-0.5' : 'left-[1.875rem]'} w-6 h-6 rounded-full border-2 border-yellow-400 dark:border-blue-400 bg-transparent flex items-center justify-center transition-all duration-500 ease-in-out`}>
-                  <div className="relative w-3 h-3 transition-all duration-500 ease-in-out">
-                    {isDark ? (
-                      <FaMoon className="w-3 h-3 text-blue-400 transition-all duration-500 ease-in-out" />
-                    ) : (
-                      <FaSun className="w-3 h-3 text-yellow-400 transition-all duration-500 ease-in-out" />
-                    )}
-                  </div>
-                </div>
-              </button>
-            </div>
-
-            {/* Mobile menu button */}
-            <div className="md:hidden flex items-center space-x-4">
-              <button
-                onClick={toggleTheme}
-                className="relative w-14 h-7 rounded-full bg-white/20 dark:bg-white/10 backdrop-blur-md border border-white/30 dark:border-white/20 transition-all duration-400"
-                aria-label="Toggle theme"
-              >
-                <div className={`absolute top-0.5 ${isDark ? 'left-0.5' : 'left-[1.875rem]'} w-6 h-6 rounded-full border-2 border-yellow-400 dark:border-blue-400 bg-transparent flex items-center justify-center transition-all duration-500 ease-in-out`}>
-                  <div className="relative w-3 h-3 transition-all duration-500 ease-in-out">
-                    {isDark ? (
-                      <FaMoon className="w-3 h-3 text-blue-400 transition-all duration-500 ease-in-out" />
-                    ) : (
-                      <FaSun className="w-3 h-3 text-yellow-400 transition-all duration-500 ease-in-out" />
-                    )}
-                  </div>
-                </div>
-              </button>
-              
-              <button
-                onClick={toggleMenu}
-                className="p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                aria-label="Toggle menu"
-              >
-                {isOpen ? (
-                  <FaTimes className="w-6 h-6" />
-                ) : (
-                  <FaBars className="w-6 h-6" />
+                {isActiveLink(item.path) && (
+                  <motion.div
+                    layoutId="active-pill-slider"
+                    className="absolute inset-0 rounded-full border border-accent/40 bg-accent/15"
+                    style={{ zIndex: 0, boxShadow: '0 0 20px -4px rgb(var(--accent) / 0.5)' }}
+                    transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                  />
                 )}
-              </button>
-            </div>
-          </div>
-        </div>
-      </motion.nav>
-
-      {/* Mobile Navigation (Unchanged) */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed top-16 left-0 right-0 z-40 md:hidden"
-          >
-            <div className="bg-white/95 dark:bg-dark-200/95 backdrop-blur-md border-t border-gray-200 dark:border-gray-700">
-              <div className="container-padding py-4">
-                <div className="flex flex-col space-y-2">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 ${
-                        isActiveLink(item.path)
-                          ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
-                          : 'text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-800'
-                      }`}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <item.icon className="w-5 h-5" />
-                      <span>{item.label}</span>
-                    </Link>
-                  ))}
-                </div>
               </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            ))}
+          </div>
 
-      {/* Overlay (Unchanged) */}
+          {/* Mobile wordmark */}
+          <Link
+            to="/"
+            className="ml-1.5 mr-1 font-display text-base font-bold tracking-tight text-fg md:hidden"
+          >
+            Ankith<span className="text-accent">.dev</span>
+          </Link>
+
+          <span className="mx-1 hidden h-6 w-px bg-hairline md:block" />
+
+          {/* GitHub CTA */}
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white transition-transform duration-200 hover:scale-105 md:flex"
+          >
+            <FaGithub className="h-4 w-4" />
+            <span className="hidden lg:inline">GitHub</span>
+          </a>
+
+          <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} className="ml-1 hidden md:flex" />
+
+          {/* Mobile trigger */}
+          <button
+            onClick={() => setIsOpen((v) => !v)}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isOpen}
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline bg-surface text-fg transition-colors hover:border-accent/60 hover:text-accent md:hidden"
+          >
+            <MenuIcon open={isOpen} />
+          </button>
+        </nav>
+      </motion.header>
+
+      {/* ── Mobile menu ─────────────────────────────────────── */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-30 bg-black/20 backdrop-blur-sm md:hidden"
-            onClick={() => setIsOpen(false)}
-          />
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-50 md:hidden"
+          >
+            {/* Backdrop */}
+            <div
+              className="absolute inset-0 bg-bg/95 backdrop-blur-2xl"
+              onClick={() => setIsOpen(false)}
+            />
+
+            {/* Violet wash + grid so the sheet reads as part of the design */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  'radial-gradient(ellipse 90% 55% at 80% 8%, rgb(var(--accent) / 0.28), transparent 70%)',
+              }}
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 opacity-[0.5]"
+              style={{
+                backgroundImage:
+                  'linear-gradient(to right, var(--grid-line) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px)',
+                backgroundSize: '56px 56px',
+              }}
+            />
+
+            {/* Oversized watermark */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-6 -left-3 select-none font-display text-[5.5rem] font-bold uppercase leading-none tracking-tighter text-fg/[0.04]"
+            >
+              Menu
+            </span>
+
+            <div className="relative flex h-full flex-col justify-between px-6 pb-8 pt-28">
+              {/* Links */}
+              <nav>
+                <motion.ul
+                  initial="hidden"
+                  animate="visible"
+                  variants={{ visible: { transition: { staggerChildren: 0.06, delayChildren: 0.08 } } }}
+                  className="flex flex-col"
+                >
+                  {navItems.map((item, i) => {
+                    const active = isActiveLink(item.path);
+                    return (
+                      <motion.li
+                        key={item.path}
+                        variants={{
+                          hidden: { opacity: 0, y: 22 },
+                          visible: {
+                            opacity: 1,
+                            y: 0,
+                            transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+                          },
+                        }}
+                        className="border-b border-hairline last:border-b-0"
+                      >
+                        <Link
+                          to={item.path}
+                          onClick={() => setIsOpen(false)}
+                          className="group flex items-baseline gap-4 py-4"
+                        >
+                          <span
+                            className={`font-display text-[11px] font-medium tabular-nums tracking-[0.2em] transition-colors ${
+                              active ? 'text-accent' : 'text-muted'
+                            }`}
+                          >
+                            0{i + 1}
+                          </span>
+                          <span
+                            className={`font-display text-3xl font-bold uppercase tracking-tight transition-colors ${
+                              active ? 'text-accent' : 'text-fg'
+                            }`}
+                          >
+                            {item.label}
+                          </span>
+                          {active && (
+                            <span className="ml-auto self-center text-accent">
+                              <FaArrowRight className="h-4 w-4 -rotate-45" />
+                            </span>
+                          )}
+                        </Link>
+                      </motion.li>
+                    );
+                  })}
+                </motion.ul>
+              </nav>
+
+              {/* Footer */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="space-y-5"
+              >
+                <a
+                  href={GITHUB_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-accent py-3.5 font-display text-sm font-semibold uppercase tracking-widest text-white shadow-glow"
+                >
+                  <FaGithub className="h-4 w-4" />
+                  <span>GitHub</span>
+                </a>
+
+                <div className="flex items-center justify-between">
+                  <div className="flex gap-3">
+                    {socials.map(({ href, Icon, label }) => (
+                      <a
+                        key={label}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={label}
+                        className="flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-colors hover:border-accent/60 hover:text-accent"
+                      >
+                        <Icon className="h-4 w-4" />
+                      </a>
+                    ))}
+                  </div>
+                  <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} className="h-11 w-11" />
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

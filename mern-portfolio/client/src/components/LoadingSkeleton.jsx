@@ -5,7 +5,7 @@ const LoadingSkeleton = ({ className = "", type = "text", fullPage = false }) =>
   // Full page loading state for lazy loaded routes
   if (fullPage) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-elev flex items-center justify-center">
         <div className="text-center space-y-4">
           {/* Logo/Brand Animation */}
           <motion.div
@@ -14,7 +14,7 @@ const LoadingSkeleton = ({ className = "", type = "text", fullPage = false }) =>
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <div className="w-20 h-20 mx-auto bg-primary-500 rounded-full flex items-center justify-center">
+            <div className="w-20 h-20 mx-auto bg-accent rounded-full flex items-center justify-center">
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -43,10 +43,10 @@ const LoadingSkeleton = ({ className = "", type = "text", fullPage = false }) =>
             transition={{ delay: 0.2 }}
             className="space-y-2"
           >
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
+            <h2 className="text-2xl font-bold text-fg">
               Loading...
             </h2>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-muted">
               Preparing your experience
             </p>
           </motion.div>
@@ -56,7 +56,7 @@ const LoadingSkeleton = ({ className = "", type = "text", fullPage = false }) =>
             {[0, 1, 2].map((index) => (
               <motion.div
                 key={index}
-                className="w-3 h-3 bg-blue-500 rounded-full"
+                className="w-3 h-3 bg-accent rounded-full"
                 animate={{
                   y: [0, -10, 0],
                   opacity: [0.4, 1, 0.4],
@@ -79,16 +79,16 @@ const LoadingSkeleton = ({ className = "", type = "text", fullPage = false }) =>
             className="mt-12 max-w-2xl mx-auto px-4"
           >
             <div className="space-y-3">
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-3/4 mx-auto"></div>
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-1/2 mx-auto"></div>
-              <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-2/3 mx-auto"></div>
+              <div className="h-4 bg-surface-2 rounded animate-pulse w-3/4 mx-auto"></div>
+              <div className="h-4 bg-surface-2 rounded animate-pulse w-1/2 mx-auto"></div>
+              <div className="h-4 bg-surface-2 rounded animate-pulse w-2/3 mx-auto"></div>
             </div>
 
             <div className="grid grid-cols-3 gap-4 mt-8">
               {[1, 2, 3].map((item) => (
                 <div key={item} className="space-y-2">
-                  <div className="h-24 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"></div>
-                  <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                  <div className="h-24 bg-surface-2 rounded-lg animate-pulse"></div>
+                  <div className="h-3 bg-surface-2 rounded animate-pulse"></div>
                 </div>
               ))}
             </div>
@@ -101,9 +101,9 @@ const LoadingSkeleton = ({ className = "", type = "text", fullPage = false }) =>
             transition={{ delay: 0.6 }}
             className="mt-8 max-w-xs mx-auto"
           >
-            <div className="h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+            <div className="h-1 bg-surface-2 rounded-full overflow-hidden">
               <motion.div
-                className="h-full bg-primary-500"
+                className="h-full bg-accent"
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -116,7 +116,7 @@ const LoadingSkeleton = ({ className = "", type = "text", fullPage = false }) =>
   }
 
   // Component-level skeleton for individual elements
-  const baseClasses = "animate-pulse bg-gray-200 dark:bg-gray-700 rounded";
+  const baseClasses = "animate-pulse bg-surface-2 rounded";
   
   const typeClasses = {
     text: "h-4",

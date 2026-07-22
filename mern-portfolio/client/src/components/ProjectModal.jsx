@@ -108,7 +108,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
         >
           {/* ── Backdrop — fully opaque on mobile, blur on desktop ── */}
           <motion.div
-            className="absolute inset-0 bg-black sm:bg-black/50 dark:bg-black sm:dark:bg-black/70 sm:backdrop-blur-sm"
+            className="absolute inset-0 bg-[#0A0A0A] sm:bg-[#0A0A0A]/80 sm:backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -119,15 +119,15 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
             className="
               relative w-full sm:max-w-2xl
               max-h-[95vh] sm:max-h-[88vh]
-              bg-white dark:bg-gray-900
-              sm:bg-white/95 sm:dark:bg-gray-900/95
+              bg-elev
+              sm:bg-elev/95
               sm:backdrop-blur-xl
-              border-0 sm:border border-gray-200/60 dark:border-white/10
+              border-0 sm:border border-hairline
               rounded-2xl
-              shadow-[0_4px_30px_rgba(0,0,0,0.2)] sm:shadow-[0_8px_60px_rgba(59,130,246,0.15),0_2px_20px_rgba(0,0,0,0.08)]
-              dark:shadow-[0_4px_30px_rgba(0,0,0,0.5)] sm:dark:shadow-[0_8px_60px_rgba(99,102,241,0.2),0_2px_20px_rgba(0,0,0,0.3)]
+              shadow-[0_4px_30px_rgba(0,0,0,0.35)] sm:shadow-glow-xl
+              
               overflow-hidden flex flex-col
-              text-gray-900 dark:text-gray-100
+              text-fg
             "
             variants={panelVariants}
             initial="hidden"
@@ -138,7 +138,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
 
             {/* ── Hero image ──────────────────────────────────── */}
             <div className="relative flex-shrink-0">
-              <div className="aspect-[16/5] bg-primary-600 overflow-hidden">
+              <div className="aspect-[16/5] bg-accent overflow-hidden">
                 {project.images?.[0]?.url ? (
                   <img
                     src={project.images[0].url}
@@ -177,7 +177,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
                 const sc = getStatusConfig(project.status);
                 const Icon = sc.icon;
                 return (
-                  <div className="absolute top-2 left-2 sm:top-3 sm:left-3 flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-medium bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-sm text-gray-800 dark:text-gray-200">
+                  <div className="absolute top-2 left-2 sm:top-3 sm:left-3 flex items-center gap-1 sm:gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-medium bg-elev/90 backdrop-blur-sm shadow-sm text-fg">
                     <Icon className={`w-2.5 h-2.5 sm:w-3 sm:h-3 ${sc.color}`} />
                     <span>{sc.label}</span>
                   </div>
@@ -197,8 +197,8 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
                 {project.category && (
                   <MetaCard
                     icon={FaLayerGroup}
-                    iconBg="bg-primary-100 dark:bg-primary-900/40"
-                    iconColor="text-primary-600 dark:text-primary-400"
+                    iconBg="bg-accent/15"
+                    iconColor="text-accent"
                     label="Category"
                     value={project.category}
                   />
@@ -241,7 +241,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
 
               {/* Description */}
               <Section title="Project Description">
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-[13px] sm:text-[15px]">
+                <p className="text-muted leading-relaxed text-[13px] sm:text-[15px]">
                   {project.description}
                 </p>
               </Section>
@@ -251,8 +251,8 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
                 <Section title="Key Features">
                   <ul className="space-y-1.5">
                     {project.features.map((f, i) => (
-                      <li key={i} className="flex items-start gap-2 text-gray-700 dark:text-gray-300 text-[13px] sm:text-[15px]">
-                        <FaStar className="w-3 h-3 mt-1 text-primary-500 flex-shrink-0" />
+                      <li key={i} className="flex items-start gap-2 text-muted text-[13px] sm:text-[15px]">
+                        <FaStar className="w-3 h-3 mt-1 text-accent flex-shrink-0" />
                         <span>{f}</span>
                       </li>
                     ))}
@@ -267,7 +267,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
                     {project.technologies.map((tech, i) => (
                       <span
                         key={i}
-                        className="px-2 py-0.5 sm:px-2.5 sm:py-1 text-[11px] sm:text-xs font-medium rounded-md bg-gray-200/60 dark:bg-gray-700/50 border border-gray-300/40 dark:border-gray-600/40"
+                        className="px-2 py-0.5 sm:px-2.5 sm:py-1 text-[11px] sm:text-xs font-medium rounded-md bg-surface-2 border border-hairline"
                       >
                         {tech}
                       </span>
@@ -279,7 +279,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
 
             {/* ── Footer — CTA buttons ───────────────────────── */}
             <div className="flex-shrink-0 px-4 pb-4 sm:px-6 sm:pb-5">
-              <div className="flex flex-col sm:flex-row gap-2 sm:gap-2.5 pt-3 border-t border-gray-200/50 dark:border-gray-700/40">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-2.5 pt-3 border-t border-hairline">
                 {/* Live Preview */}
                 <a
                   href={project.liveUrl || '#'}
@@ -288,8 +288,8 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
                   onClick={(e) => { if (!project.liveUrl) e.preventDefault(); }}
                   className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 rounded-xl text-sm font-medium backdrop-blur-md transition-all duration-300 ${
                     project.liveUrl
-                      ? 'bg-primary-500/10 dark:bg-primary-500/20 text-primary-600 dark:text-primary-300 border border-primary-500/20 hover:bg-primary-500/20 dark:hover:bg-primary-500/30 hover:border-primary-500/30 shadow-[0_4px_15px_rgba(59,130,246,0.1)] hover:shadow-[0_6px_20px_rgba(59,130,246,0.2)] active:scale-[0.98]'
-                      : 'bg-gray-100/50 dark:bg-gray-800/40 border border-gray-200/50 dark:border-gray-700/50 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+                      ? 'bg-accent/10 dark:bg-accent/20 text-accent border border-accent/20 hover:bg-accent/20 dark:hover:bg-accent/30 hover:border-accent/30 hover:shadow-glow active:scale-[0.98]'
+                      : 'bg-surface-2 border border-hairline text-muted cursor-not-allowed'
                   }`}
                 >
                   <FaExternalLinkAlt className="w-3.5 h-3.5" />
@@ -304,8 +304,8 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
                   onClick={(e) => { if (!project.githubUrl) e.preventDefault(); }}
                   className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 rounded-xl text-sm font-medium backdrop-blur-md transition-all duration-300 ${
                     project.githubUrl
-                      ? 'bg-gray-100/60 dark:bg-gray-800/40 text-gray-700 dark:text-gray-300 border border-gray-200/60 dark:border-gray-700/60 shadow-sm hover:bg-gray-200/60 dark:hover:bg-gray-700/60 hover:border-gray-300/60 dark:hover:border-gray-600/60 active:scale-[0.98]'
-                      : 'bg-gray-100/50 dark:bg-gray-800/40 border border-gray-200/50 dark:border-gray-700/50 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+                      ? 'bg-surface-2 text-muted border border-hairline shadow-sm hover:bg-surface hover:border-accent/40 active:scale-[0.98]'
+                      : 'bg-surface-2 border border-hairline text-muted cursor-not-allowed'
                   }`}
                 >
                   <FaGithub className="w-4 h-4" />
@@ -323,22 +323,22 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
 
 // ── Helper sub-components ─────────────────────────────────────────
 const MetaCard = React.memo(({ icon: Icon, iconBg, iconColor, label, value }) => (
-  <div className="flex items-center gap-2 sm:gap-2.5 p-2 sm:p-2.5 rounded-xl bg-gray-50/80 dark:bg-gray-800/60 border border-gray-200/50 dark:border-gray-700/40">
+  <div className="flex items-center gap-2 sm:gap-2.5 p-2 sm:p-2.5 rounded-xl bg-surface-2 border border-hairline">
     <div className={`p-1 sm:p-1.5 rounded-lg flex-shrink-0 ${iconBg}`}>
       <Icon className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${iconColor}`} />
     </div>
     <div className="min-w-0 flex-1">
-      <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400 font-semibold leading-none mb-0.5">
+      <p className="text-[9px] sm:text-[10px] uppercase tracking-wider text-muted font-semibold leading-none mb-0.5">
         {label}
       </p>
-      <p className="text-[11px] sm:text-sm font-medium break-words text-gray-900 dark:text-gray-100">{value}</p>
+      <p className="text-[11px] sm:text-sm font-medium break-words text-fg">{value}</p>
     </div>
   </div>
 ));
 
 const Section = React.memo(({ title, children }) => (
   <div>
-    <h3 className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400 mb-1 sm:mb-1.5">
+    <h3 className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-muted mb-1 sm:mb-1.5">
       {title}
     </h3>
     {children}

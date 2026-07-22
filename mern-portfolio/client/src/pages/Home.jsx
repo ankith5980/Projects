@@ -1,31 +1,18 @@
 import React, { useState, useEffect, useMemo, Suspense, lazy } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  FaGithub, 
-  FaLinkedin, 
-  FaInstagram, 
-  FaDownload, 
+import {
+  FaGithub,
+  FaLinkedin,
+  FaInstagram,
+  FaDownload,
   FaArrowRight,
-  FaCode,
-  FaMobile,
-  FaServer,
-  FaDatabase,
-  FaReact,
-  FaPython,
-  FaJava,
-  FaDocker,
-  FaGitAlt,
   FaFilePdf
 } from 'react-icons/fa';
-import { 
-  SiFlutter,
-  SiMongodb,
-  SiMysql
-} from 'react-icons/si';
 import SEO from '../components/SEO';
-import { getBaseUrl, getFullUrl, getFullImageUrl } from '../utils/url';
-import { generatePersonSchema, generateOrganizationSchema } from '../utils/personalSEO';
+import DisplayType from '../components/DisplayType';
+import FloatingBadge, { AccentDot } from '../components/FloatingBadge';
+import { generatePersonSchema } from '../utils/personalSEO';
 
 // Lazy load non-critical sections with retry on chunk load failure
 const lazyWithRetryComponent = (componentImport) =>
@@ -71,7 +58,7 @@ const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTi
 
     const timeout = setTimeout(() => {
       const targetText = texts[currentTextIndex];
-      
+
       if (!isDeleting) {
         // Typing
         if (currentText.length < targetText.length) {
@@ -93,30 +80,19 @@ const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTi
     return () => clearTimeout(timeout);
   }, [currentText, currentTextIndex, isDeleting, isPaused, texts, speed, deleteSpeed, pauseTime]);
 
-  const getTextColor = (text) => {
-    return 'text-primary-600 dark:text-primary-400';
-  };
-
   return (
-    <span className="relative inline-flex items-center">
-      <motion.span
-        key={currentTextIndex}
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-        className={`font-bold ${getTextColor(texts[currentTextIndex])}`}
-      >
-        {currentText}
-      </motion.span>
+    <span className="inline-flex items-center whitespace-nowrap">
+      <span>{currentText}</span>
       <motion.span
         animate={{ opacity: [1, 0] }}
-        transition={{ 
-          duration: 0.8, 
-          repeat: Infinity, 
-          repeatType: "reverse",
-          ease: "easeInOut"
+        transition={{
+          duration: 0.8,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'easeInOut'
         }}
-        className="text-primary-600 dark:text-primary-400 font-bold ml-1 text-2xl"
+        className="ml-0.5"
+        aria-hidden="true"
       >
         |
       </motion.span>
@@ -125,6 +101,12 @@ const TypingEffect = React.memo(({ texts, speed = 100, deleteSpeed = 50, pauseTi
 });
 
 TypingEffect.displayName = 'TypingEffect';
+
+// Technology marquee — recovers the tech motif the old floating icons carried
+const MARQUEE_TECH = [
+  'React', 'Node.js', 'Python', 'Flutter', 'MongoDB', 'Next.js',
+  'Docker', 'FastAPI', 'Tailwind', 'PostgreSQL', 'LangGraph', 'AWS'
+];
 
 const Home = () => {
   const aboutData = useMemo(() => ({
@@ -186,318 +168,325 @@ const Home = () => {
   // Memoized typing texts to avoid re-creation on each render
   const typingTexts = useMemo(() => [
     'Full Stack Developer',
-    'Mobile App Developer', 
+    'Mobile App Developer',
     'Creative Problem Solver',
     'AI/ML Enthusiast'
   ], []);
 
-  // Handle CV download tracking
+  // Longest role reserves the tag's width so it doesn't jitter while typing
+  const widestRole = useMemo(
+    () => typingTexts.reduce((a, b) => (b.length > a.length ? b : a)),
+    [typingTexts]
+  );
+
+  // Skills summary for the section below the hero
+  const skills = useMemo(() => ({
+    frontend: [
+      { _id: 'f1', name: 'React' },
+      { _id: 'f2', name: 'Next.js' },
+      { _id: 'f3', name: 'Tailwind CSS' },
+      { _id: 'f4', name: 'JavaScript' },
+      { _id: 'f5', name: 'Flutter' },
+    ],
+    backend: [
+      { _id: 'b1', name: 'Node.js' },
+      { _id: 'b2', name: 'Express' },
+      { _id: 'b3', name: 'FastAPI' },
+      { _id: 'b4', name: 'Django' },
+      { _id: 'b5', name: 'PHP' },
+    ],
+    database: [
+      { _id: 'd1', name: 'MongoDB' },
+      { _id: 'd2', name: 'PostgreSQL' },
+      { _id: 'd3', name: 'MySQL' },
+      { _id: 'd4', name: 'Supabase' },
+      { _id: 'd5', name: 'Redis' },
+    ],
+    'ai & tools': [
+      { _id: 't1', name: 'LangGraph' },
+      { _id: 't2', name: 'Ollama' },
+      { _id: 't3', name: 'Docker' },
+      { _id: 't4', name: 'Git' },
+      { _id: 't5', name: 'AWS' },
+    ],
+  }), []);
+
   const handleCVDownload = () => {
     // Analytics tracking placeholder
   };
 
+  const fadeUp = {
+    hidden: { opacity: 0, y: 24 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <div className="min-h-screen">
-      <SEO 
+      <SEO
         title="Ankith Pratheesh Menon - Full Stack Developer Portfolio"
         description="Welcome to Ankith Pratheesh Menon's portfolio - Professional Full Stack Developer from Kerala, India specializing in React, Node.js, Flutter, Next.js, and modern web technologies. Explore my projects, skills, and experience in software development."
         keywords="Ankith Pratheesh Menon, Ankith, full-stack developer, React developer, Node.js, JavaScript, Flutter developer, Next.js, Supabase, TypeScript, portfolio, web development, software engineer, Kerala, India, MERN stack"
         url="/"
         schemaData={generatePersonSchema()}
       />
-      {/* Hero Section */}
-      <section className="section-padding pt-32">
-        <div className="container mx-auto container-padding">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Text Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="lg:order-1"
-            >
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6"
-              >
-                Hi, I'm{' '}
-                <span className="text-primary-600 dark:text-primary-400">
-                  {aboutData?.fullName || 'Ankith Pratheesh Menon'}
+
+      {/* ================= HERO ================= */}
+      <section className="relative flex min-h-[100svh] items-center overflow-hidden pb-12 pt-24 sm:pb-16 sm:pt-32">
+        {/* Layer 0 — giant background typography */}
+        {/*
+          Sized and boxed so both words fit on screen in full. "FULL-STACK"
+          runs about 5.8em wide, so the ramp is capped low enough that it
+          always clears the box rather than bleeding past the viewport edge.
+        */}
+        <DisplayType
+          solid="FULL-STACK"
+          outlined="DEVELOPER"
+          align="right"
+          className="left-auto right-4 w-[96%] sm:right-6 lg:w-[72%]"
+          fontSize="clamp(2rem, 9vw, 9rem)"
+          speed={70}
+        />
+
+        <div className="container relative z-10 mx-auto container-padding">
+          {/*
+            The right column is wider than the left, so the portrait sits left
+            of centre and clears the FULL-STACK / DEVELOPER lettering behind it.
+          */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{ visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } }}
+            className="grid items-center gap-8 sm:gap-10 lg:grid-cols-[0.95fr_auto_1.45fr] lg:gap-8"
+          >
+            {/* ---- Left flank: name ---- */}
+            <motion.div variants={fadeUp} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="relative order-1 text-left">
+              {/* Rule + eyebrow. Horizontal on mobile, vertical alongside the
+                  name from lg up. */}
+              <div className="mb-3 flex items-center gap-3 sm:mb-4">
+                <span className="h-px w-8 bg-accent sm:w-10 lg:hidden" />
+                <span className="eyebrow">Hi, my name is</span>
+              </div>
+
+              {/* Decorative rule (desktop only) */}
+              <span className="absolute left-0 top-14 hidden h-32 w-px bg-gradient-to-b from-accent to-transparent lg:block" />
+
+              <h1 className="font-display font-bold uppercase leading-[0.88] tracking-tighter lg:pl-6">
+                <span
+                  className="text-outline-accent block italic"
+                  style={{ fontSize: 'clamp(2.75rem, 8vw, 5.5rem)' }}
+                >
+                  Ankith
                 </span>
-              </motion.h1>
-              
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-xl sm:text-2xl lg:text-3xl mb-6 min-h-[3rem] flex items-center relative"
-              >
-                <div className="relative inline-block">
-                  <TypingEffect 
-                    texts={typingTexts}
-                    speed={80}
-                    deleteSpeed={40}
-                    pauseTime={3000}
-                  />
-                  {/* Subtle animated underline */}
-                  <motion.div
-                    animate={{
-                      scaleX: [0.8, 1, 0.8],
-                      opacity: [0.3, 0.6, 0.3]
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      repeatType: "reverse",
-                    }}
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary-500 rounded-full"
-                  />
-                  {/* Removed subtle glow behind text */}
-                </div>
-              </motion.h2>
-              
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
-                className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed"
-              >
-                {aboutData?.bio || 'Passionate developer creating amazing digital experiences with modern technologies.'}
-              </motion.p>
-              
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.8 }}
-                className="flex flex-wrap gap-4 mb-8"
-              >
-                <Link
-                  to="/projects"
-                  className="inline-flex items-center space-x-2 bg-primary-100/80 dark:bg-primary-900/30 border border-primary-600/40 hover:bg-primary-200/80 dark:hover:bg-primary-900/50 text-primary-700 dark:text-primary-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+                <span
+                  className="block text-fg"
+                  style={{ fontSize: 'clamp(2rem, 5.5vw, 3.75rem)' }}
                 >
-                  <span>View My Work</span>
-                  <FaArrowRight className="w-4 h-4" />
-                </Link>
-                
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center space-x-2 bg-purple-100/80 dark:bg-purple-900/30 border border-purple-600/40 hover:bg-purple-200/80 dark:hover:bg-purple-900/50 text-purple-700 dark:text-purple-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
-                >
-                  <span>Get In Touch</span>
-                </Link>
-                
-                <a
-                  href="/cv/My_Resume.pdf"
-                  download="Ankith_Pratheesh_Menon_CV.pdf"
-                  onClick={handleCVDownload}
-                  className="inline-flex items-center space-x-2 bg-green-100/80 dark:bg-green-900/30 border border-green-600/40 hover:bg-green-200/80 dark:hover:bg-green-900/50 text-green-700 dark:text-green-300 px-4 sm:px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
-                  title=""
-                >
-                  <FaFilePdf className="w-4 h-4" />
-                  <span className="hidden sm:inline">Download CV</span>
-                  <span className="sm:hidden">CV</span>
-                  <FaDownload className="w-3 h-3 ml-1" />
-                </a>
-                
-                {aboutData?.resume?.url && (
-                  <a
-                    href={aboutData.resume.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-2 bg-gray-200/80 dark:bg-gray-700/30 border border-gray-400/40 hover:bg-gray-300/80 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
-                  >
-                    <FaDownload className="w-4 h-4" />
-                    <span>Resume</span>
-                  </a>
-                )}
-              </motion.div>
-              
-              {/* Social Links */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1 }}
-                className="flex space-x-4"
-              >
-                {aboutData?.socialLinks?.github && (
-                  <a
-                    href={aboutData.socialLinks.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 bg-gray-200/80 dark:bg-gray-700/30 border border-gray-400/40 hover:bg-gray-300/80 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-lg transition-all duration-200 hover:scale-110"
-                  >
-                    <FaGithub className="w-6 h-6" />
-                  </a>
-                )}
-                {aboutData?.socialLinks?.linkedin && (
-                  <a
-                    href={aboutData.socialLinks.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 bg-gray-200/80 dark:bg-gray-700/30 border border-gray-400/40 hover:bg-gray-300/80 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-lg transition-all duration-200 hover:scale-110"
-                  >
-                    <FaLinkedin className="w-6 h-6" />
-                  </a>
-                )}
-                {aboutData?.socialLinks?.instagram && (
-                  <a
-                    href={aboutData.socialLinks.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 bg-gray-200/80 dark:bg-gray-700/30 border border-gray-400/40 hover:bg-gray-300/80 dark:hover:bg-gray-700/50 text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 rounded-lg transition-all duration-200 hover:scale-110"
-                  >
-                    <FaInstagram className="w-6 h-6" />
-                  </a>
-                )}
-              </motion.div>
+                  Pratheesh Menon
+                </span>
+              </h1>
+
+              <AccentDot className="bottom-[-1.5rem] left-8 hidden lg:block" delay={1.2} />
             </motion.div>
-            
-            {/* Avatar */}
+
+            {/* ---- Centre: portrait ---- */}
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="lg:order-2 flex justify-center"
+              variants={{
+                hidden: { opacity: 0, scale: 0.94, y: 20 },
+                visible: { opacity: 1, scale: 1, y: 0 },
+              }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="relative order-2 mx-auto flex justify-center"
             >
-              <div className="relative">
-                <div className="w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden bg-primary-500 p-1">
-                  <div className="w-full h-full rounded-full overflow-hidden bg-white dark:bg-gray-800">
-                    {aboutData?.avatar?.url ? (
-                      <img
-                        src={aboutData.avatar.url}
-                        alt={aboutData.fullName}
-                        className="w-full h-full object-cover"
-                        loading="eager"
-                        decoding="async"
-                        fetchPriority="high"
-                        width="384"
-                        height="384"
-                      />
-                    ) : (
-                      <img
-                        src="/images/Ankith.jpg"
-                        alt="Ankith Pratheesh Menon"
-                        className="w-full h-full object-cover"
-                        loading="eager"
-                        decoding="async"
-                        fetchPriority="high"
-                        width="384"
-                        height="384"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          e.target.nextSibling.style.display = 'flex';
-                        }}
-                      />
-                    )}
-                    <div className="w-full h-full hidden items-center justify-center text-6xl text-gray-400">
-                      👤
-                    </div>
+              <div className="relative" style={{ width: 'clamp(205px, 56vw, 400px)' }}>
+                {/* Glow beneath the portrait */}
+                <div
+                  className="absolute -inset-6 -z-10 rounded-[3rem] blur-3xl"
+                  style={{ background: 'radial-gradient(circle at 50% 60%, rgb(var(--accent) / 0.38), transparent 70%)' }}
+                />
+
+                <div className="ring-gradient-violet aspect-[3/4] w-full overflow-hidden rounded-[2rem] shadow-glow-lg">
+                  <img
+                    src="/images/Ankith.jpg"
+                    alt="Ankith Pratheesh Menon"
+                    className="h-full w-full object-cover object-center"
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
+                    width="400"
+                    height="533"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      if (e.currentTarget.nextSibling) {
+                        e.currentTarget.nextSibling.style.display = 'flex';
+                      }
+                    }}
+                  />
+                  <div className="hidden h-full w-full items-center justify-center bg-elev text-6xl text-muted">
+                    👤
                   </div>
                 </div>
-                
-                {/* Floating Technology Elements */}
-                {/* React - Top Right */}
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className="absolute -top-6 -right-6 p-3 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+
+                {/* "Hi" badge — overlaps the portrait's lower-left corner */}
+                <FloatingBadge
+                  size={72}
+                  delay={0.9}
+                  className="bottom-[-1.25rem] left-[-1.25rem] z-20 text-lg sm:bottom-[-2rem] sm:left-[-2rem] sm:text-xl"
                 >
-                  <FaReact className="w-6 h-6 text-blue-500" />
-                </motion.div>
-                
-                {/* Flutter - Top Left */}
-                <motion.div
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 2.2, repeat: Infinity, delay: 0.3 }}
-                  className="absolute -top-6 -left-6 p-3 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-                >
-                  <SiFlutter className="w-6 h-6 text-blue-400" />
-                </motion.div>
-                
-                {/* MongoDB - Bottom Right */}
-                <motion.div
-                  animate={{ y: [0, 10, 0] }}
-                  transition={{ duration: 2.4, repeat: Infinity, delay: 0.6 }}
-                  className="absolute -bottom-6 -right-6 p-3 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-                >
-                  <SiMongodb className="w-6 h-6 text-green-500" />
-                </motion.div>
-                
-                {/* MySQL - Bottom Left */}
-                <motion.div
-                  animate={{ y: [0, 8, 0] }}
-                  transition={{ duration: 2.6, repeat: Infinity, delay: 0.9 }}
-                  className="absolute -bottom-6 -left-6 p-3 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-                >
-                  <SiMysql className="w-6 h-6 text-orange-500" />
-                </motion.div>
-                
-                {/* Python - Right Middle */}
-                <motion.div
-                  animate={{ x: [0, 12, 0] }}
-                  transition={{ duration: 2.8, repeat: Infinity, delay: 1.2 }}
-                  className="absolute top-1/4 -right-10 p-3 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-                >
-                  <FaPython className="w-6 h-6 text-yellow-500" />
-                </motion.div>
-                
-                {/* Java - Left Middle */}
-                <motion.div
-                  animate={{ x: [0, -12, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
-                  className="absolute top-1/4 -left-10 p-3 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-                >
-                  <FaJava className="w-6 h-6 text-red-600" />
-                </motion.div>
-                
-                {/* Docker - Right Lower */}
-                <motion.div
-                  animate={{ x: [0, 10, 0], y: [0, -5, 0] }}
-                  transition={{ duration: 3.2, repeat: Infinity, delay: 1.8 }}
-                  className="absolute top-3/4 -right-10 p-3 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-                >
-                  <FaDocker className="w-6 h-6 text-blue-600" />
-                </motion.div>
-                
-                {/* Git - Left Lower */}
-                <motion.div
-                  animate={{ x: [0, -10, 0], y: [0, -5, 0] }}
-                  transition={{ duration: 3.4, repeat: Infinity, delay: 2.1 }}
-                  className="absolute top-3/4 -left-10 p-3 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-                >
-                  <FaGitAlt className="w-6 h-6 text-orange-600" />
-                </motion.div>
-                
-                {/* Original floating elements - repositioned */}
-                <motion.div
-                  animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, delay: 2.4 }}
-                  className="absolute top-1/2 -right-12 p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-                >
-                  <FaMobile className="w-5 h-5 text-purple-600" />
-                </motion.div>
-                
-                <motion.div
-                  animate={{ rotate: [0, -10, 10, 0] }}
-                  transition={{ duration: 4.2, repeat: Infinity, delay: 2.7 }}
-                  className="absolute top-1/2 -left-12 p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
-                >
-                  <FaServer className="w-5 h-5 text-green-600" />
-                </motion.div>
+                  Hi
+                </FloatingBadge>
+
+                {/* Corner ticks */}
+                <span className="absolute -right-3 -top-3 z-20 h-6 w-6 border-r-2 border-t-2 border-accent/60" />
+                <span className="absolute -bottom-3 -right-3 z-20 h-6 w-6 border-b-2 border-r-2 border-accent/60" />
               </div>
             </motion.div>
-          </div>
+
+            {/* ---- Right flank: role + CTA ---- */}
+            <motion.div
+              variants={fadeUp}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="order-3 flex flex-col items-start gap-5 text-left sm:gap-8 lg:items-end lg:text-right"
+            >
+              {/*
+                Role tag with the typed title.
+
+                The hidden sizer — widest role plus the caret — is the ONLY
+                in-flow content, so it alone determines the box. The typed text
+                is absolutely positioned on top and therefore cannot contribute
+                to width or height at any point in the cycle, including the
+                frame where the string is empty between two titles.
+              */}
+              <span className="inline-flex items-center gap-2.5 rounded-full border border-accent/40 bg-accent/10 px-4 py-2 font-display text-sm font-semibold uppercase tracking-widest text-accent backdrop-blur-md sm:text-base">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                <span className="relative block whitespace-nowrap">
+                  <span className="invisible" aria-hidden="true">
+                    {widestRole}
+                    <span className="ml-0.5">|</span>
+                  </span>
+                  <span className="absolute inset-y-0 left-0 flex items-center">
+                    <TypingEffect
+                      texts={typingTexts}
+                      speed={80}
+                      deleteSpeed={40}
+                      pauseTime={3000}
+                    />
+                  </span>
+                </span>
+              </span>
+
+              <p className="max-w-sm text-sm leading-relaxed text-muted sm:text-base lg:max-w-xs">
+                {aboutData.bio}
+              </p>
+
+              {/*
+                Hidden below lg — the "Get In Touch" button in the action row
+                already covers this on small screens, and two contact CTAs
+                stacked on a phone just pad the scroll.
+              */}
+              <div className="hidden flex-col items-center gap-2 lg:flex lg:items-end">
+                <span className="eyebrow">Get in touch</span>
+                <Link
+                  to="/contact"
+                  className="group flex items-center gap-3 transition-transform duration-200 hover:scale-[1.03]"
+                >
+                  <span className="font-display text-2xl font-bold uppercase tracking-tight text-fg sm:text-3xl">
+                    Let&apos;s Talk
+                  </span>
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-hairline-strong text-fg transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-white group-hover:shadow-glow">
+                    <FaArrowRight className="h-4 w-4 -rotate-45 transition-transform duration-300 group-hover:rotate-0" />
+                  </span>
+                </Link>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* ---- Actions + socials ---- */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-10 flex flex-col items-stretch gap-5 sm:mt-16 sm:items-center sm:gap-6"
+          >
+            {/*
+              Two-up grid on phones (CV spans the full width) so the buttons
+              read as a deliberate block instead of a ragged wrap.
+            */}
+            <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center sm:justify-center">
+              <Link
+                to="/projects"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-glow sm:px-6"
+              >
+                <span>View My Work</span>
+                <FaArrowRight className="h-3.5 w-3.5" />
+              </Link>
+
+              <Link
+                to="/contact"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-accent/50 px-5 py-3 text-sm font-semibold text-accent transition-all duration-200 hover:scale-105 hover:bg-accent/10 sm:px-6"
+              >
+                <span>Get In Touch</span>
+              </Link>
+
+              <a
+                href="/cv/My_Resume.pdf"
+                download="Ankith_Pratheesh_Menon_CV.pdf"
+                onClick={handleCVDownload}
+                className="col-span-2 inline-flex items-center justify-center gap-2 rounded-full border border-hairline bg-surface px-5 py-3 text-sm font-semibold text-muted transition-all duration-200 hover:scale-105 hover:text-fg sm:col-span-1 sm:px-6"
+              >
+                <FaFilePdf className="h-3.5 w-3.5" />
+                <span>Download CV</span>
+                <FaDownload className="h-3 w-3" />
+              </a>
+            </div>
+
+            <div className="flex items-center justify-center gap-3">
+              {[
+                { href: aboutData.socialLinks.github, Icon: FaGithub, label: 'GitHub' },
+                { href: aboutData.socialLinks.linkedin, Icon: FaLinkedin, label: 'LinkedIn' },
+                { href: aboutData.socialLinks.instagram, Icon: FaInstagram, label: 'Instagram' },
+              ].map(({ href, Icon, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-all duration-200 hover:scale-110 hover:border-accent/60 hover:text-accent hover:shadow-glow"
+                >
+                  <Icon className="h-5 w-5" />
+                </a>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
+      {/* ================= TECH MARQUEE ================= */}
+      <div className="relative overflow-hidden border-y border-hairline py-4">
+        <div className="mask-fade-x flex">
+          <div className="flex shrink-0 animate-marquee items-center gap-10 pr-10">
+            {[...MARQUEE_TECH, ...MARQUEE_TECH].map((tech, i) => (
+              <span
+                key={`${tech}-${i}`}
+                className="flex shrink-0 items-center gap-10 font-display text-sm font-medium uppercase tracking-[0.2em] text-muted"
+              >
+                {tech}
+                <span className="h-1 w-1 rounded-full bg-accent" />
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
 
+      {/* ================= SKILLS ================= */}
+      <Suspense fallback={<div className="section-padding" />}>
+        <SkillsSection skills={skills} />
+      </Suspense>
 
-      {/* Lazy-loaded Projects Section */}
+      {/* ================= PROJECTS ================= */}
       <Suspense fallback={
         <div className="section-padding flex items-center justify-center">
-          <div className="w-8 h-8 border-4 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-accent border-t-transparent"></div>
         </div>
       }>
         <ProjectsSection featuredProjects={featuredProjects} />

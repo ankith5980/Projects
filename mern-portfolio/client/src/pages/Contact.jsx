@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import SEO from '../components/SEO';
+import DisplayType from '../components/DisplayType';
 import { getFullUrl, getFullImageUrl } from '../utils/url';
 import {
   FaEnvelope,
@@ -231,90 +232,96 @@ const Contact = () => {
           }
         }}
       />
-      <div className="container mx-auto container-padding">
+      <div className="relative container mx-auto container-padding">
+        {/* Giant watermark */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-64 overflow-hidden">
+          <DisplayType solid="CONTACT" align="center" className="opacity-70" speed={40} />
+        </div>
+
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16 px-4"
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10 mb-16 px-4 text-center"
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-primary-600 dark:text-primary-400 mb-6 tracking-tight">
-            Get In Touch
+          <span className="eyebrow">Say hello</span>
+          <h1 className="mb-6 mt-3 font-display text-4xl font-bold uppercase leading-tight tracking-tight md:text-5xl lg:text-6xl">
+            Get In <span className="text-accent">Touch</span>
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Have a project in mind or want to collaborate? I'd love to hear from you. 
+          <p className="mx-auto max-w-3xl text-base text-muted sm:text-lg">
+            Have a project in mind or want to collaborate? I'd love to hear from you.
             Send me a message and I'll get back to you as soon as possible.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="relative z-10 grid gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-2xl p-8 shadow-lg"
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="glass-violet rounded-3xl p-6 sm:p-8"
           >
-            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+            <h2 className="mb-6 font-display text-2xl font-bold uppercase tracking-tight text-fg">
               Send Message
             </h2>
-            
+
             {submitStatus === 'success' && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg"
+                className="mb-6 rounded-xl border border-green-500/40 bg-green-500/10 p-4"
               >
-                <div className="flex items-center space-x-2 text-green-600 dark:text-green-400">
-                  <FaCheckCircle className="w-5 h-5" />
+                <div className="flex items-center space-x-2 text-green-400">
+                  <FaCheckCircle className="h-5 w-5" />
                   <span className="font-medium">Success!</span>
                 </div>
-                <p className="text-green-600 dark:text-green-400 text-sm mt-1">
+                <p className="mt-1 text-sm text-green-400/90">
                   {submitMessage || 'Thank you for reaching out. I\'ll get back to you soon.'}
                 </p>
               </motion.div>
             )}
-            
+
             {submitStatus === 'error' && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+                className="mb-6 rounded-xl border border-red-500/40 bg-red-500/10 p-4"
               >
-                <div className="flex items-center space-x-2 text-red-600 dark:text-red-400">
-                  <FaExclamationTriangle className="w-5 h-5" />
+                <div className="flex items-center space-x-2 text-red-400">
+                  <FaExclamationTriangle className="h-5 w-5" />
                   <span className="font-medium">Error</span>
                 </div>
-                <p className="text-red-600 dark:text-red-400 text-sm mt-1">
+                <p className="mt-1 text-sm text-red-400/90">
                   {submitMessage || 'Please try again or contact me directly via email.'}
                 </p>
               </motion.div>
             )}
-            
+
             {isSubmitting && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg"
+                className="mb-6 rounded-xl border border-accent/40 bg-accent/10 p-4"
               >
-                <div className="flex items-center space-x-2 text-blue-600 dark:text-blue-400">
-                  <div className="animate-spin rounded-full h-4 w-4 border-2 border-blue-600 border-t-transparent"></div>
+                <div className="flex items-center space-x-2 text-accent">
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-accent border-t-transparent"></div>
                   <span className="font-medium">Sending message...</span>
                 </div>
                 {submitMessage && (
-                  <p className="text-blue-600 dark:text-blue-400 text-sm mt-1">
+                  <p className="mt-1 text-sm text-accent/90">
                     {submitMessage}
                   </p>
                 )}
               </motion.div>
             )}
-            
+
             <form onSubmit={handleSubmit} className="space-y-6" autoComplete="off">
               {/* Name and Email Row */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="name" className="mb-2 block font-display text-xs font-semibold uppercase tracking-widest text-muted">
                     Name *
                   </label>
                   <input
@@ -324,8 +331,8 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     autoComplete="off"
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white/10 dark:bg-white/5 backdrop-blur-md text-gray-900 dark:text-white ${
-                      errors.name ? 'border-red-500' : 'border-white/20 dark:border-white/10'
+                    className={`w-full rounded-xl border bg-surface-2 px-4 py-3 text-fg outline-none backdrop-blur-md transition-all duration-200 placeholder:text-muted focus:border-accent/60 focus:ring-2 focus:ring-accent/30 ${
+                      errors.name ? 'border-red-500' : 'border-hairline'
                     }`}
                     placeholder="Your Name"
                   />
@@ -335,7 +342,7 @@ const Contact = () => {
                 </div>
                 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="email" className="mb-2 block font-display text-xs font-semibold uppercase tracking-widest text-muted">
                     Email *
                   </label>
                   <input
@@ -345,8 +352,8 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     autoComplete="off"
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white/10 dark:bg-white/5 backdrop-blur-md text-gray-900 dark:text-white ${
-                      errors.email ? 'border-red-500' : 'border-white/20 dark:border-white/10'
+                    className={`w-full rounded-xl border bg-surface-2 px-4 py-3 text-fg outline-none backdrop-blur-md transition-all duration-200 placeholder:text-muted focus:border-accent/60 focus:ring-2 focus:ring-accent/30 ${
+                      errors.email ? 'border-red-500' : 'border-hairline'
                     }`}
                     placeholder="your@email.com"
                   />
@@ -358,7 +365,7 @@ const Contact = () => {
               
               {/* Subject */}
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="subject" className="mb-2 block font-display text-xs font-semibold uppercase tracking-widest text-muted">
                   Subject *
                 </label>
                 <input
@@ -368,8 +375,8 @@ const Contact = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   autoComplete="off"
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white/10 dark:bg-white/5 backdrop-blur-md text-gray-900 dark:text-white ${
-                    errors.subject ? 'border-red-500' : 'border-white/20 dark:border-white/10'
+                  className={`w-full rounded-xl border bg-surface-2 px-4 py-3 text-fg outline-none backdrop-blur-md transition-all duration-200 placeholder:text-muted focus:border-accent/60 focus:ring-2 focus:ring-accent/30 ${
+                    errors.subject ? 'border-red-500' : 'border-hairline'
                   }`}
                   placeholder="What's this about?"
                 />
@@ -380,7 +387,7 @@ const Contact = () => {
               
               {/* Message */}
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label htmlFor="message" className="mb-2 block font-display text-xs font-semibold uppercase tracking-widest text-muted">
                   Message *
                 </label>
                 <textarea
@@ -390,8 +397,8 @@ const Contact = () => {
                   onChange={handleChange}
                   autoComplete="off"
                   rows="5"
-                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200 bg-white/10 dark:bg-white/5 backdrop-blur-md text-gray-900 dark:text-white resize-vertical ${
-                    errors.message ? 'border-red-500' : 'border-white/20 dark:border-white/10'
+                  className={`w-full resize-y rounded-xl border bg-surface-2 px-4 py-3 text-fg outline-none backdrop-blur-md transition-all duration-200 placeholder:text-muted focus:border-accent/60 focus:ring-2 focus:ring-accent/30 ${
+                    errors.message ? 'border-red-500' : 'border-hairline'
                   }`}
                   placeholder="Tell me about your project or just say hello..."
                 />
@@ -404,7 +411,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-primary-600/20 backdrop-blur-md border border-primary-600/40 hover:bg-primary-600/30 disabled:bg-gray-400/20 text-primary-700 dark:text-primary-300 disabled:text-gray-500 font-medium py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center space-x-2 hover:scale-105 disabled:hover:scale-100"
+                className="flex w-full items-center justify-center space-x-2 rounded-full bg-accent px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-glow disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 disabled:hover:shadow-none"
               >
                 {isSubmitting ? (
                   <>
@@ -423,35 +430,35 @@ const Contact = () => {
 
           {/* Contact Information */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="space-y-8"
           >
             {/* Contact Info Cards */}
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
+              <h2 className="mb-6 font-display text-2xl font-bold uppercase tracking-tight text-fg">
                 Contact Information
               </h2>
-              
+
               {contactInfo.map((info, index) => {
                 const IconComponent = info.icon;
                 const content = (
-                  <div className="flex items-center space-x-4 p-6 bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                    <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center">
-                      <IconComponent className="w-6 h-6 text-primary-600 dark:text-primary-400" />
+                  <div className="glass-violet flex items-center space-x-4 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-glow sm:p-6">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-accent/30 bg-accent/15">
+                      <IconComponent className="h-5 w-5 text-accent" />
                     </div>
-                    <div>
-                      <h3 className="font-medium text-gray-900 dark:text-white">
+                    <div className="min-w-0">
+                      <h3 className="font-display text-xs font-semibold uppercase tracking-widest text-muted">
                         {info.label}
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-400">
+                      <p className="mt-0.5 truncate text-fg">
                         {info.value}
                       </p>
                     </div>
                   </div>
                 );
-                
+
                 return info.link ? (
                   <a key={index} href={info.link} className="block">
                     {content}
@@ -465,11 +472,11 @@ const Contact = () => {
             </div>
 
             {/* Social Media Links */}
-            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-xl p-6 shadow-lg">
-              <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+            <div className="glass-violet rounded-2xl p-6">
+              <h3 className="mb-4 font-display text-lg font-bold uppercase tracking-tight text-fg">
                 Follow Me
               </h3>
-              <div className="flex space-x-4">
+              <div className="flex gap-3">
                 {socialLinks.map((social, index) => {
                   const IconComponent = social.icon;
                   return (
@@ -478,10 +485,10 @@ const Contact = () => {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`w-12 h-12 bg-gray-200/80 dark:bg-gray-700/30 border border-gray-400/40 hover:bg-gray-300/80 dark:hover:bg-gray-700/50 rounded-lg flex items-center justify-center text-gray-600 dark:text-gray-400 transition-all duration-200 hover:scale-105 ${social.color}`}
+                      className="flex h-12 w-12 items-center justify-center rounded-xl border border-hairline bg-surface-2 text-muted transition-all duration-200 hover:scale-110 hover:border-accent/60 hover:text-accent hover:shadow-glow"
                       title={social.label}
                     >
-                      <IconComponent className="w-5 h-5" />
+                      <IconComponent className="h-5 w-5" />
                     </a>
                   );
                 })}
@@ -489,13 +496,20 @@ const Contact = () => {
             </div>
 
             {/* Fun Fact */}
-            <div className="bg-primary-50 dark:bg-primary-900/20 rounded-xl p-6 border border-primary-100 dark:border-primary-800">
-              <h3 className="text-lg font-bold mb-2 text-primary-900 dark:text-primary-100">
+            <div className="relative overflow-hidden rounded-2xl border border-accent/30 p-6">
+              <div
+                className="absolute inset-0 -z-10"
+                style={{
+                  background:
+                    'linear-gradient(135deg, rgb(var(--accent) / 0.9), rgb(var(--accent-soft) / 0.7))',
+                }}
+              />
+              <h3 className="mb-2 font-display text-lg font-bold text-white">
                 Let's Build Something Amazing Together!
               </h3>
-              <p className="text-primary-700 dark:text-primary-300 text-sm">
-                I'm always excited to work on new projects and collaborate with amazing people. 
-                Whether it's a web app, mobile application, or an innovative AI solution, 
+              <p className="text-sm text-white/90">
+                I'm always excited to work on new projects and collaborate with amazing people.
+                Whether it's a web app, mobile application, or an innovative AI solution,
                 let's turn your ideas into reality!
               </p>
             </div>

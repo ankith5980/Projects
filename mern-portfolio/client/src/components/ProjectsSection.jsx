@@ -1,8 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { FaArrowRight, FaCode, FaExternalLinkAlt } from 'react-icons/fa';
 import ProjectModal from './ProjectModal';
+import Reveal, { RevealGroup, RevealItem } from './Reveal';
+import DisplayType from './DisplayType';
 
 const ProjectsSection = React.memo(({ featuredProjects }) => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -13,32 +14,23 @@ const ProjectsSection = React.memo(({ featuredProjects }) => {
   }
 
   return (
-    <section className="section-padding">
-      <div className="container mx-auto container-padding">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Featured <span className="text-primary-600 dark:text-primary-400">Projects</span>
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
-            Some of my recent work
-          </p>
-        </motion.div>
+    <section className="section-padding relative overflow-hidden">
+      <DisplayType solid="WORK" align="right" className="opacity-70" speed={45} slideIn={false} />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProjects.map((project, index) => (
-            <motion.div
+      <div className="container relative z-10 mx-auto container-padding">
+        <Reveal className="mb-14 text-center">
+          <span className="eyebrow">Selected work</span>
+          <h2 className="mt-3 font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl lg:text-5xl">
+            Featured <span className="text-accent">Projects</span>
+          </h2>
+          <p className="mt-3 text-base text-muted">Some of my recent work</p>
+        </Reveal>
+
+        <RevealGroup stagger={0.1} className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {featuredProjects.map((project) => (
+            <RevealItem
               key={project._id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-shadow duration-300"
+              className="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-2xl border border-hairline transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:shadow-glow-lg"
               onClick={() => setSelectedProject(project)}
             >
               {/* Full-bleed image */}
@@ -46,61 +38,58 @@ const ProjectsSection = React.memo(({ featuredProjects }) => {
                 <img
                   src={project.images[0].url}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="h-full w-full object-cover transition-transform duration-500 md:group-hover:scale-110"
                   loading="lazy"
                   decoding="async"
                   width="640"
                   height="480"
                 />
               ) : (
-                <div className="w-full h-full bg-primary-600 flex items-center justify-center text-white/60 text-5xl">
+                <div className="flex h-full w-full items-center justify-center bg-accent/20 text-5xl text-accent">
                   <FaCode />
                 </div>
               )}
 
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-5">
-                <h3 className="text-white text-lg sm:text-xl font-bold mb-1.5 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75 drop-shadow-md">
+              {/*
+                Overlay: permanently visible on touch (there is no hover to
+                trigger it), fades in on hover from `md` up.
+              */}
+              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-[#0A0A0A]/95 via-[#0A0A0A]/55 to-transparent p-5 transition-all duration-300 md:opacity-0 md:group-hover:opacity-100">
+                <h3 className="relative mb-1.5 text-lg font-bold text-white drop-shadow-md transition-transform duration-300 sm:text-xl md:translate-y-4 md:group-hover:translate-y-0">
                   {project.title}
                 </h3>
 
-                <div className="flex flex-wrap gap-1.5 mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
+                <div className="relative mb-3 flex flex-wrap gap-1.5 transition-transform delay-75 duration-300 md:translate-y-4 md:group-hover:translate-y-0">
                   {project.technologies.slice(0, 3).map((tech, i) => (
                     <span
                       key={i}
-                      className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-white/15 backdrop-blur-sm text-white/90 border border-white/10"
+                      className="rounded-md border border-white/15 bg-white/15 px-2 py-0.5 text-[10px] font-medium text-white/90 backdrop-blur-sm"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150">
-                  <span className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-white/20 backdrop-blur-md border border-white/20 text-white hover:bg-white/30 transition-colors duration-200">
-                    <FaExternalLinkAlt className="w-3 h-3" />
+                <div className="relative transition-transform delay-100 duration-300 md:translate-y-4 md:group-hover:translate-y-0">
+                  <span className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-xs font-semibold text-white shadow-glow">
+                    <FaExternalLinkAlt className="h-3 w-3" />
                     View Details
                   </span>
                 </div>
               </div>
-            </motion.div>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
-        >
+        <Reveal delay={0.2} className="mt-12 text-center">
           <Link
             to="/projects"
-            className="inline-flex items-center space-x-2 bg-primary-100/80 dark:bg-primary-900/30 border border-primary-600/40 hover:bg-primary-200/80 dark:hover:bg-primary-900/50 text-primary-700 dark:text-primary-300 px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+            className="inline-flex items-center gap-2 rounded-full border border-accent/50 px-6 py-3 text-sm font-semibold text-accent transition-all duration-200 hover:scale-105 hover:bg-accent/10"
           >
             <span>View All Projects</span>
-            <FaArrowRight className="w-4 h-4" />
+            <FaArrowRight className="h-3.5 w-3.5" />
           </Link>
-        </motion.div>
+        </Reveal>
       </div>
 
       {/* Project Detail Modal */}

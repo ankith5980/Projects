@@ -149,43 +149,50 @@ const CustomCursor = () => {
 
   return (
     <>
-      {/* Outer Ring/Blob */}
+      {/*
+        Outer trailing ring. Fixed 36px box scaled with `scale` rather than
+        animated width/height, so the cursor never triggers layout on move.
+      */}
       <motion.div
-        className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] hidden md:block will-change-transform mix-blend-difference"
-        style={{ 
-          x: ringX, 
-          y: ringY, 
-          translateX: '-50%', 
-          translateY: '-50%' 
+        className="pointer-events-none fixed left-0 top-0 hidden h-9 w-9 rounded-full border-2 will-change-transform md:block"
+        style={{
+          x: ringX,
+          y: ringY,
+          translateX: '-50%',
+          translateY: '-50%',
+          zIndex: 9999,
+          borderColor: 'rgb(var(--accent))',
         }}
         initial={{ opacity: 0, scale: 0 }}
-        animate={{ 
+        animate={{
           opacity: isVisible ? 1 : 0,
-          scale: isVisible ? 1 : 0,
-          width: isHovering ? 48 : 36,
-          height: isHovering ? 48 : 36,
-          backgroundColor: isHovering ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0)',
-          borderWidth: isHovering ? '0px' : '2px',
-          borderColor: 'rgba(255, 255, 255, 1)',
+          scale: isVisible ? (isHovering ? 1.35 : 1) : 0,
+          backgroundColor: isHovering
+            ? 'rgb(var(--accent) / 0.9)'
+            : 'rgb(var(--accent) / 0)',
+          boxShadow: isHovering
+            ? '0 0 28px 4px rgb(var(--accent) / 0.55)'
+            : '0 0 14px 0px rgb(var(--accent) / 0.35)',
         }}
         transition={{
-          width: { type: 'spring', stiffness: 300, damping: 20 },
-          height: { type: 'spring', stiffness: 300, damping: 20 },
+          scale: { type: 'spring', stiffness: 300, damping: 20 },
           backgroundColor: { duration: 0.15 },
-          opacity: { duration: 0.3 }
+          opacity: { duration: 0.3 },
         }}
       />
-      
+
       {/* Inner Crisp Dot */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] hidden md:block will-change-transform mix-blend-difference"
-        style={{ 
-          x: dotX, 
-          y: dotY, 
-          translateX: '-50%', 
-          translateY: '-50%' 
+        className="pointer-events-none fixed left-0 top-0 hidden h-2 w-2 rounded-full will-change-transform md:block"
+        style={{
+          x: dotX,
+          y: dotY,
+          translateX: '-50%',
+          translateY: '-50%',
+          zIndex: 9999,
+          backgroundColor: 'rgb(var(--accent))',
         }}
-        animate={{ 
+        animate={{
           opacity: isVisible && !isHovering ? 1 : 0,
           scale: isHovering ? 0 : 1
         }}

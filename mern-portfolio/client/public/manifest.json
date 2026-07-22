@@ -18,8 +18,8 @@
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "theme_color": "#3B82F6",
-  "background_color": "#ffffff",
+  "theme_color": "#8B5CF6",
+  "background_color": "#0A0A0A",
   "categories": ["portfolio", "developer", "business"],
   "lang": "en",
   "scope": "/"

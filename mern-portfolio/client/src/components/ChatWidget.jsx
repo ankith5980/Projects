@@ -36,7 +36,6 @@ const MAX_CONVERSATION_LENGTH = 20;
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const messagesEndRef = useRef(null);
   const [messages, setMessages] = useState([]);
   const [localInput, setLocalInput] = useState('');
@@ -190,37 +189,17 @@ const ChatWidget = () => {
     scrollToBottom(false);
   }, [messages]);
 
-  // Throttled scroll listener for position adjustment
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        setTimeout(() => {
-          setIsScrolled(window.pageYOffset > 300);
-          ticking = false;
-        }, 200);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const isRateLimited = rateLimitInfo && Date.now() < rateLimitInfo.expiresAt;
 
   return (
     <>
       {/* Floating Button */}
-      <motion.div
-        className="fixed right-8 z-50 flex flex-col items-end"
-        initial={false}
-        animate={{
-          bottom: isOpen ? "2rem" : isScrolled ? "6rem" : "2rem",
-        }}
-        transition={{ type: "spring", stiffness: 260, damping: 20 }}
-      >
+      {/*
+        Fixed at bottom-right. ScrollToTop now lives at bottom-left, so this no
+        longer needs to shift out of its way — and animating `bottom` would have
+        cost a layout pass on every scroll.
+      */}
+      <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end">
         <AnimatePresence>
           {!isOpen && (
             <motion.button
@@ -230,14 +209,18 @@ const ChatWidget = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsOpen(true)}
-              className="p-4 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-xl border border-primary-500/30 transition-colors duration-300 flex items-center justify-center"
+              className="relative flex h-14 w-14 items-center justify-center rounded-full text-white shadow-glow-lg transition-shadow duration-300"
+              style={{
+                background: 'linear-gradient(140deg, rgb(var(--accent-soft)), rgb(var(--accent)))',
+              }}
               aria-label="Open AI Chat"
             >
-              <FaCommentDots className="w-6 h-6" />
+              <span className="absolute inset-0 -z-10 rounded-full bg-accent/60 blur-xl" />
+              <FaCommentDots className="h-6 w-6" />
             </motion.button>
           )}
         </AnimatePresence>
-      </motion.div>
+      </div>
 
       {/* Chat Window */}
       <AnimatePresence>
@@ -247,25 +230,25 @@ const ChatWidget = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="fixed bottom-8 right-4 sm:right-8 z-50 w-[90vw] sm:w-[400px] h-[550px] max-h-[80vh] flex flex-col bg-white/95 dark:bg-gray-900/95 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-xl"
+            className="fixed bottom-8 right-4 sm:right-8 z-50 w-[90vw] sm:w-[400px] h-[550px] max-h-[80vh] flex flex-col glass-violet-strong rounded-2xl overflow-hidden"
             data-lenis-prevent="true"
             onWheel={(e) => e.stopPropagation()}
             onTouchMove={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 bg-primary-600/10 border-b border-gray-200 dark:border-gray-800">
+            <div className="flex items-center justify-between p-4 bg-accent/10 border-b border-hairline">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-full bg-primary-600 flex items-center justify-center text-white shadow-inner">
+                <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-white shadow-inner">
                   <FaRobot size={20} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white">Ask Zyra</h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Pleased to help you</p>
+                  <h3 className="font-semibold text-fg">Ask Zyra</h3>
+                  <p className="text-xs text-muted">Pleased to help you</p>
                 </div>
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors"
+                className="p-2 text-muted hover:text-accent rounded-full transition-colors"
               >
                 <FaTimes className="w-5 h-5" />
               </button>
@@ -307,7 +290,7 @@ const ChatWidget = () => {
               onTouchMove={(e) => e.stopPropagation()}
             >
               {messages?.length === 0 ? (
-                <div className="h-full flex flex-col items-center justify-center text-center space-y-3 text-gray-500 dark:text-gray-400 p-6 absolute inset-0">
+                <div className="h-full flex flex-col items-center justify-center text-center space-y-3 text-muted p-6 absolute inset-0">
                   <FaRobot className="w-12 h-12 opacity-30" />
                   <p className="text-sm">Hi! I'm Zyra, Ankith's AI assistant. How can I help you today?</p>
                 </div>
@@ -324,8 +307,8 @@ const ChatWidget = () => {
                     className={cn(
                       "max-w-[85%] rounded-2xl px-4 py-3 text-sm flex gap-3 shadow-sm",
                       message.role === 'user'
-                        ? "bg-primary-600 text-white rounded-br-sm"
-                        : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-bl-sm"
+                        ? "bg-accent text-white rounded-br-sm"
+                        : "bg-surface-2 text-fg rounded-bl-sm"
                     )}
                   >
                     {message.role !== 'user' && (
@@ -337,9 +320,9 @@ const ChatWidget = () => {
               ))}
               {isLoading && (
                 <div className="flex justify-start w-full relative z-10">
-                  <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl rounded-bl-sm px-4 py-3 flex items-center space-x-2 shadow-sm">
-                    <FaSpinner className="w-4 h-4 animate-spin text-gray-500" />
-                    <span className="text-sm text-gray-500">Zyra is typing...</span>
+                  <div className="bg-surface-2 rounded-2xl rounded-bl-sm px-4 py-3 flex items-center space-x-2 shadow-sm">
+                    <FaSpinner className="w-4 h-4 animate-spin text-accent" />
+                    <span className="text-sm text-muted">Zyra is typing...</span>
                   </div>
                 </div>
               )}
@@ -347,7 +330,7 @@ const ChatWidget = () => {
             </div>
 
             {/* Input Form */}
-            <div className="p-4 bg-white/50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800">
+            <div className="border-t border-hairline bg-surface-2 p-4">
               {/* Character count */}
               {localInput.length > MAX_MESSAGE_LENGTH * 0.8 && (
                 <div className={cn(
@@ -366,13 +349,13 @@ const ChatWidget = () => {
                   value={localInput}
                   onChange={(e) => setLocalInput(e.target.value.slice(0, MAX_MESSAGE_LENGTH))}
                   placeholder={isRateLimited ? "Rate limited — please wait..." : "Ask about Ankith's projects, skills..."}
-                  className="w-full pl-4 pr-12 py-3 rounded-full bg-gray-100/80 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-all text-sm border border-transparent focus:border-primary-500/30"
+                  className="w-full rounded-full border border-hairline bg-surface py-3 pl-4 pr-12 text-sm text-fg transition-all placeholder:text-muted focus:border-accent/60 focus:outline-none focus:ring-2 focus:ring-accent/30"
                   disabled={isLoading || isRateLimited}
                 />
                 <button
                   type="submit"
                   disabled={isLoading || !localInput || localInput.trim() === '' || isRateLimited}
-                  className="absolute right-2 p-2 rounded-full bg-primary-600 text-white hover:bg-primary-700 disabled:opacity-50 disabled:hover:bg-primary-600 transition-all shadow-md active:scale-95"
+                  className="absolute right-2 rounded-full bg-accent p-2 text-white shadow-glow transition-all active:scale-95 disabled:opacity-40 disabled:shadow-none"
                 >
                   <FaPaperPlane className="w-4 h-4 ml-0.5" />
                 </button>

@@ -43,47 +43,58 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gray-50 dark:bg-dark-200 border-t border-gray-200 dark:border-gray-700">
-      <div className="container mx-auto container-padding py-8">
-        <div className="grid md:grid-cols-3 gap-6">
+    <footer className="relative overflow-hidden border-t border-hairline bg-elev">
+      {/* Giant wordmark watermark */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-[-2.5rem] flex justify-center overflow-hidden"
+      >
+        <span
+          className="select-none whitespace-nowrap font-display font-bold uppercase leading-none tracking-tighter text-fg/[0.04]"
+          style={{ fontSize: 'clamp(4rem, 18vw, 14rem)' }}
+        >
+          Ankith
+        </span>
+      </div>
+
+      <div className="container relative z-10 mx-auto container-padding py-12">
+        <div className="grid gap-8 md:grid-cols-3">
           {/* Brand */}
-          <div className="space-y-3">
+          <div className="space-y-4">
             <Link
               to="/"
-              className="text-2xl font-bold text-primary-600 dark:text-primary-400 inline-block"
+              className="inline-block font-display text-xl font-bold uppercase tracking-tight text-fg"
             >
-              Ankith Pratheesh Menon
+              Ankith <span className="text-accent">Pratheesh Menon</span>
             </Link>
-            <p className="text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-muted">
               Building digital experiences with passion and precision.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex gap-3">
               {socialLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 bg-gray-200/80 dark:bg-gray-700/30 border border-gray-400/40 hover:bg-gray-300/80 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 rounded-lg transition-all duration-200 hover:scale-110"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-all duration-200 hover:scale-110 hover:border-accent/60 hover:text-accent hover:shadow-glow"
                   aria-label={link.name}
                 >
-                  <link.icon className="w-5 h-5" />
+                  <link.icon className="h-4 w-4" />
                 </a>
               ))}
             </div>
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-3">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Quick Links
-            </h3>
+          <div className="space-y-4">
+            <h3 className="eyebrow">Quick Links</h3>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
+                    className="inline-block text-sm text-muted transition-all duration-200 hover:translate-x-1 hover:text-accent"
                   >
                     {link.name}
                   </Link>
@@ -93,26 +104,24 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-3">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Get In Touch
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400">
+          <div className="space-y-4">
+            <h3 className="eyebrow">Get In Touch</h3>
+            <p className="text-sm text-muted">
               Have a project in mind? Let's work together to bring your ideas to life.
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center space-x-2 bg-primary-600/20 backdrop-blur-md border border-primary-600/40 hover:bg-primary-600/30 text-primary-700 dark:text-primary-300 px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105"
+              className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-glow"
             >
-              <FaEnvelope className="w-4 h-4" />
+              <FaEnvelope className="h-4 w-4" />
               <span>Contact Me</span>
             </Link>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 flex justify-center items-center">
-          <p className="text-gray-600 dark:text-gray-400 text-center">
+        <div className="mt-10 flex items-center justify-center border-t border-hairline pt-6">
+          <p className="text-center text-xs text-muted sm:text-sm">
             © {currentYear} Designed by Ankith Pratheesh Menon. All rights reserved.
           </p>
         </div>
