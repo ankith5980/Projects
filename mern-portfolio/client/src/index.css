@@ -361,6 +361,45 @@ html, body, * {
     pointer-events: none;
   }
 
+  /*
+    Frameless variant for the Home hero.
+
+    Instead of ending at a ring, the photo is feathered out on every edge by
+    two intersecting masks: an ellipse centred on the face, and a vertical ramp
+    that dissolves the bottom entirely. Whatever is behind — the DEVELOPER
+    lettering, the grid, the violet wash — passes through the falloff, so the
+    portrait sits *in* the composition rather than on top of it. The subject
+    itself is well inside the ellipse's solid core and stays untouched.
+  */
+  .portrait-blend {
+    /*
+      The shape is the element's own border radius; these masks only soften it.
+      The ellipse is wide enough (88/92) to leave the corners rounded rather
+      than eaten away — it just takes the last few percent of contrast out of
+      them — while the vertical ramp still dissolves the bottom edge.
+    */
+    -webkit-mask-image:
+      radial-gradient(
+        ellipse 88% 92% at 50% 44%,
+        #000 68%,
+        rgba(0, 0, 0, 0.6) 88%,
+        transparent 100%
+      ),
+      linear-gradient(to top, transparent 0%, rgba(0, 0, 0, 0.4) 14%, #000 38%);
+    mask-image:
+      radial-gradient(
+        ellipse 88% 92% at 50% 44%,
+        #000 68%,
+        rgba(0, 0, 0, 0.6) 88%,
+        transparent 100%
+      ),
+      linear-gradient(to top, transparent 0%, rgba(0, 0, 0, 0.4) 14%, #000 38%);
+    /* `source-in` is the legacy WebKit spelling of `intersect` — both masks
+       have to agree for a pixel to survive. */
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+
   .portrait-floor {
     position: absolute;
     inset-inline: 0;

@@ -239,16 +239,23 @@ const Home = () => {
           runs about 5.8em wide, so the ramp is capped low enough that it
           always clears the box rather than bleeding past the viewport edge.
         */}
+        {/*
+          z-20 puts the lettering *over* the portrait (z-10) while the copy and
+          controls stay above it at z-30. So DEVELOPER crosses the photo the way
+          a title card sits on a plate, and the portrait's feathered edges hand
+          off into the type instead of ending against it. The layer is
+          pointer-events-none, so nothing underneath loses its hit area.
+        */}
         <DisplayType
           solid="FULL-STACK"
           outlined="DEVELOPER"
           align="right"
-          className="left-auto right-4 w-[96%] sm:right-6 lg:w-[72%]"
+          className="left-auto right-4 z-20 w-[96%] sm:right-6 lg:w-[72%]"
           fontSize="clamp(2rem, 9vw, 9rem)"
           speed={70}
         />
 
-        <div className="container relative z-10 mx-auto container-padding">
+        <div className="container relative mx-auto container-padding">
           {/*
             The right column is wider than the left, so the portrait sits left
             of centre and clears the FULL-STACK / DEVELOPER lettering behind it.
@@ -263,7 +270,7 @@ const Home = () => {
             className="grid items-center gap-8 sm:gap-10 lg:grid-cols-[0.82fr_auto_1.58fr] lg:gap-8"
           >
             {/* ---- Left flank: name ---- */}
-            <motion.div variants={fadeUp} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="relative order-1 text-left">
+            <motion.div variants={fadeUp} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="relative z-30 order-1 text-left">
               {/* Rule + eyebrow. Horizontal on mobile, vertical alongside the
                   name from lg up. */}
               <div className="mb-3 flex items-center gap-3 sm:mb-4">
@@ -299,11 +306,19 @@ const Home = () => {
                 visible: { opacity: 1, scale: 1, y: 0 },
               }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="relative order-2 mx-auto flex justify-center"
+              className="relative z-10 order-2 mx-auto flex justify-center"
             >
+              {/*
+                `blend` drops the ring and brackets and feathers the photo's
+                edges, so the frame hands off into the lettering layered over
+                it rather than ending on a hard border. The portrait itself
+                holds position — it only responds to the cursor (tilt + key
+                light) or, on a phone, to the handset's own tilt.
+              */}
               <TiltPortrait
                 src="/images/Ankith.jpg"
                 alt="Ankith Pratheesh Menon"
+                blend
                 width="400"
                 height="533"
                 loading="eager"
@@ -317,7 +332,7 @@ const Home = () => {
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="order-3 flex flex-col items-start gap-5 text-left sm:gap-8 lg:items-end lg:text-right"
+              className="relative z-30 order-3 flex flex-col items-start gap-5 text-left sm:gap-8 lg:items-end lg:text-right"
             >
               {/*
                 Role tag with the typed title.
@@ -387,7 +402,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-10 flex flex-col items-stretch gap-5 sm:mt-16 sm:items-center sm:gap-6"
+            className="relative z-30 mt-10 flex flex-col items-stretch gap-5 sm:mt-16 sm:items-center sm:gap-6"
           >
             {/*
               Two-up grid on phones (CV spans the full width) so the buttons
