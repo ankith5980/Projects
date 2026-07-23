@@ -11,7 +11,8 @@ import {
 } from 'react-icons/fa';
 import SEO from '../components/SEO';
 import DisplayType from '../components/DisplayType';
-import FloatingBadge, { AccentDot } from '../components/FloatingBadge';
+import { AccentDot } from '../components/FloatingBadge';
+import TiltPortrait from '../components/TiltPortrait';
 import { generatePersonSchema } from '../utils/personalSEO';
 
 // Lazy load non-critical sections with retry on chunk load failure
@@ -251,12 +252,15 @@ const Home = () => {
           {/*
             The right column is wider than the left, so the portrait sits left
             of centre and clears the FULL-STACK / DEVELOPER lettering behind it.
+            The offset is driven by these fr weights rather than a translate —
+            the portrait's wrapper is a motion element whose own transform
+            would overwrite one.
           */}
           <motion.div
             initial="hidden"
             animate="visible"
             variants={{ visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } }}
-            className="grid items-center gap-8 sm:gap-10 lg:grid-cols-[0.95fr_auto_1.45fr] lg:gap-8"
+            className="grid items-center gap-8 sm:gap-10 lg:grid-cols-[0.82fr_auto_1.58fr] lg:gap-8"
           >
             {/* ---- Left flank: name ---- */}
             <motion.div variants={fadeUp} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="relative order-1 text-left">
@@ -297,48 +301,16 @@ const Home = () => {
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
               className="relative order-2 mx-auto flex justify-center"
             >
-              <div className="relative" style={{ width: 'clamp(205px, 56vw, 400px)' }}>
-                {/* Glow beneath the portrait */}
-                <div
-                  className="absolute -inset-6 -z-10 rounded-[3rem] blur-3xl"
-                  style={{ background: 'radial-gradient(circle at 50% 60%, rgb(var(--accent) / 0.38), transparent 70%)' }}
-                />
-
-                <div className="ring-gradient-violet aspect-[3/4] w-full overflow-hidden rounded-[2rem] shadow-glow-lg">
-                  <img
-                    src="/images/Ankith.jpg"
-                    alt="Ankith Pratheesh Menon"
-                    className="h-full w-full object-cover object-center"
-                    loading="eager"
-                    decoding="async"
-                    fetchPriority="high"
-                    width="400"
-                    height="533"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      if (e.currentTarget.nextSibling) {
-                        e.currentTarget.nextSibling.style.display = 'flex';
-                      }
-                    }}
-                  />
-                  <div className="hidden h-full w-full items-center justify-center bg-elev text-6xl text-muted">
-                    👤
-                  </div>
-                </div>
-
-                {/* "Hi" badge — overlaps the portrait's lower-left corner */}
-                <FloatingBadge
-                  size={72}
-                  delay={0.9}
-                  className="bottom-[-1.25rem] left-[-1.25rem] z-20 text-lg sm:bottom-[-2rem] sm:left-[-2rem] sm:text-xl"
-                >
-                  Hi
-                </FloatingBadge>
-
-                {/* Corner ticks */}
-                <span className="absolute -right-3 -top-3 z-20 h-6 w-6 border-r-2 border-t-2 border-accent/60" />
-                <span className="absolute -bottom-3 -right-3 z-20 h-6 w-6 border-b-2 border-r-2 border-accent/60" />
-              </div>
+              <TiltPortrait
+                src="/images/Ankith.jpg"
+                alt="Ankith Pratheesh Menon"
+                width="400"
+                height="533"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+                style={{ width: 'clamp(205px, 56vw, 400px)' }}
+              />
             </motion.div>
 
             {/* ---- Right flank: role + CTA ---- */}
@@ -387,12 +359,22 @@ const Home = () => {
                 <span className="eyebrow">Get in touch</span>
                 <Link
                   to="/contact"
-                  className="group flex items-center gap-3 transition-transform duration-200 hover:scale-[1.03]"
+                  className="group flex items-center gap-3"
                 >
-                  <span className="font-display text-2xl font-bold uppercase tracking-tight text-fg sm:text-3xl">
+                  {/*
+                    Underline is a pseudo-free child rule: a 2px bar pinned to
+                    the baseline that wipes in from the left on hover. Scaling
+                    the whole link moved it toward the viewer, which read as a
+                    gimmick next to otherwise flat type.
+                  */}
+                  <span className="relative font-display text-2xl font-bold uppercase tracking-tight text-fg sm:text-3xl">
                     Let&apos;s Talk
+                    <span
+                      aria-hidden="true"
+                      className="absolute -bottom-1 left-0 h-[2px] w-full origin-left scale-x-0 bg-accent transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100"
+                    />
                   </span>
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-hairline-strong text-fg transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-white group-hover:shadow-glow">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-hairline-strong text-fg transition-colors duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-white">
                     <FaArrowRight className="h-4 w-4 -rotate-45 transition-transform duration-300 group-hover:rotate-0" />
                   </span>
                 </Link>
@@ -414,7 +396,7 @@ const Home = () => {
             <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center sm:justify-center">
               <Link
                 to="/projects"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-glow sm:px-6"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-soft sm:px-6"
               >
                 <span>View My Work</span>
                 <FaArrowRight className="h-3.5 w-3.5" />
@@ -451,7 +433,7 @@ const Home = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-all duration-200 hover:scale-110 hover:border-accent/60 hover:text-accent hover:shadow-glow"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-all duration-200 hover:scale-110 hover:border-accent/60 hover:text-accent hover:shadow-soft"
                 >
                   <Icon className="h-5 w-5" />
                 </a>

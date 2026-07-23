@@ -8,8 +8,11 @@ module.exports = {
     extend: {
       fontFamily: {
         'inter': ['Inter', 'sans-serif'],
-        'display': ['"Space Grotesk"', 'Inter', 'sans-serif'],
-        'mono': ['"Space Grotesk"', 'ui-monospace', 'monospace'],
+        // Archivo — a grounded, slightly condensed grotesque. Holds up at the
+        // giant uppercase display sizes without the geometric quirks that made
+        // the previous face read as a template.
+        'display': ['Archivo', 'Inter', 'sans-serif'],
+        'mono': ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
       },
       colors: {
         // Semantic tokens driven by CSS custom properties (see index.css).
@@ -40,9 +43,11 @@ module.exports = {
         },
       },
       boxShadow: {
-        'glow': '0 0 24px -4px rgb(var(--accent) / 0.55)',
-        'glow-lg': '0 0 60px -10px rgb(var(--accent) / 0.5)',
-        'glow-xl': '0 0 120px -20px rgb(var(--accent) / 0.45)',
+        // Physical elevation, not light emission. Values live in index.css so
+        // each theme can carry its own shadow colour and strength.
+        'soft': 'var(--shadow-1)',
+        'soft-lg': 'var(--shadow-2)',
+        'soft-xl': 'var(--shadow-3)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
@@ -51,7 +56,6 @@ module.exports = {
         'bounce-slow': 'bounce 2s infinite',
         'pulse-slow': 'pulse 3s infinite',
         'float-slow': 'floatSlow 6s ease-in-out infinite',
-        'glow-pulse': 'glowPulse 3.5s ease-in-out infinite',
         'marquee': 'marquee 40s linear infinite',
         'grid-drift': 'gridDrift 24s linear infinite',
       },
@@ -71,10 +75,6 @@ module.exports = {
         floatSlow: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-14px)' },
-        },
-        glowPulse: {
-          '0%, 100%': { opacity: '0.45', transform: 'scale(1)' },
-          '50%': { opacity: '0.85', transform: 'scale(1.06)' },
         },
         marquee: {
           '0%': { transform: 'translateX(0)' },

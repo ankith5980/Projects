@@ -124,7 +124,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
               sm:backdrop-blur-xl
               border-0 sm:border border-hairline
               rounded-2xl
-              shadow-[0_4px_30px_rgba(0,0,0,0.35)] sm:shadow-glow-xl
+              shadow-[0_4px_30px_rgba(0,0,0,0.35)] sm:shadow-soft-xl
               
               overflow-hidden flex flex-col
               text-fg
@@ -288,7 +288,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
                   onClick={(e) => { if (!project.liveUrl) e.preventDefault(); }}
                   className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 rounded-xl text-sm font-medium backdrop-blur-md transition-all duration-300 ${
                     project.liveUrl
-                      ? 'bg-accent/10 dark:bg-accent/20 text-accent border border-accent/20 hover:bg-accent/20 dark:hover:bg-accent/30 hover:border-accent/30 hover:shadow-glow active:scale-[0.98]'
+                      ? 'bg-accent/10 dark:bg-accent/20 text-accent border border-accent/20 hover:bg-accent/20 dark:hover:bg-accent/30 hover:border-accent/30 hover:shadow-soft active:scale-[0.98]'
                       : 'bg-surface-2 border border-hairline text-muted cursor-not-allowed'
                   }`}
                 >

@@ -209,13 +209,12 @@ const ChatWidget = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsOpen(true)}
-              className="relative flex h-14 w-14 items-center justify-center rounded-full text-white shadow-glow-lg transition-shadow duration-300"
+              className="relative flex h-14 w-14 items-center justify-center rounded-full text-white shadow-soft-lg transition-shadow duration-300"
               style={{
                 background: 'linear-gradient(140deg, rgb(var(--accent-soft)), rgb(var(--accent)))',
               }}
               aria-label="Open AI Chat"
             >
-              <span className="absolute inset-0 -z-10 rounded-full bg-accent/60 blur-xl" />
               <FaCommentDots className="h-6 w-6" />
             </motion.button>
           )}
@@ -355,7 +354,7 @@ const ChatWidget = () => {
                 <button
                   type="submit"
                   disabled={isLoading || !localInput || localInput.trim() === '' || isRateLimited}
-                  className="absolute right-2 rounded-full bg-accent p-2 text-white shadow-glow transition-all active:scale-95 disabled:opacity-40 disabled:shadow-none"
+                  className="absolute right-2 rounded-full bg-accent p-2 text-white shadow-soft transition-all active:scale-95 disabled:opacity-40 disabled:shadow-none"
                 >
                   <FaPaperPlane className="w-4 h-4 ml-0.5" />
                 </button>

@@ -125,15 +125,12 @@ const Navbar = () => {
         */}
         <nav
           className={`glass-violet flex items-center gap-1 rounded-full px-2.5 py-2 transition-shadow duration-300 sm:px-3 ${
-            scrolled ? 'shadow-glow-lg' : ''
+            scrolled ? 'shadow-soft-lg' : ''
           }`}
         >
           {/* Avatar */}
           <Link to="/" aria-label="Home" className="shrink-0 transition-transform duration-200 hover:scale-105">
-            <span
-              className="relative block h-9 w-9 shrink-0 overflow-hidden rounded-full ring-2 ring-accent/70"
-              style={{ boxShadow: '0 0 16px -2px rgb(var(--accent) / 0.6)' }}
-            >
+            <span className="relative block h-9 w-9 shrink-0 overflow-hidden rounded-full ring-2 ring-accent/70">
               <img
                 src="/images/Ankith.jpg"
                 alt="Ankith Pratheesh Menon"
@@ -163,7 +160,7 @@ const Navbar = () => {
                   <motion.div
                     layoutId="active-pill-slider"
                     className="absolute inset-0 rounded-full border border-accent/40 bg-accent/15"
-                    style={{ zIndex: 0, boxShadow: '0 0 20px -4px rgb(var(--accent) / 0.5)' }}
+                    style={{ zIndex: 0 }}
                     transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                   />
                 )}
@@ -228,7 +225,7 @@ const Navbar = () => {
               className="pointer-events-none absolute inset-0"
               style={{
                 background:
-                  'radial-gradient(ellipse 90% 55% at 80% 8%, rgb(var(--accent) / 0.28), transparent 70%)',
+                  'radial-gradient(ellipse 90% 55% at 80% 8%, rgb(var(--accent) / 0.14), transparent 70%)',
               }}
             />
             <div
@@ -315,7 +312,7 @@ const Navbar = () => {
                   href={GITHUB_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex w-full items-center justify-center gap-2 rounded-full bg-accent py-3.5 font-display text-sm font-semibold uppercase tracking-widest text-white shadow-glow"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-accent py-3.5 font-display text-sm font-semibold uppercase tracking-widest text-white shadow-soft"
                 >
                   <FaGithub className="h-4 w-4" />
                   <span>GitHub</span>

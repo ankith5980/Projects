@@ -127,7 +127,7 @@ const Preloader = ({ onComplete }) => {
         animate={{ opacity: finishing ? 0 : 1 }}
         transition={{ duration: 0.35, ease: 'easeOut' }}
       >
-        {/* Grid + glow, matching the page backdrop */}
+        {/* Grid + wash, matching the page backdrop */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
@@ -139,9 +139,9 @@ const Preloader = ({ onComplete }) => {
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px]"
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[140px]"
           style={{
-            background: 'radial-gradient(circle, rgb(var(--accent) / 0.28) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgb(var(--accent) / 0.14) 0%, transparent 70%)',
           }}
         />
 
@@ -190,10 +190,7 @@ const Preloader = ({ onComplete }) => {
               <span
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-x-0 h-px bg-accent"
-                style={{
-                  bottom: `${progress}%`,
-                  boxShadow: '0 0 14px 2px rgb(var(--accent) / 0.9)',
-                }}
+                style={{ bottom: `${progress}%` }}
               />
             )}
           </div>

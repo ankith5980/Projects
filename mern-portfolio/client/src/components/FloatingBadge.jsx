@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { usePrefersReducedMotion } from '../hooks/useMediaQuery';
 
 /**
- * The glowing violet disc from the reference (the "Hi" circle) and its
- * smaller siblings. Floats on a slow y-loop; transform-only.
+ * The violet disc from the reference (the "Hi" circle) and its smaller
+ * siblings. Floats on a slow y-loop; transform-only.
  */
 const FloatingBadge = ({
   children,
@@ -35,11 +35,6 @@ const FloatingBadge = ({
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay }}
         className="relative flex h-full w-full items-center justify-center rounded-full"
       >
-        {/* Glow */}
-        <span
-          className="absolute inset-0 rounded-full blur-xl"
-          style={{ background: 'rgb(var(--accent) / 0.55)' }}
-        />
         {/* Disc */}
         <span
           className={`relative flex h-full w-full items-center justify-center rounded-full font-display font-semibold ${
@@ -52,7 +47,7 @@ const FloatingBadge = ({
               ? {
                   background:
                     'linear-gradient(140deg, rgb(var(--accent-soft)), rgb(var(--accent)))',
-                  boxShadow: '0 8px 32px -6px rgb(var(--accent) / 0.7)',
+                  boxShadow: 'var(--shadow-2)',
                 }
               : { background: 'rgb(var(--accent) / 0.10)' }
           }
@@ -65,25 +60,19 @@ const FloatingBadge = ({
 };
 
 /** Small solid violet dot used as a decorative accent. */
-export const AccentDot = ({ size = 14, className = '', delay = 0 }) => {
-  const reduceMotion = usePrefersReducedMotion();
-  return (
-    <motion.span
-      aria-hidden="true"
-      initial={{ opacity: 0, scale: 0 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay }}
-      className={`pointer-events-none absolute rounded-full ${className} ${
-        reduceMotion ? '' : 'animate-glow-pulse'
-      }`}
-      style={{
-        width: size,
-        height: size,
-        background: 'rgb(var(--accent))',
-        boxShadow: '0 0 20px 4px rgb(var(--accent) / 0.6)',
-      }}
-    />
-  );
-};
+export const AccentDot = ({ size = 14, className = '', delay = 0 }) => (
+  <motion.span
+    aria-hidden="true"
+    initial={{ opacity: 0, scale: 0 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.5, delay }}
+    className={`pointer-events-none absolute rounded-full ${className}`}
+    style={{
+      width: size,
+      height: size,
+      background: 'rgb(var(--accent))',
+    }}
+  />
+);
 
 export default FloatingBadge;

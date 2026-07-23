@@ -5,6 +5,7 @@ import SEO from '../components/SEO';
 import DisplayType from '../components/DisplayType';
 import Reveal, { RevealGroup, RevealItem } from '../components/Reveal';
 import { AccentDot } from '../components/FloatingBadge';
+import TiltPortrait from '../components/TiltPortrait';
 import { generatePersonSchema, generateOrganizationSchema } from '../utils/personalSEO';
 import { getFullUrl } from '../utils/url';
 import { 
@@ -137,7 +138,9 @@ const techStack = [
   { name: 'MongoDB', icon: SiMongodb, color: 'text-green-600' },
   { name: 'PostgreSQL', icon: SiPostgresql, color: 'text-blue-700' },
   { name: 'Bootstrap', icon: SiBootstrap, color: 'text-purple-600' },
-  { name: 'Notion', icon: SiNotion, color: 'text-black' },
+  // Notion's mark is monochrome — track the foreground token so it stays
+  // black on the light theme and white on the dark one.
+  { name: 'Notion', icon: SiNotion, color: 'text-fg' },
   { name: 'Postman', icon: SiPostman, color: 'text-orange-500' },
   { name: 'JavaScript', icon: SiJavascript, color: 'text-yellow-500' },
   { name: 'Python', icon: SiPython, color: 'text-blue-600' },
@@ -271,37 +274,31 @@ const About = () => {
             The first column is sized to the portrait rather than a half-width
             track, so the copy starts right after the image instead of at the
             50% line — otherwise the leftover track reads as dead space.
+
+            The left inset buys room for the portrait's corner brackets, which
+            hang 12px outside the frame — and swing a little further out than
+            that while the frame is tilted. Without it they sat exactly on the
+            section's edge and the `overflow-hidden` above (there to contain the
+            giant ABOUT lettering) sheared the left pair off.
           */}
           <motion.div
             initial="hidden"
             animate="visible"
             variants={containerVariants}
-            className="relative z-10 grid items-center gap-10 lg:grid-cols-[auto_1fr] lg:gap-14"
+            className="relative z-10 grid items-center gap-10 lg:grid-cols-[auto_1fr] lg:gap-14 lg:pl-8"
           >
             {/* Profile Image */}
             <motion.div variants={itemVariants} className="flex justify-center lg:justify-start">
-              <div className="relative" style={{ width: 'clamp(230px, 58vw, 400px)' }}>
-                <div
-                  className="absolute -inset-6 -z-10 rounded-[3rem] blur-3xl"
-                  style={{ background: 'radial-gradient(circle at 50% 60%, rgb(var(--accent) / 0.35), transparent 70%)' }}
-                />
-
-                <div className="ring-gradient-violet aspect-[3/4] w-full overflow-hidden rounded-[2rem] shadow-glow-lg">
-                  <img
-                    src={aboutData.avatar?.url || '/images/Ankith.jpg'}
-                    alt={aboutData.fullName}
-                    className="h-full w-full object-cover object-center"
-                    loading="eager"
-                    decoding="async"
-                    fetchPriority="high"
-                    width="360"
-                    height="480"
-                  />
-                </div>
-
-                <span className="absolute -right-3 -top-3 z-20 h-6 w-6 border-r-2 border-t-2 border-accent/60" />
-                <span className="absolute -bottom-3 -right-3 z-20 h-6 w-6 border-b-2 border-r-2 border-accent/60" />
-              </div>
+              <TiltPortrait
+                src={aboutData.avatar?.url || '/images/Ankith.jpg'}
+                alt={aboutData.fullName}
+                width="360"
+                height="480"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+                style={{ width: 'clamp(230px, 58vw, 400px)' }}
+              />
             </motion.div>
 
             {/* Content */}
@@ -370,7 +367,7 @@ const About = () => {
               <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-glow"
+                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-soft"
                 >
                   <FaEnvelope className="h-4 w-4" />
                   <span>Get In Touch</span>
@@ -421,7 +418,7 @@ const About = () => {
           <Reveal className="relative z-10 mb-12 text-center">
             <span className="eyebrow">Toolkit</span>
             <h2 className="mt-3 font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">
-              <FaCode className="mr-3 inline-block text-accent" />
+              {/* <FaCode className="mr-3 inline-block text-accent" /> */}
               Technologies &amp; <span className="text-accent">Skills</span>
             </h2>
           </Reveal>
@@ -430,7 +427,7 @@ const About = () => {
             {techStack.map((tech) => (
               <RevealItem
                 key={tech.name}
-                className="glass-violet group rounded-2xl p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-glow sm:p-6"
+                className="glass-violet group rounded-2xl p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-soft sm:p-6"
               >
                 <tech.icon className={`mx-auto mb-3 h-10 w-10 sm:h-12 sm:w-12 ${tech.color} transition-transform duration-300 group-hover:scale-110`} />
                 <h3 className="font-display text-sm font-semibold text-fg sm:text-base">{tech.name}</h3>
@@ -444,7 +441,7 @@ const About = () => {
           <Reveal className="mb-12 text-center">
             <span className="eyebrow">Journey</span>
             <h2 className="mt-3 font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">
-              <FaBriefcase className="mr-3 inline-block text-accent" />
+              {/* <FaBriefcase className="mr-3 inline-block text-accent" /> */}
               Experience &amp; <span className="text-accent">Education</span>
             </h2>
           </Reveal>
@@ -458,10 +455,9 @@ const About = () => {
                 <RevealItem key={index} className="relative flex items-start gap-5">
                   {/* Node */}
                   <div
-                    className={`relative z-10 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm text-white ${
+                    className={`relative z-10 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm text-white shadow-soft ${
                       item.type === 'work' ? 'bg-accent' : 'bg-accent/60'
                     }`}
-                    style={{ boxShadow: '0 0 20px -2px rgb(var(--accent) / 0.7)' }}
                   >
                     {item.type === 'work' ? <FaBriefcase /> : <FaGraduationCap />}
                   </div>
@@ -488,7 +484,7 @@ const About = () => {
           <Reveal className="mb-12 text-center">
             <span className="eyebrow">Off the clock</span>
             <h2 className="mt-3 font-display text-3xl font-bold uppercase tracking-tight sm:text-4xl">
-              <FaHeart className="mr-3 inline-block text-red-500" />
+              {/* <FaHeart className="mr-3 inline-block text-red-500" /> */}
               Personal <span className="text-accent">Interests</span>
             </h2>
           </Reveal>
@@ -497,7 +493,7 @@ const About = () => {
             {interests.map((interest) => (
               <RevealItem
                 key={interest.name}
-                className="glass-violet group rounded-2xl p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-glow sm:p-6"
+                className="glass-violet group rounded-2xl p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-soft sm:p-6"
               >
                 <interest.icon className={`mx-auto mb-3 h-8 w-8 ${interest.color} transition-transform duration-300 group-hover:scale-125`} />
                 <h3 className="font-display text-sm font-semibold text-fg">{interest.name}</h3>
@@ -568,7 +564,7 @@ const About = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-all duration-200 hover:scale-110 hover:border-accent/60 hover:text-accent hover:shadow-glow"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-all duration-200 hover:scale-110 hover:border-accent/60 hover:text-accent hover:shadow-soft"
             >
               <Icon className="h-5 w-5" />
             </a>

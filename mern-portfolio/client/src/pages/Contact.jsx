@@ -411,7 +411,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex w-full items-center justify-center space-x-2 rounded-full bg-accent px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-glow disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 disabled:hover:shadow-none"
+                className="flex w-full items-center justify-center space-x-2 rounded-full bg-accent px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-soft disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 disabled:hover:shadow-none"
               >
                 {isSubmitting ? (
                   <>
@@ -444,7 +444,7 @@ const Contact = () => {
               {contactInfo.map((info, index) => {
                 const IconComponent = info.icon;
                 const content = (
-                  <div className="glass-violet flex items-center space-x-4 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-glow sm:p-6">
+                  <div className="glass-violet flex items-center space-x-4 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-soft sm:p-6">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-accent/30 bg-accent/15">
                       <IconComponent className="h-5 w-5 text-accent" />
                     </div>
@@ -485,7 +485,7 @@ const Contact = () => {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex h-12 w-12 items-center justify-center rounded-xl border border-hairline bg-surface-2 text-muted transition-all duration-200 hover:scale-110 hover:border-accent/60 hover:text-accent hover:shadow-glow"
+                      className="flex h-12 w-12 items-center justify-center rounded-xl border border-hairline bg-surface-2 text-muted transition-all duration-200 hover:scale-110 hover:border-accent/60 hover:text-accent hover:shadow-soft"
                       title={social.label}
                     >
                       <IconComponent className="h-5 w-5" />

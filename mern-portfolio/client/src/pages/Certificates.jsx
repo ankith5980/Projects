@@ -67,7 +67,7 @@ const CertificateCard = memo(({ cert, index, onClick }) => (
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-2xl border border-hairline transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:shadow-glow-lg"
+    className="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-2xl border border-hairline transition-all duration-300 hover:-translate-y-1.5 hover:border-accent/50 hover:shadow-soft-lg"
     onClick={onClick}
     itemScope
     itemType="https://schema.org/EducationalOccupationalCredential"
@@ -127,7 +127,7 @@ const CertificateCard = memo(({ cert, index, onClick }) => (
 
       {/* View Details button */}
       <div className="transition-transform delay-150 duration-300 md:translate-y-4 md:group-hover:translate-y-0">
-        <span className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-xs font-semibold text-white shadow-glow">
+        <span className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-xs font-semibold text-white shadow-soft">
           <FaExternalLinkAlt className="h-3 w-3" />
           View Details
         </span>

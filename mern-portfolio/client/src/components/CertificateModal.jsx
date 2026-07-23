@@ -111,7 +111,7 @@ const CertificateModal = React.memo(({ cert, isOpen, onClose }) => {
               sm:backdrop-blur-xl
               border-0 sm:border border-hairline
               rounded-2xl
-              shadow-[0_4px_30px_rgba(0,0,0,0.35)] sm:shadow-glow-xl
+              shadow-[0_4px_30px_rgba(0,0,0,0.35)] sm:shadow-soft-xl
               
               overflow-hidden flex flex-col
               text-fg

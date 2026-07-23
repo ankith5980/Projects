@@ -170,9 +170,6 @@ const CustomCursor = () => {
           backgroundColor: isHovering
             ? 'rgb(var(--accent) / 0.9)'
             : 'rgb(var(--accent) / 0)',
-          boxShadow: isHovering
-            ? '0 0 28px 4px rgb(var(--accent) / 0.55)'
-            : '0 0 14px 0px rgb(var(--accent) / 0.35)',
         }}
         transition={{
           scale: { type: 'spring', stiffness: 300, damping: 20 },

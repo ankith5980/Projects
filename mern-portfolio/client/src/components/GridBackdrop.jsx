@@ -1,9 +1,9 @@
 import React from 'react';
 
 /**
- * Fixed, non-interactive page backdrop: a faint technical grid plus two
- * blurred violet glows. Pure CSS — no canvas, no per-frame JS — so it costs
- * nothing on scroll.
+ * Fixed, non-interactive page backdrop: a faint technical grid plus two very
+ * soft violet washes — just enough atmosphere that long scrolls don't go flat.
+ * Pure CSS — no canvas, no per-frame JS — so it costs nothing on scroll.
  */
 const GridBackdrop = React.memo(() => (
   <div
@@ -24,21 +24,21 @@ const GridBackdrop = React.memo(() => (
       }}
     />
 
-    {/* Violet glow — top centre, behind the hero portrait */}
+    {/* Violet wash — top centre, behind the hero portrait */}
     <div
-      className="absolute left-1/2 top-[-14rem] h-[36rem] w-[36rem] -translate-x-1/2 rounded-full opacity-50 blur-[120px] sm:h-[46rem] sm:w-[46rem]"
+      className="absolute left-1/2 top-[-14rem] h-[36rem] w-[36rem] -translate-x-1/2 rounded-full opacity-40 blur-[140px] sm:h-[46rem] sm:w-[46rem]"
       style={{
         background:
-          'radial-gradient(circle, rgb(var(--accent) / 0.30) 0%, transparent 68%)',
+          'radial-gradient(circle, rgb(var(--accent) / 0.14) 0%, transparent 68%)',
       }}
     />
 
-    {/* Violet glow — lower left, keeps the long scroll from going flat */}
+    {/* Violet wash — lower left, keeps the long scroll from going flat */}
     <div
-      className="absolute bottom-[10%] left-[-12rem] h-[30rem] w-[30rem] rounded-full opacity-40 blur-[130px]"
+      className="absolute bottom-[10%] left-[-12rem] h-[30rem] w-[30rem] rounded-full opacity-30 blur-[140px]"
       style={{
         background:
-          'radial-gradient(circle, rgb(var(--accent-soft) / 0.22) 0%, transparent 70%)',
+          'radial-gradient(circle, rgb(var(--accent-soft) / 0.12) 0%, transparent 70%)',
       }}
     />
 

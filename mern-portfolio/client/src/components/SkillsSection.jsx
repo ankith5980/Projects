@@ -26,7 +26,7 @@ const SkillsSection = React.memo(({ skills }) => {
           {Object.entries(skills).slice(0, 4).map(([category, categorySkills]) => (
             <RevealItem
               key={category}
-              className="glass-violet group rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-glow"
+              className="glass-violet group rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-soft"
             >
               <h3 className="mb-4 font-display text-lg font-semibold capitalize text-accent">
                 {category}
