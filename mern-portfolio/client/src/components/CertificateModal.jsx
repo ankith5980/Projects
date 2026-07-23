@@ -152,7 +152,7 @@ const CertificateModal = React.memo(({ cert, isOpen, onClose }) => {
               {/* Close button */}
               <button
                 onClick={onClose}
-                className="absolute top-2 right-2 sm:top-3 sm:right-3 p-2 rounded-full bg-black/30 sm:bg-white/20 sm:dark:bg-black/30 backdrop-blur-sm border border-white/20 dark:border-white/10 text-white hover:bg-black/50 sm:hover:bg-white/40 sm:dark:hover:bg-black/50 transition-colors duration-200"
+                className="btn-fill btn-fill-accent absolute top-2 right-2 sm:top-3 sm:right-3 p-2 rounded-full bg-black/30 sm:bg-white/20 sm:dark:bg-black/30 backdrop-blur-sm border border-white/20 dark:border-white/10 text-white transition-colors duration-200"
                 aria-label="Close modal"
               >
                 <FaTimes className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
@@ -210,7 +210,7 @@ const CertificateModal = React.memo(({ cert, isOpen, onClose }) => {
                 {cert.image && (
                   <button
                     onClick={() => setShowOriginal(!showOriginal)}
-                    className="flex items-center justify-center gap-2 p-2 sm:p-2.5 rounded-xl bg-accent/15 hover:bg-accent/25 text-accent transition-colors duration-200 font-medium text-[11px] sm:text-sm border border-accent/30"
+                    className="btn-fill btn-fill-accent flex items-center justify-center gap-2 p-2 sm:p-2.5 rounded-xl bg-accent/15 text-accent hover:text-white transition-colors duration-200 font-medium text-[11px] sm:text-sm border border-accent/30"
                   >
                     <FaExternalLinkAlt className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                     {showOriginal ? 'Hide Certificate' : 'View Certificate'}
@@ -291,7 +291,7 @@ const CertificateModal = React.memo(({ cert, isOpen, onClose }) => {
               
               <button
                 onClick={() => setShowOriginal(false)}
-                className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 sm:p-2.5 rounded-full bg-black/50 text-white hover:bg-black/80 transition-colors backdrop-blur-sm border border-white/10"
+                className="btn-fill btn-fill-accent absolute top-3 right-3 sm:top-4 sm:right-4 p-2 sm:p-2.5 rounded-full bg-black/50 text-white transition-colors backdrop-blur-sm border border-white/10"
                 aria-label="Close original image"
               >
                 <FaTimes className="w-3 h-3 sm:w-4 sm:h-4" />

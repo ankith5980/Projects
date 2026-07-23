@@ -326,6 +326,61 @@ html, body, * {
     @apply font-display text-[11px] sm:text-xs font-medium tracking-[0.25em] uppercase text-muted;
   }
 
+  /*
+    Button hover fill.
+    Buttons used to pop toward the viewer on hover (scale / z-lift). That
+    reads as a physical raise, which fights the flat glass language of the
+    rest of the page — so the feedback is now a colour disc that grows from
+    the centre of the button instead. The disc is a pseudo-element behind the
+    label (z-index -1 inside the button's own stacking context), clipped by
+    the button's radius.
+  */
+  .btn-fill {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .btn-fill::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: -1;
+    width: 150%;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 9999px;
+    transform: scale(0);
+    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .btn-fill:hover::before,
+  .btn-fill:focus-visible::before {
+    transform: scale(1);
+  }
+
+  /* A disabled control should stay inert. */
+  .btn-fill:disabled:hover::before {
+    transform: scale(0);
+  }
+
+  /* Outline / ghost / neutral buttons — fill with the accent. */
+  .btn-fill-accent::before {
+    background-color: rgb(var(--accent));
+  }
+
+  /* Already-solid accent buttons — fill with the lighter violet. */
+  .btn-fill-soft::before {
+    background-color: rgb(var(--accent-soft));
+  }
+
+  /* Buttons sitting on the accent panel — fill with white. */
+  .btn-fill-white::before {
+    background-color: #ffffff;
+  }
+
   .mask-fade-x {
     -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
     mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);

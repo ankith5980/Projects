@@ -411,7 +411,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex w-full items-center justify-center space-x-2 rounded-full bg-accent px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:shadow-soft disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100 disabled:hover:shadow-none"
+                className="btn-fill btn-fill-soft flex w-full items-center justify-center space-x-2 rounded-full bg-accent px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:shadow-soft disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:shadow-none"
               >
                 {isSubmitting ? (
                   <>
@@ -485,7 +485,7 @@ const Contact = () => {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex h-12 w-12 items-center justify-center rounded-xl border border-hairline bg-surface-2 text-muted transition-all duration-200 hover:scale-110 hover:border-accent/60 hover:text-accent hover:shadow-soft"
+                      className="btn-fill btn-fill-accent flex h-12 w-12 items-center justify-center rounded-xl border border-hairline bg-surface-2 text-muted transition-all duration-200 hover:border-accent/60 hover:text-white hover:shadow-soft"
                       title={social.label}
                     >
                       <IconComponent className="h-5 w-5" />

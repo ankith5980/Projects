@@ -166,7 +166,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
               {/* Close button */}
               <button
                 onClick={onClose}
-                className="absolute top-2 right-2 sm:top-3 sm:right-3 p-2 rounded-full bg-black/30 sm:bg-white/20 sm:dark:bg-black/30 backdrop-blur-sm border border-white/20 dark:border-white/10 text-white hover:bg-black/50 sm:hover:bg-white/40 sm:dark:hover:bg-black/50 transition-colors duration-200"
+                className="btn-fill btn-fill-accent absolute top-2 right-2 sm:top-3 sm:right-3 p-2 rounded-full bg-black/30 sm:bg-white/20 sm:dark:bg-black/30 backdrop-blur-sm border border-white/20 dark:border-white/10 text-white transition-colors duration-200"
                 aria-label="Close modal"
               >
                 <FaTimes className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
@@ -288,7 +288,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
                   onClick={(e) => { if (!project.liveUrl) e.preventDefault(); }}
                   className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 rounded-xl text-sm font-medium backdrop-blur-md transition-all duration-300 ${
                     project.liveUrl
-                      ? 'bg-accent/10 dark:bg-accent/20 text-accent border border-accent/20 hover:bg-accent/20 dark:hover:bg-accent/30 hover:border-accent/30 hover:shadow-soft active:scale-[0.98]'
+                      ? 'btn-fill btn-fill-accent bg-accent/10 dark:bg-accent/20 text-accent border border-accent/20 hover:text-white hover:border-accent/30 hover:shadow-soft active:scale-[0.98]'
                       : 'bg-surface-2 border border-hairline text-muted cursor-not-allowed'
                   }`}
                 >
@@ -304,7 +304,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
                   onClick={(e) => { if (!project.githubUrl) e.preventDefault(); }}
                   className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 rounded-xl text-sm font-medium backdrop-blur-md transition-all duration-300 ${
                     project.githubUrl
-                      ? 'bg-surface-2 text-muted border border-hairline shadow-sm hover:bg-surface hover:border-accent/40 active:scale-[0.98]'
+                      ? 'btn-fill btn-fill-accent bg-surface-2 text-muted border border-hairline shadow-sm hover:text-white hover:border-accent/40 active:scale-[0.98]'
                       : 'bg-surface-2 border border-hairline text-muted cursor-not-allowed'
                   }`}
                 >

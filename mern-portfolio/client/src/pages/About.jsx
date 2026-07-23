@@ -367,7 +367,7 @@ const About = () => {
               <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:shadow-soft"
+                  className="btn-fill btn-fill-soft inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:shadow-soft"
                 >
                   <FaEnvelope className="h-4 w-4" />
                   <span>Get In Touch</span>
@@ -375,7 +375,7 @@ const About = () => {
                 <a
                   href="/cv/My_Resume.pdf"
                   download="Ankith_Pratheesh_Menon_CV.pdf"
-                  className="inline-flex items-center gap-2 rounded-full border border-accent/50 px-6 py-3 text-sm font-semibold text-accent transition-all duration-200 hover:scale-105 hover:bg-accent/10"
+                  className="btn-fill btn-fill-accent inline-flex items-center gap-2 rounded-full border border-accent/50 px-6 py-3 text-sm font-semibold text-accent transition-all duration-200 hover:text-white"
                 >
                   <FaDownload className="h-4 w-4" />
                   <span>Download CV</span>
@@ -534,14 +534,14 @@ const About = () => {
               <div className="flex flex-wrap justify-center gap-3">
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-[#0A0A0A] transition-transform duration-200 hover:scale-105"
+                  className="btn-fill btn-fill-accent inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-[#0A0A0A] transition-colors duration-200 hover:text-white"
                 >
                   <FaEnvelope className="h-4 w-4" />
                   <span>Start a Conversation</span>
                 </Link>
                 <Link
                   to="/projects"
-                  className="inline-flex items-center gap-2 rounded-full border-2 border-white/60 px-7 py-3 text-sm font-semibold text-white transition-all duration-200 hover:scale-105 hover:bg-white/15"
+                  className="btn-fill btn-fill-white inline-flex items-center gap-2 rounded-full border-2 border-white/60 px-7 py-3 text-sm font-semibold text-white transition-all duration-200 hover:border-white hover:text-[#0A0A0A]"
                 >
                   <FaRocket className="h-4 w-4" />
                   <span>View My Work</span>
@@ -564,7 +564,7 @@ const About = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
-              className="flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-all duration-200 hover:scale-110 hover:border-accent/60 hover:text-accent hover:shadow-soft"
+              className="btn-fill btn-fill-accent flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-all duration-200 hover:border-accent/60 hover:text-white hover:shadow-soft"
             >
               <Icon className="h-5 w-5" />
             </a>

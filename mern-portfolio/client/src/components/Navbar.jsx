@@ -31,7 +31,7 @@ const ThemeToggle = ({ isDark, toggleTheme, className = '' }) => (
   <button
     onClick={toggleTheme}
     aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
-    className={`relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-colors duration-300 hover:border-accent/60 hover:text-accent ${className}`}
+    className={`btn-fill btn-fill-accent relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-colors duration-300 hover:border-accent/60 hover:text-white ${className}`}
   >
     <AnimatePresence mode="wait" initial={false}>
       <motion.span
@@ -183,7 +183,7 @@ const Navbar = () => {
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white transition-transform duration-200 hover:scale-105 md:flex"
+            className="btn-fill btn-fill-soft hidden items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white md:flex"
           >
             <FaGithub className="h-4 w-4" />
             <span className="hidden lg:inline">GitHub</span>
@@ -196,7 +196,7 @@ const Navbar = () => {
             onClick={() => setIsOpen((v) => !v)}
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline bg-surface text-fg transition-colors hover:border-accent/60 hover:text-accent md:hidden"
+            className="btn-fill btn-fill-accent flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline bg-surface text-fg transition-colors hover:border-accent/60 hover:text-white md:hidden"
           >
             <MenuIcon open={isOpen} />
           </button>
@@ -312,7 +312,7 @@ const Navbar = () => {
                   href={GITHUB_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex w-full items-center justify-center gap-2 rounded-full bg-accent py-3.5 font-display text-sm font-semibold uppercase tracking-widest text-white shadow-soft"
+                  className="btn-fill btn-fill-soft flex w-full items-center justify-center gap-2 rounded-full bg-accent py-3.5 font-display text-sm font-semibold uppercase tracking-widest text-white shadow-soft"
                 >
                   <FaGithub className="h-4 w-4" />
                   <span>GitHub</span>
@@ -327,7 +327,7 @@ const Navbar = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={label}
-                        className="flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-colors hover:border-accent/60 hover:text-accent"
+                        className="btn-fill btn-fill-accent flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-colors hover:border-accent/60 hover:text-white"
                       >
                         <Icon className="h-4 w-4" />
                       </a>

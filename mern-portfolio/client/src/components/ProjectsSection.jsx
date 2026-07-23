@@ -84,7 +84,7 @@ const ProjectsSection = React.memo(({ featuredProjects }) => {
         <Reveal delay={0.2} className="mt-12 text-center">
           <Link
             to="/projects"
-            className="inline-flex items-center gap-2 rounded-full border border-accent/50 px-6 py-3 text-sm font-semibold text-accent transition-all duration-200 hover:scale-105 hover:bg-accent/10"
+            className="btn-fill btn-fill-accent inline-flex items-center gap-2 rounded-full border border-accent/50 px-6 py-3 text-sm font-semibold text-accent transition-all duration-200 hover:text-white"
           >
             <span>View All Projects</span>
             <FaArrowRight className="h-3.5 w-3.5" />

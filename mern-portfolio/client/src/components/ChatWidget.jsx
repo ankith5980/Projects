@@ -206,10 +206,9 @@ const ChatWidget = () => {
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0, opacity: 0 }}
-              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsOpen(true)}
-              className="relative flex h-14 w-14 items-center justify-center rounded-full text-white shadow-soft-lg transition-shadow duration-300"
+              className="btn-fill btn-fill-soft flex h-14 w-14 items-center justify-center rounded-full text-white shadow-soft-lg transition-shadow duration-300"
               style={{
                 background: 'linear-gradient(140deg, rgb(var(--accent-soft)), rgb(var(--accent)))',
               }}
@@ -247,7 +246,7 @@ const ChatWidget = () => {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-2 text-muted hover:text-accent rounded-full transition-colors"
+                className="btn-fill btn-fill-accent p-2 text-muted hover:text-white rounded-full transition-colors"
               >
                 <FaTimes className="w-5 h-5" />
               </button>
@@ -354,7 +353,7 @@ const ChatWidget = () => {
                 <button
                   type="submit"
                   disabled={isLoading || !localInput || localInput.trim() === '' || isRateLimited}
-                  className="absolute right-2 rounded-full bg-accent p-2 text-white shadow-soft transition-all active:scale-95 disabled:opacity-40 disabled:shadow-none"
+                  className="btn-fill btn-fill-soft absolute right-2 rounded-full bg-accent p-2 text-white shadow-soft transition-all active:scale-95 disabled:opacity-40 disabled:shadow-none"
                 >
                   <FaPaperPlane className="w-4 h-4 ml-0.5" />
                 </button>
