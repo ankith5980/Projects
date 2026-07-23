@@ -24,6 +24,13 @@
   --grid-line: rgba(10, 10, 10, 0.045);
   --glass-highlight: rgba(255, 255, 255, 0.85);
 
+  /* Portrait grading. The source headshot sits on a white studio plate, which
+     needs no help on a near-white page — so the tint is a no-op here and the
+     grade is barely more than a nudge. */
+  --portrait-tint: transparent;
+  --portrait-grade: contrast(1.02) saturate(1.04);
+  --portrait-halo: 0.45;
+
   /* Elevation. Two-part casts (contact shadow + ambient) so raised surfaces
      read as physically lifted rather than lit from within. */
   --shadow-1: 0 1px 2px rgba(16, 16, 20, 0.06), 0 6px 16px -8px rgba(16, 16, 20, 0.16);
@@ -47,6 +54,18 @@
   --outline-text: rgba(255, 255, 255, 0.09);
   --grid-line: rgba(255, 255, 255, 0.028);
   --glass-highlight: rgba(255, 255, 255, 0.10);
+
+  /* On the dark page that same white plate is the brightest object on screen.
+     The tint pulls its edges toward the accent so it recedes into the violet
+     wash instead of reading as a slab pasted over it.
+
+     Deliberately a *deep* violet rather than `--accent` itself: the scrim
+     multiplies, and white is the identity for multiply — the mid-tone accent
+     would leave the corners a pale lavender, still the brightest thing on the
+     page. This lands them near `--bg` while holding the accent's hue. */
+  --portrait-tint: rgba(30, 20, 56, 0.9);
+  --portrait-grade: contrast(1.06) saturate(1.08) brightness(0.97);
+  --portrait-halo: 0.7;
 
   /* Dark surfaces need a deeper, more diffuse cast to register at all. */
   --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.40), 0 8px 20px -10px rgba(0, 0, 0, 0.55);
@@ -312,6 +331,63 @@ html, body, * {
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
+  }
+
+  /* ---- Portrait integration -------------------------------------------
+     The headshot was shot on a white studio plate. Left alone it is the
+     brightest, flattest thing on a deliberately dark page. These three layers
+     grade it into the backdrop: a gentle filter, an edge tint that leaves the
+     face alone, and a floor that dissolves the bottom edge into the page.
+     All three are token-driven, so the light theme neutralises itself. */
+
+  .portrait-grade {
+    filter: var(--portrait-grade);
+  }
+
+  /*
+    The transparent centre is the whole point — a flat tint over the frame
+    would drag the skin tones violet. Only the corners, which are pure plate,
+    take the full colour.
+  */
+  .portrait-scrim {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 62% 52% at 50% 38%,
+      transparent 0%,
+      var(--portrait-tint) 100%
+    );
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+
+  .portrait-floor {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 38%;
+    background: linear-gradient(
+      to top,
+      rgb(var(--bg)) 0%,
+      rgb(var(--bg) / 0.75) 35%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+
+  /*
+    A patch of the page's own technical grid, used as a plinth behind the
+    portrait frame. Half the backdrop's 64px cell so it still reads at this
+    size, and drawn in the accent rather than `--grid-line` — that token sits
+    at 0.028 alpha and vanishes over an area this small.
+  */
+  .grid-patch {
+    background-image:
+      linear-gradient(to right, rgb(var(--accent) / 0.14) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--accent) / 0.14) 1px, transparent 1px);
+    background-size: 32px 32px;
+    -webkit-mask-image: linear-gradient(to top left, #000, transparent 70%);
+    mask-image: linear-gradient(to top left, #000, transparent 70%);
   }
 
   .text-accent-gradient {

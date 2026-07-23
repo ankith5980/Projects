@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { motion, useSpring } from 'framer-motion';
+import { motion, useSpring, useTransform } from 'framer-motion';
 import useMediaQuery, { usePrefersReducedMotion } from '../hooks/useMediaQuery';
 
 /**
@@ -16,6 +16,13 @@ import useMediaQuery, { usePrefersReducedMotion } from '../hooks/useMediaQuery';
  * from the image as it turns.
  *
  * Reduced-motion users get the flat frame with no listeners attached at all.
+ *
+ * The frame is also graded into the page rather than floating over it: a
+ * violet halo echoing the backdrop's wash, a patch of the backdrop's own grid
+ * as a plinth, and scrims inside the frame that tint the photo's white studio
+ * plate and dissolve its bottom edge. See the `.portrait-*` and `.grid-patch`
+ * utilities in index.css — all token-driven, so both themes fall out of one
+ * set of classes.
  */
 const MAX_TILT = 9;        // degrees, each axis
 const GYRO_GAIN = 0.55;    // device degrees → tilt degrees
@@ -42,6 +49,11 @@ const TiltPortrait = ({
 
   const rotateX = useSpring(0, SPRING);
   const rotateY = useSpring(0, SPRING);
+
+  // Specular sheen. Rides the existing rotateY spring — no extra state, no
+  // per-frame JS of its own — and sweeps against the turn, the way a highlight
+  // tracks across glass held under a fixed light.
+  const sheenX = useTransform(rotateY, [-MAX_TILT, MAX_TILT], ['140%', '-40%']);
 
   const frameRef = useRef(null);
   // First gyro reading becomes the neutral pose, so the frame sits flat at
@@ -154,11 +166,44 @@ const TiltPortrait = ({
           willChange: tiltEnabled ? 'transform' : undefined,
         }}
       >
-        <div className="ring-gradient-violet aspect-[3/4] w-full overflow-hidden rounded-[2rem] shadow-soft-lg">
+        {/*
+          Ambient halo — the same recipe as the backdrop's top violet wash
+          (GridBackdrop), so the portrait reads as sitting *in* that light
+          rather than in front of it. Pushed well behind the frame in Z so the
+          tilt parallaxes it.
+        */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -inset-8 rounded-[3rem] blur-[60px]"
+          style={{
+            opacity: 'var(--portrait-halo)',
+            background:
+              'radial-gradient(ellipse at 50% 30%, rgb(var(--accent) / 0.30) 0%, rgb(var(--accent-soft) / 0.14) 45%, transparent 72%)',
+            transform: 'translateZ(-60px)',
+          }}
+        />
+
+        {/*
+          Grid plinth. Offset down-and-right only — the left edge is the tight
+          one, since About's hero clips at the section bounds and already
+          spends its padding budget on the corner brackets.
+        */}
+        <span
+          aria-hidden="true"
+          className="grid-patch pointer-events-none absolute -bottom-5 -right-5 h-2/3 w-2/3 rounded-[2rem]"
+          style={{ transform: 'translateZ(-30px)' }}
+        />
+
+        {/* `isolation` is load-bearing: it keeps the scrims' blend modes
+            composited against the photo and never against the page. */}
+        <div
+          className="ring-gradient-violet relative aspect-[3/4] w-full overflow-hidden rounded-[2rem] shadow-soft-lg"
+          style={{ isolation: 'isolate' }}
+        >
           <img
             src={src}
             alt={alt}
-            className={imgClassName}
+            className={`portrait-grade ${imgClassName}`}
             width={width}
             height={height}
             draggable="false"
@@ -173,6 +218,23 @@ const TiltPortrait = ({
           <div className="hidden h-full w-full items-center justify-center bg-elev text-6xl text-muted">
             👤
           </div>
+
+          <span aria-hidden="true" className="portrait-scrim" />
+          <span aria-hidden="true" className="portrait-floor" />
+
+          {tiltEnabled && (
+            <motion.span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0"
+              style={{
+                backgroundImage:
+                  'linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.16) 50%, transparent 65%)',
+                backgroundSize: '220% 100%',
+                backgroundPositionX: sheenX,
+                mixBlendMode: 'overlay',
+              }}
+            />
+          )}
         </div>
 
         {/* Corner brackets — all four, lifted off the image plane so they
