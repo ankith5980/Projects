@@ -166,7 +166,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
               {/* Close button */}
               <button
                 onClick={onClose}
-                className="btn-fill btn-fill-accent !absolute top-3 right-3 sm:top-4 sm:right-4 z-20 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-black/40 sm:bg-white/20 sm:dark:bg-black/40 backdrop-blur-sm border border-white/20 dark:border-white/10 text-white shadow-sm transition-colors duration-200"
+                className="btn-fill btn-fill-accent absolute top-3 right-3 sm:top-4 sm:right-4 z-20 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-black/40 sm:bg-white/20 sm:dark:bg-black/40 backdrop-blur-sm border border-white/20 dark:border-white/10 text-white shadow-sm transition-colors duration-200"
                 aria-label="Close modal"
               >
                 <FaTimes className="w-3.5 h-3.5 sm:w-4 sm:h-4" />

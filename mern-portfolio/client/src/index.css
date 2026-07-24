@@ -441,15 +441,32 @@ html, body, * {
     @apply font-display text-[11px] sm:text-xs font-medium tracking-[0.25em] uppercase text-muted;
   }
 
-  /*
-    Button hover fill.
-    Buttons used to pop toward the viewer on hover (scale / z-lift). That
-    reads as a physical raise, which fights the flat glass language of the
-    rest of the page — so the feedback is now a colour disc that grows from
-    the centre of the button instead. The disc is a pseudo-element behind the
-    label (z-index -1 inside the button's own stacking context), clipped by
-    the button's radius.
-  */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/*
+  Button hover fill — lives in the components layer (NOT utilities) on purpose.
+  `.btn-fill` sets `position: relative` so its hover disc can be anchored to the
+  button. Kept in @layer utilities it tied with — and, being emitted later, beat
+  — Tailwind's own `fixed`/`absolute`/`relative` utilities, which silently broke
+  any button that combined `btn-fill` with a positioning utility (close buttons,
+  the scroll-to-top FAB). In @layer components those utilities always win, while
+  `position: relative` still applies whenever btn-fill is used on its own.
+
+  Buttons used to pop toward the viewer on hover (scale / z-lift). That reads as
+  a physical raise, which fights the flat glass language of the rest of the page
+  — so the feedback is now a colour disc that grows from the centre of the
+  button instead. The disc is a pseudo-element behind the label (z-index -1
+  inside the button's own stacking context), clipped by the button's radius.
+*/
+@layer components {
   .btn-fill {
     position: relative;
     isolation: isolate;
@@ -494,15 +511,6 @@ html, body, * {
   /* Buttons sitting on the accent panel — fill with white. */
   .btn-fill-white::before {
     background-color: #ffffff;
-  }
-
-  .mask-fade-x {
-    -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
-  }
-
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
   }
 }
 
