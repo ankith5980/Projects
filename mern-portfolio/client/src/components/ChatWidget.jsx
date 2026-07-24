@@ -340,20 +340,20 @@ const ChatWidget = () => {
               )}
               <form
                 onSubmit={handleFormSubmit}
-                className="relative flex items-center"
+                className="flex items-center gap-2"
               >
                 <input
                   type="text"
                   value={localInput}
                   onChange={(e) => setLocalInput(e.target.value.slice(0, MAX_MESSAGE_LENGTH))}
                   placeholder={isRateLimited ? "Rate limited — please wait..." : "Ask about Ankith's projects, skills..."}
-                  className="w-full rounded-full border border-hairline bg-surface py-3 pl-4 pr-12 text-sm text-fg transition-all placeholder:text-muted focus:border-accent/60 focus:outline-none focus:ring-2 focus:ring-accent/30"
+                  className="min-w-0 flex-1 rounded-full border border-hairline bg-surface py-3 px-4 text-sm text-fg transition-all placeholder:text-muted focus:border-accent/60 focus:outline-none focus:ring-2 focus:ring-accent/30"
                   disabled={isLoading || isRateLimited}
                 />
                 <button
                   type="submit"
                   disabled={isLoading || !localInput || localInput.trim() === '' || isRateLimited}
-                  className="btn-fill btn-fill-soft absolute right-2 rounded-full bg-accent p-2 text-white shadow-soft transition-all active:scale-95 disabled:opacity-40 disabled:shadow-none"
+                  className="btn-fill btn-fill-soft flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent text-white shadow-soft transition-all active:scale-95 disabled:opacity-40 disabled:shadow-none"
                 >
                   <FaPaperPlane className="w-4 h-4 ml-0.5" />
                 </button>
