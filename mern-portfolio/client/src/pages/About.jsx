@@ -5,8 +5,7 @@ import SEO from '../components/SEO';
 import DisplayType from '../components/DisplayType';
 import Reveal, { RevealGroup, RevealItem } from '../components/Reveal';
 import { AccentDot } from '../components/FloatingBadge';
-import TiltPortrait from '../components/TiltPortrait';
-import { generatePersonSchema, generateOrganizationSchema } from '../utils/personalSEO';
+import { generatePersonSchema } from '../utils/personalSEO';
 import { getFullUrl } from '../utils/url';
 import { 
   FaCode, 
@@ -255,14 +254,15 @@ const About = () => {
     <div className="min-h-screen section-padding pt-28 sm:pt-32">
       <SEO 
         title="About Ankith Pratheesh Menon - Professional Background & Skills"
-        description="Learn more about Ankith Pratheesh Menon - Professional Full Stack Developer from Kerala, India with expertise in React, Node.js, Flutter, Next.js, and modern web technologies. Discover my educational background at St. Joseph's College (Autonomous), Devagiri, professional experience, and passion for creating innovative software solutions."
-        keywords="about Ankith Pratheesh Menon, Ankith biography, full-stack developer background, React developer Kerala, Node.js expert India, software engineer profile, web development experience, St. Joseph's College Devagiri graduate, computer science engineer, Next.js developer"
+        description="Learn about Ankith Pratheesh Menon - Full Stack Developer and AI Specialist from Kerala, India with expertise in React, Next.js, Node.js, Python, and scalable distributed architectures. Educational background at St. Joseph's College (Autonomous), Devagiri and campus placement at Accenture."
+        keywords="about Ankith Pratheesh Menon, Ankith biography, full-stack developer background, React developer Kerala, Node.js expert India, software engineer profile, web development experience, St. Joseph's College Devagiri graduate, Accenture placement, Next.js developer, AI engineer"
         url="/about"
+        breadcrumbName="About"
         schemaData={{
           "@context": "https://schema.org",
-          "@type": "AboutPage",
+          "@type": "ProfilePage",
           "name": "About Ankith Pratheesh Menon",
-          "description": "Professional background and skills of Ankith Pratheesh Menon - Full Stack Developer",
+          "description": "Professional background, skills, and career milestones of Ankith Pratheesh Menon - Full Stack Developer",
           "url": getFullUrl("/about"),
           "mainEntity": generatePersonSchema()
         }}

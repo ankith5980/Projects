@@ -14,6 +14,7 @@ import SEO from '../components/SEO';
 import ProjectModal from '../components/ProjectModal';
 import DisplayType from '../components/DisplayType';
 import { getFullUrl } from '../utils/url';
+import { generateProjectsSchema } from '../utils/personalSEO';
 
 // Memoized Project Card Component — image-only with an overlay that is always
 // visible on touch and hover-revealed from `md` up.
@@ -233,23 +234,12 @@ const Projects = () => {
   return (
     <div className="min-h-screen section-padding pt-40 md:pt-44 lg:pt-48">
       <SEO 
-        title="Projects"
-        description="Explore Ankith's portfolio of web applications, mobile apps, and software projects. Full-stack development projects built with React, Node.js, Next.js, Supabase, Python, and modern technologies."
-        keywords="projects, portfolio, web applications, mobile apps, React projects, Node.js projects, Next.js projects, Supabase, TypeScript, full-stack development, software projects"
+        title="Projects - Software Engineering & AI Systems Portfolio"
+        description="Explore Ankith Pratheesh Menon's portfolio of full-stack web applications, real-time systems, and AI multi-agent architectures built with React, Next.js, Python, FastAPI, Docker, and LangGraph."
+        keywords="Ankith Pratheesh Menon projects, software engineering portfolio, React projects, Next.js projects, Python AI projects, LangGraph, FastAPI, real-time WebSockets, full-stack developer portfolio"
         url="/projects"
-        schemaData={{
-          "@context": "https://schema.org",
-          "@type": "CollectionPage",
-          "name": "Projects - Ankith's Portfolio",
-          "description": "Collection of web applications, mobile apps, and software projects by Ankith",
-          "url": getFullUrl("/projects"),
-          "mainEntity": {
-            "@type": "ItemList",
-            "name": "Projects",
-            "description": "Portfolio projects by Ankith",
-            "numberOfItems": filteredProjects.length
-          }
-        }}
+        breadcrumbName="Projects"
+        schemaData={generateProjectsSchema(projectsData)}
       />
       <div className="relative container mx-auto container-padding">
         {/* Giant watermark */}

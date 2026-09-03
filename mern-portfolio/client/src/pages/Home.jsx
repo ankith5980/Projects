@@ -229,9 +229,10 @@ const Home = () => {
     <div className="min-h-screen">
       <SEO
         title="Ankith Pratheesh Menon - Full Stack Developer Portfolio"
-        description="Welcome to Ankith Pratheesh Menon's portfolio - Professional Full Stack Developer from Kerala, India specializing in React, Node.js, Flutter, Next.js, and modern web technologies. Explore my projects, skills, and experience in software development."
-        keywords="Ankith Pratheesh Menon, Ankith, full-stack developer, React developer, Node.js, JavaScript, Flutter developer, Next.js, Supabase, TypeScript, portfolio, web development, software engineer, Kerala, India, MERN stack"
+        description="Welcome to Ankith Pratheesh Menon's portfolio - Professional Full Stack Developer and AI Specialist from Kerala, India specializing in React, Next.js, Node.js, Python, Flutter, and modern web architectures. Explore projects, skills, and experience."
+        keywords="Ankith Pratheesh Menon, Ankith, full-stack developer, React developer, Node.js, JavaScript, Flutter developer, Next.js, FastAPI, LangGraph, TypeScript, portfolio, web development, software engineer, Kerala, India, MERN stack, Accenture"
         url="/"
+        includeFAQ={true}
         schemaData={generatePersonSchema()}
       />
 

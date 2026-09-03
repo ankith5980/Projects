@@ -1,31 +1,34 @@
-// Enhanced SEO utilities for personal branding and Google Knowledge Graph
+// Enhanced SEO, GEO, and AEO utilities for Google Knowledge Graph and AI Answer Engines
 import { getBaseUrl, getFullUrl, getFullImageUrl } from './url';
 
-// Site metadata configuration for consistent SEO
+// Site metadata configuration for consistent SEO across search & generative engines
 export const siteMetadata = {
   siteName: 'Ankith Pratheesh Menon - Full Stack Developer Portfolio',
-  siteUrl: 'https://portfolio-ankith.vercel.app', // Update with your actual domain
+  siteUrl: 'https://portfolio-ankith.vercel.app',
   author: 'Ankith Pratheesh Menon',
-  description: 'Portfolio of Ankith Pratheesh Menon - Full Stack Developer specializing in React, Node.js, MongoDB, and modern web technologies. Explore projects, skills, and professional experience.',
+  description: 'Official portfolio of Ankith Pratheesh Menon - Full Stack Developer and AI Specialist from Kerala, India specializing in React, Next.js, Node.js, Python, Flutter, and modern web & AI technologies.',
   keywords: [
     'Ankith Pratheesh Menon',
     'Ankith Menon',
     'Ankith Pratheesh',
     'Ankith',
     'Full Stack Developer',
+    'AI Engineer Kerala',
     'React Developer',
+    'Next.js Developer',
     'Node.js Developer',
+    'Python Developer',
     'Web Developer Kozhikode',
     'JavaScript Developer',
     'MERN Stack Developer',
     'Software Engineer Kerala',
+    'Accenture Placement',
     'Portfolio Ankith',
     'Ankith Developer Kerala',
     'Frontend Developer India',
     'Backend Developer India',
-    'Ankith Pratheesh Menon Portfolio',
-    'Ankith Full Stack',
-    'Ankith Web Developer'
+    'LangGraph Developer',
+    'FastAPI Developer'
   ],
   social: {
     github: 'https://github.com/ankith5980',
@@ -38,6 +41,7 @@ export const siteMetadata = {
     city: 'Kozhikode',
     state: 'Kerala',
     country: 'India',
+    region: 'IN-KL',
     coordinates: {
       latitude: '11.2588',
       longitude: '75.7804'
@@ -45,24 +49,29 @@ export const siteMetadata = {
   }
 };
 
-// Comprehensive Person Schema for Google Knowledge Graph
+// Comprehensive Person Schema for Google E-E-A-T & Knowledge Graph
 export const generatePersonSchema = () => {
   const baseUrl = getBaseUrl();
   
   return {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": `${baseUrl}/#person`,
     "name": "Ankith Pratheesh Menon",
-    "alternateName": ["Ankith", "Ankith Menon", "Ankith Pratheesh"],
+    "alternateName": ["Ankith", "Ankith Menon", "Ankith Pratheesh", "Ankith Developer"],
     "givenName": "Ankith Pratheesh",
     "familyName": "Menon",
     "jobTitle": "Full Stack Developer",
-    "description": "Full Stack Developer specializing in React, Node.js, Python, and modern web technologies. Creating innovative digital solutions and scalable applications.",
+    "description": "Full Stack Developer and AI Specialist from Kerala, India specializing in React, Next.js, Node.js, Python, Flutter, and scalable distributed web architectures.",
     "url": baseUrl,
-    "image": [
-      getFullImageUrl("/images/Ankith.jpg"),
-      getFullImageUrl("/images/portfolio_thumbnail_1.png")
-    ],
+    "image": {
+      "@type": "ImageObject",
+      "url": getFullImageUrl("/images/Ankith.jpg"),
+      "contentUrl": getFullImageUrl("/images/Ankith.jpg"),
+      "caption": "Ankith Pratheesh Menon - Full Stack Developer",
+      "width": "800",
+      "height": "800"
+    },
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": baseUrl
@@ -70,6 +79,10 @@ export const generatePersonSchema = () => {
     "birthPlace": {
       "@type": "Place",
       "name": "Kerala, India"
+    },
+    "homeLocation": {
+      "@type": "Place",
+      "name": "Kozhikode, Kerala, India"
     },
     "address": {
       "@type": "PostalAddress",
@@ -85,43 +98,74 @@ export const generatePersonSchema = () => {
       {
         "@type": "EducationalOrganization",
         "name": "St. Joseph's College (Autonomous), Devagiri, Calicut",
-        "description": "Bachelor of Computer Applications & Master of Computer Applications"
+        "description": "Master of Computer Applications (MCA) — Advanced Computer Science & Distributed Systems"
+      },
+      {
+        "@type": "EducationalOrganization",
+        "name": "St. Joseph's College (Autonomous), Devagiri, Calicut",
+        "description": "Bachelor of Computer Applications (BCA) — First Class with Distinction (2022–2025)"
       }
     ],
     "worksFor": {
       "@type": "Organization",
       "name": "Accenture",
-      "description": "Campus Placement Acquired"
+      "description": "Campus Placement Acquired as Associate Software Engineer"
     },
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "Python Programming with Django",
+        "recognizedBy": { "@type": "Organization", "name": "RISS Technologies" }
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "Flutter and Dart Certified Developer Program",
+        "recognizedBy": { "@type": "Organization", "name": "Maitexa Info Solutions LLP" }
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "Figma UI/UX Design Mastery",
+        "recognizedBy": { "@type": "Organization", "name": "TECHBYHEART" }
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "Python for Data Science and Machine Learning",
+        "recognizedBy": { "@type": "Organization", "name": "Maitexa Info Solutions LLP" }
+      }
+    ],
     "knowsAbout": [
       "Full Stack Development",
       "React.js",
+      "Next.js",
       "Node.js",
+      "Express.js",
       "JavaScript",
+      "TypeScript",
       "Python",
-      "MongoDB",
-      "PostgreSQL",
-      "Web Development",
-      "Mobile App Development",
-      "AI/ML",
-      "Software Engineering",
-      "Frontend Development",
-      "Backend Development",
-      "Database Design",
-      "RESTful APIs",
-      "Git",
-      "Docker",
-      "Tailwind CSS",
-      "Bootstrap",
+      "FastAPI",
       "Django",
       "Flutter",
-      "Kotlin"
+      "Tailwind CSS",
+      "MongoDB",
+      "PostgreSQL",
+      "Redis",
+      "Firebase",
+      "MySQL",
+      "Supabase",
+      "LangGraph",
+      "Multi-Agent AI Systems",
+      "Ollama",
+      "Claude Code",
+      "Docker",
+      "Git",
+      "RESTful APIs",
+      "WebSockets"
     ],
     "hasOccupation": {
       "@type": "Occupation",
       "name": "Full Stack Developer",
-      "description": "Develops both frontend and backend components of web applications",
-      "skills": "React, Node.js, Python, JavaScript, MongoDB, PostgreSQL"
+      "description": "Architects, builds, and maintains full-stack web applications, microservices, and AI-driven platforms",
+      "skills": "React, Next.js, Node.js, Python, FastAPI, MongoDB, PostgreSQL, Tailwind CSS, Docker, Git"
     },
     "sameAs": [
       "https://github.com/ankith5980",
@@ -130,6 +174,7 @@ export const generatePersonSchema = () => {
       getFullUrl("/"),
       getFullUrl("/about"),
       getFullUrl("/projects"),
+      getFullUrl("/certificates"),
       getFullUrl("/contact")
     ],
     "email": "ankithpratheesh147@gmail.com",
@@ -137,14 +182,9 @@ export const generatePersonSchema = () => {
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+91 9495540233",
-      "contactType": "professional",
+      "contactType": "Professional",
       "email": "ankithpratheesh147@gmail.com",
       "availableLanguage": ["English", "Malayalam", "Hindi"]
-    },
-    "seeks": {
-      "@type": "Demand",
-      "name": "Full Stack Development Opportunities",
-      "description": "Seeking opportunities in full-stack development, web application development, and software engineering roles"
     },
     "brand": {
       "@type": "Brand",
@@ -155,46 +195,31 @@ export const generatePersonSchema = () => {
   };
 };
 
-// Professional Portfolio Schema
+// Professional Portfolio WebSite Schema with GEO & E-E-A-T
 export const generatePortfolioSchema = () => {
   const baseUrl = getBaseUrl();
   
   return {
     "@context": "https://schema.org",
     "@type": ["WebSite", "ProfilePage"],
+    "@id": `${baseUrl}/#website`,
     "name": "Ankith Pratheesh Menon - Full Stack Developer Portfolio",
-    "alternateName": "Ankith.dev Portfolio",
-    "description": "Professional portfolio showcasing full-stack development projects, skills, and experience of Ankith Pratheesh Menon",
+    "alternateName": "Ankith.dev",
+    "description": "Official portfolio showcasing full-stack web applications, AI research systems, and professional experience of Ankith Pratheesh Menon",
     "url": baseUrl,
-    "mainEntity": generatePersonSchema(),
-    "author": generatePersonSchema(),
-    "creator": generatePersonSchema(),
+    "mainEntity": {
+      "@id": `${baseUrl}/#person`
+    },
+    "author": {
+      "@id": `${baseUrl}/#person`
+    },
+    "creator": {
+      "@id": `${baseUrl}/#person`
+    },
     "publisher": {
-      "@type": "Person",
-      "name": "Ankith Pratheesh Menon",
-      "url": baseUrl
+      "@id": `${baseUrl}/#person`
     },
     "inLanguage": "en-US",
-    "copyrightHolder": {
-      "@type": "Person",
-      "name": "Ankith Pratheesh Menon"
-    },
-    "copyrightYear": new Date().getFullYear(),
-    "genre": ["Technology", "Web Development", "Software Engineering"],
-    "keywords": [
-      "Ankith Pratheesh Menon",
-      "Ankith",
-      "Full Stack Developer",
-      "React Developer", 
-      "Node.js Developer",
-      "Web Developer",
-      "Software Engineer",
-      "JavaScript Developer",
-      "Python Developer",
-      "Portfolio",
-      "Kerala Developer",
-      "India Developer"
-    ],
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
@@ -208,80 +233,31 @@ export const generatePortfolioSchema = () => {
         "@type": "WebPage",
         "name": "About Ankith",
         "url": getFullUrl("/about"),
-        "description": "Learn about Ankith's background, skills, and experience"
+        "description": "Learn about Ankith's background, education, and technical expertise"
       },
       {
         "@type": "WebPage", 
         "name": "Projects Portfolio",
         "url": getFullUrl("/projects"),
-        "description": "Showcase of web applications and software projects"
+        "description": "Showcase of full-stack web applications, AI multi-agent systems, and software projects"
+      },
+      {
+        "@type": "WebPage",
+        "name": "Certificates & Credentials",
+        "url": getFullUrl("/certificates"),
+        "description": "Professional certifications in Python, Django, Flutter, and UI/UX design"
       },
       {
         "@type": "WebPage",
         "name": "Contact Ankith",
         "url": getFullUrl("/contact"),
-        "description": "Get in touch for project collaborations and opportunities"
+        "description": "Get in touch for project collaborations and software engineering opportunities"
       }
     ]
   };
 };
 
-// Organization Schema for Professional Context
-export const generateOrganizationSchema = () => {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Ankith.dev",
-    "alternateName": "Ankith Pratheesh Menon Portfolio",
-    "url": getBaseUrl(),
-    "logo": getFullImageUrl("/images/Ankith.jpg"),
-    "image": getFullImageUrl("/images/portfolio_thumbnail_1.png"),
-    "description": "Professional portfolio and personal brand of Full Stack Developer Ankith Pratheesh Menon",
-    "founder": generatePersonSchema(),
-    "employee": generatePersonSchema(),
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+91 9495540233",
-      "contactType": "customer service",
-      "email": "ankithpratheesh147@gmail.com",
-      "availableLanguage": ["English", "Malayalam"]
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Kozhikode",
-      "addressRegion": "Kerala", 
-      "addressCountry": "India"
-    },
-    "areaServed": ["India", "Global"],
-    "serviceType": ["Web Development", "Full Stack Development", "Software Engineering"]
-  };
-};
-
-// Rich Article Schema for Blog Posts (future use)
-export const generateArticleSchema = (articleData) => {
-  const baseUrl = getBaseUrl();
-  
-  return {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": articleData.title,
-    "description": articleData.description,
-    "image": getFullImageUrl(articleData.image),
-    "datePublished": articleData.publishDate,
-    "dateModified": articleData.modifiedDate || articleData.publishDate,
-    "author": generatePersonSchema(),
-    "publisher": generateOrganizationSchema(),
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": getFullUrl(articleData.url)
-    },
-    "wordCount": articleData.wordCount,
-    "articleSection": articleData.category,
-    "inLanguage": "en-US"
-  };
-};
-
-// FAQ Schema for better search results
+// AEO FAQ Schema for Featured Snippets, Zero-Click Answers & AI Overviews
 export const generateFAQSchema = () => {
   return {
     "@context": "https://schema.org",
@@ -292,33 +268,170 @@ export const generateFAQSchema = () => {
         "name": "Who is Ankith Pratheesh Menon?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ankith Pratheesh Menon is a Full Stack Developer from Kerala, India, specializing in React, Node.js, Python, and modern web technologies. He has acquired campus placement at Accenture and is pursuing Master of Computer Applications."
+          "text": "Ankith Pratheesh Menon is a Full Stack Developer and Software Engineer from Kozhikode, Kerala, India. He specializes in React, Next.js, Node.js, Python, FastAPI, and AI Multi-Agent architectures. He holds campus placement at Accenture and is pursuing a Master of Computer Applications (MCA) at St. Joseph's College (Autonomous), Devagiri."
         }
       },
       {
         "@type": "Question", 
-        "name": "What technologies does Ankith work with?",
+        "name": "What technologies and programming languages does Ankith specialize in?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ankith works with React.js, Node.js, JavaScript, Python, MongoDB, PostgreSQL, Django, Flutter, Kotlin, Docker, Git, and many other modern web technologies for full-stack development."
+          "text": "Ankith specializes in JavaScript, TypeScript, Python, and Dart. His core stack encompasses React, Next.js, Node.js, Express.js, FastAPI, Django, Flutter, Tailwind CSS, MongoDB, PostgreSQL, Redis, Firebase, and AI technologies such as LangGraph and Ollama."
         }
       },
       {
         "@type": "Question",
-        "name": "How to contact Ankith Pratheesh Menon?",
+        "name": "What are Ankith Pratheesh Menon's key portfolio projects?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "You can contact Ankith at ankithpratheesh147@gmail.com or call +91 9495540233. You can also connect via LinkedIn, GitHub, or through his portfolio website."
+          "text": "Ankith's flagship projects include: (1) Skill-Swap: a real-time peer-to-peer skill exchange platform using TypeScript and WebSockets; (2) AI Multi-Agent Research System: a local graph-based multi-agent topic research engine using LangGraph and FAISS; (3) NEXUS AI Fraud Vanguard: a real-time Kafka and ML fraud detection pipeline; (4) Automated AI Data Analyst: natural language exploratory data analysis using Ollama; and (5) Context-Aware Accessibility Linter (CAAL): an AI DOM analysis accessibility compliance tool."
         }
       },
       {
         "@type": "Question",
-        "name": "What is Ankith's educational background?",
+        "name": "What is Ankith's educational background and career placement?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ankith completed his Bachelor of Computer Applications from St. Joseph's College (Autonomous), Devagiri, Calicut with First Class with Distinction and is currently pursuing Master of Computer Applications from the same institution."
+          "text": "Ankith completed his Bachelor of Computer Applications (BCA) with First Class with Distinction from St. Joseph's College (Autonomous), Devagiri, Calicut (2022–2025). He acquired campus placement at Accenture as an Associate Software Engineer in 2025 and is currently pursuing his Master of Computer Applications (MCA)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I contact Ankith Pratheesh Menon or download his resume?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can contact Ankith via email at ankithpratheesh147@gmail.com or by phone at +91 9495540233. His GitHub profile is github.com/ankith5980 and LinkedIn is linkedin.com/in/ankith-pratheesh-menon-0353662b6/. His resume is downloadable directly at portfolio-ankith.vercel.app/cv/My_Resume.pdf."
         }
       }
     ]
+  };
+};
+
+// Organization Schema for Professional Context
+export const generateOrganizationSchema = () => {
+  const baseUrl = getBaseUrl();
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Ankith.dev",
+    "alternateName": "Ankith Pratheesh Menon Portfolio",
+    "url": baseUrl,
+    "logo": getFullImageUrl("/images/Ankith.jpg"),
+    "image": getFullImageUrl("/images/Ankith.jpg"),
+    "description": "Professional portfolio and personal brand of Full Stack Developer Ankith Pratheesh Menon",
+    "founder": {
+      "@id": `${baseUrl}/#person`
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+91 9495540233",
+      "contactType": "Professional",
+      "email": "ankithpratheesh147@gmail.com",
+      "availableLanguage": ["English", "Malayalam", "Hindi"]
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Kozhikode",
+      "addressRegion": "Kerala",
+      "addressCountry": "India"
+    },
+    "areaServed": ["Worldwide", "India"]
+  };
+};
+
+// BreadcrumbList Schema for Rich Search Result Navigation Paths
+export const generateBreadcrumbSchema = (path = '/', pageName = 'Home') => {
+  const baseUrl = getBaseUrl();
+  const items = [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": baseUrl
+    }
+  ];
+
+  if (path !== '/' && path !== '') {
+    items.push({
+      "@type": "ListItem",
+      "position": 2,
+      "name": pageName,
+      "item": getFullUrl(path)
+    });
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": items
+  };
+};
+
+// SoftwareSourceCode / Projects Schema for GEO & Generative Citations
+export const generateProjectsSchema = (projects = []) => {
+  const baseUrl = getBaseUrl();
+  
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Projects Portfolio - Ankith Pratheesh Menon",
+    "description": "Collection of full-stack web applications, AI research systems, and software engineering projects by Ankith Pratheesh Menon",
+    "url": getFullUrl("/projects"),
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": "Portfolio Projects",
+      "numberOfItems": projects.length,
+      "itemListElement": projects.map((p, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+          "@type": "SoftwareSourceCode",
+          "name": p.title,
+          "description": p.description,
+          "programmingLanguage": p.tags || [],
+          "codeRepository": p.githubUrl,
+          "creator": {
+            "@id": `${baseUrl}/#person`
+          },
+          "url": p.liveUrl || p.githubUrl || getFullUrl("/projects")
+        }
+      }))
+    }
+  };
+};
+
+// EducationalOccupationalCredential Schema for Certificates Page
+export const generateCertificatesSchema = (certificates = []) => {
+  const baseUrl = getBaseUrl();
+  
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Professional Certifications - Ankith Pratheesh Menon",
+    "description": "Verified professional credentials and technical certifications earned by Ankith Pratheesh Menon",
+    "url": getFullUrl("/certificates"),
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": "Certifications",
+      "numberOfItems": certificates.length,
+      "itemListElement": certificates.map((cert, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+          "@type": "EducationalOccupationalCredential",
+          "name": cert.title,
+          "credentialCategory": "Professional Certification",
+          "recognizedBy": {
+            "@type": "Organization",
+            "name": cert.issuer
+          },
+          "about": cert.skills || [],
+          "validIn": {
+            "@type": "Country",
+            "name": "India"
+          }
+        }
+      }))
+    }
   };
 };

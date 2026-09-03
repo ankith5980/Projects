@@ -194,6 +194,7 @@ const Contact = () => {
         description="Contact Ankith Pratheesh Menon for web development projects, collaborations, and job opportunities. Full Stack Developer specializing in React, Node.js, and modern web technologies. Based in Kozhikode, Kerala, India. Email: ankithpratheesh147@gmail.com | Phone: +91 9495540233"
         keywords="contact Ankith Pratheesh Menon, hire Ankith Pratheesh Menon, Ankith Pratheesh Menon email, Ankith Pratheesh Menon phone, Ankith full-stack developer contact, React developer Kozhikode contact, Node.js developer Kerala, web development services India, contact full-stack developer, Ankith developer Kozhikode, hire React developer India, full stack developer contact Kerala"
         url="/contact"
+        breadcrumbName="Contact"
         schemaData={{
           "@context": "https://schema.org",
           "@type": "ContactPage",

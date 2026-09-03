@@ -86,7 +86,10 @@ Allow: /
 User-agent: baiduspider
 Allow: /
 
-# AI crawlers & conversational search engines (Perplexity, ChatGPT, Claude)
+# AI crawlers & conversational search engines (Google AI Overviews, Perplexity, ChatGPT, Claude, Apple)
+User-agent: Google-Extended
+Allow: /
+
 User-agent: GPTBot
 Allow: /
 
@@ -94,6 +97,9 @@ User-agent: ClaudeBot
 Allow: /
 
 User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
 Allow: /
 
 # Allow common root files

@@ -182,6 +182,52 @@
           }
         ]
       }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://portfolio-ankith.vercel.app/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Who is Ankith Pratheesh Menon?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ankith Pratheesh Menon is a Full Stack Developer and AI Specialist from Kozhikode, Kerala, India. He specializes in React, Next.js, Node.js, Python, FastAPI, and AI Multi-Agent architectures. He holds campus placement at Accenture and is pursuing a Master of Computer Applications (MCA) at St. Joseph's College (Autonomous), Devagiri."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What technologies and programming languages does Ankith specialize in?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ankith specializes in JavaScript, TypeScript, Python, and Dart. His core stack encompasses React, Next.js, Node.js, Express.js, FastAPI, Django, Flutter, Tailwind CSS, MongoDB, PostgreSQL, Redis, Firebase, and AI frameworks like LangGraph and Ollama."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are Ankith Pratheesh Menon's key portfolio projects?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ankith's flagship projects include: (1) Skill-Swap: a real-time peer-to-peer skill exchange platform using TypeScript and WebSockets; (2) AI Multi-Agent Research System: a local graph-based multi-agent topic research engine using LangGraph and FAISS; (3) NEXUS AI Fraud Vanguard: a real-time Kafka and ML fraud detection pipeline; (4) Automated AI Data Analyst: natural language exploratory data analysis using Ollama; and (5) Context-Aware Accessibility Linter (CAAL): an AI DOM analysis accessibility compliance tool."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is Ankith's educational background and career placement?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ankith completed his Bachelor of Computer Applications (BCA) with First Class with Distinction from St. Joseph's College (Autonomous), Devagiri, Calicut (2022–2025). He acquired campus placement at Accenture as an Associate Software Engineer in 2025 and is currently pursuing his Master of Computer Applications (MCA)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I contact Ankith Pratheesh Menon or download his resume?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can contact Ankith via email at ankithpratheesh147@gmail.com or by phone at +91 9495540233. His GitHub profile is github.com/ankith5980 and LinkedIn is linkedin.com/in/ankith-pratheesh-menon-0353662b6/. His resume is downloadable directly at portfolio-ankith.vercel.app/cv/My_Resume.pdf."
+          }
+        }
+      ]
     }
   ]
 }

@@ -173,6 +173,7 @@ const Certificates = () => {
         description="View Ankith's professional certifications in Python, Django, Flutter, Dart, and UI/UX Design. Verified credentials from RISS Technologies, Maitexa Info Solutions, and TECHBYHEART demonstrating expertise in web development, mobile development, and design."
         keywords="certifications, professional certificates, Python certification, Django certification, Flutter certification, Dart certification, UI/UX certification, Figma certification, web development certificates, mobile development credentials, programming certifications, software development certificates"
         url="/certificates"
+        breadcrumbName="Certificates"
         type="website"
         schemaData={{
           "@context": "https://schema.org",
@@ -183,7 +184,8 @@ const Certificates = () => {
           "inLanguage": "en-US",
           "author": {
             "@type": "Person",
-            "name": "Ankith",
+            "@id": getFullUrl("/#person"),
+            "name": "Ankith Pratheesh Menon",
             "url": getFullUrl("/")
           },
           "mainEntity": {
