@@ -1,36 +1,36 @@
+# Robots.txt for Ankith Pratheesh Menon Portfolio
+# Primary: https://portfolio-ankith.vercel.app/
+# GitHub: https://github.com/ankith5980
+
 User-agent: *
 Allow: /
 
-# Priority pages for Ankith Pratheesh Menon name searches
+# Priority pages for Ankith Pratheesh Menon
 Allow: /
 Allow: /about
 Allow: /projects
 Allow: /certificates
 Allow: /contact
 
-# Allow important assets for better indexing
+# Allow important assets for optimal indexing and crawling
 Allow: /images/
 Allow: /cv/
 Allow: /assets/
 
-# Explicitly allow important image files for Google Image Search
+# Explicitly allow current project images for Google Image Search
 Allow: /images/Ankith.jpg
 Allow: /images/PORTFOLIO.webp
-Allow: /images/KOHA.webp
-Allow: /images/JUDGINGPORTAL.webp
-Allow: /images/CLUBMANAGEMENTSYSTEM.webp
 Allow: /images/SKILL-SWAP.webp
 Allow: /images/MULTI-AGENTRESEARCH.webp
 Allow: /images/NEXUS-AI.webp
 Allow: /images/AIDATAANALYST.webp
 Allow: /images/CAAL.webp
-Allow: /images/LiveQ.webp
 Allow: /images/python_data_science_cert (1).jpeg
 Allow: /images/flutter_cert (1).jpg
 Allow: /images/python_cert (1).jpg
 Allow: /images/ui_ux_cert (1).jpg
 
-# Block admin routes if any exist
+# Block internal/private paths
 Disallow: /admin/
 Disallow: /api/
 Disallow: /.env
@@ -40,7 +40,7 @@ Disallow: /*.json$
 Disallow: /dashboard/
 Disallow: /login/
 
-# Special directives for better crawling
+# Googlebot specific directives
 User-agent: Googlebot
 Allow: /
 Allow: /about
@@ -51,55 +51,55 @@ Allow: /images/Ankith.jpg
 Allow: /cv/My_Resume.pdf
 Crawl-delay: 0
 
+# Googlebot-Image specific directives
 User-agent: Googlebot-Image
 Allow: /images/
 Allow: /images/Ankith.jpg
 Allow: /images/PORTFOLIO.webp
-Allow: /images/KOHA.webp
-Allow: /images/JUDGINGPORTAL.webp
-Allow: /images/CLUBMANAGEMENTSYSTEM.webp
 Allow: /images/SKILL-SWAP.webp
 Allow: /images/MULTI-AGENTRESEARCH.webp
 Allow: /images/NEXUS-AI.webp
 Allow: /images/AIDATAANALYST.webp
 Allow: /images/CAAL.webp
-Allow: /images/LiveQ.webp
 Allow: /images/python_data_science_cert (1).jpeg
 Allow: /images/flutter_cert (1).jpg
 Allow: /images/python_cert (1).jpg
 Allow: /images/ui_ux_cert (1).jpg
 
+# Major search engine crawlers
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
-User-agent: Bravebot
+User-agent: Applebot
 Allow: /
-Crawl-delay: 1
 
 User-agent: DuckDuckBot
 Allow: /
-Crawl-delay: 1
 
 User-agent: Slurp
 Allow: /
-Crawl-delay: 1
 
 User-agent: Yandex
 Allow: /
-Crawl-delay: 1
 
 User-agent: baiduspider
 Allow: /
-Crawl-delay: 1
 
-# Sitemap location for faster discovery
-Sitemap: https://portfolio-ankith.vercel.app/sitemap.xml
+# AI crawlers & conversational search engines (Perplexity, ChatGPT, Claude)
+User-agent: GPTBot
+Allow: /
 
-# Additional directives for better SEO and image indexing
-Crawl-delay: 1
+User-agent: ClaudeBot
+Allow: /
 
-# Allow common files
+User-agent: PerplexityBot
+Allow: /
+
+# Allow common root files
 Allow: /favicon.ico
 Allow: /robots.txt
 Allow: /manifest.json
+
+# Sitemap location for faster discovery
+Sitemap: https://portfolio-ankith.vercel.app/sitemap.xml

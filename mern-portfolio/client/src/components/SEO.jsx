@@ -6,7 +6,7 @@ import { generatePersonSchema, generatePortfolioSchema } from '../utils/personal
 const SEO = ({
   title = 'Portfolio',
   description = 'Professional portfolio showcasing my skills, projects, and experience as a full-stack developer.',
-  keywords = 'portfolio, full-stack developer, React, Node.js, JavaScript, web development, software engineer, Ankith, Ankith Pratheesh Menon, KOHA Developer, Koha Library Management System, Koha',
+  keywords = 'portfolio, full-stack developer, React, Node.js, Next.js, JavaScript, web development, software engineer, Ankith, Ankith Pratheesh Menon, GitHub, AI developer, Python',
   author = 'Ankith',
   image = '/images/Ankith.jpg',
   url,

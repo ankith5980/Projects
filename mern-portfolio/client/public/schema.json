@@ -5,11 +5,16 @@
       "@type": "Person",
       "@id": "https://portfolio-ankith.vercel.app/#person",
       "name": "Ankith Pratheesh Menon",
-      "alternateName": ["Ankith", "Ankith Pratheesh"],
+      "alternateName": [
+        "Ankith",
+        "Ankith Pratheesh",
+        "Ankith Developer",
+        "Ankith Kerala"
+      ],
       "givenName": "Ankith Pratheesh",
       "familyName": "Menon",
       "jobTitle": "Full Stack Developer",
-      "description": "Professional Full Stack Developer and Software Engineer from Kerala, India, specializing in React, Node.js, Flutter, and modern web technologies",
+      "description": "Professional Full Stack Developer and Software Engineer from Kerala, India, specializing in React, Next.js, Node.js, Python, Flutter, and modern web & AI technologies",
       "url": "https://portfolio-ankith.vercel.app",
       "image": {
         "@type": "ImageObject",
@@ -28,42 +33,63 @@
         "addressRegion": "Kerala",
         "addressCountry": "India"
       },
+      "homeLocation": {
+        "@type": "Place",
+        "name": "Kozhikode, Kerala, India"
+      },
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+91-9495540233",
+        "telephone": "+91 9495540233",
         "email": "ankithpratheesh147@gmail.com",
-        "contactType": "Professional"
+        "contactType": "Professional",
+        "availableLanguage": ["English", "Malayalam", "Hindi"]
       },
       "sameAs": [
         "https://github.com/ankith5980",
         "https://www.linkedin.com/in/ankith-pratheesh-menon-0353662b6/",
-        "https://www.instagram.com/ankith.pm/"
+        "https://www.instagram.com/ankith.pm/",
+        "https://portfolio-ankith.vercel.app/",
+        "https://portfolio-ankith.vercel.app/about",
+        "https://portfolio-ankith.vercel.app/projects",
+        "https://portfolio-ankith.vercel.app/certificates",
+        "https://portfolio-ankith.vercel.app/contact"
       ],
       "knowsAbout": [
         "React.js",
+        "Next.js",
         "Node.js",
+        "Express.js",
         "JavaScript",
         "Python",
+        "FastAPI",
+        "Django",
         "Flutter",
+        "Tailwind CSS",
         "MongoDB",
+        "PostgreSQL",
+        "Redis",
+        "Firebase",
         "MySQL",
+        "Supabase",
+        "Docker",
+        "Git",
         "Full Stack Development",
         "Mobile App Development",
         "Web Development",
         "Software Engineering",
         "Machine Learning",
         "Artificial Intelligence",
+        "Multi-Agent Systems",
+        "LangGraph",
+        "Claude Code",
+        "Ollama",
         "Database Design",
-        "API Development",
+        "RESTful APIs",
         "UI/UX Design",
-        "SupaBase",
-        "Resend",
-        "WebRTC",
-        "Socket.io",
+        "Figma",
+        "PowerBI",
         "Postman",
-        "AWS",
-        "Django",
-        "AI integration"
+        "AWS"
       ],
       "alumniOf": {
         "@type": "EducationalOrganization",
@@ -75,6 +101,11 @@
           "addressCountry": "India"
         }
       },
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Accenture",
+        "description": "Campus Placement Acquired"
+      },
       "hasOccupation": {
         "@type": "Occupation",
         "name": "Full Stack Developer",
@@ -82,7 +113,7 @@
           "@type": "Country",
           "name": "India"
         },
-        "skills": "React, Node.js, JavaScript, Python, Flutter, MongoDB, MySQL"
+        "skills": "React, Next.js, Node.js, JavaScript, Python, FastAPI, Flutter, MongoDB, PostgreSQL, Tailwind CSS, Docker, Git"
       }
     },
     {
@@ -90,7 +121,8 @@
       "@id": "https://portfolio-ankith.vercel.app/#website",
       "url": "https://portfolio-ankith.vercel.app",
       "name": "Ankith Pratheesh Menon Portfolio",
-      "description": "Portfolio website of Ankith Pratheesh Menon showcasing full stack development projects and skills",
+      "alternateName": "Ankith.dev",
+      "description": "Official portfolio website of Ankith Pratheesh Menon showcasing full stack development projects, skills, and experience",
       "publisher": {
         "@id": "https://portfolio-ankith.vercel.app/#person"
       },
@@ -98,13 +130,15 @@
         "@type": "SearchAction",
         "target": "https://portfolio-ankith.vercel.app/projects?search={search_term_string}",
         "query-input": "required name=search_term_string"
-      }
+      },
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true
     },
     {
       "@type": "ProfessionalService",
       "@id": "https://portfolio-ankith.vercel.app/#service",
-      "name": "Full Stack Development Services",
-      "description": "Professional web and mobile app development services by Ankith Pratheesh Menon",
+      "name": "Full Stack & AI Development Services",
+      "description": "Professional web, mobile app, and AI application development services by Ankith Pratheesh Menon",
       "provider": {
         "@id": "https://portfolio-ankith.vercel.app/#person"
       },
@@ -119,7 +153,7 @@
             "itemOffered": {
               "@type": "Service",
               "name": "Web Development",
-              "description": "Custom web application development using React, Node.js, and modern technologies"
+              "description": "Custom web application development using React, Next.js, Node.js, and modern technologies"
             }
           },
           {
@@ -134,8 +168,16 @@
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "API Development",
-              "description": "RESTful API development and integration services"
+              "name": "AI & Agentic Systems Development",
+              "description": "Custom AI multi-agent workflows, LLM integration, and data analytics systems"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "API & Backend Development",
+              "description": "Scalable RESTful API development, database architecture, and microservices"
             }
           }
         ]
