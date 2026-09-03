@@ -73,15 +73,11 @@ const PORTFOLIO_DATA = {
   },
   projects: [
     { title: 'Personal Portfolio Website', tech: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind CSS', 'Framer Motion'], desc: 'A modern, responsive portfolio website built with the MERN stack featuring dark mode, animations, and admin dashboard.' },
-    { title: 'KOHA Library Management System', tech: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS'], desc: 'Continuous Development of KOHA Library Management System.' },
-    { title: 'Club Management System - Rotary Club of Calicut South', tech: ['React', 'MongoDB Atlas', 'Tailwind CSS','Docker'], desc: 'A comprehensive club management system designed to streamline operations, member management, and event planning.' },
-    { title: 'ICCIET 2025 Judging Portal', tech: ['Next.js', 'Supabase', 'Tailwind CSS', 'TypeScript'], desc: 'A judging portal for the International Conference on Computational Intelligence & Emerging Technologies (ICCIET) 2025. Co-developed by Ayush VP and Ankith Pratheesh Menon.' },
     { title: 'Skill-Swap : A Skill Exchange Platform', tech: ['TypeScript', 'MongoDB', 'Socket.io', 'Express.js'], desc: 'A production-ready full-stack web application for peer-to-peer skill exchange.' },
     { title: 'AI Multi-Agent Research System', tech: ['Next.js', 'Python', 'LangGraph', 'FAISS', 'FastAPI'], desc: 'A fully local, decoupled AI system where multiple agents collaborate using a graph-based state machine to autonomously research topics.' },
     { title: 'NEXUS AI Fraud Vanguard', tech: ['Docker', 'Scikit-learn', 'Kafka', 'Redis', 'FastAPI'], desc: 'An AI-powered fraud detection system that leverages advanced machine learning algorithms and real-time data analysis.' },
     { title: 'Automated AI Data Analyst', tech: ['Python', 'Next.js', 'Ollama', 'FastAPI', 'LangGraph'], desc: 'An AI-powered data analysis and visualization tool that enables users to upload datasets and perform exploratory data analysis.' },
-    { title: 'Context-Aware Accessibility Linter', tech: ['React', 'Node.js', 'Browser Extension API', 'AI DOM Analysis', 'LLM API'], desc: 'An AI-augmented developer tool designed to automatically detect and remediate accessibility errors by evaluating DOM context. Evolving from a real-time browser extension into an enterprise-grade CI/CD pipeline integration, this project aims to provide a comprehensive B2B SaaS solution for automated software accessibility compliance.' },
-    { title: 'LiveQ: An AI-Moderated Anonymous Live Q&A Platform', tech: ['Next.js', 'TypeScript', 'Socket.IO', 'WebRTC', 'Multi-LLM API', 'SupaBase'], desc: 'A modern, real-time, anonymous live Q&A platform featuring AI-powered moderation, and seamless cross-device accessibility. Designed for large-scale events, conferences, and hybrid meetups.' }
+    { title: 'Context-Aware Accessibility Linter', tech: ['React', 'Node.js', 'Browser Extension API', 'AI DOM Analysis', 'LLM API'], desc: 'An AI-augmented developer tool designed to automatically detect and remediate accessibility errors by evaluating DOM context. Evolving from a real-time browser extension into an enterprise-grade CI/CD pipeline integration, this project aims to provide a comprehensive B2B SaaS solution for automated software accessibility compliance.' }
   ],
   certificates: [
     { title: 'Python Programming with Django', issuer: 'RISS Technologies' },
