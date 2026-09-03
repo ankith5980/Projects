@@ -7,7 +7,8 @@ import {
   FaCheckCircle,
   FaClock,
   FaArchive,
-  FaSync
+  FaSync,
+  FaGithub
 } from 'react-icons/fa';
 import SEO from '../components/SEO';
 import ProjectModal from '../components/ProjectModal';
@@ -104,51 +105,6 @@ const projectsData = [
   },
   {
     _id: 2,
-    title: 'Enhancement of KOHA Library Management System',
-    description: 'Enhancement of KOHA Library Management System, an open-source integrated library system. This project aims to improve the functionality and user experience of the system.',
-    technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS'],
-    images: [{ url: '/images/KOHA.webp' }],
-    liveUrl: '',
-    githubUrl: 'https://github.com/ankith5980/Projects/tree/main/label',
-    category: 'Backend',
-    status: 'completed',
-    featured: true,
-    developers: ['Ankith Pratheesh Menon'],
-    lastUpdated: '2025-10-14',
-    client: 'St. Joseph\'s College, Devagiri',
-  },
-  {
-    _id: 3,
-    title: 'Club Management System - Rotary Club of Calicut South',
-    description: 'A comprehensive club management system designed to streamline operations, member management, and event planning and membership payment for the Rotary Club of Calicut South.',
-    technologies: ['React', 'MongoDB Atlas', 'Tailwind CSS','Docker'],
-    images: [{ url: '/images/CLUBMANAGEMENTSYSTEM.webp' }],
-    liveUrl: '',
-    githubUrl: 'https://github.com/ankith5980/Projects/tree/main/rotary-club-portal',
-    category: 'Full-Stack',
-    status: 'archived',
-    featured: true,
-    developers: ['Ankith Pratheesh Menon'],
-    lastUpdated: '2025-11-14',
-    client: 'Rotary Club of Calicut South',
-  },
-  {
-    _id: 4,
-    title: 'ICCIET 2025 Judging Portal',
-    description: 'A judging portal for the International Conference on Computational Intelligence & Emerging Technologies (ICCIET) 2025, enabling judges to securely evaluate and score project submissions online.',
-    technologies: ['Next.js', 'Supabase', 'Tailwind CSS', 'TypeScript'],
-    images: [{ url: '/images/JUDGINGPORTAL.webp' }],
-    liveUrl: 'https://icciet-judging.vercel.app/',
-    githubUrl: 'https://github.com/ankith5980/Projects/tree/main/iccet-judging',
-    category: 'Full-Stack',
-    status: 'completed',
-    featured: true,
-    developers: ['Ayush VP', 'Ankith Pratheesh Menon'],
-    lastUpdated: '2025-11-29',
-    client: 'St. Joseph\'s College, Devagiri',
-  },
-  {
-    _id: 5,
     title: 'Skill-Swap : A Skill Exchange Platform',
     description: 'A production-ready full-stack web application for peer-to-peer skill exchange. Users can teach skills to earn points and spend points to learn from others.',
     technologies: ['TypeScript', 'MongoDB', 'Socket.io', 'Express.js'],
@@ -163,7 +119,7 @@ const projectsData = [
     client: 'Community',
   },
   {
-    _id: 6,
+    _id: 3,
     title: 'AI Multi-Agent Research System',
     description: 'A fully local, decoupled AI system where multiple agents collaborate using a graph-based state machine to autonomously research topics, analyze data via vector stores, and generate comprehensive reports.',
     technologies: ['Next.js', 'Python', 'LangGraph', 'FAISS', 'FastAPI'],
@@ -178,7 +134,7 @@ const projectsData = [
     client: 'Self',
   },
   {
-    _id: 7,
+    _id: 4,
     title: 'NEXUS AI Fraud Vanguard',
     description: 'An AI-powered fraud detection system that leverages advanced machine learning algorithms and real-time data analysis to identify and detect fraudulent activities across various transactional domains.',
     technologies: ['Docker', 'Scikit-learn', 'Kafka', 'Redis', 'FastAPI'],
@@ -193,7 +149,7 @@ const projectsData = [
     client: 'Self',
   },
   {
-    _id: 8,
+    _id: 5,
     title: 'Automated AI Data Analyst',
     description: 'An AI-powered data analysis and visualization tool that enables users to upload datasets, perform exploratory data analysis, and generate insightful visualizations and reports using natural language queries.',
     technologies: ['Python', 'Next.js', 'Ollama', 'FastAPI', 'LangGraph'],
@@ -208,7 +164,7 @@ const projectsData = [
     client: 'Self',
   },
   {
-    _id: 9,
+    _id: 6,
     title: 'Context-Aware Accessibility Linter',
     description: 'An AI-augmented developer tool designed to automatically detect and remediate accessibility errors by evaluating DOM context. Evolving from a real-time browser extension into an enterprise-grade CI/CD pipeline integration, this project aims to provide a comprehensive B2B SaaS solution for automated software accessibility compliance.',
     technologies: ['Node.js', 'Playwright', 'Browser Extension API', 'AI DOM Analysis', 'React', 'LLM API'],
@@ -216,26 +172,11 @@ const projectsData = [
     liveUrl: '',
     githubUrl: 'https://github.com/ankith5980/Mini_Project/tree/main/DTP_CAAL',
     category: 'Full-Stack',
-    status: 'in-progress',
+    status: 'completed',
     featured: true,
     developers: ['Ankith Pratheesh Menon'],
     lastUpdated: '2026-07-10',
     client: 'Self',
-  },
-  {
-    _id: 10,
-    title: 'LiveQ: An AI-Moderated Anonymous Live Q&A Platform',
-    description: 'A modern, real-time, anonymous live Q&A platform featuring AI-powered moderation, and seamless cross-device accessibility. Designed for large-scale events, conferences, and hybrid meetups.',
-    technologies: ['Next.js', 'TypeScript', 'Socket.IO', 'WebRTC', 'Multi-LLM API', 'SupaBase'],
-    images: [{ url: '/images/LiveQ.webp' }],
-    liveUrl: 'https://liveq.vercel.app/',
-    githubUrl: 'https://github.com/ankith5980/QnA-App',
-    category: 'Full-Stack',
-    status: 'completed',
-    featured: true,
-    developers: ['Ankith Pratheesh Menon'],
-    lastUpdated: '2026-07-11',
-    client: 'St.Joseph\'s College(Autonomous), Devagiri',
   },
 ];
 
@@ -391,6 +332,23 @@ const Projects = () => {
             )}
           </motion.div>
         </section>
+
+        {/* GitHub note below projects */}
+        <div className="relative z-10 mt-16 text-center">
+          <p className="text-base text-muted sm:text-lg">
+            Please visit my{' '}
+            <a
+              href="https://github.com/ankith5980"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 font-semibold text-accent underline decoration-accent/40 underline-offset-4 transition-colors duration-200 hover:text-white hover:decoration-white"
+            >
+              <FaGithub className="h-4 w-4" />
+              <span>GitHub</span>
+            </a>{' '}
+            Profile for more projects
+          </p>
+        </div>
       </div>
 
       {/* Project Detail Modal */}
