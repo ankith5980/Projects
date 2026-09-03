@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AnimatePresence } from 'framer-motion';
 import { ToastContainer } from 'react-toastify';
@@ -97,45 +97,38 @@ function App() {
           >
             <GridBackdrop />
 
-            {/*
-              The shell mounts only once the intro hands off, so every entrance
-              animation below plays while the curtain is still lifting.
-            */}
-            {introDone && (
-              <>
-                <Navbar />
-                <main className="relative z-10 w-full max-w-full" style={{ minHeight: '100vh' }}>
-                  <Suspense fallback={null}>
-                    <Routes>
-                      <Route path="/" element={<Home />} />
-                      <Route path="/about" element={<About />} />
-                      <Route path="/projects" element={<Projects />} />
-                      <Route path="/certificates" element={<Certificates />} />
-                      <Route path="/contact" element={<Contact />} />
-                    </Routes>
-                  </Suspense>
-                </main>
-                <div className="relative z-10">
-                  <Footer />
-                </div>
-                <ScrollToTop />
-                <ChatWidget />
-                <ToastContainer
-                  position="top-right"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                  theme="dark"
-                  toastClassName="!bg-elev !text-fg !border !border-accent/30 !rounded-xl !backdrop-blur-xl"
-                  progressClassName="!bg-accent"
-                />
-              </>
-            )}
+            {/* Shell and routes are mounted immediately so search crawlers and screen readers have full DOM access */}
+            <Navbar />
+            <main className="relative z-10 w-full max-w-full" style={{ minHeight: '100vh' }}>
+              <Suspense fallback={null}>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/projects" element={<Projects />} />
+                  <Route path="/certificates" element={<Certificates />} />
+                  <Route path="/contact" element={<Contact />} />
+                </Routes>
+              </Suspense>
+            </main>
+            <div className="relative z-10">
+              <Footer />
+            </div>
+            <ScrollToTop />
+            <ChatWidget />
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+              toastClassName="!bg-elev !text-fg !border !border-accent/30 !rounded-xl !backdrop-blur-xl"
+              progressClassName="!bg-accent"
+            />
           </div>
         </ThemeProvider>
       </Router>

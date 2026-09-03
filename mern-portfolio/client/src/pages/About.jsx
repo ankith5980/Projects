@@ -5,6 +5,7 @@ import SEO from '../components/SEO';
 import DisplayType from '../components/DisplayType';
 import Reveal, { RevealGroup, RevealItem } from '../components/Reveal';
 import { AccentDot } from '../components/FloatingBadge';
+import TiltPortrait from '../components/TiltPortrait';
 import { generatePersonSchema } from '../utils/personalSEO';
 import { getFullUrl } from '../utils/url';
 import { 
