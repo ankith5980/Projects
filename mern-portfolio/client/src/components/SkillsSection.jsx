@@ -33,7 +33,7 @@ const SkillsSection = React.memo(({ skills }) => {
               </h3>
               <div className="flex flex-wrap gap-2">
                 {Array.isArray(categorySkills) ? (
-                  categorySkills.slice(0, 5).map((skill) => (
+                  categorySkills.map((skill) => (
                     <span
                       key={skill._id || skill.name}
                       className="rounded-full border border-hairline bg-surface-2 px-3 py-1 text-xs font-medium text-muted transition-colors duration-200 group-hover:text-fg"

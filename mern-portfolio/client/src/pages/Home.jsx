@@ -106,7 +106,8 @@ TypingEffect.displayName = 'TypingEffect';
 // Technology marquee — recovers the tech motif the old floating icons carried
 const MARQUEE_TECH = [
   'React', 'Node.js', 'Python', 'Flutter', 'MongoDB', 'Next.js',
-  'Docker', 'FastAPI', 'Tailwind', 'PostgreSQL', 'LangGraph', 'AWS'
+  'Docker', 'FastAPI', 'Tailwind', 'PostgreSQL', 'LangGraph', 'AWS',
+  'Claude Code', 'PowerBI', 'Firebase'
 ];
 
 const Home = () => {
@@ -124,6 +125,20 @@ const Home = () => {
   const featuredProjects = useMemo(() => [
     {
       _id: 1,
+      title: 'Context-Aware Accessibility Linter',
+      description: 'An AI-augmented developer tool designed to automatically detect and remediate accessibility errors by evaluating DOM context. Evolving from a real-time browser extension into an enterprise-grade CI/CD pipeline integration, this project aims to provide a comprehensive B2B SaaS solution for automated software accessibility compliance.',
+      technologies: ['Node.js', 'Playwright', 'Browser Extension API', 'AI DOM Analysis', 'React', 'LLM API'],
+      images: [{ url: '/images/CAAL.webp' }],
+      liveUrl: '',
+      githubUrl: 'https://github.com/ankith5980/Mini_Project/tree/main/DTP_CAAL',
+      category: 'Full-Stack',
+      status: 'completed',
+      developers: ['Ankith Pratheesh Menon'],
+      lastUpdated: '2026-07-10',
+      client: 'Self',
+    },
+    {
+      _id: 2,
       title: 'AI Multi-Agent Research System',
       description: 'A fully local, decoupled AI system where multiple agents collaborate using a graph-based state machine to autonomously research topics, analyze data via vector stores, and generate comprehensive reports.',
       technologies: ['Python', 'LangGraph', 'FAISS', 'FastAPI'],
@@ -137,32 +152,18 @@ const Home = () => {
       client: 'Personal Project',
     },
     {
-      _id: 2,
-      title: 'Automated AI Data Analyst',
-      description: 'An AI-powered data analysis and visualization tool that enables users to upload datasets, perform exploratory data analysis, and generate insightful visualizations and reports using natural language queries.',
-      technologies: ['Python', 'Next.js', 'Ollama', 'FastAPI', 'LangGraph'],
-      images: [{ url: '/images/AIDATAANALYST.webp' }],
-      liveUrl: '',
-      githubUrl: 'https://github.com/ankith5980/Projects/tree/main/ai-data-analysis-system',
-      category: 'Data Analysis',
-      status: 'completed',
-      developers: ['Ankith Pratheesh Menon'],
-      lastUpdated: '2025-10-28',
-      client: 'Personal Project',
-    },
-    {
-      _id: 3,
-      title: 'NEXUS AI Fraud Vanguard',
-      description: 'An AI-powered fraud detection system that leverages advanced machine learning algorithms and real-time data analysis to identify and detect fraudulent activities across various transactional domains.',
-      technologies: ['Docker', 'Scikit-learn', 'Kafka', 'Redis', 'FastAPI'],
-      images: [{ url: '/images/NEXUS-AI.webp' }],
-      liveUrl: '',
-      githubUrl: 'https://github.com/ankith5980/Projects/tree/main/ai-fraud-detection',
-      category: 'Machine Learning',
-      status: 'completed',
-      developers: ['Ankith Pratheesh Menon'],
-      lastUpdated: '2025-10-15',
-      client: 'Personal Project',
+       _id: 3,
+       title: 'Skill-Swap : A Skill Exchange Platform',
+       description: 'A production-ready full-stack web application for peer-to-peer skill exchange. Users can teach skills to earn points and spend points to learn from others.',
+       technologies: ['TypeScript', 'MongoDB', 'Socket.io', 'Express.js'],
+       images: [{ url: '/images/SKILL-SWAP.webp' }],
+       liveUrl: '',
+       githubUrl: 'https://github.com/ankith5980/Projects/tree/main/skill-exchange',
+       category: 'Full-Stack',
+       status: 'completed',
+       developers: ['Ankith Pratheesh Menon, Devananda J'],
+       lastUpdated: '2026-04-02',
+       client: 'Community',
     },
   ], []);
 
@@ -202,6 +203,7 @@ const Home = () => {
       { _id: 'd3', name: 'MySQL' },
       { _id: 'd4', name: 'Supabase' },
       { _id: 'd5', name: 'Redis' },
+      { _id: 'd6', name: 'Firebase' },
     ],
     'ai & tools': [
       { _id: 't1', name: 'LangGraph' },
@@ -209,6 +211,8 @@ const Home = () => {
       { _id: 't3', name: 'Docker' },
       { _id: 't4', name: 'Git' },
       { _id: 't5', name: 'AWS' },
+      { _id: 't6', name: 'PowerBI' },
+      { _id: 't7', name: 'Claude Code' },
     ],
   }), []);
 
