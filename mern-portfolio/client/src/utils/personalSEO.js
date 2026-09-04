@@ -28,7 +28,9 @@ export const siteMetadata = {
     'Frontend Developer India',
     'Backend Developer India',
     'LangGraph Developer',
-    'FastAPI Developer'
+    'FastAPI Developer',
+    'Shopify Developer',
+    'E-Commerce Developer'
   ],
   social: {
     github: 'https://github.com/ankith5980',
@@ -154,7 +156,7 @@ export const generatePersonSchema = () => {
       "Supabase",
       "LangGraph",
       "Multi-Agent AI Systems",
-      "Ollama",
+      "Shopify",
       "Claude Code",
       "Docker",
       "Git",
@@ -165,7 +167,7 @@ export const generatePersonSchema = () => {
       "@type": "Occupation",
       "name": "Full Stack Developer",
       "description": "Architects, builds, and maintains full-stack web applications, microservices, and AI-driven platforms",
-      "skills": "React, Next.js, Node.js, Python, FastAPI, MongoDB, PostgreSQL, Tailwind CSS, Docker, Git"
+      "skills": "React, Next.js, Node.js, Python, FastAPI, MongoDB, PostgreSQL, Tailwind CSS, Docker, Git, Shopify"
     },
     "sameAs": [
       "https://github.com/ankith5980",
@@ -276,7 +278,7 @@ export const generateFAQSchema = () => {
         "name": "What technologies and programming languages does Ankith specialize in?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ankith specializes in JavaScript, TypeScript, Python, and Dart. His core stack encompasses React, Next.js, Node.js, Express.js, FastAPI, Django, Flutter, Tailwind CSS, MongoDB, PostgreSQL, Redis, Firebase, and AI technologies such as LangGraph and Ollama."
+          "text": "Ankith specializes in JavaScript, TypeScript, Python, and Dart. His core stack encompasses React, Next.js, Node.js, Express.js, FastAPI, Django, Flutter, Tailwind CSS, MongoDB, PostgreSQL, Redis, Firebase, Shopify, and AI technologies such as LangGraph and Claude Code."
         }
       },
       {

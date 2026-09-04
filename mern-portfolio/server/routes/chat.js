@@ -100,7 +100,7 @@ const PORTFOLIO_DATA = {
       frontend: ['React', 'Next.js', 'Tailwind CSS', 'JavaScript', 'Flutter', 'HTML5', 'CSS3'],
       backend: ['Node.js', 'Express.js', 'FastAPI', 'Django', 'PHP', 'Socket.io', 'RESTful APIs'],
       databases: ['MongoDB', 'PostgreSQL', 'Redis', 'Firebase', 'MySQL', 'Supabase'],
-      aiAndTools: ['LangGraph', 'Ollama', 'Claude Code', 'Docker', 'Git', 'AWS', 'PowerBI', 'Figma', 'Postman', 'Playwright', 'Scikit-learn', 'FAISS']
+      aiAndTools: ['LangGraph', 'Claude Code', 'Shopify', 'Docker', 'Git', 'AWS', 'PowerBI', 'Figma', 'Postman', 'Playwright', 'Scikit-learn', 'FAISS']
     }
   },
   projects: [

@@ -82,7 +82,7 @@
         "Multi-Agent Systems",
         "LangGraph",
         "Claude Code",
-        "Ollama",
+        "Shopify",
         "Database Design",
         "RESTful APIs",
         "UI/UX Design",
@@ -113,7 +113,7 @@
           "@type": "Country",
           "name": "India"
         },
-        "skills": "React, Next.js, Node.js, JavaScript, Python, FastAPI, Flutter, MongoDB, PostgreSQL, Tailwind CSS, Docker, Git"
+        "skills": "React, Next.js, Node.js, JavaScript, Python, FastAPI, Flutter, MongoDB, PostgreSQL, Tailwind CSS, Docker, Git, Shopify"
       }
     },
     {
@@ -152,8 +152,8 @@
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Web Development",
-              "description": "Custom web application development using React, Next.js, Node.js, and modern technologies"
+              "name": "Web & E-Commerce Development",
+              "description": "Custom web application and e-commerce development using React, Next.js, Node.js, Shopify, and modern architectures"
             }
           },
           {
@@ -200,7 +200,7 @@
           "name": "What technologies and programming languages does Ankith specialize in?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Ankith specializes in JavaScript, TypeScript, Python, and Dart. His core stack encompasses React, Next.js, Node.js, Express.js, FastAPI, Django, Flutter, Tailwind CSS, MongoDB, PostgreSQL, Redis, Firebase, and AI frameworks like LangGraph and Ollama."
+            "text": "Ankith specializes in JavaScript, TypeScript, Python, and Dart. His core stack encompasses React, Next.js, Node.js, Express.js, FastAPI, Django, Flutter, Tailwind CSS, MongoDB, PostgreSQL, Redis, Firebase, Shopify, and AI frameworks like LangGraph and Claude Code."
           }
         },
         {

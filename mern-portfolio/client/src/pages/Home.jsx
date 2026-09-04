@@ -207,7 +207,7 @@ const Home = () => {
     ],
     'ai & tools': [
       { _id: 't1', name: 'LangGraph' },
-      { _id: 't2', name: 'Ollama' },
+      { _id: 't2', name: 'Shopify' },
       { _id: 't3', name: 'Docker' },
       { _id: 't4', name: 'Git' },
       { _id: 't5', name: 'AWS' },

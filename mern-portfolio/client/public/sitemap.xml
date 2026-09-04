@@ -41,27 +41,33 @@
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://portfolio-ankith.vercel.app/images/PORTFOLIO.webp</image:loc>
-      <image:title>Personal Portfolio Website - Project</image:title>
+      <image:title>Personal Portfolio Website - MERN Stack Project</image:title>
+      <image:caption>Full-stack MERN portfolio website with dark violet aesthetic, interactive hero typography, and Zyra AI assistant by Ankith Pratheesh Menon</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://portfolio-ankith.vercel.app/images/SKILL-SWAP.webp</image:loc>
-      <image:title>Skill Swap Platform - Project</image:title>
+      <image:title>Skill Swap Platform - Real-Time WebSockets Project</image:title>
+      <image:caption>Production-ready peer-to-peer skill exchange platform using TypeScript, MongoDB, and Socket.io by Ankith Pratheesh Menon</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://portfolio-ankith.vercel.app/images/MULTI-AGENTRESEARCH.webp</image:loc>
-      <image:title>AI Multi-Agent Research System - Project</image:title>
+      <image:title>AI Multi-Agent Research System - LangGraph and FAISS</image:title>
+      <image:caption>Decoupled AI multi-agent architecture collaborating via graph-based state machine and FAISS vector stores for autonomous research</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://portfolio-ankith.vercel.app/images/NEXUS-AI.webp</image:loc>
-      <image:title>AI Fraud Detection System - Project</image:title>
+      <image:title>NEXUS AI Fraud Vanguard - Real-Time Kafka Pipeline</image:title>
+      <image:caption>Real-time machine learning fraud detection pipeline with Apache Kafka streaming and Redis feature caching</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://portfolio-ankith.vercel.app/images/AIDATAANALYST.webp</image:loc>
-      <image:title>Automated AI Data Analyst - Project</image:title>
+      <image:title>Automated AI Data Analyst - Python and FastAPI System</image:title>
+      <image:caption>AI-powered exploratory data analysis and visualization engine generating natural language reports and charts</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://portfolio-ankith.vercel.app/images/CAAL.webp</image:loc>
-      <image:title>Context-Aware Accessibility Linter - Project</image:title>
+      <image:title>Context-Aware Accessibility Linter - AI DOM Analysis SaaS</image:title>
+      <image:caption>Enterprise accessibility compliance tool and browser extension evaluating DOM context for automated WCAG remediation</image:caption>
     </image:image>
   </url>
   
@@ -72,9 +78,19 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
+      <image:loc>https://portfolio-ankith.vercel.app/images/Cert_Cover_1.webp</image:loc>
+      <image:title>Python Django Web Development Certification Cover</image:title>
+      <image:caption>Certification credential cover for Python Django Web Development from RISS Technologies</image:caption>
+    </image:image>
+    <image:image>
       <image:loc>https://portfolio-ankith.vercel.app/images/python_cert%20(1).jpg</image:loc>
       <image:title>Python Django Web Development Certificate - Ankith Pratheesh Menon</image:title>
       <image:caption>Professional certification in Python and Django web development earned by Ankith Pratheesh Menon, demonstrating expertise in backend development and web frameworks</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://portfolio-ankith.vercel.app/images/Cert_Cover_2.webp</image:loc>
+      <image:title>Flutter Dart Mobile Development Certification Cover</image:title>
+      <image:caption>Certification credential cover for Flutter and Dart Mobile Development from Maitexa Info Solutions</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://portfolio-ankith.vercel.app/images/flutter_cert%20(1).jpg</image:loc>
@@ -82,9 +98,19 @@
       <image:caption>Professional certification in Flutter and Dart mobile application development earned by Ankith Pratheesh Menon, showcasing cross-platform mobile development skills</image:caption>
     </image:image>
     <image:image>
+      <image:loc>https://portfolio-ankith.vercel.app/images/Cert_Cover_3.webp</image:loc>
+      <image:title>Figma UI/UX Design Certification Cover</image:title>
+      <image:caption>Certification credential cover for Figma UI/UX Design Mastery from TECHBYHEART</image:caption>
+    </image:image>
+    <image:image>
       <image:loc>https://portfolio-ankith.vercel.app/images/ui_ux_cert%20(1).jpg</image:loc>
       <image:title>Figma UI/UX Design Certificate - Ankith Pratheesh Menon</image:title>
       <image:caption>Professional certification in Figma UI/UX design earned by Ankith Pratheesh Menon, demonstrating user interface and user experience design capabilities</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://portfolio-ankith.vercel.app/images/Cert_Cover_4.webp</image:loc>
+      <image:title>Python for Data Science and Machine Learning Certification Cover</image:title>
+      <image:caption>Certification credential cover for Python for Data Science and ML from Maitexa Info Solutions</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://portfolio-ankith.vercel.app/images/python_data_science_cert%20(1).jpeg</image:loc>

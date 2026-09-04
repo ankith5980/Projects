@@ -25,10 +25,18 @@ Allow: /images/MULTI-AGENTRESEARCH.webp
 Allow: /images/NEXUS-AI.webp
 Allow: /images/AIDATAANALYST.webp
 Allow: /images/CAAL.webp
+Allow: /images/Cert_Cover_1.webp
+Allow: /images/Cert_Cover_2.webp
+Allow: /images/Cert_Cover_3.webp
+Allow: /images/Cert_Cover_4.webp
 Allow: /images/python_data_science_cert (1).jpeg
 Allow: /images/flutter_cert (1).jpg
 Allow: /images/python_cert (1).jpg
 Allow: /images/ui_ux_cert (1).jpg
+
+# Explicitly allow structured data schema for search & AI engine knowledge extraction
+Allow: /schema.json
+Allow: /manifest.json
 
 # Block internal/private paths
 Disallow: /admin/
@@ -47,6 +55,7 @@ Allow: /about
 Allow: /projects
 Allow: /certificates
 Allow: /contact
+Allow: /schema.json
 Allow: /images/Ankith.jpg
 Allow: /cv/My_Resume.pdf
 Crawl-delay: 0
@@ -61,6 +70,10 @@ Allow: /images/MULTI-AGENTRESEARCH.webp
 Allow: /images/NEXUS-AI.webp
 Allow: /images/AIDATAANALYST.webp
 Allow: /images/CAAL.webp
+Allow: /images/Cert_Cover_1.webp
+Allow: /images/Cert_Cover_2.webp
+Allow: /images/Cert_Cover_3.webp
+Allow: /images/Cert_Cover_4.webp
 Allow: /images/python_data_science_cert (1).jpeg
 Allow: /images/flutter_cert (1).jpg
 Allow: /images/python_cert (1).jpg
@@ -69,10 +82,12 @@ Allow: /images/ui_ux_cert (1).jpg
 # Major search engine crawlers
 User-agent: Bingbot
 Allow: /
+Allow: /schema.json
 Crawl-delay: 1
 
 User-agent: Applebot
 Allow: /
+Allow: /schema.json
 
 User-agent: DuckDuckBot
 Allow: /
@@ -86,26 +101,58 @@ Allow: /
 User-agent: baiduspider
 Allow: /
 
-# AI crawlers & conversational search engines (Google AI Overviews, Perplexity, ChatGPT, Claude, Apple)
+# AI crawlers & conversational answer engines (AEO / GEO Optimization)
+# Google AI Overviews & Gemini
 User-agent: Google-Extended
 Allow: /
+Allow: /schema.json
 
+User-agent: GoogleOther
+Allow: /
+Allow: /schema.json
+
+# OpenAI ChatGPT, SearchGPT & Citations
 User-agent: GPTBot
 Allow: /
+Allow: /schema.json
 
+User-agent: OAI-SearchBot
+Allow: /
+Allow: /schema.json
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /schema.json
+
+# Anthropic Claude & Claude Search
 User-agent: ClaudeBot
 Allow: /
+Allow: /schema.json
 
+User-agent: Claude-Web
+Allow: /
+Allow: /schema.json
+
+# Perplexity AI Answer Engine
 User-agent: PerplexityBot
 Allow: /
+Allow: /schema.json
 
+# Apple Intelligence
 User-agent: Applebot-Extended
 Allow: /
+Allow: /schema.json
+
+# Meta AI
+User-agent: meta-externalagent
+Allow: /
+Allow: /schema.json
 
 # Allow common root files
 Allow: /favicon.ico
 Allow: /robots.txt
 Allow: /manifest.json
+Allow: /schema.json
 
 # Sitemap location for faster discovery
 Sitemap: https://portfolio-ankith.vercel.app/sitemap.xml
