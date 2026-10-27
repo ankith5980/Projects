@@ -220,7 +220,7 @@ const About = () => {
     experience: '0',
     projects: '10',
     ongoingProjects: '0',
-    avatar: { url: '/images/Ankith.jpg' },
+    avatar: { url: '/images/Ankith-cutout.webp' },
     socialLinks: {
       github: 'https://github.com/ankith5980',
       linkedin: 'https://www.linkedin.com/in/ankith-pratheesh-menon-0353662b6/',
@@ -289,8 +289,9 @@ const About = () => {
             {/* Profile Image */}
             <motion.div variants={itemVariants} className="flex justify-center lg:justify-start">
               <TiltPortrait
-                src={aboutData.avatar?.url || '/images/Ankith.jpg'}
+                src={aboutData.avatar?.url || '/images/Ankith-cutout.webp'}
                 alt={aboutData.fullName}
+                cutout
                 width="360"
                 height="480"
                 loading="eager"

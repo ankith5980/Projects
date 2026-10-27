@@ -34,6 +34,12 @@ import useMediaQuery, { usePrefersReducedMotion } from '../hooks/useMediaQuery';
  * mask, so the giant DEVELOPER lettering and the page grid read *through* the
  * portrait's border instead of stopping at it.
  *
+ * `cutout` is for a background-removed source (transparent around the
+ * subject). With no studio plate left to disguise, the tint scrim is dropped,
+ * and the key light and sheen are masked to the silhouette so they never light the empty air beside it. Combined
+ * with `blend`, only the bottom fade remains; in the framed variant, a themed
+ * backdrop fills the frame where the white plate used to be.
+ *
  * Everything here is input-driven — cursor, gyro, hover. The frame never moves
  * on its own: no idle drift, no scroll parallax. It sits still until touched.
  */
@@ -55,6 +61,7 @@ const TiltPortrait = ({
   style,
   imgClassName = 'h-full w-full object-cover object-center',
   blend = false,
+  cutout = false,
   children,
   ...imgProps
 }) => {
@@ -194,9 +201,27 @@ const TiltPortrait = ({
   // The radius is what gives the plate its shape in blend mode — the mask only
   // softens the edge, so the corners have to be rounded here or the feather
   // reads as a torn rectangle.
+  // A cut-out needs neither: its silhouette is the shape.
   const plateClass = blend
-    ? 'portrait-blend relative aspect-[3/4] w-full overflow-hidden rounded-[2.5rem]'
+    ? cutout
+      ? 'portrait-cutout relative aspect-[3/4] w-full'
+      : 'portrait-blend relative aspect-[3/4] w-full overflow-hidden rounded-[2.5rem]'
     : 'ring-gradient-violet relative aspect-[3/4] w-full overflow-hidden rounded-[2rem] shadow-soft-lg';
+
+  // The source's own alpha, sized exactly like the img (`object-cover`,
+  // centred), so overlays only land on the subject.
+  const subjectMask = cutout
+    ? {
+        WebkitMaskImage: `url(${src})`,
+        maskImage: `url(${src})`,
+        WebkitMaskSize: 'cover',
+        maskSize: 'cover',
+        WebkitMaskPosition: 'center',
+        maskPosition: 'center',
+        WebkitMaskRepeat: 'no-repeat',
+        maskRepeat: 'no-repeat',
+      }
+    : null;
 
   return (
     <div
@@ -252,10 +277,12 @@ const TiltPortrait = ({
         {/* `isolation` is load-bearing: it keeps the scrims' blend modes
             composited against the photo and never against the page. */}
         <div className={plateClass} style={{ isolation: 'isolate' }}>
+          {cutout && !blend && <span aria-hidden="true" className="portrait-backdrop" />}
+
           <img
             src={src}
             alt={alt}
-            className={`portrait-grade ${imgClassName}`}
+            className={`portrait-grade relative ${imgClassName}`}
             width={width}
             height={height}
             draggable="false"
@@ -271,7 +298,9 @@ const TiltPortrait = ({
             👤
           </div>
 
-          <span aria-hidden="true" className="portrait-scrim" />
+          {/* Over a cut-out, the multiply scrim would composite against
+              transparent pixels and paint a visible box. */}
+          {!cutout && <span aria-hidden="true" className="portrait-scrim" />}
           {!blend && <span aria-hidden="true" className="portrait-floor" />}
 
           {/* Key light. Soft-light keeps it inside the photo's own tonal
@@ -281,7 +310,7 @@ const TiltPortrait = ({
             <motion.span
               aria-hidden="true"
               className="pointer-events-none absolute inset-0"
-              style={{ backgroundImage: keyLight, mixBlendMode: 'soft-light' }}
+              style={{ backgroundImage: keyLight, mixBlendMode: 'soft-light', ...subjectMask }}
             />
           )}
 
@@ -295,6 +324,7 @@ const TiltPortrait = ({
                 backgroundSize: '220% 100%',
                 backgroundPositionX: sheenX,
                 mixBlendMode: 'overlay',
+                ...subjectMask,
               }}
             />
           )}

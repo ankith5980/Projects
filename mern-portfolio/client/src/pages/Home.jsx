@@ -314,16 +314,19 @@ const Home = () => {
               className="relative z-10 order-2 mx-auto flex justify-center"
             >
               {/*
-                `blend` drops the ring and brackets and feathers the photo's
-                edges, so the frame hands off into the lettering layered over
-                it rather than ending on a hard border. The portrait itself
-                holds position — it only responds to the cursor (tilt + key
-                light) or, on a phone, to the handset's own tilt.
+                `blend` drops the ring and brackets; `cutout` swaps the studio
+                shot for the background-removed one, so the figure stands
+                straight on the page — grid, violet wash and the lettering
+                layered over it all show around the silhouette, and only the
+                waist crop is faded out. The portrait itself holds position —
+                it only responds to the cursor (tilt + key light) or, on a
+                phone, to the handset's own tilt.
               */}
               <TiltPortrait
-                src="/images/Ankith.jpg"
+                src="/images/Ankith-cutout.webp"
                 alt="Ankith Pratheesh Menon"
                 blend
+                cutout
                 width="400"
                 height="533"
                 loading="eager"

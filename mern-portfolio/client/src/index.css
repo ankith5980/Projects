@@ -400,6 +400,34 @@ html, body, * {
     mask-composite: intersect;
   }
 
+  /* ---- Cut-out portrait -----------------------------------------------
+     The background-removed headshot (Ankith-cutout.webp) has no plate to
+     hide, so the scrim and the elliptical feather above aren't needed — the
+     silhouette is the shape. What's left is the ground it stands on. */
+
+  /*
+    Frameless cut-out (Home hero). Only the bottom ramp from .portrait-blend
+    survives: the photo still ends at the waist, and that crop line is the one
+    hard edge left to dissolve.
+  */
+  .portrait-cutout {
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, rgba(0, 0, 0, 0.4) 14%, #000 38%);
+    mask-image: linear-gradient(to top, transparent 0%, rgba(0, 0, 0, 0.4) 14%, #000 38%);
+  }
+
+  /*
+    Framed cut-out (About). Stands in for the white studio plate with the
+    page's own materials — the elevated surface and the backdrop's top violet
+    wash — so the inside of the frame matches the outside in both themes.
+  */
+  .portrait-backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgb(var(--bg-elev));
+    background-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgb(var(--accent) / 0.28) 0%, rgb(var(--accent-soft) / 0.10) 50%, transparent 80%);
+    pointer-events: none;
+  }
+
   .portrait-floor {
     position: absolute;
     inset-inline: 0;
