@@ -77,7 +77,7 @@ const Footer = () => {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-fill btn-fill-accent flex h-10 w-10 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-all duration-200 hover:border-accent/60 hover:text-white hover:shadow-soft"
+                  className="btn-fill btn-fill-accent flex h-10 w-10 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-all duration-200 hover:border-accent/60 hover:text-on-accent hover:shadow-soft"
                   aria-label={link.name}
                 >
                   <link.icon className="h-4 w-4" />
@@ -111,7 +111,7 @@ const Footer = () => {
             </p>
             <Link
               to="/contact"
-              className="btn-fill btn-fill-soft inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:shadow-soft"
+              className="btn-fill btn-fill-strong inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-on-accent transition-all duration-200 hover:shadow-soft"
             >
               <FaEnvelope className="h-4 w-4" />
               <span>Contact Me</span>

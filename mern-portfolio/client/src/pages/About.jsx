@@ -141,8 +141,8 @@ const techStack = [
   { name: 'Express.js', icon: SiExpress, color: 'text-muted' },
   { name: 'Django', icon: SiDjango, color: 'text-green-700' },
   { name: 'FastAPI', icon: SiFastapi, color: 'text-teal-500' },
-  { name: 'PHP', icon: SiPhp, color: 'text-indigo-500' },
-  { name: 'Machine Learning', icon: FaRobot, color: 'text-purple-500' },
+  { name: 'PHP', icon: SiPhp, color: 'text-sky-600' },
+  { name: 'Machine Learning', icon: FaRobot, color: 'text-cyan-500' },
   { name: 'MongoDB', icon: SiMongodb, color: 'text-green-600' },
   { name: 'PostgreSQL', icon: SiPostgresql, color: 'text-blue-700' },
   { name: 'Redis', icon: SiRedis, color: 'text-red-500' },
@@ -156,7 +156,7 @@ const techStack = [
   { name: 'Shopify', icon: SiShopify, color: 'text-green-500' },
   { name: 'Docker', icon: SiDocker, color: 'text-blue-500' },
   { name: 'Git', icon: SiGit, color: 'text-red-500' },
-  { name: 'Figma', icon: SiFigma, color: 'text-purple-500' }
+  { name: 'Figma', icon: SiFigma, color: 'text-orange-500' }
 ];
 
 // Experience timeline
@@ -195,10 +195,10 @@ const timeline = [
 const interests = [
   { name: 'Coding', icon: FaCode, color: 'text-blue-500' },
   { name: 'Tea', icon: FaCoffee, color: 'text-yellow-600' },
-  { name: 'Music', icon: FaMusic, color: 'text-purple-500' },
+  { name: 'Music', icon: FaMusic, color: 'text-rose-500' },
   { name: 'Gaming', icon: FaGamepad, color: 'text-green-500' },
-  { name: 'Photography', icon: FaCamera, color: 'text-pink-500' },
-  { name: 'Travel', icon: FaPlane, color: 'text-indigo-500' }
+  { name: 'Photography', icon: FaCamera, color: 'text-amber-500' },
+  { name: 'Travel', icon: FaPlane, color: 'text-sky-500' }
 ];
 
 const About = () => {
@@ -337,7 +337,7 @@ const About = () => {
                 ].map((stat) => (
                   <div
                     key={stat.label}
-                    className="glass-violet flex min-w-[110px] flex-1 flex-col justify-center rounded-2xl px-4 py-4 text-center transition-colors duration-300 hover:border-accent/40 lg:flex-none"
+                    className="glass flex min-w-[110px] flex-1 flex-col justify-center rounded-2xl px-4 py-4 text-center transition-colors duration-300 hover:border-accent/40 lg:flex-none"
                   >
                     <div className="font-display text-3xl font-bold leading-none text-accent sm:text-4xl">
                       {stat.value}
@@ -367,7 +367,7 @@ const About = () => {
               <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
                 <Link
                   to="/contact"
-                  className="btn-fill btn-fill-soft inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:shadow-soft"
+                  className="btn-fill btn-fill-strong inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-on-accent transition-all duration-200 hover:shadow-soft"
                 >
                   <FaEnvelope className="h-4 w-4" />
                   <span>Get In Touch</span>
@@ -375,7 +375,7 @@ const About = () => {
                 <a
                   href="/cv/My_Resume.pdf"
                   download="Ankith_Pratheesh_Menon_CV.pdf"
-                  className="btn-fill btn-fill-accent inline-flex items-center gap-2 rounded-full border border-accent/50 px-6 py-3 text-sm font-semibold text-accent transition-all duration-200 hover:text-white"
+                  className="btn-fill btn-fill-accent inline-flex items-center gap-2 rounded-full border border-accent/50 px-6 py-3 text-sm font-semibold text-accent transition-all duration-200 hover:text-on-accent"
                 >
                   <FaDownload className="h-4 w-4" />
                   <span>Download CV</span>
@@ -395,8 +395,8 @@ const About = () => {
           </Reveal>
 
           <Reveal delay={0.1} className="mx-auto max-w-4xl">
-            <div className="glass-violet relative rounded-3xl p-8 sm:p-10">
-              <span className="absolute left-8 top-0 h-px w-24 bg-gradient-to-r from-accent to-transparent" />
+            <div className="glass relative rounded-3xl p-8 sm:p-10">
+              <span className="absolute left-8 top-0 h-px w-24 bg-accent/60" />
               <p className="mb-6 text-base leading-relaxed text-muted sm:text-lg">
                 {aboutData.bio || `I'm a passionate full-stack developer with over 3 years of experience creating
                 digital solutions that make a difference. My journey began with a curiosity about how websites work,
@@ -427,7 +427,7 @@ const About = () => {
             {techStack.map((tech) => (
               <RevealItem
                 key={tech.name}
-                className="glass-violet group rounded-2xl p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-soft sm:p-6"
+                className="glass group rounded-2xl p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-soft sm:p-6"
               >
                 <tech.icon className={`mx-auto mb-3 h-10 w-10 sm:h-12 sm:w-12 ${tech.color} transition-transform duration-300 group-hover:scale-110`} />
                 <h3 className="font-display text-sm font-semibold text-fg sm:text-base">{tech.name}</h3>
@@ -447,23 +447,25 @@ const About = () => {
           </Reveal>
 
           <div className="relative mx-auto max-w-4xl">
-            {/* Continuous violet rail */}
-            <span className="absolute left-5 top-2 hidden h-[calc(100%-1rem)] w-px bg-gradient-to-b from-accent via-accent/40 to-transparent sm:block" />
+            {/* Continuous accent rail */}
+            <span className="absolute left-5 top-2 hidden h-[calc(100%-1rem)] w-px bg-accent/40 sm:block" />
 
             <RevealGroup stagger={0.12} className="space-y-6">
               {timeline.map((item, index) => (
                 <RevealItem key={index} className="relative flex items-start gap-5">
                   {/* Node */}
                   <div
-                    className={`relative z-10 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm text-white shadow-soft ${
-                      item.type === 'work' ? 'bg-accent' : 'bg-accent/60'
+                    className={`relative z-10 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm shadow-soft ${
+                      item.type === 'work'
+                        ? 'bg-accent text-on-accent'
+                        : 'border-2 border-accent bg-elev text-accent'
                     }`}
                   >
                     {item.type === 'work' ? <FaBriefcase /> : <FaGraduationCap />}
                   </div>
 
                   {/* Content */}
-                  <div className="glass-violet flex-1 rounded-2xl p-5 transition-colors duration-300 hover:border-accent/40 sm:p-6">
+                  <div className="glass flex-1 rounded-2xl p-5 transition-colors duration-300 hover:border-accent/40 sm:p-6">
                     <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                       <h3 className="font-display text-lg font-bold text-fg sm:text-xl">{item.title}</h3>
                       <span className="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 font-display text-xs font-semibold text-accent">
@@ -493,7 +495,7 @@ const About = () => {
             {interests.map((interest) => (
               <RevealItem
                 key={interest.name}
-                className="glass-violet group rounded-2xl p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-soft sm:p-6"
+                className="glass group rounded-2xl p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-soft sm:p-6"
               >
                 <interest.icon className={`mx-auto mb-3 h-8 w-8 ${interest.color} transition-transform duration-300 group-hover:scale-125`} />
                 <h3 className="font-display text-sm font-semibold text-fg">{interest.name}</h3>
@@ -505,43 +507,26 @@ const About = () => {
         {/* ================= CTA ================= */}
         <section className="py-16">
           <Reveal>
-            <div className="relative overflow-hidden rounded-3xl border border-accent/30 p-8 text-center lg:p-14">
-              {/* Violet field */}
-              <div
-                className="absolute inset-0 -z-10"
-                style={{
-                  background:
-                    'linear-gradient(135deg, rgb(var(--accent) / 0.9), rgb(var(--accent) / 0.55) 45%, rgb(var(--accent-soft) / 0.85))',
-                }}
-              />
-              <div
-                className="absolute inset-0 -z-10 opacity-20"
-                style={{
-                  backgroundImage:
-                    'linear-gradient(to right, rgba(255,255,255,0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.35) 1px, transparent 1px)',
-                  backgroundSize: '48px 48px',
-                }}
-              />
+            <div className="relative isolate overflow-hidden rounded-3xl bg-accent p-8 text-center lg:p-14">
+              <AccentDot className="right-8 top-8" size={10} onAccent />
 
-              <AccentDot className="right-8 top-8" size={10} />
-
-              <h2 className="mb-4 font-display text-3xl font-bold uppercase tracking-tight text-white lg:text-5xl">
+              <h2 className="mb-4 font-display text-3xl font-bold uppercase tracking-tight text-on-accent lg:text-5xl">
                 Let&apos;s Work Together!
               </h2>
-              <p className="mx-auto mb-8 max-w-2xl text-base text-white/90 lg:text-xl">
+              <p className="mx-auto mb-8 max-w-2xl text-base text-on-accent/90 lg:text-xl">
                 Have a project in mind? I'd love to hear about it and discuss how we can bring your ideas to life.
               </p>
               <div className="flex flex-wrap justify-center gap-3">
                 <Link
                   to="/contact"
-                  className="btn-fill btn-fill-accent inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-[#0A0A0A] transition-colors duration-200 hover:text-white"
+                  className="btn-fill btn-fill-strong inline-flex items-center gap-2 rounded-full bg-on-accent px-7 py-3 text-sm font-semibold text-accent transition-colors duration-200 hover:text-on-accent"
                 >
                   <FaEnvelope className="h-4 w-4" />
                   <span>Start a Conversation</span>
                 </Link>
                 <Link
                   to="/projects"
-                  className="btn-fill btn-fill-white inline-flex items-center gap-2 rounded-full border-2 border-white/60 px-7 py-3 text-sm font-semibold text-white transition-all duration-200 hover:border-white hover:text-[#0A0A0A]"
+                  className="btn-fill btn-fill-on-accent inline-flex items-center gap-2 rounded-full border-2 border-on-accent/60 px-7 py-3 text-sm font-semibold text-on-accent transition-all duration-200 hover:border-on-accent hover:text-accent"
                 >
                   <FaRocket className="h-4 w-4" />
                   <span>View My Work</span>
@@ -564,7 +549,7 @@ const About = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
-              className="btn-fill btn-fill-accent flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-all duration-200 hover:border-accent/60 hover:text-white hover:shadow-soft"
+              className="btn-fill btn-fill-accent flex h-12 w-12 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-all duration-200 hover:border-accent/60 hover:text-on-accent hover:shadow-soft"
             >
               <Icon className="h-5 w-5" />
             </a>

@@ -7,65 +7,64 @@
    Every component is styled once against these; the light variant falls out
    of the :root / .dark blocks below rather than from paired `dark:` classes.
    ========================================================================== */
+/*
+  Palette. The accent is the cornflower blue of the shirt in the profile photo
+  (hue ~220°), so the portrait carries the brand colour instead of competing
+  with it. Neutrals lean very slightly toward the same hue ("ink" / "slate").
+
+  Contrast (WCAG 2.1):
+    light  fg/bg 16.7  muted/bg 7.0  accent/bg 5.6  on-accent/accent 6.1
+    dark   fg/bg 17.6  muted/bg 7.8  accent/bg 7.5  on-accent/accent 7.4
+
+  `--on-accent` is the text colour for anything sitting on a solid accent
+  fill. It flips per theme: white on the deeper light-mode blue, ink on the
+  lighter dark-mode blue (white there would be only 2.5:1).
+*/
 :root {
   /* light variant */
-  --bg: 250 250 250;
+  --bg: 245 247 250;          /* #F5F7FA */
   --bg-elev: 255 255 255;
-  --fg: 10 10 10;
-  --fg-muted: 82 82 82;
-  --accent: 124 58 237;      /* #7C3AED — deeper for contrast on light */
-  --accent-soft: 139 92 246;
+  --fg: 14 23 38;             /* #0E1726 */
+  --fg-muted: 75 85 103;      /* #4B5567 */
+  --accent: 43 92 200;        /* #2B5CC8 */
+  --accent-strong: 31 74 168; /* #1F4AA8 — hover tone, still 8:1 under white */
+  --on-accent: 255 255 255;
 
   --surface: rgba(255, 255, 255, 0.72);
-  --surface-2: rgba(0, 0, 0, 0.035);
-  --hairline: rgba(10, 10, 10, 0.10);
-  --hairline-strong: rgba(10, 10, 10, 0.18);
-  --outline-text: rgba(10, 10, 10, 0.10);
-  --grid-line: rgba(10, 10, 10, 0.045);
+  --surface-2: rgba(14, 23, 38, 0.035);
+  --hairline: rgba(14, 23, 38, 0.10);
+  --hairline-strong: rgba(14, 23, 38, 0.18);
+  --outline-text: rgba(14, 23, 38, 0.10);
   --glass-highlight: rgba(255, 255, 255, 0.85);
 
-  /* Portrait grading. The source headshot sits on a white studio plate, which
-     needs no help on a near-white page — so the tint is a no-op here and the
-     grade is barely more than a nudge. */
-  --portrait-tint: transparent;
+  /* Portrait grading — barely more than a nudge on the light page. */
   --portrait-grade: contrast(1.02) saturate(1.04);
-  --portrait-halo: 0.45;
 
   /* Elevation. Two-part casts (contact shadow + ambient) so raised surfaces
      read as physically lifted rather than lit from within. */
-  --shadow-1: 0 1px 2px rgba(16, 16, 20, 0.06), 0 6px 16px -8px rgba(16, 16, 20, 0.16);
-  --shadow-2: 0 2px 4px rgba(16, 16, 20, 0.06), 0 14px 32px -12px rgba(16, 16, 20, 0.20);
-  --shadow-3: 0 4px 10px rgba(16, 16, 20, 0.08), 0 30px 60px -20px rgba(16, 16, 20, 0.26);
+  --shadow-1: 0 1px 2px rgba(14, 23, 38, 0.06), 0 6px 16px -8px rgba(14, 23, 38, 0.16);
+  --shadow-2: 0 2px 4px rgba(14, 23, 38, 0.06), 0 14px 32px -12px rgba(14, 23, 38, 0.20);
+  --shadow-3: 0 4px 10px rgba(14, 23, 38, 0.08), 0 30px 60px -20px rgba(14, 23, 38, 0.26);
 }
 
 .dark {
-  /* dark variant — the reference look */
-  --bg: 10 10 10;
-  --bg-elev: 18 18 20;
-  --fg: 255 255 255;
-  --fg-muted: 163 163 163;
-  --accent: 139 92 246;      /* #8B5CF6 */
-  --accent-soft: 167 139 250;
+  /* dark variant */
+  --bg: 11 15 23;               /* #0B0F17 */
+  --bg-elev: 20 26 38;          /* #141A26 */
+  --fg: 242 245 250;            /* #F2F5FA */
+  --fg-muted: 156 166 184;      /* #9CA6B8 */
+  --accent: 122 162 240;        /* #7AA2F0 */
+  --accent-strong: 169 194 242; /* #A9C2F2 — close to the shirt itself */
+  --on-accent: 11 18 32;        /* #0B1220 */
 
   --surface: rgba(255, 255, 255, 0.045);
   --surface-2: rgba(255, 255, 255, 0.025);
   --hairline: rgba(255, 255, 255, 0.09);
   --hairline-strong: rgba(255, 255, 255, 0.16);
   --outline-text: rgba(255, 255, 255, 0.09);
-  --grid-line: rgba(255, 255, 255, 0.028);
   --glass-highlight: rgba(255, 255, 255, 0.10);
 
-  /* On the dark page that same white plate is the brightest object on screen.
-     The tint pulls its edges toward the accent so it recedes into the violet
-     wash instead of reading as a slab pasted over it.
-
-     Deliberately a *deep* violet rather than `--accent` itself: the scrim
-     multiplies, and white is the identity for multiply — the mid-tone accent
-     would leave the corners a pale lavender, still the brightest thing on the
-     page. This lands them near `--bg` while holding the accent's hue. */
-  --portrait-tint: rgba(30, 20, 56, 0.9);
   --portrait-grade: contrast(1.06) saturate(1.08) brightness(0.97);
-  --portrait-halo: 0.7;
 
   /* Dark surfaces need a deeper, more diffuse cast to register at all. */
   --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.40), 0 8px 20px -10px rgba(0, 0, 0, 0.55);
@@ -275,7 +274,7 @@ html, body, * {
   }
 
   /* Shared glass panel — navbar, cards, modals, chat widget */
-  .glass-violet {
+  .glass {
     background-color: var(--surface);
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
@@ -285,7 +284,7 @@ html, body, * {
       inset 0 1px 0 0 var(--glass-highlight);
   }
 
-  .glass-violet-strong {
+  .glass-strong {
     background-color: rgb(var(--bg-elev) / 0.85);
     backdrop-filter: blur(28px) saturate(150%);
     -webkit-backdrop-filter: blur(28px) saturate(150%);
@@ -296,32 +295,22 @@ html, body, * {
   }
 
   /*
-    Violet gradient hairline frame (portrait, featured cards).
-    Drawn as a masked overlay rather than a padding-box/border-box gradient
-    pair — the latter needs an opaque fill behind it, which showed up as a
-    white band between the border and the image in the light theme.
+    Solid accent hairline frame (portrait, featured cards).
+    Drawn as a masked overlay rather than a CSS border so it sits on top of the
+    image instead of pushing it inward. The mask layers are plain solid fills
+    used to cut out the content box — nothing visible is graded.
   */
-  .ring-gradient-violet {
+  .ring-accent {
     position: relative;
   }
 
-  .ring-gradient-violet::after {
+  .ring-accent::after {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: inherit;
     padding: 1.5px;
-    /*
-      The midpoint keeps a solid alpha on purpose. Fading it toward zero left a
-      stretch of the ring effectively invisible, which read as a pale gap in
-      the frame wherever a light image sat behind it.
-    */
-    background: linear-gradient(
-      140deg,
-      rgb(var(--accent) / 0.95),
-      rgb(var(--accent) / 0.45) 45%,
-      rgb(var(--accent-soft) / 0.9)
-    );
+    background: rgb(var(--accent) / 0.6);
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
@@ -334,31 +323,11 @@ html, body, * {
   }
 
   /* ---- Portrait integration -------------------------------------------
-     The headshot was shot on a white studio plate. Left alone it is the
-     brightest, flattest thing on a deliberately dark page. These three layers
-     grade it into the backdrop: a gentle filter, an edge tint that leaves the
-     face alone, and a floor that dissolves the bottom edge into the page.
-     All three are token-driven, so the light theme neutralises itself. */
+     A gentle filter, plus edge feathering (masks only — transparency, not
+     colour) where the photo's crop line meets the page. */
 
   .portrait-grade {
     filter: var(--portrait-grade);
-  }
-
-  /*
-    The transparent centre is the whole point — a flat tint over the frame
-    would drag the skin tones violet. Only the corners, which are pure plate,
-    take the full colour.
-  */
-  .portrait-scrim {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      ellipse 62% 52% at 50% 38%,
-      transparent 0%,
-      var(--portrait-tint) 100%
-    );
-    mix-blend-mode: multiply;
-    pointer-events: none;
   }
 
   /*
@@ -367,7 +336,7 @@ html, body, * {
     Instead of ending at a ring, the photo is feathered out on every edge by
     two intersecting masks: an ellipse centred on the face, and a vertical ramp
     that dissolves the bottom entirely. Whatever is behind — the DEVELOPER
-    lettering, the grid, the violet wash — passes through the falloff, so the
+    lettering, the grid — passes through the falloff, so the
     portrait sits *in* the composition rather than on top of it. The subject
     itself is well inside the ellipse's solid core and stays untouched.
   */
@@ -402,13 +371,13 @@ html, body, * {
 
   /* ---- Cut-out portrait -----------------------------------------------
      The background-removed headshot (Ankith-cutout.webp) has no plate to
-     hide, so the scrim and the elliptical feather above aren't needed — the
-     silhouette is the shape. What's left is the ground it stands on. */
+     hide, so the elliptical feather above isn't needed — the silhouette is
+     the shape. What's left is the ground it stands on. */
 
   /*
-    Frameless cut-out (Home hero). Only the bottom ramp from .portrait-blend
-    survives: the photo still ends at the waist, and that crop line is the one
-    hard edge left to dissolve.
+    Cut-out feather (Home hero, and the photo inside the About frame). Only the
+    bottom ramp from .portrait-blend survives: the photo still ends at the
+    waist, and that crop line is the one hard edge left to dissolve.
   */
   .portrait-cutout {
     -webkit-mask-image: linear-gradient(to top, transparent 0%, rgba(0, 0, 0, 0.4) 14%, #000 38%);
@@ -417,51 +386,14 @@ html, body, * {
 
   /*
     Framed cut-out (About). Stands in for the white studio plate with the
-    page's own materials — the elevated surface and the backdrop's top violet
-    wash — so the inside of the frame matches the outside in both themes.
+    page's own elevated surface, so the inside of the frame matches the cards
+    around it in both themes.
   */
   .portrait-backdrop {
     position: absolute;
     inset: 0;
     background-color: rgb(var(--bg-elev));
-    background-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgb(var(--accent) / 0.28) 0%, rgb(var(--accent-soft) / 0.10) 50%, transparent 80%);
     pointer-events: none;
-  }
-
-  .portrait-floor {
-    position: absolute;
-    inset-inline: 0;
-    bottom: 0;
-    height: 38%;
-    background: linear-gradient(
-      to top,
-      rgb(var(--bg)) 0%,
-      rgb(var(--bg) / 0.75) 35%,
-      transparent 100%
-    );
-    pointer-events: none;
-  }
-
-  /*
-    A patch of the page's own technical grid, used as a plinth behind the
-    portrait frame. Half the backdrop's 64px cell so it still reads at this
-    size, and drawn in the accent rather than `--grid-line` — that token sits
-    at 0.028 alpha and vanishes over an area this small.
-  */
-  .grid-patch {
-    background-image:
-      linear-gradient(to right, rgb(var(--accent) / 0.14) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(var(--accent) / 0.14) 1px, transparent 1px);
-    background-size: 32px 32px;
-    -webkit-mask-image: linear-gradient(to top left, #000, transparent 70%);
-    mask-image: linear-gradient(to top left, #000, transparent 70%);
-  }
-
-  .text-accent-gradient {
-    background-image: linear-gradient(120deg, rgb(var(--accent-soft)), rgb(var(--accent)));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
   }
 
   /* Monospace index labels ("01", "02") from the reference */
@@ -531,14 +463,14 @@ html, body, * {
     background-color: rgb(var(--accent));
   }
 
-  /* Already-solid accent buttons — fill with the lighter violet. */
-  .btn-fill-soft::before {
-    background-color: rgb(var(--accent-soft));
+  /* Already-solid accent buttons — fill with the stronger accent tone. */
+  .btn-fill-strong::before {
+    background-color: rgb(var(--accent-strong));
   }
 
-  /* Buttons sitting on the accent panel — fill with white. */
-  .btn-fill-white::before {
-    background-color: #ffffff;
+  /* Buttons sitting on the accent panel — fill with the on-accent colour. */
+  .btn-fill-on-accent::before {
+    background-color: rgb(var(--on-accent));
   }
 }
 
@@ -635,27 +567,6 @@ html, body, * {
 /* Particle trail removed */
 
 /* Laser gradient border removed */
-
-/* Shimmer animation for loading states */
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgb(var(--accent) / 0.16) 50%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-}
 
 /* Page entry animations */
 @keyframes fadeIn {

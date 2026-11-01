@@ -1,16 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import {
-  motion,
-  useMotionTemplate,
-  useSpring,
-  useTransform,
-} from 'framer-motion';
+import { motion, useSpring } from 'framer-motion';
 import useMediaQuery, { usePrefersReducedMotion } from '../hooks/useMediaQuery';
 
 /**
  * The framed portrait used on Home and About.
  *
- * Adds a shallow 3D tilt on top of the existing violet-ringed frame:
+ * Adds a shallow 3D tilt on top of the accent-ringed frame:
  *   - pointer devices tilt toward the cursor's position over the frame;
  *   - touch devices use the gyroscope instead, so physically tilting the
  *     phone tilts the frame.
@@ -22,12 +17,9 @@ import useMediaQuery, { usePrefersReducedMotion } from '../hooks/useMediaQuery';
  *
  * Reduced-motion users get the flat frame with no listeners attached at all.
  *
- * The frame is also graded into the page rather than floating over it: a
- * violet halo echoing the backdrop's wash, a patch of the backdrop's own grid
- * as a plinth, and scrims inside the frame that tint the photo's white studio
- * plate and dissolve its bottom edge. See the `.portrait-*` and `.grid-patch`
- * utilities in index.css — all token-driven, so both themes fall out of one
- * set of classes.
+ * The photo's bottom crop line is feathered out with a mask. See the
+ * `.portrait-*` utilities in index.css — all token-driven, so both themes fall
+ * out of one set of classes. Flat colour only: no halos or highlights.
  *
  * `blend` goes a step further, for the Home hero: the hard frame (ring, corner
  * brackets, radius) is dropped and the photo is feathered on every edge with a
@@ -35,20 +27,15 @@ import useMediaQuery, { usePrefersReducedMotion } from '../hooks/useMediaQuery';
  * portrait's border instead of stopping at it.
  *
  * `cutout` is for a background-removed source (transparent around the
- * subject). With no studio plate left to disguise, the tint scrim is dropped,
- * and the key light and sheen are masked to the silhouette so they never light the empty air beside it. Combined
- * with `blend`, only the bottom fade remains; in the framed variant, a themed
- * backdrop fills the frame where the white plate used to be.
+ * subject). Combined with `blend`, only the bottom fade remains; in the framed
+ * variant, a themed backdrop fills the frame where the white plate used to be.
  *
- * Everything here is input-driven — cursor, gyro, hover. The frame never moves
- * on its own: no idle drift, no scroll parallax. It sits still until touched.
+ * Everything here is input-driven — cursor, gyro. The frame never moves on its
+ * own: no idle drift, no scroll parallax. It sits still until touched.
  */
 const MAX_TILT = 9;        // degrees, each axis
 const GYRO_GAIN = 0.55;    // device degrees → tilt degrees
 const SPRING = { stiffness: 140, damping: 18, mass: 0.6 };
-// Slower and softer than the tilt: this one drives the light, and a highlight
-// that snaps as fast as the geometry reads as a cursor, not as a lamp.
-const LIGHT_SPRING = { stiffness: 70, damping: 22, mass: 0.8 };
 
 const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
 
@@ -74,24 +61,6 @@ const TiltPortrait = ({
   const rotateX = useSpring(0, SPRING);
   const rotateY = useSpring(0, SPRING);
 
-  // Specular sheen. Rides the existing rotateY spring — no extra state, no
-  // per-frame JS of its own — and sweeps against the turn, the way a highlight
-  // tracks across glass held under a fixed light.
-  const sheenX = useTransform(rotateY, [-MAX_TILT, MAX_TILT], ['140%', '-40%']);
-
-  /*
-    Light source. Normalised cursor position over the frame, lagging the tilt —
-    it positions a soft key light on the photo and drags the halo behind the
-    frame the opposite way, so the glow always sits on the far side of the
-    subject from the light. Idles at the top-centre, i.e. the same place the
-    backdrop's violet wash comes from.
-  */
-  const lightX = useSpring(50, LIGHT_SPRING);
-  const lightY = useSpring(18, LIGHT_SPRING);
-  const keyLight = useMotionTemplate`radial-gradient(ellipse 70% 60% at ${lightX}% ${lightY}%, rgb(255 255 255 / 0.22) 0%, rgb(var(--accent-soft) / 0.10) 42%, transparent 72%)`;
-  const haloX = useTransform(lightX, [0, 100], [26, -26]);
-  const haloY = useTransform(lightY, [0, 100], [18, -18]);
-
   const frameRef = useRef(null);
 
   // First gyro reading becomes the neutral pose, so the frame sits flat at
@@ -112,20 +81,15 @@ const TiltPortrait = ({
 
       rotateY.set(px * 2 * MAX_TILT);
       rotateX.set(-py * 2 * MAX_TILT);
-
-      lightX.set((px + 0.5) * 100);
-      lightY.set((py + 0.5) * 100);
     },
-    [tiltEnabled, isTouch, rotateX, rotateY, lightX, lightY]
+    [tiltEnabled, isTouch, rotateX, rotateY]
   );
 
   const resetTilt = useCallback(() => {
     if (isTouch) return; // the gyro owns the values on touch devices
     rotateX.set(0);
     rotateY.set(0);
-    lightX.set(50);
-    lightY.set(18);
-  }, [isTouch, rotateX, rotateY, lightX, lightY]);
+  }, [isTouch, rotateX, rotateY]);
 
   /* ---- Gyroscope tilt (touch devices) ---- */
 
@@ -141,13 +105,8 @@ const TiltPortrait = ({
       const rx = clamp(-(beta - base.beta) * GYRO_GAIN, -MAX_TILT, MAX_TILT);
       rotateY.set(ry);
       rotateX.set(rx);
-
-      // Same mapping as the cursor path, so the key light tracks the handset's
-      // attitude: tip the phone and the highlight runs across the photo.
-      lightX.set(50 + (ry / MAX_TILT) * 50);
-      lightY.set(clamp(18 - (rx / MAX_TILT) * 40, 0, 100));
     },
-    [rotateX, rotateY, lightX, lightY]
+    [rotateX, rotateY]
   );
 
   useEffect(() => {
@@ -206,22 +165,7 @@ const TiltPortrait = ({
     ? cutout
       ? 'portrait-cutout relative aspect-[3/4] w-full'
       : 'portrait-blend relative aspect-[3/4] w-full overflow-hidden rounded-[2.5rem]'
-    : 'ring-gradient-violet relative aspect-[3/4] w-full overflow-hidden rounded-[2rem] shadow-soft-lg';
-
-  // The source's own alpha, sized exactly like the img (`object-cover`,
-  // centred), so overlays only land on the subject.
-  const subjectMask = cutout
-    ? {
-        WebkitMaskImage: `url(${src})`,
-        maskImage: `url(${src})`,
-        WebkitMaskSize: 'cover',
-        maskSize: 'cover',
-        WebkitMaskPosition: 'center',
-        maskPosition: 'center',
-        WebkitMaskRepeat: 'no-repeat',
-        maskRepeat: 'no-repeat',
-      }
-    : null;
+    : 'ring-accent relative aspect-[3/4] w-full overflow-hidden rounded-[2rem] shadow-soft-lg';
 
   return (
     <div
@@ -243,46 +187,15 @@ const TiltPortrait = ({
           willChange: tiltEnabled ? 'transform' : undefined,
         }}
       >
-        {/*
-          Ambient halo — the same recipe as the backdrop's top violet wash
-          (GridBackdrop), so the portrait reads as sitting *in* that light
-          rather than in front of it. Pushed well behind the frame in Z so the
-          tilt parallaxes it, and slid opposite the key light so the glow
-          always spills from the shadow side.
-        */}
-        <motion.span
-          aria-hidden="true"
-          className="pointer-events-none absolute -inset-8 rounded-[3rem] blur-[60px]"
-          style={{
-            opacity: 'var(--portrait-halo)',
-            background:
-              'radial-gradient(ellipse at 50% 30%, rgb(var(--accent) / 0.30) 0%, rgb(var(--accent-soft) / 0.14) 45%, transparent 72%)',
-            translateZ: -60,
-            x: tiltEnabled ? haloX : 0,
-            y: tiltEnabled ? haloY : 0,
-          }}
-        />
-
-        {/*
-          Grid plinth. Offset down-and-right only — the left edge is the tight
-          one, since About's hero clips at the section bounds and already
-          spends its padding budget on the corner brackets.
-        */}
-        <span
-          aria-hidden="true"
-          className="grid-patch pointer-events-none absolute -bottom-5 -right-5 h-2/3 w-2/3 rounded-[2rem]"
-          style={{ transform: 'translateZ(-30px)' }}
-        />
-
-        {/* `isolation` is load-bearing: it keeps the scrims' blend modes
-            composited against the photo and never against the page. */}
-        <div className={plateClass} style={{ isolation: 'isolate' }}>
+        <div className={plateClass}>
           {cutout && !blend && <span aria-hidden="true" className="portrait-backdrop" />}
 
+          {/* In the frame, the waist crop is feathered on the photo itself
+              (in blend mode the plate already carries that mask). */}
           <img
             src={src}
             alt={alt}
-            className={`portrait-grade relative ${imgClassName}`}
+            className={`portrait-grade relative ${blend ? '' : 'portrait-cutout '}${imgClassName}`}
             width={width}
             height={height}
             draggable="false"
@@ -297,37 +210,6 @@ const TiltPortrait = ({
           <div className="hidden h-full w-full items-center justify-center bg-elev text-6xl text-muted">
             👤
           </div>
-
-          {/* Over a cut-out, the multiply scrim would composite against
-              transparent pixels and paint a visible box. */}
-          {!cutout && <span aria-hidden="true" className="portrait-scrim" />}
-          {!blend && <span aria-hidden="true" className="portrait-floor" />}
-
-          {/* Key light. Soft-light keeps it inside the photo's own tonal
-              range — it lifts and cools the lit side instead of laying a
-              white film over the face. */}
-          {tiltEnabled && (
-            <motion.span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0"
-              style={{ backgroundImage: keyLight, mixBlendMode: 'soft-light', ...subjectMask }}
-            />
-          )}
-
-          {tiltEnabled && (
-            <motion.span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0"
-              style={{
-                backgroundImage:
-                  'linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.16) 50%, transparent 65%)',
-                backgroundSize: '220% 100%',
-                backgroundPositionX: sheenX,
-                mixBlendMode: 'overlay',
-                ...subjectMask,
-              }}
-            />
-          )}
         </div>
 
         {/* Corner brackets — all four, lifted off the image plane so they

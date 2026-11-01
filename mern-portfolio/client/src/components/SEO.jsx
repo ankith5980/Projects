@@ -80,9 +80,9 @@ const SEO = ({
       <meta name="twitter:creator" content="@ankith_dev" />
       <meta name="twitter:site" content="@ankith_dev" />
       
-      {/* Theme Color (Harmonized with Violet Brand System) */}
-      <meta name="theme-color" content="#8B5CF6" />
-      <meta name="msapplication-TileColor" content="#8B5CF6" />
+      {/* Theme Color (matches the cornflower-blue accent) */}
+      <meta name="theme-color" content="#2B5CC8" />
+      <meta name="msapplication-TileColor" content="#2B5CC8" />
       
       {/* Primary Schema (Person / Page-specific) */}
       <script type="application/ld+json">

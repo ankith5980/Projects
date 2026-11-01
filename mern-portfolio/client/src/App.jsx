@@ -14,7 +14,6 @@ import Footer from './components/Footer.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
 import RouteScrollToTop from './components/RouteScrollToTop.jsx';
 import SmoothScroll from './components/SmoothScroll.jsx';
-import GridBackdrop from './components/GridBackdrop.jsx';
 import ChatWidget from './components/ChatWidget.jsx';
 import CustomCursor from './components/CustomCursor.jsx';
 import Preloader from './components/Preloader.jsx';
@@ -95,8 +94,6 @@ function App() {
             className="relative min-h-screen w-full max-w-full overflow-x-hidden bg-bg text-fg transition-colors duration-300"
             style={{ minHeight: '100vh' }}
           >
-            <GridBackdrop />
-
             {/* Shell and routes are mounted immediately so search crawlers and screen readers have full DOM access */}
             <Navbar />
             <main className="relative z-10 w-full max-w-full" style={{ minHeight: '100vh' }}>

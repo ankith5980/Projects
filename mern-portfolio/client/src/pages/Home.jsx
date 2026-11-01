@@ -284,7 +284,7 @@ const Home = () => {
               </div>
 
               {/* Decorative rule (desktop only) */}
-              <span className="absolute left-0 top-14 hidden h-32 w-px bg-gradient-to-b from-accent to-transparent lg:block" />
+              <span className="absolute left-0 top-14 hidden h-32 w-px bg-accent/60 lg:block" />
 
               <h1 className="font-display font-bold uppercase leading-[0.88] tracking-tighter lg:pl-6">
                 <span
@@ -316,10 +316,10 @@ const Home = () => {
               {/*
                 `blend` drops the ring and brackets; `cutout` swaps the studio
                 shot for the background-removed one, so the figure stands
-                straight on the page — grid, violet wash and the lettering
+                straight on the page — the grid and the lettering
                 layered over it all show around the silhouette, and only the
                 waist crop is faded out. The portrait itself holds position —
-                it only responds to the cursor (tilt + key light) or, on a
+                it only responds to the cursor (tilt) or, on a
                 phone, to the handset's own tilt.
               */}
               <TiltPortrait
@@ -397,7 +397,7 @@ const Home = () => {
                       className="absolute -bottom-1 left-0 h-[2px] w-full origin-left scale-x-0 bg-accent transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100"
                     />
                   </span>
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-hairline-strong text-fg transition-colors duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-white">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full border border-hairline-strong text-fg transition-colors duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-on-accent">
                     <FaArrowRight className="h-4 w-4 -rotate-45 transition-transform duration-300 group-hover:rotate-0" />
                   </span>
                 </Link>
@@ -419,7 +419,7 @@ const Home = () => {
             <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:items-center sm:justify-center">
               <Link
                 to="/projects"
-                className="btn-fill btn-fill-soft inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:shadow-soft sm:px-6"
+                className="btn-fill btn-fill-strong inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-on-accent transition-all duration-200 hover:shadow-soft sm:px-6"
               >
                 <span>View My Work</span>
                 <FaArrowRight className="h-3.5 w-3.5" />
@@ -427,7 +427,7 @@ const Home = () => {
 
               <Link
                 to="/contact"
-                className="btn-fill btn-fill-accent inline-flex items-center justify-center gap-2 rounded-full border border-accent/50 px-5 py-3 text-sm font-semibold text-accent transition-all duration-200 hover:text-white sm:px-6"
+                className="btn-fill btn-fill-accent inline-flex items-center justify-center gap-2 rounded-full border border-accent/50 px-5 py-3 text-sm font-semibold text-accent transition-all duration-200 hover:text-on-accent sm:px-6"
               >
                 <span>Get In Touch</span>
               </Link>
@@ -436,7 +436,7 @@ const Home = () => {
                 href="/cv/My_Resume.pdf"
                 download="Ankith_Pratheesh_Menon_CV.pdf"
                 onClick={handleCVDownload}
-                className="btn-fill btn-fill-accent col-span-2 inline-flex items-center justify-center gap-2 rounded-full border border-hairline bg-surface px-5 py-3 text-sm font-semibold text-muted transition-all duration-200 hover:border-accent/60 hover:text-white sm:col-span-1 sm:px-6"
+                className="btn-fill btn-fill-accent col-span-2 inline-flex items-center justify-center gap-2 rounded-full border border-hairline bg-surface px-5 py-3 text-sm font-semibold text-muted transition-all duration-200 hover:border-accent/60 hover:text-on-accent sm:col-span-1 sm:px-6"
               >
                 <FaFilePdf className="h-3.5 w-3.5" />
                 <span>Download CV</span>
@@ -456,7 +456,7 @@ const Home = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="btn-fill btn-fill-accent flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-all duration-200 hover:border-accent/60 hover:text-white hover:shadow-soft"
+                  className="btn-fill btn-fill-accent flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-all duration-200 hover:border-accent/60 hover:text-on-accent hover:shadow-soft"
                 >
                   <Icon className="h-5 w-5" />
                 </a>

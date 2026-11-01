@@ -63,7 +63,7 @@ const parseInlineFormatting = (text) => {
             download={isDownload ? "Ankith_Pratheesh_Menon_Resume.pdf" : undefined}
             target={isMailOrTel ? undefined : "_blank"}
             rel={isMailOrTel ? undefined : "noopener noreferrer"}
-            className="inline-flex items-center font-semibold text-accent underline underline-offset-2 transition-colors hover:text-white"
+            className="inline-flex items-center font-semibold text-accent underline underline-offset-2 transition-colors hover:text-fg"
             title={isDownload ? "Click to download resume" : undefined}
           >
             {label}
@@ -100,7 +100,7 @@ const parseInlineFormatting = (text) => {
           key={i}
           href="/cv/My_Resume.pdf"
           download="Ankith_Pratheesh_Menon_Resume.pdf"
-          className="inline-flex items-center font-semibold text-accent underline underline-offset-2 transition-colors hover:text-white"
+          className="inline-flex items-center font-semibold text-accent underline underline-offset-2 transition-colors hover:text-fg"
           title="Click to download resume"
         >
           Download Resume
@@ -114,7 +114,7 @@ const parseInlineFormatting = (text) => {
         <a
           key={i}
           href={`mailto:${part}`}
-          className="inline-flex items-center font-semibold text-accent underline underline-offset-2 transition-colors hover:text-white"
+          className="inline-flex items-center font-semibold text-accent underline underline-offset-2 transition-colors hover:text-fg"
           title="Click to send email"
         >
           {part}
@@ -129,7 +129,7 @@ const parseInlineFormatting = (text) => {
         <a
           key={i}
           href={`tel:${cleanPhone}`}
-          className="inline-flex items-center font-semibold text-accent underline underline-offset-2 transition-colors hover:text-white"
+          className="inline-flex items-center font-semibold text-accent underline underline-offset-2 transition-colors hover:text-fg"
           title="Click to call"
         >
           {part}
@@ -150,7 +150,7 @@ const parseInlineFormatting = (text) => {
           href={part}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center font-semibold text-accent underline underline-offset-2 transition-colors hover:text-white"
+          className="inline-flex items-center font-semibold text-accent underline underline-offset-2 transition-colors hover:text-fg"
         >
           {label}
         </a>
@@ -364,10 +364,7 @@ const ChatWidget = () => {
               exit={{ scale: 0, opacity: 0 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsOpen(true)}
-              className="btn-fill btn-fill-soft flex h-14 w-14 items-center justify-center rounded-full text-white shadow-soft-lg transition-shadow duration-300"
-              style={{
-                background: 'linear-gradient(140deg, rgb(var(--accent-soft)), rgb(var(--accent)))',
-              }}
+              className="btn-fill btn-fill-strong flex h-14 w-14 items-center justify-center rounded-full bg-accent text-on-accent shadow-soft-lg transition-shadow duration-300"
               aria-label="Open Zyra AI Assistant"
             >
               <FaCommentDots className="h-6 w-6" />
@@ -384,13 +381,13 @@ const ChatWidget = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 320, damping: 28 }}
-            className="fixed bottom-6 right-4 sm:bottom-8 sm:right-8 z-50 flex h-[560px] max-h-[82vh] w-[92vw] sm:w-[420px] flex-col overflow-hidden rounded-2xl glass-violet-strong shadow-2xl border border-hairline"
+            className="fixed bottom-6 right-4 sm:bottom-8 sm:right-8 z-50 flex h-[560px] max-h-[82vh] w-[92vw] sm:w-[420px] flex-col overflow-hidden rounded-2xl glass-strong shadow-2xl border border-hairline"
             data-lenis-prevent="true"
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-hairline bg-surface/70 px-4 py-3.5 backdrop-blur-md">
               <div className="flex items-center space-x-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-white shadow-soft">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-on-accent shadow-soft">
                   <FaRobot className="h-4 w-4" />
                 </div>
                 <div>
@@ -405,7 +402,7 @@ const ChatWidget = () => {
                     onClick={handleClearChat}
                     title="Reset conversation"
                     aria-label="Reset conversation"
-                    className="btn-fill btn-fill-accent flex h-8 w-8 items-center justify-center rounded-full text-muted transition-colors hover:text-white"
+                    className="btn-fill btn-fill-accent flex h-8 w-8 items-center justify-center rounded-full text-muted transition-colors hover:text-on-accent"
                   >
                     <FaRedoAlt className="h-3.5 w-3.5" />
                   </button>
@@ -414,7 +411,7 @@ const ChatWidget = () => {
                   type="button"
                   onClick={() => setIsOpen(false)}
                   aria-label="Close chat"
-                  className="btn-fill btn-fill-accent flex h-8 w-8 items-center justify-center rounded-full text-muted transition-colors hover:text-white"
+                  className="btn-fill btn-fill-accent flex h-8 w-8 items-center justify-center rounded-full text-muted transition-colors hover:text-on-accent"
                 >
                   <FaTimes className="h-4 w-4" />
                 </button>
@@ -494,7 +491,7 @@ const ChatWidget = () => {
                   )}
                 >
                   {message.role === 'user' ? (
-                    <div className="max-w-[82%] rounded-2xl rounded-br-sm bg-accent px-4 py-2.5 text-sm text-white shadow-sm leading-relaxed">
+                    <div className="max-w-[82%] rounded-2xl rounded-br-sm bg-accent px-4 py-2.5 text-sm text-on-accent shadow-sm leading-relaxed">
                       {message.content}
                     </div>
                   ) : (
@@ -547,7 +544,7 @@ const ChatWidget = () => {
                   type="submit"
                   disabled={isLoading || !localInput || localInput.trim() === '' || isRateLimited}
                   aria-label="Send message"
-                  className="btn-fill btn-fill-soft flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-white shadow-soft transition-all active:scale-95 disabled:opacity-40 disabled:shadow-none"
+                  className="btn-fill btn-fill-strong flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-on-accent shadow-soft transition-all active:scale-95 disabled:opacity-40 disabled:shadow-none"
                 >
                   <FaPaperPlane className="h-3.5 w-3.5 ml-0.5" />
                 </button>

@@ -124,7 +124,7 @@ const CertificateModal = React.memo(({ cert, isOpen, onClose }) => {
           >
             {/* Hero image */}
             <div className="relative flex-shrink-0">
-              <div className="aspect-[16/9] sm:aspect-[16/7] bg-gradient-to-br from-accent to-accent-800 overflow-hidden">
+              <div className="aspect-[16/9] sm:aspect-[16/7] bg-accent overflow-hidden">
                 {cert.coverImage ? (
                   <img
                     src={cert.coverImage}
@@ -134,15 +134,13 @@ const CertificateModal = React.memo(({ cert, isOpen, onClose }) => {
                     decoding="async"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-white/30 text-7xl sm:text-9xl">
+                  <div className="w-full h-full flex items-center justify-center text-on-accent/30 text-7xl sm:text-9xl">
                     <FaCertificate />
                   </div>
                 )}
-                {/* Gradient scrim */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-                {/* Title on image */}
-                <div className="absolute bottom-0 left-0 right-0 px-4 pb-3 sm:px-6 sm:pb-5">
+                {/* Title bar on image */}
+                <div className="absolute bottom-0 left-0 right-0 bg-black/70 px-4 py-3 backdrop-blur-sm sm:px-6 sm:py-4">
                   <h2 className="text-base sm:text-xl md:text-2xl font-bold text-white drop-shadow-md leading-snug">
                     {cert.title}
                   </h2>
@@ -152,7 +150,7 @@ const CertificateModal = React.memo(({ cert, isOpen, onClose }) => {
               {/* Close button */}
               <button
                 onClick={onClose}
-                className="btn-fill btn-fill-accent absolute top-3 right-3 sm:top-4 sm:right-4 z-20 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-black/40 sm:bg-white/20 sm:dark:bg-black/40 backdrop-blur-sm border border-white/20 dark:border-white/10 text-white shadow-sm transition-colors duration-200"
+                className="btn-fill btn-fill-accent absolute top-3 right-3 sm:top-4 sm:right-4 z-20 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-black/40 sm:bg-white/20 sm:dark:bg-black/40 backdrop-blur-sm border border-white/20 dark:border-white/10 text-white hover:text-on-accent shadow-sm transition-colors duration-200"
                 aria-label="Close modal"
               >
                 <FaTimes className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
@@ -185,8 +183,8 @@ const CertificateModal = React.memo(({ cert, isOpen, onClose }) => {
                 {cert.category && (
                   <MetaCard
                     icon={FaLayerGroup}
-                    iconBg="bg-purple-100 dark:bg-purple-900/40"
-                    iconColor="text-purple-600 dark:text-purple-400"
+                    iconBg="bg-sky-100 dark:bg-sky-900/40"
+                    iconColor="text-sky-700 dark:text-sky-300"
                     label="Category"
                     value={cert.category}
                   />
@@ -210,7 +208,7 @@ const CertificateModal = React.memo(({ cert, isOpen, onClose }) => {
                 {cert.image && (
                   <button
                     onClick={() => setShowOriginal(!showOriginal)}
-                    className="btn-fill btn-fill-accent flex items-center justify-center gap-2 p-2 sm:p-2.5 rounded-xl bg-accent/15 text-accent hover:text-white transition-colors duration-200 font-medium text-[11px] sm:text-sm border border-accent/30"
+                    className="btn-fill btn-fill-accent flex items-center justify-center gap-2 p-2 sm:p-2.5 rounded-xl bg-accent/15 text-accent hover:text-on-accent transition-colors duration-200 font-medium text-[11px] sm:text-sm border border-accent/30"
                   >
                     <FaExternalLinkAlt className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                     {showOriginal ? 'Hide Certificate' : 'View Certificate'}
@@ -291,7 +289,7 @@ const CertificateModal = React.memo(({ cert, isOpen, onClose }) => {
               
               <button
                 onClick={() => setShowOriginal(false)}
-                className="btn-fill btn-fill-accent absolute top-3 right-3 sm:top-4 sm:right-4 z-20 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-black/50 text-white transition-colors backdrop-blur-sm border border-white/10"
+                className="btn-fill btn-fill-accent absolute top-3 right-3 sm:top-4 sm:right-4 z-20 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-black/50 text-white hover:text-on-accent transition-colors backdrop-blur-sm border border-white/10"
                 aria-label="Close original image"
               >
                 <FaTimes className="w-3 h-3 sm:w-4 sm:h-4" />

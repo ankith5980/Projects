@@ -37,7 +37,7 @@ const ScrollToTop = () => {
           exit={{ opacity: 0, scale: 0 }}
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className="btn-fill btn-fill-accent fixed bottom-8 left-8 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-accent/50 bg-accent/15 text-accent shadow-soft backdrop-blur-xl transition-colors duration-200 hover:text-white"
+          className="btn-fill btn-fill-accent fixed bottom-8 left-8 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-accent/50 bg-accent/15 text-accent shadow-soft backdrop-blur-xl transition-colors duration-200 hover:text-on-accent"
           aria-label="Scroll to top"
         >
           <FaArrowUp className="w-5 h-5" />

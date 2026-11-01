@@ -54,7 +54,7 @@ const ProjectsSection = React.memo(({ featuredProjects }) => {
                 Overlay: permanently visible on touch (there is no hover to
                 trigger it), fades in on hover from `md` up.
               */}
-              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-[#0A0A0A]/95 via-[#0A0A0A]/55 to-transparent p-5 transition-all duration-300 md:opacity-0 md:group-hover:opacity-100">
+              <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-[#0B0F17]/85 p-5 backdrop-blur-sm transition-all duration-300 md:opacity-0 md:group-hover:opacity-100">
                 <h3 className="relative mb-1.5 text-lg font-bold text-white drop-shadow-md transition-transform duration-300 sm:text-xl md:translate-y-4 md:group-hover:translate-y-0">
                   {project.title}
                 </h3>
@@ -71,7 +71,7 @@ const ProjectsSection = React.memo(({ featuredProjects }) => {
                 </div>
 
                 <div className="relative transition-transform delay-100 duration-300 md:translate-y-4 md:group-hover:translate-y-0">
-                  <span className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-xs font-semibold text-white shadow-soft">
+                  <span className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-xs font-semibold text-on-accent shadow-soft">
                     <FaExternalLinkAlt className="h-3 w-3" />
                     View Details
                   </span>
@@ -84,7 +84,7 @@ const ProjectsSection = React.memo(({ featuredProjects }) => {
         <Reveal delay={0.2} className="mt-12 text-center">
           <Link
             to="/projects"
-            className="btn-fill btn-fill-accent inline-flex items-center gap-2 rounded-full border border-accent/50 px-6 py-3 text-sm font-semibold text-accent transition-all duration-200 hover:text-white"
+            className="btn-fill btn-fill-accent inline-flex items-center gap-2 rounded-full border border-accent/50 px-6 py-3 text-sm font-semibold text-accent transition-all duration-200 hover:text-on-accent"
           >
             <span>View All Projects</span>
             <FaArrowRight className="h-3.5 w-3.5" />

@@ -85,22 +85,22 @@ const CertificateCard = memo(({ cert, index, onClick }) => (
         itemProp="image"
       />
     ) : (
-      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-accent to-accent-700 text-8xl text-white/30 transition-transform duration-500 md:group-hover:scale-110" aria-label="Certificate placeholder">
+      <div className="flex h-full w-full items-center justify-center bg-accent text-8xl text-on-accent/30 transition-transform duration-500 md:group-hover:scale-110" aria-label="Certificate placeholder">
         <FaCertificate aria-hidden="true" />
       </div>
     )}
 
     {/* Persistent badges — always visible */}
-    <div className="absolute left-3 top-3 z-10 flex items-center gap-1.5 rounded-full border border-white/10 bg-[#0A0A0A]/80 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md">
+    <div className="absolute left-3 top-3 z-10 flex items-center gap-1.5 rounded-full border border-white/10 bg-[#0B0F17]/80 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur-md">
       <FaCheckCircle className="h-3 w-3 text-green-500" aria-hidden="true" />
       <span>Valid</span>
     </div>
-    <div className="absolute right-3 top-3 z-10 rounded-full border border-accent/40 bg-accent/25 px-2.5 py-1 text-[11px] font-medium capitalize text-white backdrop-blur-md" itemProp="credentialCategory">
+    <div className="absolute right-3 top-3 z-10 rounded-full bg-accent px-2.5 py-1 text-[11px] font-medium capitalize text-on-accent shadow-soft" itemProp="credentialCategory">
       {cert.category}
     </div>
 
     {/* Detail overlay — always visible on touch, hover-revealed from md up */}
-    <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-[#0A0A0A]/95 via-[#0A0A0A]/55 to-transparent p-5 transition-all duration-300 md:opacity-0 md:group-hover:opacity-100">
+    <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-[#0B0F17]/85 p-5 backdrop-blur-sm transition-all duration-300 md:opacity-0 md:group-hover:opacity-100">
       {/* Title */}
       <h3 className="mb-1.5 text-lg font-bold text-white drop-shadow-md transition-transform delay-75 duration-300 sm:text-xl md:translate-y-4 md:group-hover:translate-y-0" itemProp="name">
         {cert.title}
@@ -127,7 +127,7 @@ const CertificateCard = memo(({ cert, index, onClick }) => (
 
       {/* View Details button */}
       <div className="transition-transform delay-150 duration-300 md:translate-y-4 md:group-hover:translate-y-0">
-        <span className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-xs font-semibold text-white shadow-soft">
+        <span className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2 text-xs font-semibold text-on-accent shadow-soft">
           <FaExternalLinkAlt className="h-3 w-3" />
           View Details
         </span>
@@ -243,7 +243,7 @@ const Certificates = () => {
             placeholder="Search certificates..."
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
-            className="glass-violet w-full rounded-full py-3.5 pl-12 pr-5 text-fg outline-none transition-all duration-300 placeholder:text-muted focus:border-accent/60 focus:ring-2 focus:ring-accent/30"
+            className="glass w-full rounded-full py-3.5 pl-12 pr-5 text-fg outline-none transition-all duration-300 placeholder:text-muted focus:border-accent/60 focus:ring-2 focus:ring-accent/30"
             aria-label="Search certificates by title, issuer, or skills"
           />
         </div>

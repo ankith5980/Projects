@@ -148,15 +148,13 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
                     decoding="async"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-white/60 text-4xl sm:text-5xl">
+                  <div className="w-full h-full flex items-center justify-center text-on-accent/60 text-4xl sm:text-5xl">
                     <FaCode />
                   </div>
                 )}
-                {/* Gradient scrim */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-                {/* Title on image */}
-                <div className="absolute bottom-0 left-0 right-0 px-4 pb-3 sm:px-6 sm:pb-5">
+                {/* Title bar on image */}
+                <div className="absolute bottom-0 left-0 right-0 bg-black/70 px-4 py-3 backdrop-blur-sm sm:px-6 sm:py-4">
                   <h2 className="text-base sm:text-xl md:text-2xl font-bold text-white drop-shadow-md leading-snug">
                     {project.title}
                   </h2>
@@ -166,7 +164,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
               {/* Close button */}
               <button
                 onClick={onClose}
-                className="btn-fill btn-fill-accent absolute top-3 right-3 sm:top-4 sm:right-4 z-20 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-black/40 sm:bg-white/20 sm:dark:bg-black/40 backdrop-blur-sm border border-white/20 dark:border-white/10 text-white shadow-sm transition-colors duration-200"
+                className="btn-fill btn-fill-accent absolute top-3 right-3 sm:top-4 sm:right-4 z-20 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-black/40 sm:bg-white/20 sm:dark:bg-black/40 backdrop-blur-sm border border-white/20 dark:border-white/10 text-white hover:text-on-accent shadow-sm transition-colors duration-200"
                 aria-label="Close modal"
               >
                 <FaTimes className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
@@ -206,8 +204,8 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
                 {/* Client */}
                 <MetaCard
                   icon={FaUser}
-                  iconBg="bg-purple-100 dark:bg-purple-900/40"
-                  iconColor="text-purple-600 dark:text-purple-400"
+                  iconBg="bg-sky-100 dark:bg-sky-900/40"
+                  iconColor="text-sky-700 dark:text-sky-300"
                   label="Client"
                   value={project.client || 'Personal Project'}
                 />
@@ -288,7 +286,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
                   onClick={(e) => { if (!project.liveUrl) e.preventDefault(); }}
                   className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 rounded-xl text-sm font-medium backdrop-blur-md transition-all duration-300 ${
                     project.liveUrl
-                      ? 'btn-fill btn-fill-accent bg-accent/10 dark:bg-accent/20 text-accent border border-accent/20 hover:text-white hover:border-accent/30 hover:shadow-soft active:scale-[0.98]'
+                      ? 'btn-fill btn-fill-accent bg-accent/10 dark:bg-accent/20 text-accent border border-accent/20 hover:text-on-accent hover:border-accent/30 hover:shadow-soft active:scale-[0.98]'
                       : 'bg-surface-2 border border-hairline text-muted cursor-not-allowed'
                   }`}
                 >
@@ -304,7 +302,7 @@ const ProjectModal = React.memo(({ project, isOpen, onClose }) => {
                   onClick={(e) => { if (!project.githubUrl) e.preventDefault(); }}
                   className={`flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 rounded-xl text-sm font-medium backdrop-blur-md transition-all duration-300 ${
                     project.githubUrl
-                      ? 'btn-fill btn-fill-accent bg-surface-2 text-muted border border-hairline shadow-sm hover:text-white hover:border-accent/40 active:scale-[0.98]'
+                      ? 'btn-fill btn-fill-accent bg-surface-2 text-muted border border-hairline shadow-sm hover:text-on-accent hover:border-accent/40 active:scale-[0.98]'
                       : 'bg-surface-2 border border-hairline text-muted cursor-not-allowed'
                   }`}
                 >

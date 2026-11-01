@@ -31,7 +31,7 @@ const ThemeToggle = ({ isDark, toggleTheme, className = '' }) => (
   <button
     onClick={toggleTheme}
     aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
-    className={`btn-fill btn-fill-accent relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-colors duration-300 hover:border-accent/60 hover:text-white ${className}`}
+    className={`btn-fill btn-fill-accent relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-colors duration-300 hover:border-accent/60 hover:text-on-accent ${className}`}
   >
     <AnimatePresence mode="wait" initial={false}>
       <motion.span
@@ -124,7 +124,7 @@ const Navbar = () => {
           shadow and border strength react now, neither of which affects layout.
         */}
         <nav
-          className={`glass-violet flex items-center gap-1 rounded-full px-2.5 py-2 transition-shadow duration-300 sm:px-3 ${
+          className={`glass flex items-center gap-1 rounded-full px-2.5 py-2 transition-shadow duration-300 sm:px-3 ${
             scrolled ? 'shadow-soft-lg' : ''
           }`}
         >
@@ -183,7 +183,7 @@ const Navbar = () => {
             href={GITHUB_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-fill btn-fill-soft hidden items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white md:flex"
+            className="btn-fill btn-fill-strong hidden items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-on-accent md:flex"
           >
             <FaGithub className="h-4 w-4" />
             <span className="hidden lg:inline">GitHub</span>
@@ -196,7 +196,7 @@ const Navbar = () => {
             onClick={() => setIsOpen((v) => !v)}
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isOpen}
-            className="btn-fill btn-fill-accent flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline bg-surface text-fg transition-colors hover:border-accent/60 hover:text-white md:hidden"
+            className="btn-fill btn-fill-accent flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-hairline bg-surface text-fg transition-colors hover:border-accent/60 hover:text-on-accent md:hidden"
           >
             <MenuIcon open={isOpen} />
           </button>
@@ -219,24 +219,6 @@ const Navbar = () => {
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Violet wash + grid so the sheet reads as part of the design */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  'radial-gradient(ellipse 90% 55% at 80% 8%, rgb(var(--accent) / 0.14), transparent 70%)',
-              }}
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 opacity-[0.5]"
-              style={{
-                backgroundImage:
-                  'linear-gradient(to right, var(--grid-line) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px)',
-                backgroundSize: '56px 56px',
-              }}
-            />
 
             {/* Oversized watermark */}
             <span
@@ -312,7 +294,7 @@ const Navbar = () => {
                   href={GITHUB_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-fill btn-fill-soft flex w-full items-center justify-center gap-2 rounded-full bg-accent py-3.5 font-display text-sm font-semibold uppercase tracking-widest text-white shadow-soft"
+                  className="btn-fill btn-fill-strong flex w-full items-center justify-center gap-2 rounded-full bg-accent py-3.5 font-display text-sm font-semibold uppercase tracking-widest text-on-accent shadow-soft"
                 >
                   <FaGithub className="h-4 w-4" />
                   <span>GitHub</span>
@@ -327,7 +309,7 @@ const Navbar = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={label}
-                        className="btn-fill btn-fill-accent flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-colors hover:border-accent/60 hover:text-white"
+                        className="btn-fill btn-fill-accent flex h-11 w-11 items-center justify-center rounded-full border border-hairline bg-surface text-muted transition-colors hover:border-accent/60 hover:text-on-accent"
                       >
                         <Icon className="h-4 w-4" />
                       </a>

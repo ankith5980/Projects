@@ -5,7 +5,7 @@ import { usePrefersReducedMotion } from '../hooks/useMediaQuery';
 /**
  * Full-screen intro.
  *
- * The name is drawn twice: an outlined ghost and a solid violet copy clipped
+ * The name is drawn twice: an outlined ghost and a solid accent copy clipped
  * to the load progress, so the word literally fills from the bottom up as the
  * app boots. A scan line rides the fill edge.
  *
@@ -127,23 +127,6 @@ const Preloader = ({ onComplete }) => {
         animate={{ opacity: finishing ? 0 : 1 }}
         transition={{ duration: 0.35, ease: 'easeOut' }}
       >
-        {/* Grid + wash, matching the page backdrop */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage:
-              'linear-gradient(to right, var(--grid-line) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px)',
-            backgroundSize: '64px 64px',
-          }}
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[140px]"
-          style={{
-            background: 'radial-gradient(circle, rgb(var(--accent) / 0.14) 0%, transparent 70%)',
-          }}
-        />
 
         {/* HUD corner brackets — same motif as the portrait ticks */}
         <span aria-hidden="true" className="pointer-events-none absolute left-5 top-5 h-7 w-7 border-l-2 border-t-2 border-accent/50 sm:left-8 sm:top-8" />
@@ -162,7 +145,7 @@ const Preloader = ({ onComplete }) => {
           </span>
         </div>
 
-        {/* Name — outlined ghost with a violet fill that rises with progress */}
+        {/* Name — outlined ghost with an accent fill that rises with progress */}
         <div className="relative flex flex-1 items-center justify-center px-6">
           <div className="relative">
             {/* Dimmed so the solid fill rising through it stays legible */}

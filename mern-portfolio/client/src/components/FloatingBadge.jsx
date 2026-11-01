@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { usePrefersReducedMotion } from '../hooks/useMediaQuery';
 
 /**
- * The violet disc from the reference (the "Hi" circle) and its smaller
+ * The accent disc from the reference (the "Hi" circle) and its smaller
  * siblings. Floats on a slow y-loop; transform-only.
  */
 const FloatingBadge = ({
@@ -39,18 +39,10 @@ const FloatingBadge = ({
         <span
           className={`relative flex h-full w-full items-center justify-center rounded-full font-display font-semibold ${
             filled
-              ? 'text-[#0A0A0A]'
-              : 'border border-accent/50 text-accent backdrop-blur-md'
+              ? 'bg-accent text-on-accent'
+              : 'border border-accent/50 bg-accent/10 text-accent backdrop-blur-md'
           }`}
-          style={
-            filled
-              ? {
-                  background:
-                    'linear-gradient(140deg, rgb(var(--accent-soft)), rgb(var(--accent)))',
-                  boxShadow: 'var(--shadow-2)',
-                }
-              : { background: 'rgb(var(--accent) / 0.10)' }
-          }
+          style={filled ? { boxShadow: 'var(--shadow-2)' } : undefined}
         >
           {children}
         </span>
@@ -59,19 +51,19 @@ const FloatingBadge = ({
   );
 };
 
-/** Small solid violet dot used as a decorative accent. */
-export const AccentDot = ({ size = 14, className = '', delay = 0 }) => (
+/**
+ * Small solid dot used as a decorative accent. `onAccent` switches it to the
+ * on-accent colour for use on top of a solid accent panel, where an accent
+ * dot would disappear.
+ */
+export const AccentDot = ({ size = 14, className = '', delay = 0, onAccent = false }) => (
   <motion.span
     aria-hidden="true"
     initial={{ opacity: 0, scale: 0 }}
     animate={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.5, delay }}
-    className={`pointer-events-none absolute rounded-full ${className}`}
-    style={{
-      width: size,
-      height: size,
-      background: 'rgb(var(--accent))',
-    }}
+    className={`pointer-events-none absolute rounded-full ${onAccent ? 'bg-on-accent' : 'bg-accent'} ${className}`}
+    style={{ width: size, height: size }}
   />
 );
 

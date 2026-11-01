@@ -262,7 +262,7 @@ const Contact = () => {
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="glass-violet rounded-3xl p-6 sm:p-8"
+            className="glass rounded-3xl p-6 sm:p-8"
           >
             <h2 className="mb-6 font-display text-2xl font-bold uppercase tracking-tight text-fg">
               Send Message
@@ -412,7 +412,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="btn-fill btn-fill-soft flex w-full items-center justify-center space-x-2 rounded-full bg-accent px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:shadow-soft disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:shadow-none"
+                className="btn-fill btn-fill-strong flex w-full items-center justify-center space-x-2 rounded-full bg-accent px-6 py-3.5 font-semibold text-on-accent transition-all duration-200 hover:shadow-soft disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:shadow-none"
               >
                 {isSubmitting ? (
                   <>
@@ -445,7 +445,7 @@ const Contact = () => {
               {contactInfo.map((info, index) => {
                 const IconComponent = info.icon;
                 const content = (
-                  <div className="glass-violet flex items-center space-x-4 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-soft sm:p-6">
+                  <div className="glass flex items-center space-x-4 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-soft sm:p-6">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-accent/30 bg-accent/15">
                       <IconComponent className="h-5 w-5 text-accent" />
                     </div>
@@ -473,7 +473,7 @@ const Contact = () => {
             </div>
 
             {/* Social Media Links */}
-            <div className="glass-violet rounded-2xl p-6">
+            <div className="glass rounded-2xl p-6">
               <h3 className="mb-4 font-display text-lg font-bold uppercase tracking-tight text-fg">
                 Follow Me
               </h3>
@@ -486,7 +486,7 @@ const Contact = () => {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-fill btn-fill-accent flex h-12 w-12 items-center justify-center rounded-xl border border-hairline bg-surface-2 text-muted transition-all duration-200 hover:border-accent/60 hover:text-white hover:shadow-soft"
+                      className="btn-fill btn-fill-accent flex h-12 w-12 items-center justify-center rounded-xl border border-hairline bg-surface-2 text-muted transition-all duration-200 hover:border-accent/60 hover:text-on-accent hover:shadow-soft"
                       title={social.label}
                     >
                       <IconComponent className="h-5 w-5" />
@@ -497,18 +497,11 @@ const Contact = () => {
             </div>
 
             {/* Fun Fact */}
-            <div className="relative overflow-hidden rounded-2xl border border-accent/30 p-6">
-              <div
-                className="absolute inset-0 -z-10"
-                style={{
-                  background:
-                    'linear-gradient(135deg, rgb(var(--accent) / 0.9), rgb(var(--accent-soft) / 0.7))',
-                }}
-              />
-              <h3 className="mb-2 font-display text-lg font-bold text-white">
+            <div className="rounded-2xl bg-accent p-6">
+              <h3 className="mb-2 font-display text-lg font-bold text-on-accent">
                 Let's Build Something Amazing Together!
               </h3>
-              <p className="text-sm text-white/90">
+              <p className="text-sm text-on-accent/90">
                 I'm always excited to work on new projects and collaborate with amazing people.
                 Whether it's a web app, mobile application, or an innovative AI solution,
                 let's turn your ideas into reality!

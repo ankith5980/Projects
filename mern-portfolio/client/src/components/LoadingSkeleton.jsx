@@ -20,7 +20,7 @@ const LoadingSkeleton = ({ className = "", type = "text", fullPage = false }) =>
                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
               >
                 <svg
-                  className="w-10 h-10 text-white"
+                  className="w-10 h-10 text-on-accent"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
